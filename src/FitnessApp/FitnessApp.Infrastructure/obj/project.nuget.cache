@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "91YD9L2mGi9fs+jAHP/1djdcYTY3//0DffK1EGxMGGSDhUZYCkQvaybxZYEhr1vT0lSHSJaoogpw+l59HLRlOg==",
+  "dgSpecHash": "iS8LWi8jCa7vujC43HXCGAVemyuUZ/f2eNkJ/z/ezVU13gvyqJYnd+wEj1OmtD5J5fSDkhLJ2ZTKev/ecJqoOQ==",
   "success": true,
   "projectFilePath": "D:\\fitness-diet-app\\src\\FitnessApp\\FitnessApp.Infrastructure\\FitnessApp.Infrastructure.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Dima\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

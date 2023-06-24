@@ -31,3 +31,21 @@ git clone git@github.com:dgrusha/fitness-diet-app.git
 Answer yes to all the questions. 
 
 **Now you are basicaly set up** 
+
+### Set up secret keys 
+in Developer PowerShell for VS (if it was not set previously):
+```
+dotnet user-secrets init --project .\FitnessApp.Api\
+```
+
+and to set a value (for example for JWTToken):
+```
+dotnet user-secrets set --project .\FitnessApp.Api\ "JwtSettings:Secret" "your-super-puper-secret-key"
+```
+
+and like this it will automatically add value to appsettings.Development to field Secret.
+
+To see user secrets you have: 
+```
+dotnet user-secrets list --project .\FitnessApp.Api\
+```

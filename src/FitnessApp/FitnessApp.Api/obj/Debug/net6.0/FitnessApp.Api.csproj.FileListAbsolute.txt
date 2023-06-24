@@ -33,3 +33,15 @@ D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\FitnessApp.Co
 D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\FitnessApp.Application.pdb
 D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\FitnessApp.Infrastructure.pdb
 D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\FitnessApp.Domain.pdb
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Extensions.Configuration.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Binder.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll

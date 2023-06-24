@@ -1,0 +1,90 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "FitnessApp.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/FitnessApp.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FitnessApp.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FitnessApp.Domain/1.0.0": {
+      "type": "project",
+      "path": "../FitnessApp.Domain/FitnessApp.Domain.csproj",
+      "msbuildProject": "../FitnessApp.Domain/FitnessApp.Domain.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "FitnessApp.Domain >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Dima\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\fitness-diet-app\\src\\FitnessApp\\FitnessApp.Application\\FitnessApp.Application.csproj",
+      "projectName": "FitnessApp.Application",
+      "projectPath": "D:\\fitness-diet-app\\src\\FitnessApp\\FitnessApp.Application\\FitnessApp.Application.csproj",
+      "packagesPath": "C:\\Users\\Dima\\.nuget\\packages\\",
+      "outputPath": "D:\\fitness-diet-app\\src\\FitnessApp\\FitnessApp.Application\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Dima\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "D:\\fitness-diet-app\\src\\FitnessApp\\FitnessApp.Domain\\FitnessApp.Domain.csproj": {
+              "projectPath": "D:\\fitness-diet-app\\src\\FitnessApp\\FitnessApp.Domain\\FitnessApp.Domain.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

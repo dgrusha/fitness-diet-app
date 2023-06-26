@@ -45,3 +45,11 @@ D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Ext
 D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
 D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Api\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll

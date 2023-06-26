@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using FitnessApp.Infrastructure.Persistence;
 using FitnessApp.Application.Common.Interfaces.Persistence;
+using Microsoft.EntityFrameworkCore;
+using FitnessApp.Infrastructure.Contexts;
 
 namespace FitnessApp.Infrastructure;
 
@@ -26,6 +28,7 @@ public static class DependencyInjection
         serviceCollection.AddSingleton<ITokenGenerator,TokenGenerator>();
         serviceCollection.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
+        serviceCollection.AddDbContext<UserContext>(opt => opt.UseInMemoryDatabase("FirnessApp"));
         return serviceCollection;
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FitnessApp.Application.Common.Interfaces.Authentication;
+using FitnessApp.Application.Common.Interfaces.Persistence;
+using FitnessApp.Domain.Entities;
 
 namespace FitnessApp.Application.Services.Authentication
 {
@@ -11,31 +13,58 @@ namespace FitnessApp.Application.Services.Authentication
     {
 
         private readonly ITokenGenerator _tokenGenerator;
+        private readonly IUserRepository _userRepository;
 
-        public AuthenticationService(ITokenGenerator tokenGenerator)
+        public AuthenticationService(ITokenGenerator tokenGenerator, IUserRepository userRepository)
         {
             _tokenGenerator = tokenGenerator;
+            _userRepository = userRepository;
         }
 
         public AuthenticationResult Login(string email, string password)
         {
+            if (_userRepository.GetUserByEmail(email) is not User user)
+            {
+                throw new Exception("User with this email does not exist");
+            };
+
+            if (user.Password != password) 
+            {
+                throw new Exception("Invalid password");
+            }
+
+            var token = _tokenGenerator.GenerateToken(user.Id, user.Email);
+
             return new AuthenticationResult(
                 Guid.NewGuid(),
-                "ln",
-                "fn",
+                user.LastName,
+                user.FirstName,
                 email,
-                "token"
+                token
             );
         }
 
         public AuthenticationResult Register(string firstName, string lastName, string email, string password)
         {
-            Guid id = Guid.NewGuid();
+            if (_userRepository.GetUserByEmail(email) is not null) 
+            {
+                throw new Exception("User with this email already exists");
+            };
 
-            var token = _tokenGenerator.GenerateToken(id, email);
+            var user = new User 
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                Password = password 
+            };
+
+            _userRepository.Add(user);
+
+            var token = _tokenGenerator.GenerateToken(user.Id, email);
 
             return new AuthenticationResult(
-                id,
+                user.Id,
                 firstName,
                 lastName,
                 email,

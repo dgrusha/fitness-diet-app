@@ -10,6 +10,8 @@ using FitnessApp.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using FitnessApp.Infrastructure.Persistence;
+using FitnessApp.Application.Common.Interfaces.Persistence;
 
 namespace FitnessApp.Infrastructure;
 
@@ -23,6 +25,7 @@ public static class DependencyInjection
         serviceCollection.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
         serviceCollection.AddSingleton<ITokenGenerator,TokenGenerator>();
         serviceCollection.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+        serviceCollection.AddScoped<IUserRepository, UserRepository>();
         return serviceCollection;
     }
 }

@@ -30,7 +30,7 @@ git clone git@github.com:dgrusha/fitness-diet-app.git
 
 Answer yes to all the questions. 
 
-**Now you are basicaly set up** 
+>**Now you are basicaly set up** 
 
 ### Set up secret keys 
 in Developer PowerShell for VS (if it was not set previously):

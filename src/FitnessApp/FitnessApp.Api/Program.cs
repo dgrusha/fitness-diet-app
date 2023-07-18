@@ -1,5 +1,6 @@
 using FitnessApp.Application;
 using FitnessApp.Infrastructure;
+using Microsoft.EntityFrameworkCore.Design;
 
 var builder = WebApplication.CreateBuilder(args);
 {

@@ -15,3 +15,5 @@ D:\fitness-diet-app\src\FitnessApp\FitnessApp.Infrastructure\bin\Debug\net6.0\Fi
 D:\fitness-diet-app\src\FitnessApp\FitnessApp.Infrastructure\bin\Debug\net6.0\FitnessApp.Application.pdb
 D:\fitness-diet-app\src\FitnessApp\FitnessApp.Infrastructure\bin\Debug\net6.0\FitnessApp.Domain.pdb
 D:\fitness-diet-app\src\FitnessApp\FitnessApp.Infrastructure\obj\Debug\net6.0\FitnessApp.Infrastructure.csproj.CopyComplete
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Infrastructure\bin\Debug\net6.0\FitnessApp.Infrastructure.runtimeconfig.json
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Infrastructure\obj\Debug\net6.0\FitnessApp.Infrastructure.genruntimeconfig.cache

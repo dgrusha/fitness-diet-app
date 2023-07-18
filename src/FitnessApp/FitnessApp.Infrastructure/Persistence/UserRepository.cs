@@ -11,9 +11,9 @@ namespace FitnessApp.Infrastructure.Persistence;
 public class UserRepository : IUserRepository
 {
     private static readonly List<User> _users = new List<User>();
-    private readonly UserContext _userContext;
+    private readonly FitnessContext _userContext;
 
-    public UserRepository(UserContext userContext)
+    public UserRepository(FitnessContext userContext)
     {
         _userContext = userContext;
     }

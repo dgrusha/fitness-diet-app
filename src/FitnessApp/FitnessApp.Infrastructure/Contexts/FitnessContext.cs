@@ -7,12 +7,12 @@ using FitnessApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Infrastructure.Contexts;
-public class UserContext : DbContext
+public class FitnessContext : DbContext
 {
 
     public DbSet<User> Users { get; set; } = null!;
 
-    public UserContext(DbContextOptions<UserContext> options)
+    public FitnessContext(DbContextOptions<FitnessContext> options)
         : base(options)
     {
     }

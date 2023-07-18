@@ -28,7 +28,9 @@ public static class DependencyInjection
         serviceCollection.AddSingleton<ITokenGenerator,TokenGenerator>();
         serviceCollection.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
-        serviceCollection.AddDbContext<UserContext>(opt => opt.UseInMemoryDatabase("FirnessApp"));
+        string connectionString = configuration.GetConnectionString("SqlServerConnection");
+        serviceCollection.AddDbContext<FitnessContext>(options =>
+                options.UseSqlServer(connectionString));
         return serviceCollection;
     }
 }

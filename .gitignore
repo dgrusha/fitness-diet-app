@@ -452,3 +452,15 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+##MYCUSTOM
+
+.vs/
+bin/
+obj/
+TestResults/
+
+*.dll
+*.exe
+*.pdb
+*.dll.config

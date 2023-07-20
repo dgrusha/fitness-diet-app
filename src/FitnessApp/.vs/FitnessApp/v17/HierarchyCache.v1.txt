@@ -1,0 +1,339 @@
+﻿++Решение "FitnessApp" ‎(проекты: 5 из 5)
+i:{00000000-0000-0000-0000-000000000000}:FitnessApp.sln
+++FitnessApp.Application
+i:{00000000-0000-0000-0000-000000000000}:FitnessApp.Application
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.application\fitnessapp.application.csproj
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.application\bin\debug\net6.0\fitnessapp.application.dll
+++Зависимости
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:>322
+i:{e3eeb73e-150a-4fc8-bdbc-48b2c1aab88e}:>323
+i:{9a72c03e-5f70-4e30-8c66-e372f03fb62d}:>321
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:>324
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:>382
+++Class1.cs
+++Анализаторы
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:анализаторы
+i:{e3eeb73e-150a-4fc8-bdbc-48b2c1aab88e}:анализаторы
+i:{9a72c03e-5f70-4e30-8c66-e372f03fb62d}:анализаторы
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:анализаторы
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:анализаторы
+++Платформы
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:платформы
+i:{e3eeb73e-150a-4fc8-bdbc-48b2c1aab88e}:платформы
+i:{9a72c03e-5f70-4e30-8c66-e372f03fb62d}:платформы
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:платформы
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:платформы
+++Проекты
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:проекты
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:проекты
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:проекты
+++Microsoft.CodeAnalysis.CSharp.NetAnalyzers
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{e3eeb73e-150a-4fc8-bdbc-48b2c1aab88e}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{9a72c03e-5f70-4e30-8c66-e372f03fb62d}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+++Microsoft.CodeAnalysis.NetAnalyzers
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{e3eeb73e-150a-4fc8-bdbc-48b2c1aab88e}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{9a72c03e-5f70-4e30-8c66-e372f03fb62d}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+++System.Text.Json.SourceGeneration
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.4\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{e3eeb73e-150a-4fc8-bdbc-48b2c1aab88e}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.4\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{9a72c03e-5f70-4e30-8c66-e372f03fb62d}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.4\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.4\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.4\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+++Microsoft.NETCore.App
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.application\microsoft.netcore.app
+i:{e3eeb73e-150a-4fc8-bdbc-48b2c1aab88e}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.contracts\microsoft.netcore.app
+i:{9a72c03e-5f70-4e30-8c66-e372f03fb62d}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.domain\microsoft.netcore.app
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.infrastructure\microsoft.netcore.app
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.api\microsoft.netcore.app
+++FitnessApp.Domain
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.domain\fitnessapp.domain.csproj
+i:{00000000-0000-0000-0000-000000000000}:FitnessApp.Domain
+++FitnessApp.Contracts
+i:{00000000-0000-0000-0000-000000000000}:FitnessApp.Contracts
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.contracts\bin\debug\net6.0\fitnessapp.contracts.dll
+++FitnessApp.Infrastructure
+i:{00000000-0000-0000-0000-000000000000}:FitnessApp.Infrastructure
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.infrastructure\fitnessapp.infrastructure.csproj
+++FitnessApp.Api
+i:{00000000-0000-0000-0000-000000000000}:FitnessApp.Api
+++Connected Services 
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:>383
+++Зависимости службы не обнаружены
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:>384
+++Properties
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.api\properties\
+++launchSettings.json
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.api\properties\launchsettings.json
+++Пакеты
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:пакеты
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:пакеты
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:пакеты
+++Импортирует
+++bin
+++Controllers
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.api\controllers\
+++WeatherForecastController.cs
+++obj
+++Debug
+++FitnessApp.Api.csproj.nuget.dgspec.json
+++FitnessApp.Api.csproj.nuget.g.props
+++FitnessApp.Api.csproj.nuget.g.targets
+++project.assets.json
+++project.nuget.cache
+++staticwebassets.pack.sentinel
+++appsettings.json
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.api\appsettings.json
+++appsettings.Development.json
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.api\appsettings.development.json
+++Program.cs
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.api\program.cs
+++WeatherForecast.cs
+++Microsoft.AspNetCore.Analyzers
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
+++Microsoft.AspNetCore.App.Analyzers
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.4\analyzers\dotnet\cs\microsoft.aspnetcore.app.analyzers.dll
+++Microsoft.AspNetCore.App.CodeFixes
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.4\analyzers\dotnet\cs\microsoft.aspnetcore.app.codefixes.dll
+++Microsoft.AspNetCore.Components.Analyzers
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.components.analyzers.dll
+++Microsoft.AspNetCore.Mvc.Analyzers
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.mvc.analyzers.dll
+++Microsoft.AspNetCore.Razor.SourceGenerator.Tooling.Internal
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk.razor\source-generators\microsoft.aspnetcore.razor.sourcegenerator.tooling.internal.dll
+++Microsoft.Extensions.Logging.Generators
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.4\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+++Microsoft.NET.Sdk.Razor.SourceGenerators
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk.razor\source-generators\microsoft.net.sdk.razor.sourcegenerators.dll
+++Swashbuckle.AspNetCore (6.2.3)
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:>426
+++Microsoft.AspNetCore.App
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.api\microsoft.aspnetcore.app
+++Sdk.props
+++Sdk.targets
+++net6.0
+++Sdk.props (C:\Program Files\dotnet\sdk\6.0.202\Sdks\Microsoft.NET.Sdk\Sdk)
+++Sdk.props (C:\Program Files\dotnet\sdk\6.0.202\Sdks\Microsoft.NET.Sdk.Razor\Sdk)
+++Sdk.props (C:\Program Files\dotnet\sdk\6.0.202\Sdks\Microsoft.NET.Sdk.Web.ProjectSystem\Sdk)
+++Sdk.props (C:\Program Files\dotnet\sdk\6.0.202\Sdks\Microsoft.NET.Sdk.Publish\Sdk)
+++Sdk.targets (C:\Program Files\dotnet\sdk\6.0.202\Sdks\Microsoft.NET.Sdk\Sdk)
+++Sdk.targets (C:\Program Files\dotnet\sdk\6.0.202\Sdks\Microsoft.NET.Sdk.Razor\Sdk)
+++Sdk.targets (C:\Program Files\dotnet\sdk\6.0.202\Sdks\Microsoft.NET.Sdk.Web.ProjectSystem\Sdk)
+++Sdk.targets (C:\Program Files\dotnet\sdk\6.0.202\Sdks\Microsoft.NET.Sdk.Publish\Sdk)
+++ref
+++refint
+++staticwebassets
+++.NETCoreApp,Version=v6.0.AssemblyAttributes.cs
+++apphost.exe
+++FitnessApp.Api.AssemblyInfo.cs
+++FitnessApp.Api.AssemblyInfoInputs.cache
+++FitnessApp.Api.assets.cache
+++FitnessApp.Api.csproj.AssemblyReference.cache
+++FitnessApp.Api.csproj.CopyComplete
+++FitnessApp.Api.csproj.CoreCompileInputs.cache
+++FitnessApp.Api.csproj.FileListAbsolute.txt
+++FitnessApp.Api.dll
+++FitnessApp.Api.GeneratedMSBuildEditorConfig.editorconfig
+++FitnessApp.Api.genruntimeconfig.cache
+++FitnessApp.Api.GlobalUsings.g.cs
+++FitnessApp.Api.MvcApplicationPartsAssemblyInfo.cache
+++FitnessApp.Api.MvcApplicationPartsAssemblyInfo.cs
+++FitnessApp.Api.pdb
+++staticwebassets.build.json
+++Microsoft.Common.props
+++Microsoft.NET.Sdk.props
+++Sdk.Razor.CurrentVersion.props
+++Microsoft.NET.Sdk.Web.ProjectSystem.props
+++Microsoft.NET.Sdk.Publish.props
+++Microsoft.NET.Sdk.BeforeCommon.targets
+++Microsoft.CSharp.targets
+++Microsoft.NET.Sdk.targets
+++Microsoft.NET.Compatibility.targets
+++NuGet.Build.Tasks.Pack.targets
+++Sdk.Razor.CurrentVersion.targets
+++Microsoft.NET.Sdk.Web.ProjectSystem.targets
+++Microsoft.NET.Sdk.Publish.targets
+++FitnessApp.Api.deps.json
+++FitnessApp.Api.exe
+++FitnessApp.Api.runtimeconfig.json
+++Microsoft.OpenApi.dll
+++Swashbuckle.AspNetCore.Swagger.dll
+++Swashbuckle.AspNetCore.SwaggerGen.dll
+++Swashbuckle.AspNetCore.SwaggerUI.dll
+++Microsoft.NuGet.ImportBefore.props
+++NuGet.props
+++Microsoft.NET.Sdk.DefaultItems.props
+++Microsoft.NET.Sdk.ImportWorkloads.props
+++Microsoft.NET.SupportedTargetFrameworks.props
+++Microsoft.NET.SupportedPlatforms.props
+++Microsoft.NET.WindowsSdkSupportedTargetPlatforms.props
+++Microsoft.NET.Sdk.CSharp.props
+++Microsoft.NET.ILLink.props
+++Microsoft.NET.Compatibility.props
+++Microsoft.NET.PackTool.props
+++Microsoft.NET.PackProjectTool.props
+++Microsoft.NET.Sdk.WindowsDesktop.props
+++Microsoft.NET.Windows.props
+++Sdk.Razor.StaticAssets.ProjectSystem.props
+++Microsoft.TypeScript.Default.props
+++Microsoft.NET.Sdk.Web.DefaultItems.props
+++Microsoft.NET.DefaultAssemblyInfo.targets
+++Microsoft.NET.DefaultOutputPaths.targets
+++Microsoft.NET.Sdk.ImportPublishProfile.targets
+++Microsoft.NET.TargetFrameworkInference.targets
+++Microsoft.NET.Sdk.Razor.BeforeCommon.targets
+++Microsoft.NET.Sdk.ImportWorkloads.targets
+++Microsoft.NET.RuntimeIdentifierInference.targets
+++Microsoft.NET.EolTargetFrameworks.targets
+++Microsoft.NET.NuGetOfflineCache.targets
+++Microsoft.Managed.Before.targets
+++Microsoft.CSharp.CurrentVersion.targets
+++Microsoft.Managed.After.targets
+++Microsoft.NET.Sdk.Common.targets
+++Microsoft.PackageDependencyResolution.targets
+++Microsoft.NET.Sdk.DefaultItems.targets
+++Microsoft.NET.Sdk.FrameworkReferenceResolution.targets
+++Microsoft.NET.Sdk.Shared.targets
+++Microsoft.NET.DisableStandardFrameworkResolution.targets
+++Microsoft.NET.DesignerSupport.targets
+++Microsoft.NET.GenerateAssemblyInfo.targets
+++Microsoft.NET.GenerateGlobalUsings.targets
+++Microsoft.NET.GenerateSupportedRuntime.targets
+++Microsoft.NET.ComposeStore.targets
+++Microsoft.NET.CrossGen.targets
+++Microsoft.NET.ObsoleteReferences.targets
+++Microsoft.NET.Publish.targets
+++Microsoft.NET.PackTool.targets
+++Microsoft.NET.PackProjectTool.targets
+++Microsoft.NET.PreserveCompilationContext.targets
+++Microsoft.NET.ConflictResolution.targets
+++Microsoft.NET.Sdk.CSharp.targets
+++Microsoft.NET.ILLink.targets
+++Microsoft.NET.Sdk.Analyzers.targets
+++Microsoft.NET.Compatibility.Common.targets
+++Microsoft.NET.Sdk.Razor.Configuration.targets
+++Microsoft.NET.Sdk.Razor.CodeGeneration.targets
+++Microsoft.NET.Sdk.Razor.SourceGenerators.targets
+++Microsoft.NET.Sdk.Razor.StaticWebAssets.targets
+++Microsoft.NET.Sdk.Razor.ScopedCss.targets
+++Microsoft.NET.Sdk.Razor.JSModules.targets
+++Microsoft.NET.Sdk.Razor.GenerateAssemblyInfo.targets
+++Microsoft.NET.Sdk.Razor.MvcApplicationPartsDiscovery.targets
+++Microsoft.NET.Sdk.Razor.DesignTime.targets
+++Microsoft.TypeScript.targets
+++Microsoft.TypeScript.DotNetCore.targets
+++Microsoft.Web.Designtime.targets
+++Default.pubxml
+++Microsoft.NET.Sdk.Publish.ComputeFiles.targets
+++Microsoft.NET.Sdk.Publish.FilterFiles.targets
+++Microsoft.NET.Sdk.Publish.CopyFiles.targets
+++Microsoft.NET.Sdk.Publish.TransformFiles.targets
+++Microsoft.NET.Sdk.Publish.FileSystem.targets
+++Microsoft.NET.Sdk.DotNetCLITool.targets
+++Microsoft.Extensions.ApiDescription.Server.props
+++Swashbuckle.AspNetCore.props
+++Microsoft.NuGet.props
+++Microsoft.NETCoreSdk.BundledVersions.props
+++Microsoft.NET.Sdk.WindowsDesktop.WindowsForms.props
+++Microsoft.NET.Sdk.WindowsDesktop.WPF.props
+++WorkloadManifest.targets (C:\Program Files\dotnet\sdk-manifests\6.0.200\microsoft.net.sdk.android)
+++WorkloadManifest.targets (C:\Program Files\dotnet\sdk-manifests\6.0.200\microsoft.net.sdk.ios)
+++WorkloadManifest.targets (C:\Program Files\dotnet\sdk-manifests\6.0.200\microsoft.net.sdk.maccatalyst)
+++WorkloadManifest.targets (C:\Program Files\dotnet\sdk-manifests\6.0.200\microsoft.net.sdk.macos)
+++WorkloadManifest.targets (C:\Program Files\dotnet\sdk-manifests\6.0.200\microsoft.net.sdk.maui)
+++WorkloadManifest.targets (C:\Program Files\dotnet\sdk-manifests\6.0.200\microsoft.net.sdk.tvos)
+++WorkloadManifest.targets (C:\Program Files\dotnet\sdk-manifests\6.0.200\microsoft.net.workload.emscripten)
+++WorkloadManifest.targets (C:\Program Files\dotnet\sdk-manifests\6.0.200\microsoft.net.workload.mono.toolchain)
+++Microsoft.CSharp.Core.targets
+++Microsoft.CSharp.DesignTime.targets
+++Microsoft.Common.targets
+++Microsoft.ServiceModel.targets
+++Microsoft.NET.Sdk.DefaultItems.Shared.targets
+++Microsoft.NETCoreSdk.BundledCliTools.props
+++Microsoft.NET.DefaultPackageConflictOverrides.targets
+++Microsoft.CodeAnalysis.NetAnalyzers.props
+++Microsoft.CodeAnalysis.NetAnalyzers.targets
+++Microsoft.NET.ILLink.Tasks.props
+++System.Windows.Forms.Analyzers.props
+++Microsoft.Managed.Core.targets
+++Microsoft.Managed.DesignTime.targets
+++Microsoft.Common.CurrentVersion.targets
+++Microsoft.Managed.Core.CurrentVersions.targets
+++Microsoft.NET.props
+++Microsoft.CodeAnalysis.targets
+++Microsoft.Xaml.targets
+++Microsoft.WorkflowBuildExtensions.targets
+++Microsoft.TeamTest.targets
+++NuGet.targets
+++Microsoft.Docker.ImportAfter.targets
+++Microsoft.NET.Build.Extensions.targets
+++Microsoft.NuGet.ImportAfter.targets
+++Microsoft.Web.ImportAfter.targets
+++Microsoft.Extensions.ApiDescription.Server.targets
+++Microsoft.Docker.targets
+++Microsoft.Web.IISSupport.targets
+++NewFolder1
+++Requests
+i:{00000000-0000-0000-0000-000000000000}:Requests
+++Weather
+i:{930ec1e3-8d5c-4c2f-bb74-3cfea81f521e}:Weather
+++GetForcasts.http
+i:{02b51135-c713-4984-87ec-79a1c4712c51}:D:\fitness-diet-app\src\FitnessApp\GetForcasts.http
+++Новая папка
+++Authentication
+i:{e3eeb73e-150a-4fc8-bdbc-48b2c1aab88e}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.contracts\authentication\
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.application\services\authentication\
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.application\common\interfaces\authentication\
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.infrastructure\authentication\
+++RegisterRequest.cs
+i:{e3eeb73e-150a-4fc8-bdbc-48b2c1aab88e}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.contracts\authentication\registerrequest.cs
+++LoginRequest.cs
+i:{e3eeb73e-150a-4fc8-bdbc-48b2c1aab88e}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.contracts\authentication\loginrequest.cs
+++AuthenticationResponse.cs
+i:{e3eeb73e-150a-4fc8-bdbc-48b2c1aab88e}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.contracts\authentication\authenticationresponse.cs
+++30rmmd5p.zcc~
+++RegisterRequest.cs~RFa521ed.TMP
+++AuthenticationController.cs
+i:{4f313d9a-5af0-4682-aa4e-0300c638a9f9}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.api\controllers\authenticationcontroller.cs
+++Services
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.application\services\
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.application\common\interfaces\services\
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.infrastructure\services\
+++IAuthenticationService.cs
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.application\services\authentication\iauthenticationservice.cs
+++AuthenticationService.cs
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.application\services\authentication\authenticationservice.cs
+++AuthenticationResult.cs
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.application\services\authentication\authenticationresult.cs
+++4jfn4gri.5hw~
+++AuthenticationResult.cs~RFb82b27.TMP
+++DependencyInjection.cs
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.application\dependencyinjection.cs
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.infrastructure\dependencyinjection.cs
+++Microsoft.Extensions.DependencyInjection.Abstractions (7.0.0)
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:>1087
+++Common
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.application\common\
+++Interfaces
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.application\common\interfaces\
+++ITokenGenerator.cs
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.application\common\interfaces\authentication\itokengenerator.cs
+++TokenGenerator.cs
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.infrastructure\authentication\tokengenerator.cs
+++System.IdentityModel.Tokens.Jwt (6.31.0)
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:>1109
+++IDateTimeProvider.cs
+i:{afe490ed-be26-4917-be39-9209c1d1f830}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.application\common\interfaces\services\idatetimeprovider.cs
+++DateTimeProvider.cs
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.infrastructure\services\datetimeprovider.cs
+++JwtSettings.cs
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:d:\fitness-diet-app\src\fitnessapp\fitnessapp.infrastructure\authentication\jwtsettings.cs
+++Microsoft.Extensions.Configuration (7.0.0)
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:>1134
+++Microsoft.Extensions.Options.ConfigurationExtensions (7.0.0)
+i:{65506e52-80c4-4f5d-9d91-6a0804cabf20}:>1135

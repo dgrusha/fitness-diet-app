@@ -1,0 +1,12 @@
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Domain\bin\Debug\net6.0\FitnessApp.Domain.deps.json
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Domain\bin\Debug\net6.0\FitnessApp.Domain.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Domain\bin\Debug\net6.0\FitnessApp.Domain.pdb
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Domain\obj\Debug\net6.0\FitnessApp.Domain.csproj.AssemblyReference.cache
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Domain\obj\Debug\net6.0\FitnessApp.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Domain\obj\Debug\net6.0\FitnessApp.Domain.AssemblyInfoInputs.cache
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Domain\obj\Debug\net6.0\FitnessApp.Domain.AssemblyInfo.cs
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Domain\obj\Debug\net6.0\FitnessApp.Domain.csproj.CoreCompileInputs.cache
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Domain\obj\Debug\net6.0\FitnessApp.Domain.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Domain\obj\Debug\net6.0\refint\FitnessApp.Domain.dll
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Domain\obj\Debug\net6.0\FitnessApp.Domain.pdb
+D:\fitness-diet-app\src\FitnessApp\FitnessApp.Domain\obj\Debug\net6.0\ref\FitnessApp.Domain.dll

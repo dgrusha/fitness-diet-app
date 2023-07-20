@@ -19,15 +19,10 @@ public class MainConfiguration : IEntityTypeConfiguration<User>
     private void ConfigureUserTable(EntityTypeBuilder<User> builder)
     {
         builder.ToTable("Users");
-
         builder.HasKey(t => t.Id);
-
         builder.Property(t => t.FirstName).HasMaxLength(100);
-
         builder.Property(t => t.LastName).HasMaxLength(100);
-
         builder.Property(t => t.Email).HasMaxLength(100);
-
         builder.Property(t => t.Password).HasMaxLength(100);
     }
 }

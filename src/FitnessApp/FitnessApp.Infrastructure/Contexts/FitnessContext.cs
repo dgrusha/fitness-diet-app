@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FitnessApp.Domain.Entities;
+using FitnessApp.Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Infrastructure.Contexts;
@@ -20,7 +21,7 @@ public class FitnessContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<User>().HasKey(u => u.Id );
+        modelBuilder.ApplyConfiguration(new MainConfiguration());
 
     }
 

@@ -49,3 +49,15 @@ To see user secrets you have:
 ```
 dotnet user-secrets list --project .\FitnessApp.Api\
 ```
+
+### Running migrations 
+
+Adding migrations:
+```
+dotnet ef migrations add MIGRATION_NAME --project FitnessApp.Infrastructure --startup-project FitnessApp.Api
+```
+
+Running migrations:
+```
+dotnet ef database update --project FitnessApp.Infrastructure --startup-project FitnessApp.Api
+```

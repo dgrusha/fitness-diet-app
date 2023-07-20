@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FitnessApp.Application.Common.Interfaces.Authentication;
 using FitnessApp.Application.Common.Interfaces.Persistence;
 using FitnessApp.Domain.Entities;
+using Dumpify;
 
 namespace FitnessApp.Application.Services.Authentication
 {
@@ -28,7 +29,7 @@ namespace FitnessApp.Application.Services.Authentication
                 throw new Exception("User with this email does not exist");
             };
 
-            if (user.Password != password) 
+            if (!PasswordHandler.IsVerified(user.Password, password))
             {
                 throw new Exception("Invalid password");
             }
@@ -56,11 +57,11 @@ namespace FitnessApp.Application.Services.Authentication
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
-                Password = password 
+                Password = PasswordHandler.HashPassword(password)
             };
 
             _userRepository.Add(user);
-
+            user.Dump();
             var token = _tokenGenerator.GenerateToken(user.Id, email);
 
             return new AuthenticationResult(

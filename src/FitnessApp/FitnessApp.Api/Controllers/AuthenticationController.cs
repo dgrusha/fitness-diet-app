@@ -2,11 +2,13 @@
 using FitnessApp.Application.Services.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FitnessApp.Api.Controllers
 {
     [Route("auth")]
     [ApiController]
+    [AllowAnonymous]
     public class AuthenticationController : ControllerBase
     {
 
@@ -17,6 +19,7 @@ namespace FitnessApp.Api.Controllers
             _authenticationService = authenticationService;
         }
 
+        
         [HttpPost("register")]
         public IActionResult Register(RegisterRequest registerRequest)
         {
@@ -33,7 +36,6 @@ namespace FitnessApp.Api.Controllers
 
             return Ok(response);
         }
-
 
         [HttpPost("login")]
         public IActionResult Login(LoginRequest loginRequest)

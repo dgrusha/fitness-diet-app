@@ -23,6 +23,7 @@ namespace FitnessApp.Api.Controllers
         [HttpPost("register")]
         public IActionResult Register(RegisterRequest registerRequest)
         {
+
             var authResult = _authenticationService.Register(
                 registerRequest.FirstName,
                 registerRequest.LastName,

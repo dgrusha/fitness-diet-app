@@ -2,6 +2,9 @@ using System.Text;
 using FitnessApp.Api.Filters;
 using FitnessApp.Application;
 using FitnessApp.Infrastructure;
+using NLog;
+
+LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
 var builder = WebApplication.CreateBuilder(args);
 {

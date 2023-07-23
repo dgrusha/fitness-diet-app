@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FitnessApp.Application.Services.Authentication;
+namespace FitnessApp.Application.Services.Authentication.Common;
 
 public record AuthenticationResult
 (

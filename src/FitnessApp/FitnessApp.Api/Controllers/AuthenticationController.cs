@@ -1,8 +1,9 @@
 ﻿using FitnessApp.Contracts.Authentication;
-using FitnessApp.Application.Services.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using FitnessApp.Application.Services.Authentication.Queries;
+using FitnessApp.Application.Services.Authentication.Commands;
 
 namespace FitnessApp.Api.Controllers
 {
@@ -12,11 +13,16 @@ namespace FitnessApp.Api.Controllers
     public class AuthenticationController : ControllerBase
     {
 
-        private readonly IAuthenticationService _authenticationService;
+        private readonly IAuthenticationQueryService _authenticationQueryService;
+        private readonly IAuthenticationCommandService _authenticationCommandService;
 
-        public AuthenticationController(IAuthenticationService authenticationService)
+        public AuthenticationController(
+            IAuthenticationQueryService authenticationQueryService,
+            IAuthenticationCommandService authenticationCommandService
+            )
         {
-            _authenticationService = authenticationService;
+            _authenticationQueryService = authenticationQueryService;
+            _authenticationCommandService = authenticationCommandService;
         }
 
         
@@ -24,7 +30,7 @@ namespace FitnessApp.Api.Controllers
         public IActionResult Register(RegisterRequest registerRequest)
         {
 
-            var authResult = _authenticationService.Register(
+            var authResult = _authenticationCommandService.Register(
                 registerRequest.FirstName,
                 registerRequest.LastName,
                 registerRequest.Email,
@@ -41,7 +47,7 @@ namespace FitnessApp.Api.Controllers
         [HttpPost("login")]
         public IActionResult Login(LoginRequest loginRequest)
         {
-            var authResult = _authenticationService.Login(
+            var authResult = _authenticationQueryService.Login(
                 loginRequest.Email,
                 loginRequest.Password);
 

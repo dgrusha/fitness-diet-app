@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BC = BCrypt.Net.BCrypt;
 
-namespace FitnessApp.Application.Services.Authentication;
+namespace FitnessApp.Application.Services.Authentication.Common;
 public class PasswordHandler
 {
     public static string HashPassword(string password)
@@ -14,7 +14,7 @@ public class PasswordHandler
         return BC.HashPassword(password, salt);
     }
 
-    public static bool IsVerified(string passwordInputed, string passwordHashed) 
+    public static bool IsVerified(string passwordInputed, string passwordHashed)
     {
         return BC.Verify(passwordHashed, passwordInputed);
     }

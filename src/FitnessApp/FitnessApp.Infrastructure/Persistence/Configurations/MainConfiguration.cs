@@ -25,4 +25,5 @@ public class MainConfiguration : IEntityTypeConfiguration<User>
         builder.Property(t => t.Email).HasMaxLength(100);
         builder.Property(t => t.Password).HasMaxLength(100);
     }
+
 }

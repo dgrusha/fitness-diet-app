@@ -30,6 +30,7 @@ public static class DependencyInjection
         serviceCollection.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
+        serviceCollection.AddScoped<IAllergyRepository, AllergyRepository>();
 
         string connectionString = configuration.GetConnectionString("SqlServerConnection");
         serviceCollection.AddDbContext<FitnessContext>(options =>

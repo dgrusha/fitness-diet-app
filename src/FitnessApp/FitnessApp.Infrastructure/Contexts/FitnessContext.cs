@@ -12,6 +12,7 @@ public class FitnessContext : DbContext
 {
 
     public DbSet<User> Users { get; set; } = null!;
+    public DbSet<Allergy> Allergies { get; set; } = null!;
 
     public FitnessContext(DbContextOptions<FitnessContext> options)
         : base(options)
@@ -22,7 +23,7 @@ public class FitnessContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfiguration(new MainConfiguration());
-
+        modelBuilder.ApplyConfiguration(new AllergyConfiguration());
     }
 
 }

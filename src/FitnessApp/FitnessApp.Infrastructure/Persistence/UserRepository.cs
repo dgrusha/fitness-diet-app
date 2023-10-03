@@ -10,7 +10,6 @@ using FitnessApp.Infrastructure.Contexts;
 namespace FitnessApp.Infrastructure.Persistence;
 public class UserRepository : IUserRepository
 {
-    private static readonly List<User> _users = new List<User>();
     private readonly FitnessContext _userContext;
 
     public UserRepository(FitnessContext userContext)

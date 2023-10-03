@@ -1,5 +1,43 @@
-.App {
-  text-align: center;
+:root {
+  --black: #000000;
+  --dark-gray: #122023;
+  --green: #9cd91b;
+  --light-gray: #e8e8ec;
+  --light-green: #d1f22f;
+  --mid-2-gray: #7d8386;
+  --white: #ffffff;
+  --x2: #fcf8f8;
+  --font-size-l: 16px;
+  --font-size-m: 14px;
+  --font-size-s: 12px;
+  --font-size-xl: 40px;
+  --font-family-noto_sans: "Noto Sans", Helvetica;
+  --font-family-plus_jakarta_sans: "Plus Jakarta Sans", Helvetica;
+}
+
+.MainSidebar{
+  background: var(--white);
+}
+
+.MenuIcon{
+  color: var(--green);
+  height: 100vh;
+}
+
+.MainPart{
+  width: 100%;
+}
+
+.FormPart{
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+#App{
+  height: 100vh;
+  display: flex;
 }
 
 .App-logo {

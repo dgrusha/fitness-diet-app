@@ -1,16 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import {Routes, Route } from 'react-router-dom';
+
+
+import SideBar from './components/sideBar/sideBar';
+import FormObligatory  from './components/formObligatory/formObligatory';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Health app frontend
-        </p>
-      </header>
+    <div className="App" id="App">
+      <SideBar />
+      <main className="MainPart">
+        <Routes>
+            <Route path="get_started" element={<FormObligatory />} />
+        </Routes>
+      </main>
     </div>
+    
   );
 }
 

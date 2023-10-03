@@ -61,3 +61,16 @@ Running migrations:
 ```
 dotnet ef database update --project FitnessApp.Infrastructure --startup-project FitnessApp.Api
 ```
+
+### Flow for basic adding of a model
+
+1. Add Model in Domain layer 
+2. Add interface for repository in Application.Common.Interfaces.Persistance
+3. Add class for repository in Infrastructure.Persistance
+4. Add class for configuration of a model, add it to context and add this context to new repository
+5. Add migrations and add migrations from \src\FitnessApp
+6. Add repository in dependency injection class in Infrastructure
+7. Add new folder to with Model name to application layer
+8. Create commands and queries folders // add accordingly needed requests and their handlers
+9. Configure controller
+DONE!

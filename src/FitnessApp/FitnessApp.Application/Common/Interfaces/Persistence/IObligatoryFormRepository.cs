@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using FitnessApp.Domain.Entities;
 
 namespace FitnessApp.Application.Common.Interfaces.Persistence;
-public interface IUserRepository
+public interface IObligatoryFormRepository
 {
-    User? GetUserByEmail(string email);
 
-    User? GetUserById(Guid id);
-    void Add(User user);
+    HashSet<ObligatoryForm>? GetAllForms();
+    void Add(ObligatoryForm obligatoryForm);
+    void Update(ObligatoryForm obligatoryForm);
+    void Delete(Guid id);
+
 }

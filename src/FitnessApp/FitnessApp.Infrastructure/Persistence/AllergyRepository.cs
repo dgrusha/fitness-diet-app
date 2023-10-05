@@ -66,7 +66,6 @@ public class AllergyRepository : IAllergyRepository
     public void Update(Guid id, Allergy allergy)
     {
         var allergyFromDb = _allergyContext.Allergies.SingleOrDefault(allergy => allergy.Id == id);
-        Console.WriteLine("132");
         if (allergyFromDb != null) 
         {
             allergyFromDb.Name = allergy.Name;

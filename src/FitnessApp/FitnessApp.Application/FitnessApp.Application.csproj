@@ -13,6 +13,12 @@
     <ProjectReference Include="..\FitnessApp.Domain\FitnessApp.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="GetStarted\Commands\AddObligatoryForm\" />
+    <Folder Include="GetStarted\Commands\DeleteObligatoryForm\" />
+    <Folder Include="GetStarted\Commands\UpdateObligatoryForm\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

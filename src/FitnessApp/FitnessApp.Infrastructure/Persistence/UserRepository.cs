@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FitnessApp.Application.Common.Interfaces.Persistence;
 using FitnessApp.Domain.Entities;
 using FitnessApp.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Infrastructure.Persistence;
 public class UserRepository : IUserRepository
@@ -26,6 +27,13 @@ public class UserRepository : IUserRepository
     public User? GetUserByEmail(string email)
     {
         User user = _userContext.Users.SingleOrDefault(user => user.Email == email);
+        return user;
+    }
+
+    public User? GetUserById(Guid id)
+    {
+
+        User user = _userContext.Users.Include(u => u.ObligatoryForm).SingleOrDefault(user => user.Id == id);
         return user;
     }
 }

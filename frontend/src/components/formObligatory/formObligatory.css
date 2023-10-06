@@ -67,7 +67,7 @@
 
 .custom-focused-textfield .MuiInput-underline:after {
     border-color: var(--green);
-  }
+}
 
 .custom-focused-textfield .MuiInputLabel-root.Mui-focused {
     color: var(--black); 

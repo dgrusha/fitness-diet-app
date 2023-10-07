@@ -1,7 +1,6 @@
 const baseUrl = 'obligatoryForm/add';
 
 export const addObligatoryForm = async ({ weight, height, allergies }) => {
-    console.log(allergies);
     try {
         const response = await fetch(baseUrl, {
           method: 'POST',
@@ -12,18 +11,13 @@ export const addObligatoryForm = async ({ weight, height, allergies }) => {
           body: JSON.stringify(
                 {
                     "weight": weight,
-                    "height" : height 
+                    "height" : height,
+                    "allergies": allergies,
                 }
             ),
         });
     
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        
-        const responseData = await response.json();
-    
-        return responseData; 
+        return await response; 
       } catch (error) {
         throw new Error(`Error submitting form: ${error.message}`);
       }

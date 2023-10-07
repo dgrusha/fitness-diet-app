@@ -23,5 +23,10 @@ public class ObligatoryFormConfiguration : IEntityTypeConfiguration<ObligatoryFo
         builder.Property(t => t.Height);
         builder.Property(t => t.Weight);
 
+        // Relations
+        builder.HasMany(f => f.Allergies)
+           .WithMany(a => a.ObligatoryForms)
+           .UsingEntity(j => j.ToTable("ObligatoryFormAllergies"));
+
     }
 }

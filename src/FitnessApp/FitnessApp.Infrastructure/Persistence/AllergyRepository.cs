@@ -63,6 +63,20 @@ public class AllergyRepository : IAllergyRepository
         return allergy;
     }
 
+    public IEnumerable<Allergy> GetAllergiesByName(IEnumerable<string> allergyNames)
+    {
+        if (allergyNames == null)
+        {
+            return Enumerable.Empty<Allergy>();
+        }
+
+        var allergies = _allergyContext.Allergies
+            .Where(allergy => allergyNames.Contains(allergy.Name))
+            .ToList();
+
+        return allergies;
+    }
+
     public void Update(Guid id, Allergy allergy)
     {
         var allergyFromDb = _allergyContext.Allergies.SingleOrDefault(allergy => allergy.Id == id);

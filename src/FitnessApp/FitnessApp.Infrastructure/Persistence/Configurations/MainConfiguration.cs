@@ -24,6 +24,12 @@ public class MainConfiguration : IEntityTypeConfiguration<User>
         builder.Property(t => t.LastName).HasMaxLength(100);
         builder.Property(t => t.Email).HasMaxLength(100);
         builder.Property(t => t.Password).HasMaxLength(100);
+
+        // Relations
+        builder.HasOne(u => u.ObligatoryForm)
+            .WithOne(of => of.User!)
+            .HasForeignKey<ObligatoryForm>(of => of.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
 }

@@ -6,7 +6,7 @@ namespace FitnessApp.Application.Common.Interfaces.Persistence;
 public interface IAllergyRepository
 {
 
-    HashSet<FitnessApp.Domain.Entities.Allergy>? GetAllAlergies();
+    HashSet<string>? GetAllAlergies();
     void Add(FitnessApp.Domain.Entities.Allergy allergy);
     void Update(Guid id, FitnessApp.Domain.Entities.Allergy allergy);
     void Delete(Guid id);

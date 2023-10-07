@@ -35,9 +35,9 @@ public class AllergyRepository : IAllergyRepository
         }
     }
 
-    public HashSet<Allergy>? GetAllAlergies()
+    public HashSet<string>? GetAllAlergies()
     {
-        return _allergyContext.Allergies.ToHashSet();
+        return _allergyContext.Allergies.Select(allergy => allergy.Name).Distinct().ToHashSet();
     }
 
     public Allergy? GetAllergyByAllParameters(string name, string classAllergy, string typeAllergy, string groupAllergy, string foodAllergy)
@@ -66,7 +66,6 @@ public class AllergyRepository : IAllergyRepository
     public void Update(Guid id, Allergy allergy)
     {
         var allergyFromDb = _allergyContext.Allergies.SingleOrDefault(allergy => allergy.Id == id);
-        Console.WriteLine("132");
         if (allergyFromDb != null) 
         {
             allergyFromDb.Name = allergy.Name;

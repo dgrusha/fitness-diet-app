@@ -87,3 +87,5 @@ dotnet ef database update --project FitnessApp.Infrastructure --startup-project 
 8. Create commands and queries folders // add accordingly needed requests and their handlers
 9. Configure controller
 DONE!
+
+REDIS ADRESS = 127.0.0.1:6379

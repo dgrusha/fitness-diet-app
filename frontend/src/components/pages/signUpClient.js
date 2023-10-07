@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useState, useEffect, handleSubmit  } from 'react';
+import { useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -12,6 +13,10 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import image_login from "../../img/sign_up_img.png"; 
+import { handleFormResponse } from  '../../helpers/formVerification' 
+import { handleTextInputChange } from '../../helpers/inputChanges';
+import { register } from '../../apiCalls/register';
+import {validateObligatoryFormFields} from '../../validators/formObligatoryValidator'
 
 
 const defaultTheme = createTheme({
@@ -61,36 +66,37 @@ const defaultTheme = createTheme({
 );
 
 function SignUpClient() {
-  const [firstName, setName] = useState('');
-  const [lastName, setSurname] = useState('');
+  const navigate = useNavigate();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [formErrors, setFormErrors] = useState({ firstName:"", lastName:"", email:"", password: ""});
+  const setters = {
+      "firstName": setFirstName,
+      "lastName": setLastName,
+      "email": setEmail,
+      "password": setPassword
+  }
 
-  const handleInputName= (event) => {
-    const stringValue = event.target.value;
-    setName(stringValue);
-  };
-  const handleInputSurname= (event) => {
-    const stringValue = event.target.value;
-    setSurname(stringValue);
-  };
-  const handleInputEmail= (event) => {
-    const stringValue = event.target.value;
-    setEmail(stringValue);
-  };
-  const handleInputPassword= (event) => {
-    const stringValue = event.target.value;
-    setPassword(stringValue);
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const handleChange = event => {
+    const {name, value} = event.target;
+    handleTextInputChange(event, setters[name]);
+    let errVal = validateObligatoryFormFields(name,value);
+    setFormErrors(prevState => ({
+        ...prevState,
+        [name]: errVal,
+    }))
+}
+
+  const handleSubmit =async () => {
+    try {
+        const response = await register({ firstName: firstName, lastName: lastName, email: email, password: password});
+        const [status, message] = [response.status, await response.text()];
+        handleFormResponse(status, message, setFormErrors, navigate, '/' );
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
     return (
@@ -112,17 +118,17 @@ function SignUpClient() {
                 SIGN IN
               </Typography>
               <Typography variant="subtitle1">To get started please enter your details.</Typography>
-              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+              <Box component="form" noValidate sx={{ mt: 1 }}>
               <TextField
                   label="Name"
                   margin="normal"
                   required
                   fullWidth
-                  id="name"
-                  name="name"
-                  autoComplete="name"
+                  id="firstName"
+                  name="firstName"
+                  autoComplete="firstName"
                   value={firstName}
-                  onChange={handleInputName}
+                  onChange={handleChange}
                   sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
                 />
                 <TextField
@@ -130,11 +136,11 @@ function SignUpClient() {
                   margin="normal"
                   required
                   fullWidth
-                  id="surname"
-                  name="surname"
-                  autoComplete="surname"
+                  id="lastName"
+                  name="lastName"
+                  autoComplete="lastName"
                   value={lastName}
-                  onChange={handleInputSurname}
+                  onChange={handleChange}
                   sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
                 />
                 <TextField
@@ -146,7 +152,7 @@ function SignUpClient() {
                   name="email"
                   autoComplete="email"
                   value={email}
-                  onChange={handleInputEmail}
+                  onChange={handleChange}
                   sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
                 />
                 <TextField
@@ -159,7 +165,7 @@ function SignUpClient() {
                   id="password"
                   autoComplete="current-password"
                   value={password}
-                  onChange={handleInputPassword}
+                  onChange={handleChange}
                   sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
                 />
                 <FormControlLabel
@@ -171,6 +177,7 @@ function SignUpClient() {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2, backgroundColor: "#9CD91B",  }}
+                  onClick={handleSubmit}
                 >
                   Sign In
                 </Button>
@@ -205,5 +212,3 @@ function SignUpClient() {
 }
 
 export default SignUpClient;
-
-// export default SignUpClient;

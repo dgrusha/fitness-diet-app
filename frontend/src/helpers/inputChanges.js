@@ -4,6 +4,6 @@ export const handleNumericInputChange = (event, setValue) => {
 };
 
 export const handleTextInputChange = (event, setValue) => {
-    const textValue = event.target.value.replace(/[^a-zA-Z]/g, '');
+    const textValue = event.target.value.replace(/[^A-z]/g, '');
     setValue(textValue);
 };

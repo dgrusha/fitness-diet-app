@@ -35,9 +35,9 @@ public class AllergyRepository : IAllergyRepository
         }
     }
 
-    public HashSet<Allergy>? GetAllAlergies()
+    public HashSet<string>? GetAllAlergies()
     {
-        return _allergyContext.Allergies.ToHashSet();
+        return _allergyContext.Allergies.Select(allergy => allergy.Name).Distinct().ToHashSet();
     }
 
     public Allergy? GetAllergyByAllParameters(string name, string classAllergy, string typeAllergy, string groupAllergy, string foodAllergy)

@@ -9,21 +9,30 @@ import './formObligatory.css';
 import { getAllergies } from '../../apiCalls/formObligatoryAllergies';
 import { addObligatoryForm } from '../../apiCalls/formObligatoryPost';
 import { handleNumericInputChange } from '../../helpers/inputChanges';
+import { isFormValid } from '../../helpers/isFormValid';
+import {validateObligatoryFormFields} from '../../validators/formObligatoryValidator'
 import DividedOnTwo from '../structures/dividedOnTwo';
 
 function FormObligatory() {
     const [weight, setWeight] = useState('');
     const [height, setHeight] = useState('');
     const [allergies, setAllergies] = useState([]);
+    const [formErrors, setFormErrors] = useState({ weight:"", height:""});
     const formPhoto = '/photo/obligatory_form_jpg_photo_2.jpg';
+    const setters = {
+        "weight": setWeight,
+        "height": setHeight
+    }
 
-    const handleInputChangeW = (event) => {
-        handleNumericInputChange(event, setWeight);
-    };
-
-    const handleInputChangeH = (event) => {
-        handleNumericInputChange(event, setHeight);
-    };
+    const handleChange = event => {
+        const {name, value} = event.target;
+        handleNumericInputChange(event, setters[name]);
+        let errVal = validateObligatoryFormFields(name,value);
+        setFormErrors(prevState => ({
+            ...prevState,
+            [name]: errVal
+        }))
+    }
 
     useEffect(() => {
         getAllergies().then((data) => setAllergies(data));
@@ -44,33 +53,39 @@ function FormObligatory() {
             <>
                 <h2>REQUIRED FORM</h2>
                 <TextField
-                    label="Weight*"
+                    label="Weight"
+                    required
                     id="weight-field"
                     className= "text-field custom-focused-textfield"
+                    name = "weight"
                     InputProps={{
                     startAdornment: <InputAdornment position="start">kg</InputAdornment>,
                     }}
                     variant="standard"
                     value={weight}
-                    onChange={handleInputChangeW}
+                    onChange={handleChange}
                 />
+                <p>{formErrors["weight"]}</p>
                 <TextField
-                    label="Height*"
+                    label="Height"
+                    required
                     id="height-field"
                     className= "text-field custom-focused-textfield"
+                    name = "height"
                     InputProps={{
                     startAdornment: <InputAdornment position="start">cm</InputAdornment>,
                     }}
                     variant="standard"
                     value={height}
-                    onChange={handleInputChangeH}
+                    onChange={handleChange}
                 />
+                <p>{formErrors["height"]}</p>
                 <Autocomplete
                     multiple
                     id="alergies-choice"
                     className= "text-field custom-focused-textfield"
                     options={allergies} 
-                    getOptionLabel={(option) => option.Name}
+                    getOptionLabel={(option) => option}
                     renderInput={(params) => (
                     <TextField
                         {...params}
@@ -80,7 +95,7 @@ function FormObligatory() {
                     />
                     )}
                 />
-                <Button className= "button-send" id="button-send-obligatory-form" variant="outlined" onClick={handleSendButtonClick}>Send</Button>
+                <Button disabled={!isFormValid(formErrors)} className="button-send" id="button-send-obligatory-form" variant="outlined" onClick={handleSendButtonClick}>Send</Button>
             </>
         </DividedOnTwo>
     );

@@ -11,6 +11,6 @@ public class ObligatoryForm
     public int Weight { get; set; }
     public Guid UserId { get; set; }
     public User User { get; set; }
+    public ICollection<Allergy> Allergies { get; set; } = new List<Allergy>();
 
-    //public List<FormAllergy> FormAllergies { get; set; } = new List<FormAllergy>();
 }

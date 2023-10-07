@@ -24,7 +24,6 @@ namespace FitnessApp.Api.Controllers
         public async Task<IActionResult> Get()
         {
             var query = new GetAllObligatoryFormQuery();
-
             var result = await _mediator.Send(query);
 
             return Ok(result); 
@@ -32,13 +31,13 @@ namespace FitnessApp.Api.Controllers
         }
 
         [HttpPost("add")]
-        public void Post(AddObligatoryFormRequest request)
+        public async Task<IActionResult> Post(AddObligatoryFormRequest request)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var command = new AddCommand(new Guid(userId), request.Weight, request.Height, request.Allergies);
+            var result = await _mediator.Send(command);
 
-            var command = new AddCommand(new Guid(userId), request.Weight, request.Height);
-
-            _mediator.Send(command);
+            return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());
         }
 
         [HttpPut("{id}")]

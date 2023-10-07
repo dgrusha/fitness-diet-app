@@ -13,5 +13,6 @@ public interface IAllergyRepository
     FitnessApp.Domain.Entities.Allergy? GetAllergyByName(string name);
     FitnessApp.Domain.Entities.Allergy? GetAllergyByAllParameters(string name, string classAllergy, string typeAllergy, string groupAllergy, string foodAllergy);
     FitnessApp.Domain.Entities.Allergy? GetAllergyById(Guid id);
+    IEnumerable<FitnessApp.Domain.Entities.Allergy> GetAllergiesByName(IEnumerable<string> allergyNames);
 
 }

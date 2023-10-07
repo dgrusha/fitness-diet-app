@@ -8,5 +8,6 @@ namespace FitnessApp.Contracts.GetStarted;
 public record AddObligatoryFormRequest
 (
     int Weight,
-    int Height
+    int Height,
+    string[] Allergies
 );

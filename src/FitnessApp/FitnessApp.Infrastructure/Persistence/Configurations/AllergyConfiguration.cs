@@ -27,5 +27,6 @@ public class AllergyConfiguration : IEntityTypeConfiguration<Allergy>
         builder.Property(t => t.Group).IsRequired().HasMaxLength(100);
         builder.Property(t => t.Food).IsRequired().HasMaxLength(100);
 
+
     }
 }

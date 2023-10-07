@@ -1,4 +1,5 @@
 import React, { useState, useEffect  } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -10,14 +11,17 @@ import { getAllergies } from '../../apiCalls/formObligatoryAllergies';
 import { addObligatoryForm } from '../../apiCalls/formObligatoryPost';
 import { handleNumericInputChange } from '../../helpers/inputChanges';
 import { isFormValid } from '../../helpers/isFormValid';
+import { handleFormResponse } from  '../../helpers/formVerification' 
 import {validateObligatoryFormFields} from '../../validators/formObligatoryValidator'
 import DividedOnTwo from '../structures/dividedOnTwo';
 
 function FormObligatory() {
+    const navigate = useNavigate();
     const [weight, setWeight] = useState('');
     const [height, setHeight] = useState('');
     const [allergies, setAllergies] = useState([]);
-    const [formErrors, setFormErrors] = useState({ weight:"", height:""});
+    const [selectedOptions, setSelectedOptions] = useState([]);
+    const [formErrors, setFormErrors] = useState({ weight:"", height:"", general:""});
     const formPhoto = '/photo/obligatory_form_jpg_photo_2.jpg';
     const setters = {
         "weight": setWeight,
@@ -30,9 +34,14 @@ function FormObligatory() {
         let errVal = validateObligatoryFormFields(name,value);
         setFormErrors(prevState => ({
             ...prevState,
-            [name]: errVal
+            [name]: errVal,
+            ["general"]: "",
         }))
     }
+
+    const handleChangeMultiple = (event, value) => {
+        setSelectedOptions(value);
+    };
 
     useEffect(() => {
         getAllergies().then((data) => setAllergies(data));
@@ -40,8 +49,9 @@ function FormObligatory() {
 
     const handleSendButtonClick = async () => {
         try {
-          const responseData = await addObligatoryForm({ weight, height, allergies });
-          console.log('Form submitted successfully:', responseData);
+            const response = await addObligatoryForm({ weight: weight, height: height, allergies: selectedOptions});
+            const [status, message] = [response.status, await response.text()];
+            handleFormResponse(status, message, setFormErrors, navigate, '/' );
         } catch (error) {
           console.error(error.message);
         }
@@ -83,19 +93,22 @@ function FormObligatory() {
                 <Autocomplete
                     multiple
                     id="alergies-choice"
-                    className= "text-field custom-focused-textfield"
-                    options={allergies} 
+                    className="text-field custom-focused-textfield"
+                    name="allergies"
+                    options={allergies}
                     getOptionLabel={(option) => option}
+                    onChange={handleChangeMultiple}
                     renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        variant="standard"
-                        label="Allergies"
-                        className= "text-field custom-focused-textfield"
-                    />
+                        <TextField
+                            {...params}
+                            variant="standard"
+                            label="Allergies"
+                            className="text-field custom-focused-textfield"
+                        />
                     )}
                 />
-                <Button disabled={!isFormValid(formErrors)} className="button-send" id="button-send-obligatory-form" variant="outlined" onClick={handleSendButtonClick}>Send</Button>
+                <Button disabled={!isFormValid(formErrors, [weight, height])} className="button-send" id="button-send-obligatory-form" variant="outlined" onClick={handleSendButtonClick}>Send</Button>
+                <p>{formErrors["general"]}</p>
             </>
         </DividedOnTwo>
     );

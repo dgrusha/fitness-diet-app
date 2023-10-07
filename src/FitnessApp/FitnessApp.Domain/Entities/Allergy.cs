@@ -18,6 +18,6 @@ public class Allergy
 
     public string Food { get; set; }
 
-    //public List<FormAllergy> FormAllergies { get; set; } = new List<FormAllergy>();
+    public ICollection<ObligatoryForm> ObligatoryForms { get; set; } = new List<ObligatoryForm>();
 
 }

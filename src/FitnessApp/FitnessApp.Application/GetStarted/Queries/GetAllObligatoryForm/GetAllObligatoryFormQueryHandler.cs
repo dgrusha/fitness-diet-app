@@ -20,15 +20,23 @@ public class GetAllObligatoryFormQueryHandler : IRequestHandler<GetAllObligatory
 
     public Task<string> Handle(GetAllObligatoryFormQuery request, CancellationToken cancellationToken)
     {
-        var forms = _obligatoryFormRepository.GetAllForms();
+        try 
+        {
+            var forms = _obligatoryFormRepository.GetAllForms();
 
-        if (forms == null || forms.Count == 0)
+            if (forms == null || forms.Count == 0)
+            {
+                return Task.FromResult("empty");
+            }
+
+            var jsonResult = JsonConvert.SerializeObject(forms, Formatting.Indented);
+
+            return Task.FromResult(jsonResult);
+        }
+        catch (Exception ex)
         {
             return Task.FromResult("empty");
         }
 
-        var jsonResult = JsonConvert.SerializeObject(forms, Formatting.Indented);
-
-        return Task.FromResult(jsonResult);
     }
 }

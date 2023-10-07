@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -12,11 +13,16 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import image_login from "../../img/sign_up_img.png"; 
 import { handleFormResponse } from  '../../helpers/formVerification' 
 import { handleTextInputChange } from '../../helpers/inputChanges';
 import { register } from '../../apiCalls/register';
 import {validateObligatoryFormFields} from '../../validators/formObligatoryValidator'
+import { isFormValid } from '../../helpers/isFormValid';
+import './styleLoginAndRegister.css';
+
+import { red } from '@mui/material/colors';
 
 
 const defaultTheme = createTheme({
@@ -35,16 +41,17 @@ const defaultTheme = createTheme({
       fontSize: 36
     }
   },
-  components: {
-    TextField: {
-        borderRadius: 60,
-        style: {
-          textTransform: 'none',          
-          borderRadius: '8px',
-          border: "1px solid #9CD91B", 
-          outline: '0'}
-        },
-      },
+  // components: {
+  //   TextField: {
+  //       borderRadius: 60,
+  //       sx: {border: '8px', border: "1px solid #9CD91B", outline: '0'}
+  //       // style: {
+  //       //   textTransform: 'none',          
+  //       //   borderRadius: '8px',
+  //       //   border: "10px solid #9CD91B", 
+  //       //   outline: '0'}
+  //       },
+  //     },
     // MuiButton: {
     //   variants: [
     //     // {
@@ -86,6 +93,7 @@ function SignUpClient() {
     setFormErrors(prevState => ({
         ...prevState,
         [name]: errVal,
+        ["general"]: "",
     }))
 }
 
@@ -129,7 +137,8 @@ function SignUpClient() {
                   autoComplete="firstName"
                   value={firstName}
                   onChange={handleChange}
-                  sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
+                  sx= {{borderBlockColor: red}}
+                  // sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
                 />
                 <TextField
                   label="Surname"
@@ -141,7 +150,7 @@ function SignUpClient() {
                   autoComplete="lastName"
                   value={lastName}
                   onChange={handleChange}
-                  sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
+                  // sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
                 />
                 <TextField
                   label="Email"
@@ -153,7 +162,8 @@ function SignUpClient() {
                   autoComplete="email"
                   value={email}
                   onChange={handleChange}
-                  sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
+                  helperText={formErrors["email"]=== "" ? 'Please enter a value!' : ' '}
+                  // sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
                 />
                 <TextField
                   label="Password"
@@ -166,7 +176,7 @@ function SignUpClient() {
                   autoComplete="current-password"
                   value={password}
                   onChange={handleChange}
-                  sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
+                  // sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
@@ -178,9 +188,11 @@ function SignUpClient() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2, backgroundColor: "#9CD91B",  }}
                   onClick={handleSubmit}
+                  disabled={!isFormValid(formErrors, [firstName, lastName, email, password])}
                 >
                   Sign In
                 </Button>
+                <p>{formErrors["general"]}</p>
                 <Grid container>
                   <Grid item xs>
                     <Link href="#" variant="body2">
@@ -200,8 +212,6 @@ function SignUpClient() {
             sx={{
               backgroundImage: `url(${image_login})`,
               backgroundRepeat: 'no-repeat',
-              // backgroundColor: (t) =>
-              //   t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}

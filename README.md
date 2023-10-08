@@ -1,63 +1,76 @@
 # Fitness app application
 
-This readme provides step by step instruction for set up of this project on yout local machine.
+This file provides step by step instruction to set up EaTrain using your local machine.
 
 ### Setting up ssh-key
-In git bach do :
+Open git BASH and run command provided below
 ```
 $ ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
-Choose no passphrase and save it to default folder
+Choose no passphrase and ssh-key will be saved to default folder ("C:/Users/{username}")
 
-Check if your ssh-agent is on : 
+Check if your ssh-agent is on by running the following command: 
 ```
 $ eval "$(ssh-agent -s)"
 > Agent pid 59566 (your individual number is here)
 ```
 
-Go to where your .ssh key where generated and add them to ssh-agent: 
+Go to the folder your .ssh key was saved to and add it to ssh-agent: 
 ```
 $ ssh-add ~/.ssh/id_ed25519
 ```
 
-Then go to Settings of the repository and to Deploy Keys and add your .pub key.
+Then go to Settings section on GitHub, navigate to SSH and GPG keys tab and add your .pub key.
 
 ### Cloning repostitory 
-To clone repository after ssh-key set up you need to copy ssh link in code section and do:
+To clone repository after ssh-key set up you need to copy ssh link in code section and run it in git BASH
 ```
 git clone git@github.com:dgrusha/fitness-diet-app.git
 ```
 
-Answer yes to all the questions. 
+Answer yes to all the questions appearing while clonning proccess. 
 
->**Now you are basicaly set up** 
+>**Now you have completed basic set up** 
 
-### Set up secret keys 
-in Developer PowerShell for VS (if it was not set previously):
+### Set up project secret keys 
+1. Run PowerShell as administrator
+
+2. Make sure you have Entity Framework Core tools installed globally on your system:
+```
+dotnet ef
+```
+You can install them using the following command:
+```
+dotnet tool install --global dotnet-ef
+```
+
+3. Navigate to "\fitness-diet-app\src\FitnessApp"
+
+4. Run the following command
 ```
 dotnet user-secrets init --project .\FitnessApp.Api\
 ```
 
-and to set a value (for example for JWTToken):
+5. Set a value to JWTToken for example:
 ```
 dotnet user-secrets set --project .\FitnessApp.Api\ "JwtSettings:Secret" "your-super-puper-secret-key"
 ```
 
-and like this it will automatically add value to appsettings.Development to field Secret.
+This value will be automatically added to field Secret in appsettings.Development file
 
-To see user secrets you have: 
+You can check user secrets you already have using: 
 ```
 dotnet user-secrets list --project .\FitnessApp.Api\
 ```
 
-### Running migrations 
+### Migrations 
 
-Adding migrations:
+Add migrations:
 ```
 dotnet ef migrations add MIGRATION_NAME --project FitnessApp.Infrastructure --startup-project FitnessApp.Api
 ```
 
-Running migrations:
+Run migrations:
 ```
 dotnet ef database update --project FitnessApp.Infrastructure --startup-project FitnessApp.Api
 ```

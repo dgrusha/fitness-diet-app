@@ -26,6 +26,7 @@ namespace FitnessApp.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterRequest registerRequest)
         {
+            Console.WriteLine("success1");
             var command = new RegisterCommand(
                 registerRequest.FirstName,
                 registerRequest.LastName,
@@ -38,14 +39,14 @@ namespace FitnessApp.Api.Controllers
                 authResult.id,
                 authResult.Email,
                 authResult.Token);
-
+            Console.WriteLine("success2");
             return Ok(response);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest loginRequest)
         {
-
+            Console.WriteLine("success1");
             var query = new LoginQuery(
                 loginRequest.Email,
                 loginRequest.Password);
@@ -56,7 +57,7 @@ namespace FitnessApp.Api.Controllers
                 authResult.id,
                 authResult.Email,
                 authResult.Token);
-
+            Console.WriteLine("success");
             return Ok(response);
         }
     }

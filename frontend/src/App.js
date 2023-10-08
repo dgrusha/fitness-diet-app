@@ -14,8 +14,8 @@ function App() {
       <main className="MainPart">
         <Routes>
             <Route path="get_started" element={<FormObligatory />} />
-            <Route path="/register" element={<SignUp/>} />
-            <Route path="/login" element={<Login/>} />
+            <Route path="register" element={<SignUp/>} />
+            <Route path="login" element={<Login/>} />
         </Routes>
       </main>
     </div>

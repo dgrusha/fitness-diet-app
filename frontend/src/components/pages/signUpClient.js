@@ -144,8 +144,9 @@ function SignUpClient() {
     try {
         const response = await register({ firstName: user.firstName, lastName: user.lastName, 
           email: user.email, password: user.password});
-        const [status, message] = [response.status, await response.text()];
-        handleFormResponse(status, message, setFormErrors, navigate, '/' );
+        const [status, message] = [response.status, await response.json()];
+        handleFormResponse(status, message, setFormErrors, navigate, '/login' );
+
     } catch (error) {
       console.error(error.message);
     }

@@ -38,14 +38,12 @@ namespace FitnessApp.Api.Controllers
                 authResult.id,
                 authResult.Email,
                 authResult.Token);
-
             return Ok(response);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest loginRequest)
         {
-
             var query = new LoginQuery(
                 loginRequest.Email,
                 loginRequest.Password);
@@ -56,7 +54,6 @@ namespace FitnessApp.Api.Controllers
                 authResult.id,
                 authResult.Email,
                 authResult.Token);
-
             return Ok(response);
         }
     }

@@ -77,7 +77,7 @@ const defaultTheme = createTheme({
 //     });
 //   };
 
-function LogIn() {
+function LogIn(props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -101,7 +101,11 @@ function LogIn() {
   const handleSubmit =async () => {
     try {
         const response = await login({ email: email, password: password});
-        const [status, message] = [response.status, await response.text()];
+        const [status, message] = [response.status, await response.json()];
+        console.log(status);
+        if(status === 200){
+            props.handleLogin(message);
+        }
         handleFormResponse(status, message, setFormErrors, navigate, '/' );
     } catch (error) {
       console.error(error.message);
@@ -127,7 +131,7 @@ function LogIn() {
               LOGIN
             </Typography>
             <Typography variant="subtitle1">To get started please enter your details.</Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box sx={{ mt: 1 }}>
               <TextField
                 label="Email"
                 margin="normal"
@@ -161,6 +165,7 @@ function LogIn() {
                 type="submit"
                 fullWidth
                 variant="contained"
+                onClick={handleSubmit}
                 sx={{ mt: 3, mb: 2, backgroundColor: "#9CD91B",  }}
               >
                 Login

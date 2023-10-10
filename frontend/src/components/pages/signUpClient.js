@@ -100,8 +100,8 @@ function SignUpClient() {
   const handleSubmit =async () => {
     try {
         const response = await register({ firstName: firstName, lastName: lastName, email: email, password: password});
-        const [status, message] = [response.status, await response.text()];
-        handleFormResponse(status, message, setFormErrors, navigate, '/' );
+        const [status, message] = [response.status, await response.json()];
+        handleFormResponse(status, message, setFormErrors, navigate, '/login' );
     } catch (error) {
       console.error(error.message);
     }
@@ -126,7 +126,7 @@ function SignUpClient() {
                 SIGN IN
               </Typography>
               <Typography variant="subtitle1">To get started please enter your details.</Typography>
-              <Box component="form" noValidate sx={{ mt: 1 }}>
+              <Box sx={{ mt: 1 }}>
               <TextField
                   label="Name"
                   margin="normal"

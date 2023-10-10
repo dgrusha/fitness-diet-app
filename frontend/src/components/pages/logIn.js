@@ -96,7 +96,7 @@ function LogIn() {
         [name]: errVal,
         ["general"]: "",
     }))
-}
+  }
 
   const handleSubmit =async () => {
     try {
@@ -127,7 +127,7 @@ function LogIn() {
               LOGIN
             </Typography>
             <Typography variant="subtitle1">To get started please enter your details.</Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box sx={{ mt: 1 }}>
               <TextField
                 label="Email"
                 margin="normal"
@@ -162,6 +162,7 @@ function LogIn() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2, backgroundColor: "#9CD91B",  }}
+                onClick={handleSubmit}
               >
                 Login
               </Button>

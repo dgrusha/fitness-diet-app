@@ -16,9 +16,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import image_login from "../../img/sign_up_img.png"; 
 import { handleFormResponse } from  '../../helpers/formVerification' 
-import { handleTextInputChange } from '../../helpers/inputChanges';
+import { handleEmailInputChange, handleTextInputChange } from '../../helpers/inputChanges';
 import { register } from '../../apiCalls/register';
-import {validateObligatoryFormFields} from '../../validators/formObligatoryValidator'
+import {checkEmail, checkTextLengthRange, checkRequired, checkContainsDigits, checkContainsCapitalLetter, checkContainsSpecialSign} from '../../helpers/validationCommon'
 import { isFormValid } from '../../helpers/isFormValid';
 import './styleLoginAndRegister.css';
 
@@ -74,32 +74,76 @@ const defaultTheme = createTheme({
 
 function SignUpClient() {
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [user, setUser] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  })
   const [formErrors, setFormErrors] = useState({ firstName:"", lastName:"", email:"", password: ""});
-  const setters = {
-      "firstName": setFirstName,
-      "lastName": setLastName,
-      "email": setEmail,
-      "password": setPassword
-  }
 
   const handleChange = event => {
     const {name, value} = event.target;
-    handleTextInputChange(event, setters[name]);
-    let errVal = validateObligatoryFormFields(name,value);
+    let errVal = validateField(name,value);
     setFormErrors(prevState => ({
         ...prevState,
         [name]: errVal,
         ["general"]: "",
+    }),
+    setUser({
+        ...user,
+        [name]:value
     }))
+  }
+
+  function validateField(name, value) {
+    let errorMessage = ''
+    if (name === 'firstName') {
+        if (!checkRequired(value)) {
+            errorMessage = "Entry is required"
+        } else if (!checkTextLengthRange(value, 2, 30)) {
+            errorMessage = "Entry should contain 2-30 characters"
+        }
+    }
+    if (name === 'lastName') {
+        if (!checkRequired(value)) {
+            errorMessage = "Entry is required"
+        } else if (!checkTextLengthRange(value, 2, 30)) {
+            errorMessage = "Entry should contain 2-30 characters"
+        }
+    }
+    if (name === 'email') {
+        if (!checkRequired(value)) {
+          errorMessage = "Entry is required"
+      } else if (!checkEmail(value)){
+          errorMessage = "Email should match name@dom.com"
+      }
+    }
+
+    if (name === 'password') {
+        if (!checkRequired(value)) {
+            errorMessage = "Entry is required"
+        }
+        else if (!checkTextLengthRange(value, 6, 14)){
+            errorMessage = "Entry should contain 6-14 characters"
+        }
+        else if (!checkContainsDigits(value)){
+            errorMessage = "Entry should contain digit"
+        }
+        else if (!checkContainsCapitalLetter(value)){
+            errorMessage = "Entry should contain capital letter"
+        }
+        else if (!checkContainsSpecialSign(value)){
+            errorMessage = "Entry should contain special character"
+        }
+    }
+    return errorMessage;
 }
 
   const handleSubmit =async () => {
     try {
-        const response = await register({ firstName: firstName, lastName: lastName, email: email, password: password});
+        const response = await register({ firstName: user.firstName, lastName: user.lastName, 
+          email: user.email, password: user.password});
         const [status, message] = [response.status, await response.text()];
         handleFormResponse(status, message, setFormErrors, navigate, '/' );
     } catch (error) {
@@ -126,7 +170,7 @@ function SignUpClient() {
                 SIGN IN
               </Typography>
               <Typography variant="subtitle1">To get started please enter your details.</Typography>
-              <Box component="form" noValidate sx={{ mt: 1 }}>
+              <Box sx={{ mt: 1 }}>
               <TextField
                   label="Name"
                   margin="normal"
@@ -135,9 +179,11 @@ function SignUpClient() {
                   id="firstName"
                   name="firstName"
                   autoComplete="firstName"
-                  value={firstName}
+                  value={user.firstName}
                   onChange={handleChange}
                   sx= {{borderBlockColor: red}}
+                  error = {formErrors["firstName"] !== ""}
+                  helperText={formErrors["firstName"]}
                   // sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
                 />
                 <TextField
@@ -148,8 +194,10 @@ function SignUpClient() {
                   id="lastName"
                   name="lastName"
                   autoComplete="lastName"
-                  value={lastName}
+                  value={user.lastName}
                   onChange={handleChange}
+                  error = {formErrors["lastName"] !== ""}
+                  helperText = {formErrors["lastName"]}
                   // sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
                 />
                 <TextField
@@ -160,9 +208,12 @@ function SignUpClient() {
                   id="email"
                   name="email"
                   autoComplete="email"
-                  value={email}
+                  value={user.email}
                   onChange={handleChange}
-                  helperText={formErrors["email"]=== "" ? 'Please enter a value!' : ' '}
+                  error = {formErrors["email"] !== ""}
+                  helperText = {formErrors["email"]}
+                  // error = {/^[a-zA-Z0-9]+@[^\s@]+\.[^\s@]+$/.test(email)}
+                  // helperText={formErrors["email"]=== "" ? 'Please enter a value!' : ' '}
                   // sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
                 />
                 <TextField
@@ -174,8 +225,10 @@ function SignUpClient() {
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  value={password}
+                  value={user.password}
                   onChange={handleChange}
+                  error = {formErrors["password"] !== ""}
+                  helperText = {formErrors["password"]}
                   // sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
                 />
                 <FormControlLabel
@@ -188,7 +241,7 @@ function SignUpClient() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2, backgroundColor: "#9CD91B",  }}
                   onClick={handleSubmit}
-                  disabled={!isFormValid(formErrors, [firstName, lastName, email, password])}
+                  disabled={!isFormValid(formErrors, [user.firstName, user.lastName, user.email, user.password])}
                 >
                   Sign In
                 </Button>

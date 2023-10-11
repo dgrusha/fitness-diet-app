@@ -107,7 +107,6 @@ function LogIn(props) {
     try {
         const response = await login({ email: user.email, password: user.password});
         const [status, message] = [response.status, await response.json()];
-        console.log(status);
         if(status === 200){
             props.handleLogin(message);
             props.hasFormHandle(message.hasObligatoryForm);

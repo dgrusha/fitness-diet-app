@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FitnessApp.Application.Services.Authentication;
 using Microsoft.Extensions.DependencyInjection;
+using MediatR;
 
 namespace FitnessApp.Application;
 
@@ -12,7 +12,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddScoped<IAuthenticationService, AuthenticationService>();
+        serviceCollection.AddMediatR(typeof(DependencyInjection).Assembly);
 
         return serviceCollection;
     }

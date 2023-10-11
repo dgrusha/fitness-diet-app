@@ -22,6 +22,73 @@ namespace FitnessApp.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AllergyObligatoryForm", b =>
+                {
+                    b.Property<Guid>("AllergiesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ObligatoryFormsUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AllergiesId", "ObligatoryFormsUserId");
+
+                    b.HasIndex("ObligatoryFormsUserId");
+
+                    b.ToTable("ObligatoryFormAllergies", (string)null);
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Allergy", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Class")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Food")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Group")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Allergies", (string)null);
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.ObligatoryForm", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Height")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Weight")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("ObligatoryForms", (string)null);
+                });
+
             modelBuilder.Entity("FitnessApp.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -38,6 +105,9 @@ namespace FitnessApp.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool>("HasObligatoryForm")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -51,6 +121,37 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("AllergyObligatoryForm", b =>
+                {
+                    b.HasOne("FitnessApp.Domain.Entities.Allergy", null)
+                        .WithMany()
+                        .HasForeignKey("AllergiesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FitnessApp.Domain.Entities.ObligatoryForm", null)
+                        .WithMany()
+                        .HasForeignKey("ObligatoryFormsUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.ObligatoryForm", b =>
+                {
+                    b.HasOne("FitnessApp.Domain.Entities.User", "User")
+                        .WithOne("ObligatoryForm")
+                        .HasForeignKey("FitnessApp.Domain.Entities.ObligatoryForm", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.User", b =>
+                {
+                    b.Navigation("ObligatoryForm");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,8 +1,11 @@
 ﻿using FitnessApp.Contracts.Authentication;
-using FitnessApp.Application.Services.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using MediatR;
+using FitnessApp.Application.Commands.Register;
+using FitnessApp.Application.Services.Authentication.Common;
+using FitnessApp.Application.Queries;
 
 namespace FitnessApp.Api.Controllers
 {
@@ -12,43 +15,47 @@ namespace FitnessApp.Api.Controllers
     public class AuthenticationController : ControllerBase
     {
 
-        private readonly IAuthenticationService _authenticationService;
+        private readonly IMediator _mediator;
 
-        public AuthenticationController(IAuthenticationService authenticationService)
+        public AuthenticationController(IMediator mediator)
         {
-            _authenticationService = authenticationService;
+            _mediator = mediator;
         }
 
-        
+
         [HttpPost("register")]
-        public IActionResult Register(RegisterRequest registerRequest)
+        public async Task<IActionResult> Register(RegisterRequest registerRequest)
         {
-            var authResult = _authenticationService.Register(
+            var command = new RegisterCommand(
                 registerRequest.FirstName,
                 registerRequest.LastName,
                 registerRequest.Email,
                 registerRequest.Password);
 
+            AuthenticationResult authResult = await _mediator.Send(command);
+
             var response = new AuthenticationResponse(
                 authResult.id,
                 authResult.Email,
+                authResult.HasObligatoryForm,
                 authResult.Token);
-
             return Ok(response);
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginRequest loginRequest)
+        public async Task<IActionResult> Login(LoginRequest loginRequest)
         {
-            var authResult = _authenticationService.Login(
+            var query = new LoginQuery(
                 loginRequest.Email,
                 loginRequest.Password);
+
+            AuthenticationResult authResult = await _mediator.Send(query);
 
             var response = new AuthenticationResponse(
                 authResult.id,
                 authResult.Email,
+                authResult.HasObligatoryForm,
                 authResult.Token);
-
             return Ok(response);
         }
     }

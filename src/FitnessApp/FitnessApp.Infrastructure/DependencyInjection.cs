@@ -30,6 +30,8 @@ public static class DependencyInjection
         serviceCollection.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
+        serviceCollection.AddScoped<IAllergyRepository, AllergyRepository>();
+        serviceCollection.AddScoped<IObligatoryFormRepository, ObligatoryFormRepository>();
 
         string connectionString = configuration.GetConnectionString("SqlServerConnection");
         serviceCollection.AddDbContext<FitnessContext>(options =>
@@ -48,7 +50,6 @@ public static class DependencyInjection
 
         serviceCollection.AddSingleton(Options.Create(jwtSettings));
         serviceCollection.AddSingleton<ITokenGenerator, TokenGenerator>();
-
         serviceCollection.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options => 
             options.TokenValidationParameters = new TokenValidationParameters 

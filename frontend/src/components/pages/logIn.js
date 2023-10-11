@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -14,10 +12,10 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { handleTextInputChange } from '../../helpers/inputChanges';
-import {validateObligatoryFormFields} from '../../validators/formObligatoryValidator';
 import { handleFormResponse } from  '../../helpers/formVerification';
 import { login } from '../../apiCalls/login';
+import { checkRequired } from '../../helpers/validationCommon'
+import { isFormValid } from '../../helpers/isFormValid';
 import image_login from "../../img/sign_up_img.png"; 
 import './styleLoginAndRegister.css';
 
@@ -38,69 +36,76 @@ const defaultTheme = createTheme({
     }
   },
   components: {
-    TextField: {
-        borderRadius: 60,
-        style: {
-          textTransform: 'none',          
-          borderRadius: '8px',
-          border: "1px solid #9CD91B", 
-          outline: '0'}
-        },
-      },
-    // MuiButton: {
-    //   variants: [
-    //     // {
-    //     //   props: { variant: 'dashed' },
-    //     //   style: {
-    //     //     textTransform: 'none',
-    //     //     border: `2px dashed ${blue[500]}`,
-    //     //   },
-    //     // },
-    //     {
-    //       props: { variant: 'dashed', color: 'secondary' },
-    //       style: {
-    //         border: `4px dashed ${red[500]}`,
-    //       },
-    //     },
-    //   ],
-    // },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& .MuiInputLabel-root": { color: "#7D8386" },
+          "& .MuiOutlinedInput-root": {
+            "& fieldset": { borderColor: "#9CD91B", borderWidth: 1 },
+            "&:hover fieldset": { borderColor: "#6D9712" },
+            "&.Mui-focused fieldset": { borderColor: "#6D9712"},
+          },
+          "& .MuiInputLabel-outlined.Mui-focused": { color: "#6D9712" },
+        }
+      }
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          color: "#FFFFFF",
+          backgroundColor: "#9CD91B",
+          "&:hover": {
+            backgroundColor: "#6D9712",
+          },
+          "&:disabled": {
+            backgroundColor: "#E1F3BA",
+          },
+        }
+      }
+    }
   }
-);
-
-// export default function SignInSide() {
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     const data = new FormData(event.currentTarget);
-//     console.log({
-//       email: data.get('email'),
-//       password: data.get('password'),
-//     });
-//   };
+});
 
 function LogIn(props) {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [user, setUser] = useState({
+    email: '',
+    password: ''
+  })
   const [formErrors, setFormErrors] = useState({ firstName:"", lastName:"", email:"", password: ""});
-  const setters = {
-      "email": setEmail,
-      "password": setPassword
-  }
 
   const handleChange = event => {
     const {name, value} = event.target;
-    handleTextInputChange(event, setters[name]);
-    let errVal = validateObligatoryFormFields(name,value);
+    let errVal = validateField(name,value);
     setFormErrors(prevState => ({
         ...prevState,
         [name]: errVal,
         ["general"]: "",
+    }),
+    setUser({
+        ...user,
+        [name]:value
     }))
+  }
+
+  function validateField(name, value) {
+    let errorMessage = ''
+    if (name === 'email') {
+        if (!checkRequired(value)) {
+          errorMessage = "Entry is required"
+      }
+    }
+    if (name === 'password') {
+        if (!checkRequired(value)) {
+            errorMessage = "Entry is required"
+        }
+    }
+    return errorMessage;
   }
 
   const handleSubmit =async () => {
     try {
-        const response = await login({ email: email, password: password});
+        const response = await login({ email: user.email, password: user.password});
         const [status, message] = [response.status, await response.json()];
         console.log(status);
         if(status === 200){
@@ -110,7 +115,7 @@ function LogIn(props) {
     } catch (error) {
       console.error(error.message);
     }
-  };
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -140,9 +145,10 @@ function LogIn(props) {
                 id="email"
                 name="email"
                 autoComplete="email"
-                value={email}
+                value={user.email}
                 onChange={handleChange}
-                sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
+                error = {formErrors["email"] !== ""}
+                helperText = {formErrors["email"]}
               />
               <TextField
                 label="Password"
@@ -153,13 +159,10 @@ function LogIn(props) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                value={password}
+                value={user.password}
                 onChange={handleChange}
-                sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+                error = {formErrors["password"] !== ""}
+                helperText = {formErrors["password"]}
               />
               <Button
                 type="submit"
@@ -167,7 +170,7 @@ function LogIn(props) {
                 variant="contained"
                 onClick={handleSubmit}
                 sx={{ mt: 3, mb: 2, backgroundColor: "#9CD91B",  }}
-                onClick={handleSubmit}
+                disabled={!isFormValid(formErrors, [user.email, user.password])}
               >
                 Login
               </Button>
@@ -178,7 +181,7 @@ function LogIn(props) {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/register" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

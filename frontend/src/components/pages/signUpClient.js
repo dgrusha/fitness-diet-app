@@ -13,16 +13,17 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { makeStyles } from '@mui/material/styles';
 
 import image_login from "../../img/sign_up_img.png"; 
-import { handleFormResponse } from  '../../helpers/formVerification' 
-import { handleEmailInputChange, handleTextInputChange } from '../../helpers/inputChanges';
+import { handleFormResponse } from  '../../helpers/formVerification';
 import { register } from '../../apiCalls/register';
 import {checkEmail, checkTextLengthRange, checkRequired, checkContainsDigits, checkContainsCapitalLetter, checkContainsSpecialSign} from '../../helpers/validationCommon'
 import { isFormValid } from '../../helpers/isFormValid';
 import './styleLoginAndRegister.css';
 
-import { red } from '@mui/material/colors';
+import { orange, red } from '@mui/material/colors';
+import CustomTextField from '../atoms/input';
 
 
 const defaultTheme = createTheme({
@@ -41,36 +42,36 @@ const defaultTheme = createTheme({
       fontSize: 36
     }
   },
-  // components: {
-  //   TextField: {
-  //       borderRadius: 60,
-  //       sx: {border: '8px', border: "1px solid #9CD91B", outline: '0'}
-  //       // style: {
-  //       //   textTransform: 'none',          
-  //       //   borderRadius: '8px',
-  //       //   border: "10px solid #9CD91B", 
-  //       //   outline: '0'}
-  //       },
-  //     },
-    // MuiButton: {
-    //   variants: [
-    //     // {
-    //     //   props: { variant: 'dashed' },
-    //     //   style: {
-    //     //     textTransform: 'none',
-    //     //     border: `2px dashed ${blue[500]}`,
-    //     //   },
-    //     // },
-    //     {
-    //       props: { variant: 'dashed', color: 'secondary' },
-    //       style: {
-    //         border: `4px dashed ${red[500]}`,
-    //       },
-    //     },
-    //   ],
-    // },
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& .MuiInputLabel-root": { color: "#7D8386" },
+          "& .MuiOutlinedInput-root": {
+            "& fieldset": { borderColor: "#9CD91B", borderWidth: 1 },
+            "&:hover fieldset": { borderColor: "#6D9712" },
+            "&.Mui-focused fieldset": { borderColor: "#6D9712"},
+          },
+          "& .MuiInputLabel-outlined.Mui-focused": { color: "#6D9712" },
+        }
+      }
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          color: "#FFFFFF",
+          backgroundColor: "#9CD91B",
+          "&:hover": {
+            backgroundColor: "#6D9712",
+          },
+          "&:disabled": {
+            backgroundColor: "#E1F3BA",
+          },
+        }
+      }
+    }
   }
-);
+});
 
 function SignUpClient() {
   const navigate = useNavigate();
@@ -172,7 +173,7 @@ function SignUpClient() {
               </Typography>
               <Typography variant="subtitle1">To get started please enter your details.</Typography>
               <Box sx={{ mt: 1 }}>
-              <TextField
+                <TextField
                   label="Name"
                   margin="normal"
                   required
@@ -182,10 +183,8 @@ function SignUpClient() {
                   autoComplete="firstName"
                   value={user.firstName}
                   onChange={handleChange}
-                  sx= {{borderBlockColor: red}}
                   error = {formErrors["firstName"] !== ""}
                   helperText={formErrors["firstName"]}
-                  // sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
                 />
                 <TextField
                   label="Surname"
@@ -199,7 +198,6 @@ function SignUpClient() {
                   onChange={handleChange}
                   error = {formErrors["lastName"] !== ""}
                   helperText = {formErrors["lastName"]}
-                  // sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
                 />
                 <TextField
                   label="Email"
@@ -213,9 +211,6 @@ function SignUpClient() {
                   onChange={handleChange}
                   error = {formErrors["email"] !== ""}
                   helperText = {formErrors["email"]}
-                  // error = {/^[a-zA-Z0-9]+@[^\s@]+\.[^\s@]+$/.test(email)}
-                  // helperText={formErrors["email"]=== "" ? 'Please enter a value!' : ' '}
-                  // sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
                 />
                 <TextField
                   label="Password"
@@ -230,11 +225,6 @@ function SignUpClient() {
                   onChange={handleChange}
                   error = {formErrors["password"] !== ""}
                   helperText = {formErrors["password"]}
-                  // sx = {{borderRadius: '8px', border: "1px solid #9CD91B", outline: '0'}}
-                />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
                 />
                 <Button
                   type="submit"
@@ -247,18 +237,6 @@ function SignUpClient() {
                   Sign In
                 </Button>
                 <p>{formErrors["general"]}</p>
-                <Grid container>
-                  <Grid item xs>
-                    <Link href="#" variant="body2">
-                      Forgot password?
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link href="#" variant="body2">
-                      {"Don't have an account? Sign Up"}
-                    </Link>
-                  </Grid>
-                </Grid>
               </Box>
             </Box>
           </Grid>

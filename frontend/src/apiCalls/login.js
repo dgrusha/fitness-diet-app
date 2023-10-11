@@ -1,4 +1,4 @@
-const baseUrl = 'auth/login';
+const baseUrl = 'https://localhost:7194/auth/login';
 
 export const login = async ({ email, password }) => {
     try {

@@ -15,7 +15,7 @@ import { handleFormResponse } from  '../../helpers/formVerification'
 import {validateObligatoryFormFields} from '../../validators/formObligatoryValidator'
 import DividedOnTwo from '../structures/dividedOnTwo';
 
-function FormObligatory() {
+function FormObligatory(props) {
     const navigate = useNavigate();
     const [weight, setWeight] = useState('');
     const [height, setHeight] = useState('');
@@ -51,6 +51,11 @@ function FormObligatory() {
         try {
             const response = await addObligatoryForm({ weight: weight, height: height, allergies: selectedOptions});
             const [status, message] = [response.status, await response.text()];
+            if(status === 200){
+                props.hasFormHandle(true);
+            }else{
+                props.hasFormHandle(false);
+            }
             handleFormResponse(status, message, setFormErrors, navigate, '/' );
         } catch (error) {
           console.error(error.message);

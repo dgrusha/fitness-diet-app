@@ -10,11 +10,12 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 
-import { getCurrentUser } from '../../helpers/authHelper';
+import { getCurrentUser, hasPassedObligatoryForm} from '../../helpers/authHelper';
 
 function SideBar(props) {
     const { collapseSidebar } = useProSidebar();
     const isAuthenticatedParam = getCurrentUser();
+    const hasPassedObligatoryFormParam = hasPassedObligatoryForm();
     return (
         <Sidebar className="MainSidebar">
         <Menu>
@@ -26,13 +27,19 @@ function SideBar(props) {
           >
             <h3>Fitness-Diet App</h3>
           </MenuItem>
-          {isAuthenticatedParam ? (
+          {isAuthenticatedParam && hasPassedObligatoryFormParam === 'false'  ? (
               <>
                   <MenuItem icon={<EmojiFlagsIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/get_started">Get started</Link></MenuItem>
+                  
+              </>
+          ) : null}
+          {isAuthenticatedParam ? (
+              <>
                   <MenuItem icon={<RestaurantIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/diet">Diet</Link></MenuItem>
                   <MenuItem icon={<MeetingRoomIcon className="MenuIcon"/>}><p className="LinkSideBar" onClick={props.handleLogout}>Logout</p></MenuItem>
               </>
           ) : null}
+          
           {isAuthenticatedParam ? null : (
               <>
                   <MenuItem icon={<LoginIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/login">Login</Link></MenuItem>

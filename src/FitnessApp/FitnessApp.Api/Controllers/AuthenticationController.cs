@@ -37,6 +37,7 @@ namespace FitnessApp.Api.Controllers
             var response = new AuthenticationResponse(
                 authResult.id,
                 authResult.Email,
+                authResult.HasObligatoryForm,
                 authResult.Token);
             return Ok(response);
         }
@@ -53,6 +54,7 @@ namespace FitnessApp.Api.Controllers
             var response = new AuthenticationResponse(
                 authResult.id,
                 authResult.Email,
+                authResult.HasObligatoryForm,
                 authResult.Token);
             return Ok(response);
         }

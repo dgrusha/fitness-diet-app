@@ -75,6 +75,7 @@ public class AddCommandHandler : IRequestHandler<AddCommand, HttpResponseMessage
             }
 
             _obligatoryFormRepository.Add(obligatoryForm);
+            _userRepository.UpdateObligatoryFormStatus(user, true);
 
             return new HttpResponseMessage(HttpStatusCode.OK)
             {

@@ -41,6 +41,7 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, AuthenticationResul
             user.LastName,
             user.FirstName,
             user.Email,
+            user.HasObligatoryForm,
             token
         );
     }

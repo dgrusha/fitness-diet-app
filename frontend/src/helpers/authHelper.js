@@ -16,3 +16,8 @@ export function isAuthenticated() {
     }
     return false;
 }
+
+export function hasPassedObligatoryForm(){
+    const hasForm = sessionStorage.getItem('hasForm');
+    return hasForm;
+}

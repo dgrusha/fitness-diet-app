@@ -17,5 +17,7 @@ public class User
 
     public string Password { get; set; } = null!;
 
+    public bool HasObligatoryForm { get; set; } = false;
+
     public ObligatoryForm? ObligatoryForm { get; set; }
 }

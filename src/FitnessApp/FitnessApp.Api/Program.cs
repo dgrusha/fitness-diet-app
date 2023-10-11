@@ -17,7 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
         options.AddPolicy(name: FitnessAllowSpecificOrigins,
                           policy =>
                           {
-                              policy.WithOrigins("http://localhost:3000/").AllowAnyHeader().AllowAnyMethod();
+                              policy.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowCredentials().AllowAnyMethod();
                           });
     });
     builder.Services.AddControllers(

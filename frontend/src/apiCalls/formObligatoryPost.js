@@ -1,6 +1,6 @@
 import { getCurrentUser } from '../helpers/authHelper';
 
-const baseUrl = 'obligatoryForm/add';
+const baseUrl = 'https://localhost:7194/obligatoryForm/add';
 
 export const addObligatoryForm = async ({ weight, height, allergies }) => {
   const token = getCurrentUser();

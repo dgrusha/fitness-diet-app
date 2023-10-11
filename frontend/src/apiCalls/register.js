@@ -1,4 +1,4 @@
-const baseUrl = 'auth/register';
+const baseUrl = 'https://localhost:7194/auth/register';
 
 export const register = async ({ firstName, lastName, email, password }) => {
     try {

@@ -8,11 +8,19 @@ import FormObligatory  from './components/formObligatory/formObligatory';
 import SignUp  from './components/pages/signUpClient';
 import Login  from './components/pages/logIn';
 import ProtectedRoute from "./components/protectedRoute";
+import UnprotectedRoute from "./components/unprotectedRoute";
+import ProtectedRouteWithCondition from "./components/protectedRouteWithCondition"
 
 
 function App() {
 
-  const [user, setUser] = useState()
+  const [user, setUser] = useState();
+  const [hasForm, setHasForm] = useState();
+
+  const hasFormHandle = (hasFormMine) => {
+    sessionStorage.setItem('hasForm', hasFormMine);
+    setHasForm(hasFormMine);
+  }
 
   const handleLogin = (user) => {
       sessionStorage.setItem('user', user.token);
@@ -20,8 +28,10 @@ function App() {
   }
 
   const handleLogout = () => {
-      sessionStorage.removeItem('user')
-      setUser(undefined)
+      sessionStorage.removeItem('user');
+      sessionStorage.setItem('hasForm', false);
+      setUser(undefined);
+      setHasForm(false);
   }
 
   return (
@@ -29,9 +39,9 @@ function App() {
       <SideBar handleLogout={handleLogout} />
       <main className="MainPart">
         <Routes>
-            <Route path="get_started" element={<ProtectedRoute><FormObligatory /></ProtectedRoute>} />
-            <Route path="register" element={<SignUp/>} />
-            <Route path="login" element={<Login handleLogin={handleLogin} />} />
+            <Route path="get_started" element={<ProtectedRouteWithCondition><FormObligatory hasFormHandle={hasFormHandle} /></ProtectedRouteWithCondition>} />
+            <Route path="register" element={<UnprotectedRoute><SignUp/></UnprotectedRoute>} />
+            <Route path="login" element={<UnprotectedRoute><Login hasFormHandle={hasFormHandle} handleLogin={handleLogin} /></UnprotectedRoute>} />
         </Routes>
       </main>
     </div>

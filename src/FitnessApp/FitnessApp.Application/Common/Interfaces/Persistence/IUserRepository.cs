@@ -12,4 +12,6 @@ public interface IUserRepository
 
     User? GetUserById(Guid id);
     void Add(User user);
+
+    void UpdateObligatoryFormStatus(User user, bool hasObligatoryForm);
 }

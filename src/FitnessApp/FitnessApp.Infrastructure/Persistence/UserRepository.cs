@@ -36,4 +36,10 @@ public class UserRepository : IUserRepository
         User user = _userContext.Users.Include(u => u.ObligatoryForm).SingleOrDefault(user => user.Id == id);
         return user;
     }
+
+    public void UpdateObligatoryFormStatus(User user, bool hasObligatoryForm)
+    {
+        user.HasObligatoryForm = hasObligatoryForm;
+        _userContext.SaveChangesAsync();
+    }
 }

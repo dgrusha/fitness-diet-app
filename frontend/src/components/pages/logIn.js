@@ -105,6 +105,7 @@ function LogIn(props) {
         console.log(status);
         if(status === 200){
             props.handleLogin(message);
+            props.hasFormHandle(message.hasObligatoryForm);
         }
         handleFormResponse(status, message, setFormErrors, navigate, '/' );
     } catch (error) {

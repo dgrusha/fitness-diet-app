@@ -35,6 +35,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Authentic
             FirstName = command.FirstName,
             LastName = command.LastName,
             Email = command.Email,
+            HasObligatoryForm = false,
             Password = PasswordHandler.HashPassword(command.Password)
         };
 
@@ -47,6 +48,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Authentic
             user.FirstName,
             user.LastName,
             user.Email,
+            false,
             token
         );
     }

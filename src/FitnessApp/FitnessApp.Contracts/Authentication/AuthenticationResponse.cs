@@ -10,5 +10,6 @@ public record AuthenticationResponse
 (
     Guid id,
     string Email,
+    bool hasObligatoryForm,
     string Token
 );

@@ -6,10 +6,17 @@
     <PackageReference Include="MediatR" Version="11.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FitnessApp.Domain\FitnessApp.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="GetStarted\Commands\AddObligatoryForm\" />
+    <Folder Include="GetStarted\Commands\DeleteObligatoryForm\" />
+    <Folder Include="GetStarted\Commands\UpdateObligatoryForm\" />
   </ItemGroup>
 
   <PropertyGroup>

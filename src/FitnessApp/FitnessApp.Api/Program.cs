@@ -4,13 +4,22 @@ using FitnessApp.Application;
 using FitnessApp.Infrastructure;
 using NLog;
 
-LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+//LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+var FitnessAllowSpecificOrigins = "_fitnessAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 {
     // Add services to the container.
     builder.Services.AddApplication();
     builder.Services.AddInfrastructure(builder.Configuration);
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(name: FitnessAllowSpecificOrigins,
+                          policy =>
+                          {
+                              policy.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowCredentials().AllowAnyMethod();
+                          });
+    });
     builder.Services.AddControllers(
             options => options.Filters.Add<ErrorHandle>()
         );
@@ -32,6 +41,8 @@ var app = builder.Build();
     }
 
     app.UseHttpsRedirection();
+
+    app.UseCors(FitnessAllowSpecificOrigins);
 
     app.UseAuthentication();
     app.UseAuthorization();

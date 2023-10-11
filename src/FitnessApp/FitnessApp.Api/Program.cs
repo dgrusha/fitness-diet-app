@@ -4,7 +4,7 @@ using FitnessApp.Application;
 using FitnessApp.Infrastructure;
 using NLog;
 
-LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+//LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 var FitnessAllowSpecificOrigins = "_fitnessAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);

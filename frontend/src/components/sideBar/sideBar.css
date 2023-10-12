@@ -15,6 +15,9 @@
     --font-family-plus_jakarta_sans: "Plus Jakarta Sans", Helvetica;
   }
   
+  .SubMenu{
+    background: rgb(249, 249, 249, 0.7) !important;
+  }
 
   .MainSidebar{
     background: var(--white);

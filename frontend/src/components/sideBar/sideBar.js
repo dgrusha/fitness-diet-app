@@ -1,5 +1,5 @@
 import React from 'react'
-import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem, useProSidebar, SubMenu } from "react-pro-sidebar";
 import { Link } from 'react-router-dom'
 import './sideBar.css';
 
@@ -9,6 +9,8 @@ import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import PersonIcon from '@mui/icons-material/Person';
+import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 
 import { getCurrentUser, hasPassedObligatoryForm} from '../../helpers/authHelper';
 
@@ -36,7 +38,10 @@ function SideBar(props) {
           {isAuthenticatedParam ? (
               <>
                   <MenuItem icon={<RestaurantIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/diet">Diet</Link></MenuItem>
-                  <MenuItem icon={<MeetingRoomIcon className="MenuIcon"/>}><p className="LinkSideBar" onClick={props.handleLogout}>Logout</p></MenuItem>
+                  <SubMenu icon={<MiscellaneousServicesIcon className="MenuIcon"/>} className="LinkSideBar" label="Service">
+                      <MenuItem className="SubMenu" icon={<PersonIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/my_profile">My profile</Link></MenuItem>
+                      <MenuItem className="SubMenu" icon={<MeetingRoomIcon className="MenuIcon"/>}><p className="LinkSideBar" onClick={props.handleLogout}>Logout</p></MenuItem>
+                  </SubMenu>
               </>
           ) : null}
           

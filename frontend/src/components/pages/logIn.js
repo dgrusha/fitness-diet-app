@@ -3,68 +3,20 @@ import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 
 import { handleFormResponse } from  '../../helpers/formVerification';
 import { login } from '../../apiCalls/login';
-import { checkRequired } from '../../helpers/validationCommon'
+import { validateLoginFormFields } from '../../validators/loginValidator';
 import { isFormValid } from '../../helpers/isFormValid';
 import image_login from "../../img/sign_up_img.png"; 
-import './styleLoginAndRegister.css';
-
-const defaultTheme = createTheme({
-  typography: {
-    fontFamily: [
-      'Plus Jakarta Sans',
-    ].join(','),
-    subtitle1: {
-      fontWeight: 400,
-      color: "#7D8386",
-      fontSize: 16
-    },
-    title1: {
-      fontWeight: 800,
-      color: "#9CD91B",
-      fontSize: 36
-    }
-  },
-  components: {
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          "& .MuiInputLabel-root": { color: "#7D8386" },
-          "& .MuiOutlinedInput-root": {
-            "& fieldset": { borderColor: "#9CD91B", borderWidth: 1 },
-            "&:hover fieldset": { borderColor: "#6D9712" },
-            "&.Mui-focused fieldset": { borderColor: "#6D9712"},
-          },
-          "& .MuiInputLabel-outlined.Mui-focused": { color: "#6D9712" },
-        }
-      }
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          color: "#FFFFFF",
-          backgroundColor: "#9CD91B",
-          "&:hover": {
-            backgroundColor: "#6D9712",
-          },
-          "&:disabled": {
-            backgroundColor: "#E1F3BA",
-          },
-        }
-      }
-    }
-  }
-});
+import { appTheme } from '../../helpers/themeProviderHelper';
 
 function LogIn(props) {
   const navigate = useNavigate();
@@ -76,7 +28,7 @@ function LogIn(props) {
 
   const handleChange = event => {
     const {name, value} = event.target;
-    let errVal = validateField(name,value);
+    let errVal = validateLoginFormFields(name,value);
     setFormErrors(prevState => ({
         ...prevState,
         [name]: errVal,
@@ -88,40 +40,28 @@ function LogIn(props) {
     }))
   }
 
-  function validateField(name, value) {
-    let errorMessage = ''
-    if (name === 'email') {
-        if (!checkRequired(value)) {
-          errorMessage = "Entry is required"
-      }
-    }
-    if (name === 'password') {
-        if (!checkRequired(value)) {
-            errorMessage = "Entry is required"
-        }
-    }
-    return errorMessage;
-  }
-
   const handleSubmit =async () => {
     try {
         const response = await login({ email: user.email, password: user.password});
         const [status, message] = [response.status, await response.json()];
         if(status === 200){
-            props.handleLogin(message);
-            props.hasFormHandle(message.hasObligatoryForm);
-        }
+          props.loginHandle(true);
+      }else{
+          props.loginHandle(false);
+      }
         handleFormResponse(status, message, setFormErrors, navigate, '/' );
     } catch (error) {
       console.error(error.message);
+      setFormErrors(prevState => ({
+        ...prevState,
+        general: "Invalid email address or password"
+      }));
     }
   }
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={ appTheme }>
       <Grid container component="main" sx={{ height: '100vh' }}>
-        <CssBaseline />
-
         <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -164,6 +104,7 @@ function LogIn(props) {
                 error = {formErrors["password"] !== ""}
                 helperText = {formErrors["password"]}
               />
+              <Typography variant="server_error" textAlign="center">{formErrors["general"]}</Typography>
               <Button
                 type="submit"
                 fullWidth

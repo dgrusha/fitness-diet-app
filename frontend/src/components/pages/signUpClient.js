@@ -2,12 +2,6 @@ import * as React from 'react';
 import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
@@ -19,63 +13,18 @@ import {
   InputAdornment,
 } from '@mui/material';
 
-import image_login from "../../img/sign_up_img.png"; 
+import image_sign_up from "../../img/login_sign_up.png"; 
 import { handleFormResponse } from  '../../helpers/formVerification';
 import { register } from '../../apiCalls/register';
 import { registerCoach } from '../../apiCalls/registerCoach';
 import {checkEmail, checkTextLengthRange, checkRequired, checkContainsDigits, checkContainsCapitalLetter, checkContainsSpecialSign} from '../../helpers/validationCommon'
 import { isFormValid } from '../../helpers/isFormValid';
-import './styleLoginAndRegister.css';
+import {ButtonComponent} from "../atoms/Button";
+import InputField from '../atoms/InputField';
+import TwoSidesTemplate from '../templates/ContainerAndPhotoTemplate';
 
 
-const defaultTheme = createTheme({
-  typography: {
-    fontFamily: [
-      'Plus Jakarta Sans',
-    ].join(','),
-    subtitle1: {
-      fontWeight: 400,
-      color: "#7D8386",
-      fontSize: 16
-    },
-    title1: {
-      fontWeight: 800,
-      color: "#9CD91B",
-      fontSize: 36
-    }
-  },
-  components: {
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          "& .MuiInputLabel-root": { color: "#7D8386" },
-          "& .MuiOutlinedInput-root": {
-            "& fieldset": { borderColor: "#9CD91B", borderWidth: 1 },
-            "&:hover fieldset": { borderColor: "#6D9712" },
-            "&.Mui-focused fieldset": { borderColor: "#6D9712"},
-          },
-          "& .MuiInputLabel-outlined.Mui-focused": { color: "#6D9712" },
-        }
-      }
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          color: "#FFFFFF",
-          backgroundColor: "#9CD91B",
-          "&:hover": {
-            backgroundColor: "#6D9712",
-          },
-          "&:disabled": {
-            backgroundColor: "#E1F3BA",
-          },
-        }
-      }
-    }
-  }
-});
-
-function SignUpClient() {
+function SignUpClient(props) {
   const navigate = useNavigate();
   const [isCoach, setIsCoach] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -108,7 +57,7 @@ function SignUpClient() {
 
   const handleChange = event => {
     const {name, value} = event.target;
-    let errVal = validateField(name,value);
+    let errVal = validateSignUpFormFields(name,value);
     setFormErrors(prevState => ({
         ...prevState,
         [name]: errVal,
@@ -210,10 +159,8 @@ function SignUpClient() {
   };
 
     return (
-      <ThemeProvider theme={defaultTheme}>
+      <ThemeProvider theme={appTheme}>
         <Grid container component="main" sx={{ height: '100vh' }}>
-          <CssBaseline />
-
           <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
             <Box
               sx={{

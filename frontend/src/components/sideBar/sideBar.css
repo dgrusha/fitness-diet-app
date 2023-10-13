@@ -33,4 +33,9 @@
     text-decoration: none;
     font-family: "Plus Jakarta Sans", Helvetica;
     font-weight: 550;
+    
+  }
+
+  .ps-open{
+    overflow: hidden !important;
   }

@@ -39,16 +39,30 @@ function SideBar(props) {
               <>
                   <MenuItem icon={<RestaurantIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/diet">Diet</Link></MenuItem>
                   <SubMenu icon={<MiscellaneousServicesIcon className="MenuIcon"/>} className="LinkSideBar" label="Service">
-                      <MenuItem className="SubMenu" icon={<PersonIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/my_profile">My profile</Link></MenuItem>
-                      <MenuItem className="SubMenu" icon={<MeetingRoomIcon className="MenuIcon"/>}><p className="LinkSideBar" onClick={props.handleLogout}>Logout</p></MenuItem>
+                      <MenuItem
+                        className="SubMenu" 
+                        icon={<PersonIcon className="MenuIcon"/>} 
+                        component={<Link className="LinkSideBar" to="/my_profile"/>}>My profile
+                      </MenuItem>
+                      <MenuItem 
+                        className="SubMenu" 
+                        icon={<MeetingRoomIcon className="MenuIcon"/>} 
+                        onClick={props.handleLogout}> Logout
+                      </MenuItem>
                   </SubMenu>
               </>
           ) : null}
           
           {isAuthenticatedParam ? null : (
               <>
-                  <MenuItem icon={<LoginIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/login">Login</Link></MenuItem>
-                  <MenuItem icon={<AppRegistrationIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/register">Register</Link></MenuItem>
+                      <MenuItem
+                        icon={<LoginIcon className="MenuIcon"/>} 
+                        component={<Link className="LinkSideBar" to="/login"/>}>Login
+                      </MenuItem>
+                      <MenuItem
+                        icon={<AppRegistrationIcon className="MenuIcon"/>} 
+                        component={<Link className="LinkSideBar" to="/register"/>}>Register
+                      </MenuItem>
               </>
           )}
         </Menu>

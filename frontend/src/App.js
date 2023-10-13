@@ -7,6 +7,8 @@ import SideBar from './components/sideBar/sideBar';
 import FormObligatory  from './components/formObligatory/formObligatory';
 import SignUp  from './components/pages/signUpClient';
 import Login  from './components/pages/logIn';
+import UserProfile from './components/userProfile/userProfile'
+
 import ProtectedRoute from "./components/protectedRoute";
 import UnprotectedRoute from "./components/unprotectedRoute";
 import ProtectedRouteWithCondition from "./components/protectedRouteWithCondition"
@@ -41,6 +43,7 @@ function App() {
         <Routes>
             <Route path="get_started" element={<ProtectedRouteWithCondition><FormObligatory hasFormHandle={hasFormHandle} /></ProtectedRouteWithCondition>} />
             <Route path="register" element={<UnprotectedRoute><SignUp/></UnprotectedRoute>} />
+            <Route path="my_profile" element={<ProtectedRoute><UserProfile/></ProtectedRoute>} />
             <Route path="login" element={<UnprotectedRoute><Login hasFormHandle={hasFormHandle} handleLogin={handleLogin} /></UnprotectedRoute>} />
         </Routes>
       </main>

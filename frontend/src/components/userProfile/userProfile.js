@@ -15,42 +15,56 @@ import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import image_profile from "../../img/user_profile_page.png"; 
 import {getUser} from '../../apiCalls/userProfileGetInfo'
+import { handleTextInputChange } from '../../helpers/inputChanges';
+import {validateUserProfileFields} from '../../validators/userProfileValidator'
+import { isFormValid } from '../../helpers/isFormValid';
+import { updateUserProfile } from '../../apiCalls/userProfileUpdateInfo';
 
 function UserProfile() {
-    const navigate = useNavigate();
-    const [formErrors, setFormErrors] = useState({ weight:"", height:"", general:""});
-    const [userData, setUserData] = useState({});
-    
+  const navigate = useNavigate();
+  const [status, setStatus] = useState('');
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [formErrors, setFormErrors] = useState({ name:"", surname:"", general:""});
+  const [userData, setUserData] = useState({});
+  const setters = {
+    "name": setName,
+    "surname": setSurname
+  }
 
-    //const handleChange = event => {
-    //    const {name, value} = event.target;
-    //    handleNumericInputChange(event, setters[name]);
-    //    let errVal = validateObligatoryFormFields(name,value);
-    //    setFormErrors(prevState => ({
-    //        ...prevState,
-    //        [name]: errVal,
-    //        ["general"]: "",
-    //    }))
-    //}
+  const handleChange = event => {
+      const {name, value} = event.target;
+      handleTextInputChange(event, setters[name]);
+      let errVal = validateUserProfileFields(name,value);
+      setFormErrors(prevState => ({
+          ...prevState,
+          [name]: errVal,
+          ["general"]: "",
+      }))
+  }
 
-    useEffect(() => {
-        getUser().then((data) => setUserData(data));
-    }, []);  
+  useEffect(() => {
+    getUser().then((data) => {
+        setUserData(data);
+        setName(data.firstName);
+        setSurname(data.lastName);
+    });
+  }, []); 
 
-    //const handleSendButtonClick = async () => {
-    //    try {
-    //        const response = await addObligatoryForm({ weight: weight, height: height, allergies: selectedOptions});
-    //        const [status, message] = [response.status, await response.text()];
-    //        if(status === 200){
-    //            props.hasFormHandle(true);
-    //        }else{
-    //            props.hasFormHandle(false);
-    //        }
-    //        handleFormResponse(status, message, setFormErrors, navigate, '/' );
-    //    } catch (error) {
-    //      console.error(error.message);
-    //    }
-    //  };
+  const handleSendButtonClick = async () => {
+      try {
+          const response = await updateUserProfile({ name: name, surname: surname});
+          const [status, message] = [response.status, await response.text()];
+          if(status === 200){
+              setStatus(message);
+          }else{
+              setStatus(message);
+          }
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+
     return (
         <ThemeProvider theme={defaultTheme}>
         <Grid container component="main" sx={{ height: '100vh' }}>
@@ -77,7 +91,9 @@ function UserProfile() {
                 required
                 id="name"
                 name="name"
-                value={userData.firstName}
+                helperText={formErrors["name"]}
+                onChange={handleChange}
+                value={name}
                 />
                 <TextField
                 InputLabelProps={{ shrink: true }}
@@ -86,7 +102,9 @@ function UserProfile() {
                 required
                 id="surname"
                 name="surname"
-                value={userData.lastName}
+                helperText={formErrors["surname"]}
+                onChange={handleChange}
+                value={surname}
                 />
                 <TextField
                 InputLabelProps={{ shrink: true }}
@@ -104,12 +122,17 @@ function UserProfile() {
                   label="Have you passed obligatory form?" />
                 </FormGroup>
                 <Button
+                disabled={!isFormValid(formErrors, [name, surname]) 
+                || (name === userData.firstName && surname === userData.lastName)}
                 type="submit"
                 variant="contained"
+                onClick={handleSendButtonClick}
                 sx={{ mt: 3, mb: 2, backgroundColor: "#9CD91B",  }}
                 >
                 Save changes
               </Button>
+              <p>{formErrors["general"]}</p>
+              <p>{status}</p>
             </Box>
           </Grid>
           <Grid item xs={false} sm={4} md={6}

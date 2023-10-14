@@ -1,5 +1,7 @@
 ﻿using System.Security.Claims;
+using FitnessApp.Application.UserProfile.Commands.UpdateUserInformation;
 using FitnessApp.Application.UserProfile.Queries.GetUserInformation;
+using FitnessApp.Contracts.UserProfile;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +30,17 @@ namespace FitnessApp.Api.Controllers
             var result = await _mediator.Send(query);
 
             return Ok(result);
+        }
+
+        [HttpPut("updatedUser")]
+        public async Task<IActionResult> Update(UpdateUserInfoRequest request)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var command = new UpdateUserInformationCommand(new Guid(userId), request.FirstName, request.LastName);
+
+            var result = await _mediator.Send(command);
+
+            return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());
         }
     }
 }

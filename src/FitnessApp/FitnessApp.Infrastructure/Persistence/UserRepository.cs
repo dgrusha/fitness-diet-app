@@ -42,4 +42,11 @@ public class UserRepository : IUserRepository
         user.HasObligatoryForm = hasObligatoryForm;
         _userContext.SaveChangesAsync();
     }
+
+    public void UpdateUserInfo(User user, string firstName, string lastName)
+    {
+        user.FirstName = firstName;
+        user.LastName = lastName;
+        _userContext.SaveChangesAsync();
+    }
 }

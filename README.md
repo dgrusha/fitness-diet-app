@@ -89,3 +89,10 @@ dotnet ef database update --project FitnessApp.Infrastructure --startup-project 
 DONE!
 
 REDIS ADRESS = 127.0.0.1:6379
+
+## Setting up AWS CLI configuration
+Go here and install the AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+Access key and token are kept privately so ask dgrusha for permission
+Then check if it was installed properly -> aws --version
+And to set it up use -> aws configure 
+Our region is eu-north-1

@@ -13,20 +13,24 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
+import LinearProgress from '@mui/material/LinearProgress';
 import image_profile from "../../img/user_profile_page.png"; 
 import {getUser} from '../../apiCalls/userProfileGetInfo'
 import { handleTextInputChange } from '../../helpers/inputChanges';
+import { resizeAndSetPhoto } from '../../helpers/photoHelper';
 import {validateUserProfileFields} from '../../validators/userProfileValidator'
 import { isFormValid } from '../../helpers/isFormValid';
 import { updateUserProfile } from '../../apiCalls/userProfileUpdateInfo';
 
 function UserProfile() {
-  const navigate = useNavigate();
   const [status, setStatus] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState({ name:"", surname:"", general:""});
   const [userData, setUserData] = useState({});
+  const [avatar, setAvatar] = useState(process.env.PUBLIC_URL + '/photo/animal_workout.jpg');
+  const [photoFile, setPhotoFile] = useState(undefined);
   const setters = {
     "name": setName,
     "surname": setSurname
@@ -48,20 +52,42 @@ function UserProfile() {
         setUserData(data);
         setName(data.firstName);
         setSurname(data.lastName);
+        if(data.avatarFileName !== undefined && data.avatarFileName !==''){
+          setAvatar(data.avatarFileName);
+        }
+        
     });
   }, []); 
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setPhotoFile(file);
+    const reader = new FileReader();
+    reader.onload = () => {
+      resizeAndSetPhoto(reader, setAvatar, 200, 200);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleAvatarClick = () => {
+    document.getElementById('photo-upload').click();
+  };
+
   const handleSendButtonClick = async () => {
       try {
-          const response = await updateUserProfile({ name: name, surname: surname});
+          setIsSubmitting(true);
+          const response = await updateUserProfile({ name: name, surname: surname, photo: photoFile});
           const [status, message] = [response.status, await response.text()];
           if(status === 200){
               setStatus(message);
           }else{
               setStatus(message);
           }
+          
       } catch (error) {
         console.error(error.message);
+      }finally{
+        setIsSubmitting(false);
       }
     };
 
@@ -83,7 +109,14 @@ function UserProfile() {
               <Typography variant="title1">
                 Account Settings
               </Typography>
-                <Avatar alt="The avatar" src={process.env.PUBLIC_URL + '/photo/animal_workout.jpg'} />
+                <Avatar alt="The avatar" src={avatar} onClick={handleAvatarClick} />
+                <input
+                  accept="image/*"
+                  style={{ display: 'none' }}
+                  id="photo-upload"
+                  type="file"
+                  onChange={handleFileChange}
+                />
                 <TextField
                 InputLabelProps={{ shrink: true }}
                 label="Name"
@@ -131,6 +164,7 @@ function UserProfile() {
                 >
                 Save changes
               </Button>
+              {isSubmitting && <LinearProgress color="success" />}
               <p>{formErrors["general"]}</p>
               <p>{status}</p>
             </Box>

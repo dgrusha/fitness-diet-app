@@ -3,7 +3,6 @@ import { getCurrentUser } from '../helpers/authHelper';
 const baseUrl = 'https://localhost:7194/userProfile/getUser';
 
 export const getUser = async () => {
-    console.log(1);
   const token = getCurrentUser();
   try {
       const response = await fetch(baseUrl, {

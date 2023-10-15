@@ -43,10 +43,16 @@ public class UserRepository : IUserRepository
         _userContext.SaveChangesAsync();
     }
 
+    public void UpdateUserAvatar(User user, string avatarName)
+    {
+        user.AvatarFileName = avatarName;
+        _userContext.SaveChanges();
+    }
+
     public void UpdateUserInfo(User user, string firstName, string lastName)
     {
         user.FirstName = firstName;
         user.LastName = lastName;
-        _userContext.SaveChangesAsync();
+        _userContext.SaveChanges();
     }
 }

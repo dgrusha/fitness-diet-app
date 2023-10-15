@@ -55,15 +55,41 @@ const defaultTheme = createTheme({
           }
         }
       },
-      MuiAvatar:{
+      MuiAvatar: {
         styleOverrides: {
-            root:{
-                marginTop: '5%',
-                height: '15%',
-                width: '15%'
-            }
-        }
-      }
+          root: {
+            marginTop: '5%',
+            height: '150px', 
+            width: '150px',  
+            position: 'relative',
+            cursor: 'pointer',
+            "&:hover": {
+              "&::before": {
+                content: '"Upload"',
+                color: 'white',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 1,
+              },
+              "& p": {
+                color: '#FFFFFF',
+              },
+            },
+          },
+          img: {
+            objectFit: 'cover', 
+            width: '100%',      
+            height: '100%',     
+          },
+        },
+      },
     }
   });
 

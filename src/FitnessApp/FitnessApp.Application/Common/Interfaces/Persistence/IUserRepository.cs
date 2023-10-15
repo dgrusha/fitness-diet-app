@@ -13,4 +13,5 @@ public interface IUserRepository
     void Add(User user);
     void UpdateObligatoryFormStatus(User user, bool hasObligatoryForm);
     void UpdateUserInfo(User user, string firstName, string lastName);
+    void UpdateUserAvatar(User user, string avatarName);
 }

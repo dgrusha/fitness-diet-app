@@ -27,10 +27,11 @@ public class GetUserInformationQueryHandler : IRequestHandler<GetUserInformation
         };
 
         return new GetUserProfileResult(
-            user.LastName,
             user.FirstName,
+            user.LastName,
             user.Email,
-            user.HasObligatoryForm
+            user.HasObligatoryForm,
+            user.AvatarFileName
         );
     }
 }

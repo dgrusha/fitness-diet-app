@@ -10,5 +10,6 @@ public record GetUserProfileResult
     string FirstName,
     string LastName,
     string Email,
-    bool HasObligatoryForm
+    bool HasObligatoryForm,
+    string? AvatarFileName
 );

@@ -17,6 +17,8 @@ public class User
 
     public string Password { get; set; } = null!;
 
+    public string? AvatarFileName { get; set; }
+
     public bool HasObligatoryForm { get; set; } = false;
 
     public ObligatoryForm? ObligatoryForm { get; set; }

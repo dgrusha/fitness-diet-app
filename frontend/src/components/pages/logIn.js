@@ -9,8 +9,8 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { ThemeProvider } from '@mui/material/styles';
-
+import LinearProgress from '@mui/material/LinearProgress';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { handleFormResponse } from  '../../helpers/formVerification';
 import { login } from '../../apiCalls/login';
 import { validateLoginFormFields } from '../../validators/loginValidator';
@@ -24,6 +24,7 @@ function LogIn(props) {
     email: '',
     password: ''
   })
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formErrors, setFormErrors] = useState({ firstName:"", lastName:"", email:"", password: ""});
 
   const handleChange = event => {
@@ -41,6 +42,7 @@ function LogIn(props) {
   }
 
   const handleSubmit =async () => {
+    setIsSubmitting(true);
     try {
         const response = await login({ email: user.email, password: user.password});
         const [status, message] = [response.status, await response.json()];
@@ -127,6 +129,7 @@ function LogIn(props) {
                   </Link>
                 </Grid>
               </Grid>
+              {isSubmitting && <LinearProgress color="success" />}
             </Box>
           </Box>
         </Grid>

@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using FitnessApp.Infrastructure.Contexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Amazon.S3;
 
 namespace FitnessApp.Infrastructure;
 
@@ -28,6 +29,8 @@ public static class DependencyInjection
     {
         serviceCollection.AddAuthenticationCustom(configuration);
         serviceCollection.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+        serviceCollection.AddDefaultAWSOptions(configuration.GetAWSOptions());
+        serviceCollection.AddAWSService<IAmazonS3>();
 
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
         serviceCollection.AddScoped<IAllergyRepository, AllergyRepository>();

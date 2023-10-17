@@ -1,24 +1,26 @@
-import React, { useState, useEffect  } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import {
+  Box,
+  Grid,
+  Paper,
+  Button,
+  Typography,
+  CssBaseline,
+  Avatar,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+  TextField,
+  LinearProgress,
+} from '@mui/material';
+
 import defaultTheme from './userProfileTheme';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Avatar from '@mui/material/Avatar';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import TextField from '@mui/material/TextField';
-import LinearProgress from '@mui/material/LinearProgress';
-import image_profile from "../../img/user_profile_page.png"; 
-import {getUser} from '../../apiCalls/userProfileGetInfo'
+import image_profile from '../../img/user_profile_page.png';
+import { getUser } from '../../apiCalls/userProfileGetInfo';
 import { handleTextInputChange } from '../../helpers/inputChanges';
 import { resizeAndSetPhoto } from '../../helpers/photoHelper';
-import {validateUserProfileFields} from '../../validators/userProfileValidator'
+import { validateUserProfileFields } from '../../validators/userProfileValidator';
 import { isFormValid } from '../../helpers/isFormValid';
 import { updateUserProfile } from '../../apiCalls/userProfileUpdateInfo';
 
@@ -48,6 +50,7 @@ function UserProfile() {
   }
 
   useEffect(() => {
+    setIsSubmitting(true);
     getUser().then((data) => {
         setUserData(data);
         setName(data.firstName);
@@ -57,6 +60,7 @@ function UserProfile() {
         }
         
     });
+    setIsSubmitting(false);
   }, []); 
 
   const handleFileChange = (event) => {

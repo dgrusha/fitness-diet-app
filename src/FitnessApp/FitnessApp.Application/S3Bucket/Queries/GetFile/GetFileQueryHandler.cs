@@ -41,6 +41,7 @@ public class GetFileQueryHandler : IRequestHandler<GetFileQuery, FileUrlResponse
         catch (Exception ex) 
         {
             Console.WriteLine(ex);
+            return new FileUrlResponse("", ex.ToString());
         }
     }
 }

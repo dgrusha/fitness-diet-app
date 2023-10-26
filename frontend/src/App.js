@@ -6,6 +6,8 @@ import { useState } from "react";
 import SideBar from './components/sideBar/sideBar';
 import FormObligatory  from './components/formObligatory/formObligatory';
 import SignUp  from './components/pages/signUpClient';
+import ChatWindow from './components/chat/chatWindow';
+import ChatNew from './components/chatNew/chatNewWindow';
 import Login  from './components/pages/logIn';
 import UserProfile from './components/userProfile/userProfile'
 
@@ -44,6 +46,8 @@ function App() {
             <Route path="get_started" element={<ProtectedRouteWithCondition><FormObligatory hasFormHandle={hasFormHandle} /></ProtectedRouteWithCondition>} />
             <Route path="register" element={<UnprotectedRoute><SignUp/></UnprotectedRoute>} />
             <Route path="my_profile" element={<ProtectedRoute><UserProfile/></ProtectedRoute>} />
+            <Route path="chat" element={<ProtectedRoute><ChatWindow/></ProtectedRoute>} />
+            <Route path="chat_new" element={<ProtectedRoute><ChatNew/></ProtectedRoute>} />
             <Route path="login" element={<UnprotectedRoute><Login hasFormHandle={hasFormHandle} handleLogin={handleLogin} /></UnprotectedRoute>} />
         </Routes>
       </main>

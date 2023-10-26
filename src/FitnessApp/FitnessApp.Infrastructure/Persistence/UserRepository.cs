@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FitnessApp.Application.Common.DTO;
 using FitnessApp.Application.Common.Interfaces.Persistence;
 using FitnessApp.Domain.Entities;
 using FitnessApp.Infrastructure.Contexts;
@@ -22,6 +23,19 @@ public class UserRepository : IUserRepository
     {
         _userContext.Users.Add(user);
         _userContext.SaveChangesAsync();
+    }
+
+    public List<UserDto> GetAllUsersExceptMe(Guid id)
+    {
+        return _userContext.Users
+            .Where(u => u.Id != id)
+            .Select(u => new UserDto
+            {
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                Mail = u.Email
+            })
+            .ToList();
     }
 
     public User? GetUserByEmail(string email)

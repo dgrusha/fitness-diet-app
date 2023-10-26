@@ -6,6 +6,7 @@ import './sideBar.css';
 import EmojiFlagsIcon from '@mui/icons-material/EmojiFlags';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import LoginIcon from '@mui/icons-material/Login';
+import ChatIcon from '@mui/icons-material/Chat';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
@@ -38,6 +39,7 @@ function SideBar(props) {
           {isAuthenticatedParam ? (
               <>
                   <MenuItem icon={<RestaurantIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/diet">Diet</Link></MenuItem>
+                  <MenuItem icon={<ChatIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/chat">Chat</Link></MenuItem>
                   <SubMenu icon={<MiscellaneousServicesIcon className="MenuIcon"/>} className="LinkSideBar" label="Service">
                       <MenuItem
                         className="SubMenu" 

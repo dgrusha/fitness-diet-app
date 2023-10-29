@@ -75,6 +75,11 @@ Run migrations:
 dotnet ef database update --project FitnessApp.Infrastructure --startup-project FitnessApp.Api
 ```
 
+Delete last migration: 
+```
+dotnet ef migrations remove --project FitnessApp.Infrastructure --startup-project FitnessApp.Api
+```
+
 ### Flow for basic adding of a model
 
 1. Add Model in Domain layer 

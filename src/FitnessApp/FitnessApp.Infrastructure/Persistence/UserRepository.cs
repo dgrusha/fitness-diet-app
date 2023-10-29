@@ -40,14 +40,14 @@ public class UserRepository : IUserRepository
 
     public User? GetUserByEmail(string email)
     {
-        User user = _userContext.Users.SingleOrDefault(user => user.Email == email);
+        User? user = _userContext.Users.SingleOrDefault(user => user.Email == email);
         return user;
     }
 
     public User? GetUserById(Guid id)
     {
 
-        User user = _userContext.Users.Include(u => u.ObligatoryForm).SingleOrDefault(user => user.Id == id);
+        User? user = _userContext.Users.Include(u => u.ObligatoryForm).SingleOrDefault(user => user.Id == id);
         return user;
     }
 

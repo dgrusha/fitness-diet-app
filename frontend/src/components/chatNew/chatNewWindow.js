@@ -1,6 +1,8 @@
-// ChatPage.js
 import React, { useState, useEffect } from 'react';
 import { getAllUsers } from '../../apiCalls/chatGetUsers';
+import { getCurrentUserEmail } from '../../helpers/authHelper';
+import { joinRoom, sendMessage } from '../../helpers/signalRHandlers';
+import { getChatHistory } from '../../apiCalls/chatGetHistory';
 import {
   Box,
   TextField,
@@ -10,77 +12,72 @@ import {
   Typography,
   Autocomplete,
   ThemeProvider,
-  createTheme,
 } from '@mui/material';
-
-// Define your theme
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1976D2',
-    },
-    info: {
-      main: '#2196F3',
-    },
-  },
-  chatContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100vh',
-    backgroundColor: 'white',
-  },
-  header: {
-    padding: 2,
-    borderBottom: '1px solid grey',
-    backgroundColor: 'white',
-    display: 'flex',
-    alignItems: 'center',
-  },
-  messagesContainer: {
-    flex: 1,
-    overflowY: 'auto',
-    padding: 2,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  messageBox: {
-    marginBottom: 8,
-    width: '50%', // Set the width to 50%
-    borderRadius: 8,
-    padding: 1,
-  },
-  inputSection: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: 2,
-  },
-});
+import {theme} from './chatNewWindowTheme';
 
 const ChatPage = () => {
-  const [messages, setMessages] = useState([
-    { text: 'Hello!', sender: 'user' },
-    { text: 'Hi there!', sender: 'other' },
-    { text: 'How are you?', sender: 'user' },
-    { text: "I'm good, thanks!", sender: 'other' },
-  ]);
-
+  const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const [selectedUser, setSelectedUser] = useState(null);// Replace with actual user data
+  const [selectedUser, setSelectedUser] = useState(null);
   const [allUsers, setAllUsers] = useState([]);
+  const [connection, setConnection] = useState();
+  const currentUserEmail = getCurrentUserEmail();
 
   const handleSendMessage = () => {
     if (newMessage.trim() !== '' && selectedUser) {
-      setMessages([
-        ...messages,
-        { text: newMessage, sender: 'user', userId: selectedUser.id },
-      ]);
+      sendMessage(newMessage, connection);
       setNewMessage('');
     }
   };
 
+  const cleanupConnection = () => {
+    if (connection) {
+      connection.stop();
+    }
+  };
+
+  const handleChangeChat = (event, newValue) => {
+    setMessages([]);
+    if (newValue.Mail !== undefined && newValue.Mail !== '') {
+      try {
+        cleanupConnection();
+        getChatHistory({ receiverEmail: newValue.Mail }).then((data) => {
+          setMessages(
+            data.map((item) => {
+              return {
+                text: item.Text,
+                sender: item.Email,
+              };
+            })
+          );
+        });
+        joinRoom(
+          currentUserEmail,
+          newValue.Mail,
+          setMessages,
+          messages,
+          setConnection
+        );
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+    setSelectedUser(newValue);
+  };
+
+  const isOptionEqualToValue = (option, value) => {
+    return option.Mail === value.Mail;
+  };
+
+  useEffect(() => {
+    return () => {
+      cleanupConnection();
+    };
+  }, []);
+
   useEffect(() => {
     getAllUsers().then((data) => setAllUsers(data));
-}, []);  
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -88,12 +85,19 @@ const ChatPage = () => {
         <Box sx={theme.header}>
           <Autocomplete
             options={allUsers}
-            getOptionLabel={(option) => option.FirstName + " " + option.LastName}
+            getOptionLabel={(option) => option.FirstName + ' ' + option.LastName}
             value={selectedUser}
-            onChange={(event, newValue) => setSelectedUser(newValue)}
+            onChange={handleChangeChat}
+            isOptionEqualToValue={isOptionEqualToValue}
             fullWidth
             renderInput={(params) => (
-              <TextField {...params} label="Search user" variant="outlined" fullWidth />
+              <TextField
+                {...params}
+                label="Search user"
+                variant="outlined"
+                fullWidth
+                sx={theme.autocomplete}
+              />
             )}
           />
         </Box>
@@ -105,14 +109,14 @@ const ChatPage = () => {
               key={index}
               sx={{
                 marginBottom: 1,
-                textAlign: message.sender === 'user' ? 'right' : 'left',
+                textAlign: message.sender === currentUserEmail ? 'right' : 'left',
               }}
             >
               <Typography
                 variant="body1"
                 sx={{
                   backgroundColor:
-                    message.sender === 'user' ? '#9cd91b' : 'info.main',
+                    message.sender === currentUserEmail ? '#9cd91b' : 'info.main',
                   color: 'white',
                   padding: 1,
                   borderRadius: 8,
@@ -135,8 +139,10 @@ const ChatPage = () => {
             fullWidth
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
+            sx={theme.textField}
           />
           <Button
+            disabled={!selectedUser}
             variant="contained"
             color="success"
             onClick={handleSendMessage}

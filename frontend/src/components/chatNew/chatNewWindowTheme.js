@@ -1,23 +1,69 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material';
 
-const defaultTheme = createTheme({
-    table: {
-      minWidth: 650,
+export const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976D2',
     },
-    chatSection: {
-      width: '100%',
-      height: '100vh'
+    info: {
+      main: '#2196F3',
     },
-    headBG: {
-        backgroundColor: '#e0e0e0'
+  },
+  chatContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh',
+    backgroundColor: 'white',
+  },
+  header: {
+    padding: 2,
+    borderBottom: '1px solid grey',
+    backgroundColor: 'white',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  messagesContainer: {
+    flex: 1,
+    overflowY: 'auto',
+    padding: 2,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  messageBox: {
+    marginBottom: 8,
+    width: '50%',
+    borderRadius: 8,
+    padding: 1,
+  },
+  inputSection: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: 2,
+  },
+  textField: {
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: '#9cd91b',
+      },
     },
-    borderRight500: {
-        borderRight: '1px solid #e0e0e0'
+    '& label.Mui-focused': {
+      color: '#9cd91b',
     },
-    messageArea: {
-      height: '70vh',
-      overflowY: 'auto'
-    }
-  });
-
-  export default defaultTheme;
+    '& label': {
+      color: '#000000',
+    },
+  },
+  autocomplete: {
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: '#9cd91b',
+      },
+    },
+    '& label.Mui-focused': {
+      color: '#9cd91b', 
+    },
+    '& label': {
+      color: '#000000', 
+    },
+  },
+});

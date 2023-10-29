@@ -2,5 +2,5 @@
 public record UserConnection
 (
     string User, 
-    string Room
+    string Reciever
 );

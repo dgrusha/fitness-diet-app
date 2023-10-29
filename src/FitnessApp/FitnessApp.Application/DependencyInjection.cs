@@ -16,7 +16,7 @@ public static class DependencyInjection
     {
         serviceCollection.AddMediatR(typeof(DependencyInjection).Assembly);
         serviceCollection.AddSingleton<IHashing, Hashing>();
-        serviceCollection.AddSingleton<IDictionary<string, UserConnection>>(opts => new Dictionary<string, UserConnection>());
+        serviceCollection.AddSingleton<IDictionary<string, UserConnectionInner>>(opts => new Dictionary<string, UserConnectionInner>());
 
         return serviceCollection;
     }

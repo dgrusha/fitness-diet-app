@@ -9,4 +9,5 @@ public interface IHashing
 {
     string HashFileName(string name);
 
+    string GetUniqueName(string sender, string receiver);
 }

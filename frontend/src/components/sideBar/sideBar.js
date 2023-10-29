@@ -32,14 +32,22 @@ function SideBar(props) {
           </MenuItem>
           {isAuthenticatedParam && hasPassedObligatoryFormParam === 'false'  ? (
               <>
-                  <MenuItem icon={<EmojiFlagsIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/get_started">Get started</Link></MenuItem>
-                  
+                  <MenuItem 
+                  icon={<EmojiFlagsIcon className="MenuIcon"/>}
+                  component={<Link className="LinkSideBar" to="/get_started"/>}>Get started
+                  </MenuItem>
               </>
           ) : null}
           {isAuthenticatedParam ? (
               <>
-                  <MenuItem icon={<RestaurantIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/diet">Diet</Link></MenuItem>
-                  <MenuItem icon={<ChatIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/chat">Chat</Link></MenuItem>
+                  <MenuItem 
+                    icon={<RestaurantIcon className="MenuIcon"/>}
+                    component={<Link className="LinkSideBar" to="/diet"/>}>Diet
+                  </MenuItem>
+                  <MenuItem 
+                    icon={<ChatIcon className="MenuIcon"/>}
+                    component={<Link className="LinkSideBar" to="/chat"/>}>Chat
+                  </MenuItem>
                   <SubMenu icon={<MiscellaneousServicesIcon className="MenuIcon"/>} className="LinkSideBar" label="Service">
                       <MenuItem
                         className="SubMenu" 

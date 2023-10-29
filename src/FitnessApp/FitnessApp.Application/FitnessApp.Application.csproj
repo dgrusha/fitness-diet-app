@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Chat\Commands\" />
     <Folder Include="GetStarted\Commands\AddObligatoryForm\" />
     <Folder Include="GetStarted\Commands\DeleteObligatoryForm\" />
     <Folder Include="GetStarted\Commands\UpdateObligatoryForm\" />

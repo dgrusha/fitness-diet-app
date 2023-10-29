@@ -26,4 +26,17 @@ public class Hashing : IHashing
             return sb.ToString();
         }
     }
+
+    public string GetUniqueName(string sender, string receiver)
+    {
+        string concatenatedNames = sender.CompareTo(receiver) < 0
+            ? $"{sender}_{receiver}"
+            : $"{receiver}_{sender}";
+
+        using (SHA256 sha256 = SHA256.Create())
+        {
+            byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(concatenatedNames));
+            return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+        }
+    }
 }

@@ -8,6 +8,7 @@ import FormObligatory  from './components/formObligatory/formObligatory';
 import SignUp  from './components/pages/signUpClient';
 import ChatNew from './components/chatNew/chatNewWindow';
 import Login  from './components/pages/logIn';
+import MainPage from './components/mainPage/mainPage';
 import UserProfile from './components/userProfile/userProfile'
 
 import ProtectedRoute from "./components/protectedRoute";
@@ -46,6 +47,7 @@ function App() {
         <Routes>
             <Route path="get_started" element={<ProtectedRouteWithCondition><FormObligatory hasFormHandle={hasFormHandle} /></ProtectedRouteWithCondition>} />
             <Route path="register" element={<UnprotectedRoute><SignUp/></UnprotectedRoute>} />
+            <Route path="" element={<MainPage/>} />
             <Route path="my_profile" element={<ProtectedRoute><UserProfile/></ProtectedRoute>} />
             <Route path="chat" element={<ProtectedRoute><ChatNew/></ProtectedRoute>} />
             <Route path="login" element={<UnprotectedRoute><Login hasFormHandle={hasFormHandle} handleLogin={handleLogin} /></UnprotectedRoute>} />

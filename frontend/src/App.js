@@ -10,6 +10,7 @@ import ChatNew from './components/chatNew/chatNewWindow';
 import Login  from './components/pages/logIn';
 import MainPage from './components/mainPage/mainPage';
 import UserProfile from './components/userProfile/userProfile'
+import Feedback from './components/feedback/feedback';
 
 import ProtectedRoute from "./components/protectedRoute";
 import UnprotectedRoute from "./components/unprotectedRoute";
@@ -49,6 +50,7 @@ function App() {
             <Route path="register" element={<UnprotectedRoute><SignUp/></UnprotectedRoute>} />
             <Route path="" element={<MainPage/>} />
             <Route path="my_profile" element={<ProtectedRoute><UserProfile/></ProtectedRoute>} />
+            <Route path="feedback" element={<ProtectedRoute><Feedback/></ProtectedRoute>} />
             <Route path="chat" element={<ProtectedRoute><ChatNew/></ProtectedRoute>} />
             <Route path="login" element={<UnprotectedRoute><Login hasFormHandle={hasFormHandle} handleLogin={handleLogin} /></UnprotectedRoute>} />
         </Routes>

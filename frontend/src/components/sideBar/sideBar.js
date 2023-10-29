@@ -7,6 +7,7 @@ import EmojiFlagsIcon from '@mui/icons-material/EmojiFlags';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import LoginIcon from '@mui/icons-material/Login';
 import ChatIcon from '@mui/icons-material/Chat';
+import ReviewsIcon from '@mui/icons-material/Reviews';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
@@ -53,6 +54,11 @@ function SideBar(props) {
                         className="SubMenu" 
                         icon={<PersonIcon className="MenuIcon"/>} 
                         component={<Link className="LinkSideBar" to="/my_profile"/>}>My profile
+                      </MenuItem>
+                      <MenuItem
+                        className="SubMenu" 
+                        icon={<ReviewsIcon className="MenuIcon"/>} 
+                        component={<Link className="LinkSideBar" to="/feedback"/>}>Feedback
                       </MenuItem>
                       <MenuItem 
                         className="SubMenu" 

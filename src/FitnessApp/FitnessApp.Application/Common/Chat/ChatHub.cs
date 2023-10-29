@@ -51,9 +51,9 @@ public class ChatHub : Hub
     public async Task JoinRoom(UserConnection userConnection) 
     {
         string roomName = _hashing.GetUniqueName(userConnection.User, userConnection.Reciever);
-        var conversation = _conversationRepository.GetById(roomName);
-        var user = _userRepository.GetUserByEmail(userConnection.User);
-        var receiver = _userRepository.GetUserByEmail(userConnection.Reciever);
+        Conversation? conversation = _conversationRepository.GetById(roomName);
+        User? user = _userRepository.GetUserByEmail(userConnection.User);
+        User? receiver = _userRepository.GetUserByEmail(userConnection.Reciever);
         if (user == null || receiver == null)
         {
             return;
@@ -63,7 +63,6 @@ public class ChatHub : Hub
         receiverId = receiver.Id;
         if (conversation == null)
         {
-            
             Conversation conversationToSave = new Conversation
             {
                 Id = roomName,

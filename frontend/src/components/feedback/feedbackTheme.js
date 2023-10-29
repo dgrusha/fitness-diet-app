@@ -13,15 +13,17 @@ const defaultTheme = createTheme({
       title1: {
         fontWeight: 800,
         color: "#9CD91B",
-        fontSize: 36
+        fontSize: 36,
+        marginBottom: 20
       }
     },
     components: {
       MuiTextField: {
         styleOverrides: {
           root: {
-            height: '40%',
-            width: '40%',
+            height: '45%',
+            width: '45%',
+            marginTop:10,
             "& .MuiInputLabel-root": { color: "#7D8386" },
             "& .MuiOutlinedInput-root": {
               "& fieldset": { borderColor: "#9CD91B", borderWidth: 1 },
@@ -45,7 +47,7 @@ const defaultTheme = createTheme({
         styleOverrides: {
           root: {
             color: "#FFFFFF",
-            width: '40%',
+            width: '45%',
             backgroundColor: "#9CD91B",
             "&:hover": {
               backgroundColor: "#6D9712",

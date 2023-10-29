@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FitnessApp.Application.Common.DTO;
 using FitnessApp.Application.Common.Interfaces.Persistence;
 using FitnessApp.Domain.Entities;
 using MediatR;
@@ -26,8 +27,19 @@ public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, string>
             return Task.FromResult("empty");
         };
 
-        var users = _userRepository.GetAllUsersExceptMe(request.Id);
+        Console.WriteLine(user.FirstName);
+        Console.WriteLine(user.Coach);
+        List<UserDto> users;
+        if (user.Coach != null)
+        {
+            users = _userRepository.GetAllUsersExceptMe(request.Id);
+        }
+        else 
+        {
+            users = _userRepository.GetAllCoachesExceptMe(request.Id);
+        }
 
+        Console.WriteLine(users.Count);
         if (users == null || users.Count == 0)
         {
             return Task.FromResult("empty");

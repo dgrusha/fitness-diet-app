@@ -137,6 +137,8 @@ const ChatPage = () => {
             label="Type your message"
             variant="outlined"
             fullWidth
+            multiline
+            maxRows={4}
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             sx={theme.textField}

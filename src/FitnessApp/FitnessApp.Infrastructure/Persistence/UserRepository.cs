@@ -25,10 +25,23 @@ public class UserRepository : IUserRepository
         _userContext.SaveChangesAsync();
     }
 
+    public List<UserDto> GetAllCoachesExceptMe(Guid id)
+    {
+        return _userContext.Users
+            .Where(u => u.Id != id && u.Coach != null)
+            .Select(u => new UserDto
+            {
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                Mail = u.Email
+            })
+            .ToList();
+    }
+
     public List<UserDto> GetAllUsersExceptMe(Guid id)
     {
         return _userContext.Users
-            .Where(u => u.Id != id)
+            .Where(u => u.Id != id && u.Coach == null)
             .Select(u => new UserDto
             {
                 FirstName = u.FirstName,
@@ -47,7 +60,10 @@ public class UserRepository : IUserRepository
     public User? GetUserById(Guid id)
     {
 
-        User? user = _userContext.Users.Include(u => u.ObligatoryForm).SingleOrDefault(user => user.Id == id);
+        User? user = _userContext.Users
+            .Include(u => u.ObligatoryForm)
+            .Include(u => u.Coach)
+            .SingleOrDefault(user => user.Id == id);
         return user;
     }
 

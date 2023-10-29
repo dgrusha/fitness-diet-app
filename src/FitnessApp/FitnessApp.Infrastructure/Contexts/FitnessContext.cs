@@ -17,6 +17,7 @@ public class FitnessContext : DbContext
     public DbSet<Conversation> Conversations { get; set; } = null!;
     public DbSet<Message> Messages { get; set; } = null!;
     public DbSet<Coach> Coaches { get; set; } = null!;
+    public DbSet<Rating> Ratings { get; set; } = null!;
 
     public FitnessContext(DbContextOptions<FitnessContext> options)
         : base(options)
@@ -32,6 +33,7 @@ public class FitnessContext : DbContext
         modelBuilder.ApplyConfiguration(new ConversationConfiguration());
         modelBuilder.ApplyConfiguration(new MessageConfiguration());
         modelBuilder.ApplyConfiguration(new CoachConfiguration());
+        modelBuilder.ApplyConfiguration(new RatingConfiguration());
     }
 
 }

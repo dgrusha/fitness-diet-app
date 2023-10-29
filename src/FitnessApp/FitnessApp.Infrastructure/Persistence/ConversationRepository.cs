@@ -21,7 +21,7 @@ public class ConversationRepository : IConversationRepository
     public void Add(Conversation conversation)
     {
         _conversationContext.Conversations.Add(conversation);
-        _conversationContext.SaveChangesAsync();
+        _conversationContext.SaveChanges();
     }
 
     public Conversation? GetById(string id)

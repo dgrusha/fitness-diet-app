@@ -14,6 +14,9 @@ public class FitnessContext : DbContext
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Allergy> Allergies { get; set; } = null!;
     public DbSet<ObligatoryForm> ObligatoryForms { get; set; } = null!;
+    public DbSet<Conversation> Conversations { get; set; } = null!;
+    public DbSet<Message> Messages { get; set; } = null!;
+    public DbSet<Coach> Coaches { get; set; } = null!;
 
     public FitnessContext(DbContextOptions<FitnessContext> options)
         : base(options)
@@ -26,6 +29,9 @@ public class FitnessContext : DbContext
         modelBuilder.ApplyConfiguration(new MainConfiguration());
         modelBuilder.ApplyConfiguration(new AllergyConfiguration());
         modelBuilder.ApplyConfiguration(new ObligatoryFormConfiguration());
+        modelBuilder.ApplyConfiguration(new ConversationConfiguration());
+        modelBuilder.ApplyConfiguration(new MessageConfiguration());
+        modelBuilder.ApplyConfiguration(new CoachConfiguration());
     }
 
 }

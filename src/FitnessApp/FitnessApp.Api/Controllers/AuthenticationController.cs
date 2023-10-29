@@ -6,6 +6,8 @@ using MediatR;
 using FitnessApp.Application.Commands.Register;
 using FitnessApp.Application.Services.Authentication.Common;
 using FitnessApp.Application.Queries;
+using FitnessApp.Application.S3Bucket.Commands.AddFile;
+using FitnessApp.Application.Authentication.Commands.RegisterCoach;
 
 namespace FitnessApp.Api.Controllers
 {
@@ -31,6 +33,38 @@ namespace FitnessApp.Api.Controllers
                 registerRequest.LastName,
                 registerRequest.Email,
                 registerRequest.Password);
+
+            AuthenticationResult authResult = await _mediator.Send(command);
+
+            var response = new AuthenticationResponse(
+                authResult.id,
+                authResult.Email,
+                authResult.HasObligatoryForm,
+                authResult.Token);
+            return Ok(response);
+        }
+
+        [HttpPost("registerCoach")]
+        public async Task<IActionResult> RegisterCoach([FromForm] RegisterCoachRequest registerRequest)
+        {
+
+            string filePath = $"cv/{registerRequest.Email}{Path.GetExtension(registerRequest.File.FileName)}";
+            var commandUpload = new AddFileCommand
+                    (
+                        registerRequest.File,
+                        "fitnessdietbucket",
+                        filePath
+                    );
+            var resultUpload = await _mediator.Send(commandUpload);
+
+            var command = new RegisterCoachCommand(
+                registerRequest.FirstName,
+                registerRequest.LastName,
+                registerRequest.Email,
+                registerRequest.Password,
+                registerRequest.Text,
+                filePath
+            );
 
             AuthenticationResult authResult = await _mediator.Send(command);
 

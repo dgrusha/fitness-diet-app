@@ -22,4 +22,10 @@ public class User
     public bool HasObligatoryForm { get; set; } = false;
 
     public ObligatoryForm? ObligatoryForm { get; set; }
+    public Coach? Coach { get; set; }
+
+    public ICollection<Conversation> Conversations1 { get; set; } = new List<Conversation>();
+    public ICollection<Conversation> Conversations2 { get; set; } = new List<Conversation>();
+    public ICollection<Message> SentMessages { get; set; } = new List<Message>();
+    public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
 }

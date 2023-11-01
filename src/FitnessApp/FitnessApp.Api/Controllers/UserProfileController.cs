@@ -6,6 +6,7 @@ using FitnessApp.Application.S3Bucket.Commands.DeleteFile;
 using FitnessApp.Application.S3Bucket.Queries.GetFile;
 using FitnessApp.Application.UserProfile.Commands.UpdateUserAvatar;
 using FitnessApp.Application.UserProfile.Commands.UpdateUserInformation;
+using FitnessApp.Application.UserProfile.Queries.GetAllUsers;
 using FitnessApp.Application.UserProfile.Queries.GetUserInformation;
 using FitnessApp.Contracts.UserProfile;
 using MediatR;
@@ -27,6 +28,16 @@ namespace FitnessApp.Api.Controllers
         {
             _mediator = mediator;
             _hashing = hashing;
+        }
+
+        [HttpGet("getAllUsersExceptMe")]
+        public async Task<IActionResult> GetAllUsersExceptMe() 
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var query = new GetAllUserQuery(new Guid(userId));
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpGet("getUser")]

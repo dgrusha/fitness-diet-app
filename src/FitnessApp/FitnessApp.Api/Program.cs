@@ -1,6 +1,7 @@
 using System.Text;
 using FitnessApp.Api.Filters;
 using FitnessApp.Application;
+using FitnessApp.Application.Common.Chat;
 using FitnessApp.Infrastructure;
 using NLog;
 
@@ -11,13 +12,17 @@ var builder = WebApplication.CreateBuilder(args);
 {
     // Add services to the container.
     builder.Services.AddApplication();
+    builder.Services.AddSignalR();
     builder.Services.AddInfrastructure(builder.Configuration);
     builder.Services.AddCors(options =>
     {
         options.AddPolicy(name: FitnessAllowSpecificOrigins,
                           policy =>
                           {
-                              policy.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowCredentials().AllowAnyMethod();
+                              policy.WithOrigins("http://localhost:3000")
+                              .AllowAnyHeader()
+                              .AllowCredentials()
+                              .AllowAnyMethod();
                           });
     });
     builder.Services.AddControllers(
@@ -46,8 +51,9 @@ var app = builder.Build();
 
     app.UseAuthentication();
     app.UseAuthorization();
-
+    app.MapHub<ChatHub>("/chat");
     app.MapControllers();
+    
 
     app.Run();
 }

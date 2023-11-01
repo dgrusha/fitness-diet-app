@@ -45,6 +45,7 @@ const defaultTheme = createTheme({
         styleOverrides: {
           root: {
             color: "#FFFFFF",
+            width: '40%',
             backgroundColor: "#9CD91B",
             "&:hover": {
               backgroundColor: "#6D9712",

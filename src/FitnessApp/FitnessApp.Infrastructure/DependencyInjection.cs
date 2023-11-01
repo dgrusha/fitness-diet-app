@@ -35,6 +35,10 @@ public static class DependencyInjection
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
         serviceCollection.AddScoped<IAllergyRepository, AllergyRepository>();
         serviceCollection.AddScoped<IObligatoryFormRepository, ObligatoryFormRepository>();
+        serviceCollection.AddScoped<IConversationRepository, ConversationRepository>();
+        serviceCollection.AddScoped<IMessageRepository, MessageRepository>();
+        serviceCollection.AddScoped<ICoachRepository, CoachRepository>();
+        serviceCollection.AddScoped<IRatingRepository, RatingRepository>();
 
         string connectionString = configuration.GetConnectionString("SqlServerConnection");
         serviceCollection.AddDbContext<FitnessContext>(options =>

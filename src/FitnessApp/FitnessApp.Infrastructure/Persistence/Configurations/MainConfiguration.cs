@@ -32,6 +32,11 @@ public class MainConfiguration : IEntityTypeConfiguration<User>
             .WithOne(of => of.User!)
             .HasForeignKey<ObligatoryForm>(of => of.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(u => u.Coach)
+            .WithOne(c => c.User!)
+            .HasForeignKey<Coach>(c => c.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
 }

@@ -73,6 +73,80 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.ToTable("Allergies", (string)null);
                 });
 
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Coach", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CVFileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RecomendationText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Coaches", (string)null);
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Conversation", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("User1Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("User2Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("User1Id");
+
+                    b.HasIndex("User2Id");
+
+                    b.ToTable("Conversations", (string)null);
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Message", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConversationId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("SenderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TimeSent")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConversationId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages", (string)null);
+                });
+
             modelBuilder.Entity("FitnessApp.Domain.Entities.ObligatoryForm", b =>
                 {
                     b.Property<Guid>("UserId")
@@ -87,6 +161,32 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("ObligatoryForms", (string)null);
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Rating", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("RatingLevel")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TimeSent")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Ratings", (string)null);
                 });
 
             modelBuilder.Entity("FitnessApp.Domain.Entities.User", b =>
@@ -141,6 +241,55 @@ namespace FitnessApp.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Coach", b =>
+                {
+                    b.HasOne("FitnessApp.Domain.Entities.User", "User")
+                        .WithOne("Coach")
+                        .HasForeignKey("FitnessApp.Domain.Entities.Coach", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Conversation", b =>
+                {
+                    b.HasOne("FitnessApp.Domain.Entities.User", "User1")
+                        .WithMany("Conversations1")
+                        .HasForeignKey("User1Id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("FitnessApp.Domain.Entities.User", "User2")
+                        .WithMany("Conversations2")
+                        .HasForeignKey("User2Id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("User1");
+
+                    b.Navigation("User2");
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Message", b =>
+                {
+                    b.HasOne("FitnessApp.Domain.Entities.Conversation", "Conversation")
+                        .WithMany("Messages")
+                        .HasForeignKey("ConversationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FitnessApp.Domain.Entities.User", "Sender")
+                        .WithMany("SentMessages")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Conversation");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("FitnessApp.Domain.Entities.ObligatoryForm", b =>
                 {
                     b.HasOne("FitnessApp.Domain.Entities.User", "User")
@@ -152,9 +301,35 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Rating", b =>
+                {
+                    b.HasOne("FitnessApp.Domain.Entities.User", "User")
+                        .WithMany("Ratings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Conversation", b =>
+                {
+                    b.Navigation("Messages");
+                });
+
             modelBuilder.Entity("FitnessApp.Domain.Entities.User", b =>
                 {
+                    b.Navigation("Coach");
+
+                    b.Navigation("Conversations1");
+
+                    b.Navigation("Conversations2");
+
                     b.Navigation("ObligatoryForm");
+
+                    b.Navigation("Ratings");
+
+                    b.Navigation("SentMessages");
                 });
 #pragma warning restore 612, 618
         }

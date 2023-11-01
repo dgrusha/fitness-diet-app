@@ -1,4 +1,5 @@
-﻿using FitnessApp.Application.S3Bucket.Commands.DeleteFile;
+﻿using System.Security.Claims;
+using FitnessApp.Application.S3Bucket.Commands.DeleteFile;
 using FitnessApp.Application.S3Bucket.Queries.GetFile;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +23,8 @@ namespace FitnessApp.Api.Controllers
         [HttpGet("testauth")]
         public async Task<IActionResult> TestaAuth()
         {
-            return Ok("worked");
+            Console.WriteLine(ClaimTypes.NameIdentifier);
+            return Ok("ok");
         }
 
 

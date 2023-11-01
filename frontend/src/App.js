@@ -9,12 +9,12 @@ import SignUp  from './components/pages/signUpClient';
 import ChatNew from './components/chatNew/chatNewWindow';
 import Login  from './components/pages/logIn';
 import MainPage from './components/mainPage/mainPage';
-import UserProfile from './components/userProfile/userProfile'
+import UserProfile from './components/userProfile/userProfile';
 import Feedback from './components/feedback/feedback';
 
 import ProtectedRoute from "./components/protectedRoute";
 import UnprotectedRoute from "./components/unprotectedRoute";
-import ProtectedRouteWithCondition from "./components/protectedRouteWithCondition"
+import ProtectedRouteWithCondition from "./components/protectedRouteWithCondition";
 
 
 function App() {

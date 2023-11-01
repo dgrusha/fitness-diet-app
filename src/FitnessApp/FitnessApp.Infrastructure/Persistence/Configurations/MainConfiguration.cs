@@ -24,12 +24,18 @@ public class MainConfiguration : IEntityTypeConfiguration<User>
         builder.Property(t => t.LastName).HasMaxLength(100);
         builder.Property(t => t.Email).HasMaxLength(100);
         builder.Property(t => t.Password).HasMaxLength(100);
+        builder.Property(t => t.AvatarFileName).IsRequired(false);
         builder.Property(t => t.HasObligatoryForm).IsRequired();
 
         // Relations
         builder.HasOne(u => u.ObligatoryForm)
             .WithOne(of => of.User!)
             .HasForeignKey<ObligatoryForm>(of => of.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(u => u.Coach)
+            .WithOne(c => c.User!)
+            .HasForeignKey<Coach>(c => c.UserId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 

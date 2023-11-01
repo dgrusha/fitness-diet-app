@@ -91,3 +91,25 @@ export function checkDate(value){
     }
     return true;
 }
+
+export function checkContainsDigits(value) {
+    if (!value) 
+        return false;
+
+    if (!/\d/.test(value.toString()))
+        return false;
+
+    return true;
+}
+
+export function checkContainsSpecialSign(value){
+    if (!value)
+        return false;
+
+    const specialSigns = /[!@#$%^&*(),.?":{}|<>]/
+
+    if (!specialSigns.test(value.toString()))
+        return false;
+
+    return true;
+}

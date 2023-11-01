@@ -9,11 +9,20 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import LinearProgress from '@mui/material/LinearProgress';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import {
+  InputAdornment,
+} from '@mui/material';
 
 import image_login from "../../img/sign_up_img.png"; 
 import { handleFormResponse } from  '../../helpers/formVerification';
 import { register } from '../../apiCalls/register';
+import { registerCoach } from '../../apiCalls/registerCoach';
 import {checkEmail, checkTextLengthRange, checkRequired, checkContainsDigits, checkContainsCapitalLetter, checkContainsSpecialSign} from '../../helpers/validationCommon'
 import { isFormValid } from '../../helpers/isFormValid';
 import './styleLoginAndRegister.css';
@@ -68,13 +77,34 @@ const defaultTheme = createTheme({
 
 function SignUpClient() {
   const navigate = useNavigate();
+  const [isCoach, setIsCoach] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
     email: '',
-    password: ''
+    password: '',
+    yourMessage: ''
   })
-  const [formErrors, setFormErrors] = useState({ firstName:"", lastName:"", email:"", password: ""});
+  const [formErrors, setFormErrors] = useState({ firstName:"", lastName:"", email:"", password: "", yourMessage: ""});
+
+  // Hidden file input
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [textFieldValue, setTextFieldValue] = useState('Put your recomendation');
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if(file){
+      setSelectedFile(file);
+      setTextFieldValue(file.name);
+    }
+  };
+
+  const handleTextFieldClick = () => {
+    document.getElementById('hidden-file-input').click();
+  };
 
   const handleChange = event => {
     const {name, value} = event.target;
@@ -88,6 +118,24 @@ function SignUpClient() {
         ...user,
         [name]:value
     }))
+  }
+
+  const handleCoachChange = event => {
+    if(!event.target.checked){
+        setFormErrors(prevState => ({
+          ...prevState,
+          ["yourMessage"]: ""
+      }));
+    }
+    setIsCoach(event.target.checked)
+  }
+
+  function isButtonDisabled(){
+    if(!isCoach){
+      return !isFormValid(formErrors, [user.firstName, user.lastName, user.email, user.password]);
+    }else{
+      return !isFormValid(formErrors, [user.firstName, user.lastName, user.email, user.password, user.yourMessage]) || !selectedFile;
+    }
   }
 
   function validateField(name, value) {
@@ -131,17 +179,32 @@ function SignUpClient() {
             errorMessage = "Entry should contain special character"
         }
     }
+
+    if(name === 'yourMessage'){
+      if (!checkRequired(value)) {
+        errorMessage = "Entry is required"
+      }
+    }
+
     return errorMessage;
 }
 
   const handleSubmit =async () => {
+    setIsSubmitting(true);
     try {
-        const response = await register({ firstName: user.firstName, lastName: user.lastName, 
-          email: user.email, password: user.password});
-        const [status, message] = [response.status, await response.json()];
-        handleFormResponse(status, message, setFormErrors, navigate, '/login' );
-
+        if(!isCoach){
+          const response = await register({ firstName: user.firstName, lastName: user.lastName, 
+            email: user.email, password: user.password});
+          const [status, message] = [response.status, await response.json()];
+          handleFormResponse(status, message, setFormErrors, navigate, '/login' );
+        }else{
+          const response = await registerCoach({ firstName: user.firstName, lastName: user.lastName, 
+            email: user.email, password: user.password,text:textFieldValue, file: selectedFile});
+          const [status, message] = [response.status, await response.json()];
+          handleFormResponse(status, message, setFormErrors, navigate, '/login' );
+        }
     } catch (error) {
+      setIsSubmitting(false);
       console.error(error.message);
     }
   };
@@ -219,16 +282,73 @@ function SignUpClient() {
                   error = {formErrors["password"] !== ""}
                   helperText = {formErrors["password"]}
                 />
+                <FormGroup>
+                  <FormControlLabel 
+                  control={<Checkbox color="success" value={isCoach} onChange={handleCoachChange} />} 
+                  labelPlacement="start" 
+                  label="Are you a coach?" />
+                </FormGroup>
+                {isCoach && 
+                <div>
+                  <TextField
+                    multiline
+                    required
+                    name="yourMessage"
+                    type="yourMessage"
+                    id="yourMessage"
+                    minRows={3}
+                    fullWidth
+                    label="Your message"
+                    value = {user.yourMessage}
+                    onChange={handleChange}
+                    error = {formErrors["yourMessage"] !== ""}
+                    helperText={formErrors["yourMessage"]}
+                  />
+                  
+                  <input
+                    type="file"
+                    id="hidden-file-input"
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                  />
+                  <TextField
+                    id="file-textfield"
+                    fullWidth
+                    sx={{ mt: 2 }}
+                    variant="outlined"
+                    value={textFieldValue}
+                    onClick={handleTextFieldClick}
+                    InputProps={{
+                      readOnly: true,
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Button
+                            variant="contained"
+                            component="label"
+                            htmlFor="hidden-file-input"
+                            onMouseOver={() => setIsHovered(true)}
+                            onMouseOut={() => setIsHovered(false)}
+                          >
+                            Browse
+                          </Button>
+                        </InputAdornment>
+                      ),
+                      style: { cursor: 'pointer',
+                               textAlign: 'center'},
+                    }}
+                  />
+                </div>}
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2, backgroundColor: "#9CD91B",  }}
                   onClick={handleSubmit}
-                  disabled={!isFormValid(formErrors, [user.firstName, user.lastName, user.email, user.password])}
+                  disabled={isButtonDisabled()}
                 >
                   Sign In
                 </Button>
+                {isSubmitting && <><LinearProgress color="success" /></>}
                 <p>{formErrors["general"]}</p>
               </Box>
             </Box>

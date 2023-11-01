@@ -1,14 +1,18 @@
 import React from 'react'
-import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem, useProSidebar, SubMenu } from "react-pro-sidebar";
 import { Link } from 'react-router-dom'
 import './sideBar.css';
 
 import EmojiFlagsIcon from '@mui/icons-material/EmojiFlags';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import LoginIcon from '@mui/icons-material/Login';
+import ChatIcon from '@mui/icons-material/Chat';
+import ReviewsIcon from '@mui/icons-material/Reviews';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import PersonIcon from '@mui/icons-material/Person';
+import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 
 import { getCurrentUser, hasPassedObligatoryForm} from '../../helpers/authHelper';
 
@@ -29,21 +33,52 @@ function SideBar(props) {
           </MenuItem>
           {isAuthenticatedParam && hasPassedObligatoryFormParam === 'false'  ? (
               <>
-                  <MenuItem icon={<EmojiFlagsIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/get_started">Get started</Link></MenuItem>
-                  
+                  <MenuItem 
+                  icon={<EmojiFlagsIcon className="MenuIcon"/>}
+                  component={<Link className="LinkSideBar" to="/get_started"/>}>Get started
+                  </MenuItem>
               </>
           ) : null}
           {isAuthenticatedParam ? (
               <>
-                  <MenuItem icon={<RestaurantIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/diet">Diet</Link></MenuItem>
-                  <MenuItem icon={<MeetingRoomIcon className="MenuIcon"/>}><p className="LinkSideBar" onClick={props.handleLogout}>Logout</p></MenuItem>
+                  <MenuItem 
+                    icon={<RestaurantIcon className="MenuIcon"/>}
+                    component={<Link className="LinkSideBar" to="/diet"/>}>Diet
+                  </MenuItem>
+                  <MenuItem 
+                    icon={<ChatIcon className="MenuIcon"/>}
+                    component={<Link className="LinkSideBar" to="/chat"/>}>Chat
+                  </MenuItem>
+                  <SubMenu icon={<MiscellaneousServicesIcon className="MenuIcon"/>} className="LinkSideBar" label="Service">
+                      <MenuItem
+                        className="SubMenu" 
+                        icon={<PersonIcon className="MenuIcon"/>} 
+                        component={<Link className="LinkSideBar" to="/my_profile"/>}>My profile
+                      </MenuItem>
+                      <MenuItem
+                        className="SubMenu" 
+                        icon={<ReviewsIcon className="MenuIcon"/>} 
+                        component={<Link className="LinkSideBar" to="/feedback"/>}>Feedback
+                      </MenuItem>
+                      <MenuItem 
+                        className="SubMenu" 
+                        icon={<MeetingRoomIcon className="MenuIcon"/>} 
+                        onClick={props.handleLogout}> Logout
+                      </MenuItem>
+                  </SubMenu>
               </>
           ) : null}
           
           {isAuthenticatedParam ? null : (
               <>
-                  <MenuItem icon={<LoginIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/login">Login</Link></MenuItem>
-                  <MenuItem icon={<AppRegistrationIcon className="MenuIcon"/>}><Link className="LinkSideBar" to="/register">Register</Link></MenuItem>
+                      <MenuItem
+                        icon={<LoginIcon className="MenuIcon"/>} 
+                        component={<Link className="LinkSideBar" to="/login"/>}>Login
+                      </MenuItem>
+                      <MenuItem
+                        icon={<AppRegistrationIcon className="MenuIcon"/>} 
+                        component={<Link className="LinkSideBar" to="/register"/>}>Register
+                      </MenuItem>
               </>
           )}
         </Menu>

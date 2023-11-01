@@ -1,0 +1,69 @@
+import { createTheme } from '@mui/material';
+
+export const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976D2',
+    },
+    info: {
+      main: '#2196F3',
+    },
+  },
+  chatContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh',
+    backgroundColor: 'white',
+  },
+  header: {
+    padding: 2,
+    borderBottom: '1px solid grey',
+    backgroundColor: 'white',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  messagesContainer: {
+    flex: 1,
+    overflowY: 'auto',
+    padding: 2,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  messageBox: {
+    marginBottom: 8,
+    width: '50%',
+    borderRadius: 8,
+    padding: 1,
+  },
+  inputSection: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: 2,
+  },
+  textField: {
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: '#9cd91b',
+      },
+    },
+    '& label.Mui-focused': {
+      color: '#9cd91b',
+    },
+    '& label': {
+      color: '#000000',
+    },
+  },
+  autocomplete: {
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: '#9cd91b',
+      },
+    },
+    '& label.Mui-focused': {
+      color: '#9cd91b', 
+    },
+    '& label': {
+      color: '#000000', 
+    },
+  },
+});

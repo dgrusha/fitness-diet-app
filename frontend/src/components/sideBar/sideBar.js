@@ -1,5 +1,5 @@
 import React from 'react'
-import { Sidebar, Menu, MenuItem, useProSidebar, SubMenu } from "react-pro-sidebar";
+import { useProSidebar, Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
 import { Link } from 'react-router-dom'
 import './sideBar.css';
 

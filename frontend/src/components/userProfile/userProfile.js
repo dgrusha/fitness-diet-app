@@ -13,6 +13,7 @@ import {
   Checkbox,
   TextField,
   LinearProgress,
+  Alert
 } from '@mui/material';
 
 import defaultTheme from './userProfileTheme';
@@ -52,13 +53,18 @@ function UserProfile() {
   useEffect(() => {
     setIsSubmitting(true);
     getUser().then((data) => {
-        setUserData(data);
-        setName(data.firstName);
-        setSurname(data.lastName);
-        if(data.avatarFileName !== undefined && data.avatarFileName !==''){
-          setAvatar(data.avatarFileName);
+        if(data.errorCode === 200){
+          setUserData(data.data);
+          setName(data.data.firstName);
+          setSurname(data.data.lastName);
+          if(data.data.avatarFileName !== undefined && data.data.avatarFileName !==''){
+            setAvatar(data.data.avatarFileName);
+          }
+        }else{
+          setUserData({firsName:"-", lastName:"-", email:"-", hasObligatoryForm:false});
+          setName("-");
+          setSurname("-");
         }
-        
     });
     setIsSubmitting(false);
   }, []); 
@@ -169,8 +175,7 @@ function UserProfile() {
                 Save changes
               </Button>
               {isSubmitting && <LinearProgress color="success" />}
-              <p>{formErrors["general"]}</p>
-              <p>{status}</p>
+              {status && <Alert severity="info">{status}</Alert> }
             </Box>
           </Grid>
           <Grid item xs={false} sm={4} md={6}

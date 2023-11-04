@@ -8,6 +8,7 @@ using FitnessApp.Application.Services.Authentication.Common;
 using FitnessApp.Application.Queries;
 using FitnessApp.Application.S3Bucket.Commands.AddFile;
 using FitnessApp.Application.Authentication.Commands.RegisterCoach;
+using FitnessApp.Contracts.UniqueResponse;
 
 namespace FitnessApp.Api.Controllers
 {
@@ -34,14 +35,9 @@ namespace FitnessApp.Api.Controllers
                 registerRequest.Email,
                 registerRequest.Password);
 
-            AuthenticationResult authResult = await _mediator.Send(command);
+            UniqueResponse<AuthenticationResult> authResult = await _mediator.Send(command);
 
-            var response = new AuthenticationResponse(
-                authResult.id,
-                authResult.Email,
-                authResult.HasObligatoryForm,
-                authResult.Token);
-            return Ok(response);
+            return Ok(authResult);
         }
 
         [HttpPost("registerCoach")]
@@ -66,14 +62,9 @@ namespace FitnessApp.Api.Controllers
                 filePath
             );
 
-            AuthenticationResult authResult = await _mediator.Send(command);
+            UniqueResponse<AuthenticationResult> authResult = await _mediator.Send(command);
 
-            var response = new AuthenticationResponse(
-                authResult.id,
-                authResult.Email,
-                authResult.HasObligatoryForm,
-                authResult.Token);
-            return Ok(response);
+            return Ok(authResult);
         }
 
         [HttpPost("login")]
@@ -83,14 +74,9 @@ namespace FitnessApp.Api.Controllers
                 loginRequest.Email,
                 loginRequest.Password);
 
-            AuthenticationResult authResult = await _mediator.Send(query);
+            UniqueResponse<AuthenticationResult> authResult = await _mediator.Send(query);
 
-            var response = new AuthenticationResponse(
-                authResult.id,
-                authResult.Email,
-                authResult.HasObligatoryForm,
-                authResult.Token);
-            return Ok(response);
+            return Ok(authResult);
         }
     }
 }

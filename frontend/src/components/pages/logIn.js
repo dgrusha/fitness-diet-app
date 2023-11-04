@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import LinearProgress from '@mui/material/LinearProgress';
+import Alert from '@mui/material/Alert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { handleFormResponse } from  '../../helpers/formVerification';
@@ -109,12 +110,19 @@ function LogIn(props) {
     setIsSubmitting(true);
     try {
         const response = await login({ email: user.email, password: user.password});
-        const [status, message] = [response.status, await response.json()];
-        if(status === 200){
-            props.handleLogin(message);
-            props.hasFormHandle(message.hasObligatoryForm);
+        const [ message ] = [await response.json()];
+        if(message.errorCode === 200){
+            props.handleLogin(message.data);
+            props.hasFormHandle(message.data.hasObligatoryForm);
+            handleFormResponse(message.errorCode, message.data, setFormErrors, navigate, '/' );
+        }else{
+          setFormErrors(prevState => ({
+              ...prevState,
+              ["general"]: message.errors[0],
+            })
+          );
         }
-        handleFormResponse(status, message, setFormErrors, navigate, '/' );
+    setIsSubmitting(false);
     } catch (error) {
       console.error(error.message);
     }
@@ -190,6 +198,7 @@ function LogIn(props) {
                 </Grid>
               </Grid>
               {isSubmitting && <LinearProgress color="success" />}
+              {formErrors["general"] && <Alert fullWidth severity="warning">{formErrors["general"]}</Alert>}
             </Box>
           </Box>
         </Grid>

@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -124,6 +125,7 @@ function SignUpClient() {
     if(!event.target.checked){
         setFormErrors(prevState => ({
           ...prevState,
+          ["general"]: "",
           ["yourMessage"]: ""
       }));
     }
@@ -195,14 +197,31 @@ function SignUpClient() {
         if(!isCoach){
           const response = await register({ firstName: user.firstName, lastName: user.lastName, 
             email: user.email, password: user.password});
-          const [status, message] = [response.status, await response.json()];
-          handleFormResponse(status, message, setFormErrors, navigate, '/login' );
+          const [message] = [await response.json()];
+          if(message.errorCode === 200){
+            handleFormResponse(message.errorCode, message.data, setFormErrors, navigate, '/' );
+          }else{
+            setFormErrors(prevState => ({
+                ...prevState,
+                ["general"]: message.errors[0],
+              })
+            );
+          }
         }else{
           const response = await registerCoach({ firstName: user.firstName, lastName: user.lastName, 
             email: user.email, password: user.password,text:textFieldValue, file: selectedFile});
-          const [status, message] = [response.status, await response.json()];
-          handleFormResponse(status, message, setFormErrors, navigate, '/login' );
+          const [message] = [await response.json()];
+          if(message.errorCode === 200){
+            handleFormResponse(message.errorCode, message.data, setFormErrors, navigate, '/' );
+          }else{
+            setFormErrors(prevState => ({
+                ...prevState,
+                ["general"]: message.errors[0],
+              })
+            );
+          }
         }
+      setIsSubmitting(false);
     } catch (error) {
       setIsSubmitting(false);
       console.error(error.message);
@@ -349,7 +368,7 @@ function SignUpClient() {
                   Sign In
                 </Button>
                 {isSubmitting && <><LinearProgress color="success" /></>}
-                <p>{formErrors["general"]}</p>
+                {formErrors["general"] && <Alert fullWidth severity="warning">{formErrors["general"]}</Alert>}
               </Box>
             </Box>
           </Grid>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { getAllUsers } from '../../apiCalls/chatGetUsers';
-import { getCurrentUserEmail } from '../../helpers/authHelper';
 import { joinRoom, sendMessage } from '../../helpers/signalRHandlers';
 import { getChatHistory } from '../../apiCalls/chatGetHistory';
 import {
@@ -14,14 +13,15 @@ import {
   ThemeProvider,
 } from '@mui/material';
 import {theme} from './chatNewWindowTheme';
+import { useAppContext } from '../../AppContext';
 
 const ChatPage = () => {
   const [messages, setMessages] = useState([]);
+  const { user } = useAppContext();
   const [newMessage, setNewMessage] = useState('');
   const [selectedUser, setSelectedUser] = useState(null);
   const [allUsers, setAllUsers] = useState([]);
   const [connection, setConnection] = useState();
-  const currentUserEmail = getCurrentUserEmail();
 
   const handleSendMessage = () => {
     if (newMessage.trim() !== '' && selectedUser) {
@@ -52,7 +52,7 @@ const ChatPage = () => {
           );
         });
         joinRoom(
-          currentUserEmail,
+          user.email,
           newValue.Mail,
           setMessages,
           messages,
@@ -109,14 +109,14 @@ const ChatPage = () => {
               key={index}
               sx={{
                 marginBottom: 1,
-                textAlign: message.sender === currentUserEmail ? 'right' : 'left',
+                textAlign: message.sender === user.email ? 'right' : 'left',
               }}
             >
               <Typography
                 variant="body1"
                 sx={{
                   backgroundColor:
-                    message.sender === currentUserEmail ? '#9cd91b' : 'info.main',
+                    message.sender === user.email ? '#9cd91b' : 'info.main',
                   color: 'white',
                   padding: 1,
                   borderRadius: 8,

@@ -11,6 +11,7 @@ import {
   LinearProgress,
 } from '@mui/material';
 
+import Alert from '@mui/material/Alert';
 import defaultTheme from './feedbackTheme';
 import feedback_img from '../../img/feedback_img.png';
 import RadioGroupRating  from './ratingGroup';
@@ -88,6 +89,7 @@ function Feedback() {
                     fullWidth
                     label="Leave your feedback"
                 />
+                <Alert severity="info">If you have some critical issues with our application then contact us here: sample@gmail.com</Alert>
                 <Button
                 type="submit"
                 variant="contained"

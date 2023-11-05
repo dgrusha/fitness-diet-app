@@ -93,6 +93,14 @@ const defaultTheme = createTheme({
           },
         },
       },
+      MuiAlert: {
+        styleOverrides: {
+          root: {
+            marginTop: '2%',
+            width: '45%',
+          }
+        }
+      },
     }
   });
 

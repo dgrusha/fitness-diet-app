@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAllUsers } from '../../apiCalls/chatGetUsers';
 import { joinRoom, sendMessage } from '../../helpers/signalRHandlers';
 import { getChatHistory } from '../../apiCalls/chatGetHistory';
+import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import {
   Box,
   TextField,
@@ -12,6 +13,14 @@ import {
   Autocomplete,
   ThemeProvider,
 } from '@mui/material';
+
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+
 import {theme} from './chatNewWindowTheme';
 import { useAppContext } from '../../AppContext';
 
@@ -22,6 +31,14 @@ const ChatPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [allUsers, setAllUsers] = useState([]);
   const [connection, setConnection] = useState();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleSendMessage = () => {
     if (newMessage.trim() !== '' && selectedUser) {
@@ -35,7 +52,7 @@ const ChatPage = () => {
       connection.stop();
     }
   };
-
+//
   const handleChangeChat = (event, newValue) => {
     setMessages([]);
     if (newValue.Mail !== undefined && newValue.Mail !== '') {
@@ -83,6 +100,7 @@ const ChatPage = () => {
     <ThemeProvider theme={theme}>
       <Box sx={theme.chatContainer}>
         <Box sx={theme.header}>
+        <HelpCenterIcon sx={theme.iconHelp} onClick={handleClickOpen}/>
           <Autocomplete
             options={allUsers}
             getOptionLabel={(option) => option.FirstName + ' ' + option.LastName}
@@ -153,6 +171,19 @@ const ChatPage = () => {
             Send
           </Button>
         </Box>
+        <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>
+          Chat FAQ     
+        </DialogTitle>
+        <DialogContent>
+        <Typography>
+          1. All conversations that were started later then 2 days ago will be deleted and pdf with chat history will be sent to you. <br/>
+          4. If you have not received email with chat history after it was cleaned - check spam or write to as directly with this issue (contact info is in tab feedback). <br/>
+          3. Here you can talk to coaches to receive advices from them in acheiving your goals.  <br/>
+          4. This feature is available only for users that have subscription for coaches. <br/>
+        </Typography>
+        </DialogContent>
+      </Dialog>
       </Box>
     </ThemeProvider>
   );

@@ -11,13 +11,13 @@ import { AppProvider } from './AppContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AppProvider>
+  <AppProvider>
+      <BrowserRouter>
         <ProSidebarProvider>
             <App />
         </ProSidebarProvider>
-      </AppProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </AppProvider>
   </React.StrictMode>
 );
 

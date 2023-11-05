@@ -18,6 +18,7 @@ import { handleFormResponse } from  '../../helpers/formVerification';
 import { login } from '../../apiCalls/login';
 import { checkRequired } from '../../helpers/validationCommon'
 import { isFormValid } from '../../helpers/isFormValid';
+import { useAppContext } from '../../AppContext';
 import image_login from "../../img/sign_up_img.png"; 
 import './styleLoginAndRegister.css';
 
@@ -68,8 +69,9 @@ const defaultTheme = createTheme({
   }
 });
 
-function LogIn(props) {
+function LogIn() {
   const navigate = useNavigate();
+  const { handleLogin, hasFormHandle } = useAppContext();
   const [user, setUser] = useState({
     email: '',
     password: ''
@@ -112,8 +114,8 @@ function LogIn(props) {
         const response = await login({ email: user.email, password: user.password});
         const [ message ] = [await response.json()];
         if(message.errorCode === 200){
-            props.handleLogin(message.data);
-            props.hasFormHandle(message.data.hasObligatoryForm);
+            handleLogin(message.data);
+            hasFormHandle(message.data.hasObligatoryForm);
             handleFormResponse(message.errorCode, message.data, setFormErrors, navigate, '/' );
         }else{
           setFormErrors(prevState => ({

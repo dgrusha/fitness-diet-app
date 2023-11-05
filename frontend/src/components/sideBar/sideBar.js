@@ -15,10 +15,12 @@ import PersonIcon from '@mui/icons-material/Person';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 
 import { getCurrentUser, hasPassedObligatoryForm} from '../../helpers/authHelper';
+import { useAppContext } from '../../AppContext';
 
-function SideBar(props) {
+function SideBar() {
     const { collapseSidebar } = useProSidebar();
     const isAuthenticatedParam = getCurrentUser();
+    const { handleLogout } = useAppContext();
     const hasPassedObligatoryFormParam = hasPassedObligatoryForm();
     return (
         <Sidebar className="MainSidebar">
@@ -63,7 +65,7 @@ function SideBar(props) {
                       <MenuItem 
                         className="SubMenu" 
                         icon={<MeetingRoomIcon className="MenuIcon"/>} 
-                        onClick={props.handleLogout}> Logout
+                        onClick={handleLogout}> Logout
                       </MenuItem>
                   </SubMenu>
               </>

@@ -14,9 +14,11 @@ import { isFormValid } from '../../helpers/isFormValid';
 import { handleFormResponse } from  '../../helpers/formVerification' 
 import {validateObligatoryFormFields} from '../../validators/formObligatoryValidator'
 import DividedOnTwo from '../structures/dividedOnTwo';
+import { useAppContext } from '../../AppContext';
 
-function FormObligatory(props) {
+function FormObligatory() {
     const navigate = useNavigate();
+    const { hasFormHandle } = useAppContext();
     const [weight, setWeight] = useState('');
     const [height, setHeight] = useState('');
     const [allergies, setAllergies] = useState([]);
@@ -52,9 +54,9 @@ function FormObligatory(props) {
             const response = await addObligatoryForm({ weight: weight, height: height, allergies: selectedOptions});
             const [status, message] = [response.status, await response.text()];
             if(status === 200){
-                props.hasFormHandle(true);
+                hasFormHandle(true);
             }else{
-                props.hasFormHandle(false);
+                hasFormHandle(false);
             }
             handleFormResponse(status, message, setFormErrors, navigate, '/' );
         } catch (error) {

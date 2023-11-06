@@ -31,11 +31,6 @@ export const appTheme = createTheme({
 							" .MuiInputLabel-root.Mui-focused": {
 								color: "#7D8386"
 							},
-							// "&.Mui-disabled": {
-							// 	"& .MuiInputLabel-root": {
-							// 		color: "#7D8386"
-							// 	}
-							// },
               "& .MuiOutlinedInput-root": {
                 "& fieldset": { borderColor: "#9CD91B", borderWidth: 1 },
                 "&:hover fieldset": { borderColor: "#6D9712" },
@@ -94,7 +89,6 @@ export const appTheme = createTheme({
         styleOverrides: {
           root: {
             marginTop: '5%',
-						// margin: 'normal',
             height: '150px', 
             width: '150px',  
             position: 'relative',

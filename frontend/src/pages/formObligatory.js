@@ -6,18 +6,16 @@ import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-
-// import '../formObligatory/formObligatory.css';
-import { getAllergies } from '../../apiCalls/formObligatoryAllergies';
-import { addObligatoryForm } from '../../apiCalls/formObligatoryPost';
-import { handleFormResponse } from '../../helpers/formVerification';
-import { handleNumericInputChange } from '../../helpers/inputChanges';
-import { isFormValid } from '../../helpers/isFormValid';
-import image_required_form from "../../img/required_form.jpg";
-import { validateObligatoryFormFields } from '../../validators/formObligatoryValidator';
-import { ButtonComponent } from "../atoms/Button";
-import InputFieldWithMetric from '../atoms/InputFieldWithMetric';
-import TwoSidesTemplate from '../templates/ContainerAndPhotoTemplate';
+import { getAllergies } from '../apiCalls/formObligatoryAllergies';
+import { addObligatoryForm } from '../apiCalls/formObligatoryPost';
+import { ButtonComponent } from "../components/atoms/Button";
+import InputFieldWithMetric from '../components/atoms/InputFieldWithMetric';
+import TwoSidesTemplate from '../components/templates/ContainerAndPhotoTemplate';
+import { handleFormResponse } from '../helpers/formVerification';
+import { handleNumericInputChange } from '../helpers/inputChanges';
+import { isFormValid } from '../helpers/isFormValid';
+import image_required_form from "../img/required_form.jpg";
+import { validateObligatoryFormFields } from '../validators/formObligatoryValidator';
 
 function FormObligatory(props) {
 	const navigate = useNavigate();

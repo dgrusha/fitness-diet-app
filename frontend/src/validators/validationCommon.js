@@ -1,13 +1,3 @@
-  export function resetErrors (inputs, errorTexts, errorInfo){
-    for (let i=0; i<inputs.length; i++){
-      inputs[i].classList.remove("error-type");
-    }
-    for (let i =0; i< errorTexts.length; i++){
-      errorTexts[i].innerText = "";
-    }
-    errorInfo.innerText = "";
-  }
-  
   export function checkRequired (value){
     if (!value) {
       return false;
@@ -45,17 +35,12 @@
   }
   
   export function checkNumberRange(value, min, max) {
-    if (!value)
-        return false;
-  
-    if (isNaN(value))
-        return false;
+    if (!checkNumber(value)){
+      return false;
+    }
   
     value = parseFloat(value);
-    if (value < min)
-        return false;
-  
-    if (value > max)
+    if (value < min || value > max)
         return false;
   
     return true;
@@ -90,15 +75,33 @@
   
     return true;
   }
+
+  export function checkPhone(value) {
+    if (!value) {
+        return false;
+    }
+    value = value.toString().trim();
+    const re = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im;
+    return re.test(value);
+  }
   
   export function checkEmail(value) {
     if (!value) 
         return false;
     
     value = value.toString().trim();
-    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     return emailRegex.test(value);
   }
+
+  export function checkIfContainsOnlyDigits(value){
+    if(!value){
+        return false;
+    }
+    value = value.toString().trim();
+    const re = /^\d+$/;
+    return re.test(value);
+}
 
   export function checkContainsDigits(value) {
     if (!value) 

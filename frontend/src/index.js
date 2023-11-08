@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ProSidebarProvider } from "react-pro-sidebar";
 import { BrowserRouter } from 'react-router-dom';
+import { SidebarProvider } from './sidebar/SidebarContext';
 import { AppProvider } from './AppContext';
 
 
@@ -13,9 +13,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AppProvider>
-        <ProSidebarProvider>
-            <App />
-        </ProSidebarProvider>
+				<SidebarProvider>
+						<App />
+				</SidebarProvider>
       </AppProvider>
     </BrowserRouter>
   </React.StrictMode>

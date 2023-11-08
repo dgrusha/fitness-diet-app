@@ -14,27 +14,28 @@
     --font-family-noto_sans: "Noto Sans", Helvetica;
     --font-family-plus_jakarta_sans: "Plus Jakarta Sans", Helvetica;
   }
+  
+  .SubMenu{
+    background: rgb(249, 249, 249, 0.7) !important;
+  }
 
-.text-field{
-    margin: 1;
-    width: 60%;
-}
+  .MainSidebar{
+    background: var(--white);
+  }
+  
+  .MenuIcon{
+    color: var(--green);
+    height: 100vh;
+  }
 
-.button-send{
-    border-color: var(--green) !important;
-    color: var(--green) !important;
-    width: 60%;
-}
+  .LinkSideBar{
+    color: var(--black);
+    text-decoration: none;
+    font-family: "Plus Jakarta Sans", Helvetica;
+    font-weight: 550;
+    
+  }
 
-.button-send:disabled {
-    border-color: gray !important;
-    color: gray !important;
-}
-
-.custom-focused-textfield .MuiInput-underline:after {
-    border-color: var(--green);
-}
-
-.custom-focused-textfield .MuiInputLabel-root.Mui-focused {
-    color: var(--black); 
-}
+  .ps-open{
+    overflow: hidden !important;
+  }

@@ -22,7 +22,7 @@ public class UserRepository : IUserRepository
     public void Add(User user)
     {
         _userContext.Users.Add(user);
-        _userContext.SaveChangesAsync();
+        _userContext.SaveChanges();
     }
 
     public List<UserDto> GetAllCoachesExceptMe(Guid id)

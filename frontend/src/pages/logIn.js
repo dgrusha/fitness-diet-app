@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import LinearProgress from '@mui/material/LinearProgress';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
 import { login } from '../apiCalls/login';
 import { ButtonComponent } from "../components/atoms/Button";
 import InputField from '../components/atoms/InputField';
@@ -14,9 +15,11 @@ import { handleFormResponse } from '../helpers/formVerification';
 import { isFormValid } from '../helpers/isFormValid';
 import image_login from "../img/login_sign_up.png";
 import { validateLoginFormFields } from '../validators/loginValidator';
+import { useAppContext } from '../AppContext';
 
-function LogIn(props) {
+function LogIn() {
 	const navigate = useNavigate();
+	const { handleLogin, hasFormHandle } = useAppContext();
 	const [user, setUser] = useState({
 		email: '',
 		password: ''
@@ -47,18 +50,21 @@ function LogIn(props) {
 		setIsSubmitting(true);
 		try {
 			const response = await login({ email: user.email, password: user.password });
-			const [status, message] = [response.status, await response.json()];
-			if (status === 200) {
-				props.handleLogin(message);
-				props.hasFormHandle(message.hasObligatoryForm);
+			const [ message ] = [await response.json()];
+			if(message.errorCode === 200){
+					handleLogin(message.data);
+					hasFormHandle(message.data.hasObligatoryForm);
+					handleFormResponse(message.errorCode, message.data, setFormErrors, navigate, '/' );
+			}else{
+				setFormErrors(prevState => ({
+						...prevState,
+						["general"]: message.errors[0],
+					})
+				);
 			}
-			handleFormResponse(status, message, setFormErrors, navigate, '/');
+		setIsSubmitting(false);
 		} catch (error) {
 			console.error(error.message);
-			setFormErrors(prevState => ({
-				...prevState,
-				general: "Invalid email address or password"
-			}));
 		}
 	};
 
@@ -95,7 +101,8 @@ function LogIn(props) {
 						error={formErrors["password"] !== ""}
 						helperText={formErrors["password"]}
 					/>
-					<Typography variant="server_error" textAlign="center">{formErrors["general"]}</Typography>
+					{/* <Typography variant="server_error" textAlign="center">{formErrors["general"]}</Typography> */}
+					{formErrors["general"] && <Alert fullWidth severity="warning">{formErrors["general"]}</Alert>}
 					{isSubmitting && <LinearProgress color="success" />}
 					<ButtonComponent
 						title="Login"

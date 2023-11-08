@@ -8,6 +8,7 @@ using FitnessApp.Application.UserProfile.Commands.UpdateUserAvatar;
 using FitnessApp.Application.UserProfile.Commands.UpdateUserInformation;
 using FitnessApp.Application.UserProfile.Queries.GetAllUsers;
 using FitnessApp.Application.UserProfile.Queries.GetUserInformation;
+using FitnessApp.Contracts.UniqueResponse;
 using FitnessApp.Contracts.UserProfile;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -48,11 +49,18 @@ namespace FitnessApp.Api.Controllers
 
             var result = await _mediator.Send(query);
 
-            if (result.AvatarFileName != null && result.AvatarFileName != string.Empty) 
+            if (result.Data != null &&  result.Data.AvatarFileName != null && result.Data.AvatarFileName != string.Empty) 
             {
-                var queryGetAvatarUrl = new GetFileQuery("fitnessdietbucket", $"photos/{result.AvatarFileName}");
+                var queryGetAvatarUrl = new GetFileQuery("fitnessdietbucket", $"photos/{result.Data.AvatarFileName}");
                 var resultGetAvatar = await _mediator.Send(queryGetAvatarUrl);
-                result = new GetUserProfileResult(result.FirstName, result.LastName, result.Email, result.HasObligatoryForm, resultGetAvatar.PresignedUrl);
+                var resultTmp = new GetUserProfileResult(
+                    result.Data.FirstName,
+                    result.Data.LastName,
+                    result.Data.Email,
+                    result.Data.HasObligatoryForm,
+                    resultGetAvatar.PresignedUrl
+                );
+                result.Data = resultTmp;
             }
 
             

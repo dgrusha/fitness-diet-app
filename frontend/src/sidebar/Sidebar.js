@@ -15,11 +15,13 @@ import './sideBar.css';
 import { getCurrentUser, hasPassedObligatoryForm } from '../helpers/authHelper';
 import AppLogo from '../img/logo_app.svg';
 import AppLogoShort from '../img/logo_app_short.svg';
+import { useAppContext } from '../AppContext';
 
 
-function SideBarApp(props) {
+function SideBarApp() {
 	const isAuthenticatedParam = getCurrentUser();
 	const hasPassedObligatoryFormParam = hasPassedObligatoryForm();
+	const { handleLogout } = useAppContext();
 	const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
 	const toggleSidebar = () => {
@@ -67,7 +69,7 @@ function SideBarApp(props) {
 							<MenuItem
 								className="SubMenu"
 								icon={<MeetingRoomIcon className="MenuIcon" />}
-								onClick={props.handleLogout}> Logout
+								onClick={handleLogout}> Logout
 							</MenuItem>
 						</SubMenu>
 					</>

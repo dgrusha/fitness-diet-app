@@ -9,17 +9,6 @@ export function getCurrentUser() {
     return token;
 }
 
-export function getCurrentUserEmail() {
-    let email;
-    const user = sessionStorage.getItem('userEmail');
-    try {
-        email = user;
-    } catch (e) {
-        return undefined;
-    }
-    return email;
-}
-
 export function isAuthenticated() {
     const user = getCurrentUser();
     if(user) {

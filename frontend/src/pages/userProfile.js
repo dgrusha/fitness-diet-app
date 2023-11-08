@@ -5,6 +5,7 @@ import {
 	FormGroup,
 	LinearProgress,
 	Typography,
+	Alert
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
@@ -47,11 +48,17 @@ function UserProfile() {
 	useEffect(() => {
 		setIsSubmitting(true);
 		getUser().then((data) => {
-			setUserData(data);
-			setFirstName(data.firstName);
-			setLastName(data.lastName);
-			if (data.avatarFileName !== null && data.avatarFileName !== '') {
-				setAvatar(data.avatarFileName);
+			if (data.errorCode === 200) {
+				setUserData(data.data);
+				setFirstName(data.data.firstName);
+				setLastName(data.data.lastName);
+				if (data.data.avatarFileName !== undefined && data.data.avatarFileName !== '') {
+					setAvatar(data.data.avatarFileName);
+				}
+			} else {
+				setUserData({ firsName: "-", lastName: "-", email: "-", hasObligatoryForm: false });
+				setFirstName("-");
+				setLastName("-");
 			}
 		});
 		setIsSubmitting(false);
@@ -118,7 +125,7 @@ function UserProfile() {
 						labelPlacement="start"
 						label="Have you passed obligatory form?" />
 				</FormGroup>
-				<Typography variant="server_error">{formErrors["general"]}</Typography>
+				{status && <Alert severity="info">{status}</Alert> }
 				{isSubmitting && <LinearProgress color="success" />}
 				<ButtonComponent title="SAVE CHANGES" onClick={handleSendButtonClick} disabled={!isFormValid(formErrors, [firstName, lastName])
 					|| (firstName === userData.firstName && lastName === userData.lastName)} />

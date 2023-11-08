@@ -16,9 +16,11 @@ import { handleNumericInputChange } from '../helpers/inputChanges';
 import { isFormValid } from '../helpers/isFormValid';
 import image_required_form from "../img/required_form.jpg";
 import { validateObligatoryFormFields } from '../validators/formObligatoryValidator';
+import { useAppContext } from '../AppContext';
 
-function FormObligatory(props) {
+function FormObligatory() {
 	const navigate = useNavigate();
+	const { hasFormHandle } = useAppContext();
 	const [weight, setWeight] = useState('');
 	const [height, setHeight] = useState('');
 	const [allergies, setAllergies] = useState([]);
@@ -54,9 +56,9 @@ function FormObligatory(props) {
 			const response = await addObligatoryForm({ weight: weight, height: height, allergies: selectedOptions });
 			const [status, message] = [response.status, await response.text()];
 			if (status === 200) {
-				props.hasFormHandle(true);
+				hasFormHandle(true);
 			} else {
-				props.hasFormHandle(false);
+				hasFormHandle(false);
 			}
 			handleFormResponse(status, message, setFormErrors, navigate, '/');
 		} catch (error) {

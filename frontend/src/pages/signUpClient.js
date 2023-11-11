@@ -107,7 +107,7 @@ function SignUpClient(props) {
 			} else {
 				const response = await registerCoach({
 					firstName: user.firstName, lastName: user.lastName,
-					email: user.email, password: user.password, text: textFieldValue, file: selectedFile
+					email: user.email, password: user.password, text: user.yourMessage, file: selectedFile
 				});
 				const [message] = [await response.json()];
 				if (message.errorCode === 200) {

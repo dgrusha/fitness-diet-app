@@ -129,7 +129,6 @@ function UserProfile() {
 				{isSubmitting && <LinearProgress color="success" />}
 				<ButtonComponent title="SAVE CHANGES" onClick={handleSendButtonClick} disabled={!isFormValid(formErrors, [firstName, lastName])
 					|| (firstName === userData.firstName && lastName === userData.lastName)} />
-				<p>{status}</p>
 			</>}
 			img={image_profile_setting}
 		/>

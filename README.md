@@ -93,7 +93,13 @@ dotnet ef migrations remove --project FitnessApp.Infrastructure --startup-projec
 9. Configure controller
 DONE!
 
+### Redis 
+To download server on windows: https://github.com/tporadowski/redis/releases
+To download server on linux: https://redis.io/download/
+
 REDIS ADRESS = 127.0.0.1:6379
+Check if it is working -> redis-cli ping
+Check IP for yourself -> redis-cli
 
 ## Setting up AWS CLI configuration
 Go here and install the AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html

@@ -35,6 +35,10 @@ export const theme = createTheme({
     borderRadius: 8,
     padding: 1,
   },
+  iconHelp: {
+    marginRight: 2,
+    color:'#9cd91b',
+  },
   inputSection: {
     display: 'flex',
     alignItems: 'center',
@@ -66,4 +70,20 @@ export const theme = createTheme({
       color: '#000000', 
     },
   },
+	components: {
+		MuiButton: {
+			styleOverrides: {
+				root: {
+					color: "#FFFFFF",
+					backgroundColor: "#9CD91B",
+					"&:hover": {
+						backgroundColor: "#6D9712",
+					},
+					"&.Mui-disabled": {
+						backgroundColor: "#E1F3BA",
+					},
+				}
+			}
+		}
+	}
 });

@@ -103,6 +103,9 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("TimeCreated")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("User1Id")
                         .HasColumnType("uniqueidentifier");
 

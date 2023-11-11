@@ -44,6 +44,13 @@ public static class DependencyInjection
         serviceCollection.AddDbContext<FitnessContext>(options =>
                 options.UseSqlServer(connectionString));
 
+        string connectionStringRedis = configuration.GetConnectionString("RedisConnection");
+        serviceCollection.AddDistributedRedisCache(options =>
+        {
+            options.Configuration = connectionStringRedis;
+            options.InstanceName = "FitnessApp_";
+        });
+
         return serviceCollection;
     }
 

@@ -1,4 +1,4 @@
-import * as common from "./commonValidator";
+import * as common from "./validationCommon";
 
 export function validateFeedbackFields(fieldName, fieldValue) {
     let error = '';

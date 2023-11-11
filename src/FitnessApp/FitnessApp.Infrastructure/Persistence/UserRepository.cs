@@ -22,7 +22,7 @@ public class UserRepository : IUserRepository
     public void Add(User user)
     {
         _userContext.Users.Add(user);
-        _userContext.SaveChangesAsync();
+        _userContext.SaveChanges();
     }
 
     public List<UserDto> GetAllCoachesExceptMe(Guid id)
@@ -53,7 +53,7 @@ public class UserRepository : IUserRepository
 
     public User? GetUserByEmail(string email)
     {
-        User? user = _userContext.Users.SingleOrDefault(user => user.Email == email);
+        User? user = _userContext.Users.SingleOrDefault(user => user.Email.Equals(email));
         return user;
     }
 

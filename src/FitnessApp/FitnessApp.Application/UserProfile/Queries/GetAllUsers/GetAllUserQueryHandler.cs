@@ -7,46 +7,62 @@ using FitnessApp.Application.Common.DTO;
 using FitnessApp.Application.Common.Interfaces.Persistence;
 using FitnessApp.Domain.Entities;
 using MediatR;
+using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 
 namespace FitnessApp.Application.UserProfile.Queries.GetAllUsers;
 public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, string>
 {
     private readonly IUserRepository _userRepository;
+    private readonly IDistributedCache _cache;
 
-    public GetAllUserQueryHandler(IUserRepository userRepository)
+    public GetAllUserQueryHandler(IUserRepository userRepository, IDistributedCache cache)
     {
         _userRepository = userRepository;
+        _cache = cache;
     }
 
-    public Task<string> Handle(GetAllUserQuery request, CancellationToken cancellationToken)
+    public async Task<string> Handle(GetAllUserQuery request, CancellationToken cancellationToken)
     {
-
         if (_userRepository.GetUserById(request.Id) is not User user)
         {
-            return Task.FromResult("empty");
+            return await Task.FromResult("empty");
         };
 
-        Console.WriteLine(user.FirstName);
-        Console.WriteLine(user.Coach);
         List<UserDto> users;
+        string nameCache = "GetUsersCache";
         if (user.Coach != null)
         {
+            nameCache = "GetUsersCache";
+            var cachedResult = await _cache.GetStringAsync(nameCache);
+            if (!string.IsNullOrEmpty(cachedResult))
+            {
+                return cachedResult;
+            }
             users = _userRepository.GetAllUsersExceptMe(request.Id);
         }
         else 
         {
+            nameCache = "GetCoachesCache";
+            var cachedResult = await _cache.GetStringAsync(nameCache);
+            if (!string.IsNullOrEmpty(cachedResult))
+            {
+                return cachedResult;
+            }
             users = _userRepository.GetAllCoachesExceptMe(request.Id);
         }
 
-        Console.WriteLine(users.Count);
         if (users == null || users.Count == 0)
         {
-            return Task.FromResult("empty");
+            return await Task.FromResult("empty");
         }
 
         var jsonResult = JsonConvert.SerializeObject(users, Formatting.Indented);
+        await _cache.SetStringAsync(nameCache, jsonResult, new DistributedCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(1)
+        });
 
-        return Task.FromResult(jsonResult);
+        return await Task.FromResult(jsonResult);
     }
 }

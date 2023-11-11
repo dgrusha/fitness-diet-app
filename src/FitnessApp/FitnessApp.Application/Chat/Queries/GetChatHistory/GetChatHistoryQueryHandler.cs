@@ -28,21 +28,29 @@ public class GetChatHistoryQueryHandler : IRequestHandler<GetChatHistoryQuery, s
 
     public Task<string> Handle(GetChatHistoryQuery request, CancellationToken cancellationToken)
     {
-        if (_userRepository.GetUserById(request.userId) is not User user)
+        try
+        {
+            if (_userRepository.GetUserById(request.userId) is not User user)
+            {
+                return Task.FromResult("{}");
+            };
+
+            if (_userRepository.GetUserByEmail(request.receiverMail) is not User receiver)
+            {
+                return Task.FromResult("{}");
+            };
+
+            string conversationId = _hashing.GetUniqueName(user.Email, receiver.Email);
+            List<MessageDto> messages = _messageRepository.GetMessagesFromConversation(conversationId);
+            var sortedMessages = messages.OrderBy(m => m.TimeSent).ToList();
+
+            var jsonResult = JsonConvert.SerializeObject(sortedMessages, Formatting.Indented);
+            return Task.FromResult(jsonResult);
+        }
+        catch (Exception exception) 
         {
             return Task.FromResult("{}");
-        };
-
-        if (_userRepository.GetUserByEmail(request.receiverMail) is not User receiver)
-        {
-            return Task.FromResult("{}");
-        };
-
-        string conversationId = _hashing.GetUniqueName(user.Email, receiver.Email);
-        List<MessageDto> messages = _messageRepository.GetMessagesFromConversation(conversationId);
-        var sortedMessages = messages.OrderBy(m => m.TimeSent).ToList();
-
-        var jsonResult = JsonConvert.SerializeObject(sortedMessages, Formatting.Indented);
-        return Task.FromResult(jsonResult);
+        }
+        
     }
 }

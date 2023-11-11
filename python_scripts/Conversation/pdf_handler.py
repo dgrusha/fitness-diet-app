@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 import os
 from dotenv import load_dotenv
 import subprocess
+import glob
 
 
 load_dotenv("../.env")
@@ -10,54 +11,79 @@ load_dotenv("../.env")
 server = os.getenv("server")
 database = os.getenv("database")
 conn_str = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;'
-conn = pyodbc.connect(conn_str)
-cursor = conn.cursor()
 
-current_datetime = datetime.now()
-threshold_datetime = current_datetime - timedelta(days=2)
 
-query = f"SELECT * FROM Conversations WHERE TimeCreated < ?"
-cursor.execute(query, threshold_datetime)
-conversations = cursor.fetchall()
+def run_pdf_handler():
+    try:
+        conversation_reports = []
+        conn = pyodbc.connect(conn_str)
+        cursor = conn.cursor()
 
-markdown_filename = "./pdfs/conversation_report.md"
-with open(markdown_filename, 'w') as markdown_file:
+        current_datetime = datetime.now()
+        threshold_datetime = current_datetime - timedelta(days=2)
 
-    for conversation in conversations:
-        conversation_id = conversation.Id
+        files = glob.glob('./pdfs/*')
+        for f in files:
+            os.remove(f)
 
-        senders_query = f"SELECT DISTINCT(SenderId) FROM Messages WHERE ConversationId = ?"
-        cursor.execute(senders_query, conversation_id)
-        senders = cursor.fetchall()
-        senders_dict = {}
-        for item in senders:
-            email_query = f"SELECT DISTINCT(email) FROM Users WHERE Id = ?"
-            cursor.execute(email_query, item[0])
-            email = cursor.fetchall()
-            senders_dict[item[0]] = email[0][0]
+        query = f"SELECT * FROM Conversations WHERE TimeCreated < ?"
+        cursor.execute(query, threshold_datetime)
+        conversations = cursor.fetchall()
 
-        print(senders_dict)
-        message_query = f"SELECT * FROM Messages WHERE ConversationId = ? ORDER BY TimeSent"
-        cursor.execute(message_query, conversation_id)
-        messages = cursor.fetchall()
+        for conversation in conversations:
+            markdown_filename = f"./pdfs/conversation_report_{conversation.Id}.md"
+            with open(markdown_filename, 'w') as markdown_file:
+                conversation_id = conversation.Id
 
-        markdown_file.write(f"# Conversation Report\n\n")
-        markdown_file.write(f"## Conversation ID: {conversation_id}\n")
-        markdown_file.write(f"## **Time Created:** {conversation.TimeCreated}\n\n")
-        markdown_file.write(f"### **Messages**:\n")
+                senders_query = f"SELECT DISTINCT(SenderId) FROM Messages WHERE ConversationId = ?"
+                cursor.execute(senders_query, conversation_id)
+                senders = cursor.fetchall()
+                senders_dict = {}
+                for item in senders:
+                    email_query = f"SELECT DISTINCT(email) FROM Users WHERE Id = ?"
+                    cursor.execute(email_query, item[0])
+                    email = cursor.fetchall()
+                    senders_dict[item[0]] = email[0][0]
 
-        for message in messages:
-            markdown_file.write(f'- **{message.TimeSent.strftime("%Y-%m-%d %H:%M:%S")} |'
-                                f'{senders_dict[message.SenderId]}**: {message.Text}\n')
+                print(senders_dict)
+                message_query = f"SELECT * FROM Messages WHERE ConversationId = ? ORDER BY TimeSent"
+                cursor.execute(message_query, conversation_id)
+                messages = cursor.fetchall()
 
-# Close the cursor and connection
-cursor.close()
-conn.close()
+                markdown_file.write(f"# Conversation Report\n\n")
+                markdown_file.write(f"## Conversation ID: {conversation_id}\n")
+                markdown_file.write(f"## **Time Created:** {conversation.TimeCreated}\n\n")
+                markdown_file.write(f"### **Messages**:\n")
 
-markdown_filename = './pdfs/conversation_report.md'
-output_pdf = './pdfs/article.pdf'
+                for message in messages:
+                    markdown_file.write(f'- **{message.TimeSent.strftime("%Y-%m-%d %H:%M:%S")} |'
+                                        f'{senders_dict[message.SenderId]}**: {message.Text}\n')
 
-subprocess.run(['mdpdf', '-o', output_pdf, markdown_filename])
+            markdown_filename = f'./pdfs/conversation_report_{conversation.Id}.md'
+            output_pdf = f'./pdfs/conversation_report_{conversation.Id}.pdf'
+
+            subprocess.run(['mdpdf', '-o', output_pdf, markdown_filename])
+
+            conversation_info = {
+                'senders': list(senders_dict.values()),
+                'file': f'conversation_report_{conversation.Id}.pdf'
+            }
+            conversation_reports.append(conversation_info)
+
+        query = f"DELETE FROM Conversations WHERE TimeCreated < ?"
+        cursor.execute(query, threshold_datetime)
+        cursor.commit()
+
+        cursor.close()
+        conn.close()
+
+        return conversation_reports
+    except Exception as e:
+        print(str(e))
+        print(f"ERROR IN GENERATING PDFS HAPPENED {datetime.now()}")
+        return []
+
+
 
 
 

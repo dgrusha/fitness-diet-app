@@ -27,8 +27,6 @@ public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, string>
             return Task.FromResult("empty");
         };
 
-        Console.WriteLine(user.FirstName);
-        Console.WriteLine(user.Coach);
         List<UserDto> users;
         if (user.Coach != null)
         {
@@ -39,7 +37,6 @@ public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, string>
             users = _userRepository.GetAllCoachesExceptMe(request.Id);
         }
 
-        Console.WriteLine(users.Count);
         if (users == null || users.Count == 0)
         {
             return Task.FromResult("empty");

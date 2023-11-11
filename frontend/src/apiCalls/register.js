@@ -12,7 +12,7 @@ export const register = async ({ firstName, lastName, email, password }) => {
                 "firstName": firstName,
                 "lastName": lastName,
                 "email": email,
-                "password": password
+                "password": password,
               }
             ),
         });

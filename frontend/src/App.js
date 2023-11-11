@@ -1,22 +1,20 @@
-import './App.css';
-import {Routes, Route} from 'react-router-dom';
 import { useState } from "react";
+import { Route, Routes } from 'react-router-dom';
+import './App.css';
 
-
-import SideBar from './components/sideBar/sideBar';
-import FormObligatory  from './components/formObligatory/formObligatory';
-import SignUp  from './components/pages/signUpClient';
 import ChatNew from './components/chatNew/chatNewWindow';
-import Login  from './components/pages/logIn';
-import MainPage from './components/mainPage/mainPage';
-import UserProfile from './components/userProfile/userProfile';
-import Feedback from './components/feedback/feedback';
+import HomePage from './pages/home';
+import SideBar from './sidebar/Sidebar';
+import Feedback from './pages/feedback';
+import FormObligatory from './pages/formObligatory';
+import Login from './pages/logIn';
+import SignUp from './pages/signUpClient';
+import UserProfile from './pages/userProfile';
 
 import ProtectedRoute from "./components/protectedRoute";
-import UnprotectedRoute from "./components/unprotectedRoute";
 import ProtectedRouteWithCondition from "./components/protectedRouteWithCondition";
+import UnprotectedRoute from "./components/unprotectedRoute";
 import { useAppContext } from './AppContext';
-
 
 function App() {
   const { user } = useAppContext();
@@ -28,7 +26,7 @@ function App() {
         <Routes>
             <Route path="get_started" element={<ProtectedRouteWithCondition><FormObligatory/></ProtectedRouteWithCondition>} />
             <Route path="register" element={<UnprotectedRoute><SignUp/></UnprotectedRoute>} />
-            <Route path="" element={<MainPage/>} />
+            <Route path="" element={<HomePage/>} />
             <Route path="my_profile" element={<ProtectedRoute><UserProfile/></ProtectedRoute>} />
             <Route path="feedback" element={<ProtectedRoute><Feedback/></ProtectedRoute>} />
             <Route path="chat" element={<ProtectedRoute><ChatNew/></ProtectedRoute>} />

@@ -51,6 +51,7 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, UniqueResponse<Auth
                 user.LastName,
                 user.FirstName,
                 user.Email,
+                user.IsAdmin,
                 user.HasObligatoryForm,
                 token
             );

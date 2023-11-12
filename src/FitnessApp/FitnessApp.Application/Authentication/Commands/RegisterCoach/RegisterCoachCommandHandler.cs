@@ -101,6 +101,7 @@ public class RegisterCoachCommandHandler : IRequestHandler<RegisterCoachCommand,
                 user.LastName,
                 user.Email,
                 false,
+                false,
                 token
             );
             response.ErrorCode = (int)HttpStatusCode.OK;

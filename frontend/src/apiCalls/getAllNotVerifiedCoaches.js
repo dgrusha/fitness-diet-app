@@ -1,8 +1,8 @@
 import { getCurrentUser } from '../helpers/authHelper';
 
-const baseUrl = 'https://localhost:7194/allergy/getAll';
+const baseUrl = 'https://localhost:7194/userProfile/getNotVerifiedCoaches';
 
-export const getAllergies = async () => {
+export const getAllNotVerifiedCoaches = async () => {
   const token = getCurrentUser();
   try {
       const response = await fetch(baseUrl, {

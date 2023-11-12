@@ -7,6 +7,7 @@ import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import PersonIcon from '@mui/icons-material/Person';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import ReviewsIcon from '@mui/icons-material/Reviews';
 import React, { useState } from 'react';
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar';
@@ -17,7 +18,7 @@ import AppLogo from '../img/logo_app.svg';
 import AppLogoShort from '../img/logo_app_short.svg';
 import { useAppContext } from '../AppContext';
 
-
+// TODO: Administration add verification to administrator
 function SideBarApp() {
 	const isAuthenticatedParam = getCurrentUser();
 	const hasPassedObligatoryFormParam = hasPassedObligatoryForm();
@@ -27,7 +28,6 @@ function SideBarApp() {
 	const toggleSidebar = () => {
 		setSidebarCollapsed(!sidebarCollapsed);
 	};
-
 	return (
 		<Sidebar className="MainSidebar" collapsed={sidebarCollapsed}>
 			<Menu>
@@ -60,6 +60,12 @@ function SideBarApp() {
 								className="SubMenu"
 								icon={<PersonIcon className="MenuIcon" />}
 								component={<Link className="LinkSideBar" to="/my_profile" />}>My profile
+							</MenuItem>
+							<MenuItem
+								className="SubMenu"
+								icon={<AdminPanelSettingsIcon className="MenuIcon" />}
+								component={<Link className="LinkSideBar" to="/admin" />}>
+								Administration
 							</MenuItem>
 							<MenuItem
 								className="SubMenu"

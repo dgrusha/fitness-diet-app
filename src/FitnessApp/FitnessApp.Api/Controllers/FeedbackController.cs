@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using FitnessApp.Application.Feedback.Commands.LeaveFeedback;
+using FitnessApp.Application.Feedback.Queries.GetAllFeedbacks;
 using FitnessApp.Contracts.Feedback;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -28,6 +29,16 @@ namespace FitnessApp.Api.Controllers
             var result = await _mediator.Send(command);
 
             return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());
+        }
+
+        [HttpGet("getAll")]
+        public async Task<IActionResult> GetAll()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var query = new GetAllFeedbacksQuery(new Guid(userId));
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
         }
 
     }

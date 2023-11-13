@@ -1,25 +1,34 @@
 import React, { createContext, useContext, useState } from 'react';
+import { useAppContext } from '../AppContext';
 
 const SidebarContext = createContext();
 
 export const SidebarProvider = ({ children }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { handleLogout } = useAppContext();
+  let [sidebarCollapsed, setSidebarCollapsed] = useState(true);
+	let [rerenderTrigger, setRerenderTrigger] = useState(sidebarCollapsed);
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    setSidebarCollapsed(!sidebarCollapsed);
+  };
+
+	const handleLogoutClick= () =>{
+		setRerenderTrigger((prev) => !prev);
+		handleLogout();
+	}
+
+	const contextValue = {
+    sidebarCollapsed,
+    toggleSidebar,
+		handleLogoutClick,
+		rerenderTrigger,
   };
 
   return (
-    <SidebarContext.Provider value={{ isSidebarOpen, toggleSidebar }}>
+    <SidebarContext.Provider value={contextValue}>
       {children}
     </SidebarContext.Provider>
   );
 };
 
-export const useSidebar = () => {
-  const context = useContext(SidebarContext);
-  if (!context) {
-    throw new Error('useSidebar must be used within a SidebarProvider');
-  }
-  return context;
-};
+export const useSidebar = () => useContext(SidebarContext);

@@ -19,7 +19,6 @@ export const InputField = (props) => (
         helperText = {props.helperText}
 				disabled ={props.disabled}
 				InputLabelProps = {props.InputLabelProps}
-				// inputProps={props.InputProps}
     />
 );
 
@@ -35,8 +34,7 @@ InputField.propTypes = {
     onChange: PropTypes.func,
     error: PropTypes.bool,
     helperText: PropTypes.string,
-		labelProps: PropTypes.element,
-		// inputProps: PropTypes.element
+		labelProps: PropTypes.element
 };
 
 export default InputField;

@@ -8,31 +8,26 @@ import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices
 import PersonIcon from '@mui/icons-material/Person';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import ReviewsIcon from '@mui/icons-material/Reviews';
-import React, { useState } from 'react';
+import React from 'react';
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar';
 import { Link } from 'react-router-dom';
 import './sideBar.css';
 import { getCurrentUser, hasPassedObligatoryForm } from '../helpers/authHelper';
 import AppLogo from '../img/logo_app.svg';
 import AppLogoShort from '../img/logo_app_short.svg';
-import { useAppContext } from '../AppContext';
+import { useSidebar } from './SidebarContext';
 
 
 function SideBarApp() {
 	const isAuthenticatedParam = getCurrentUser();
 	const hasPassedObligatoryFormParam = hasPassedObligatoryForm();
-	const { handleLogout } = useAppContext();
-	const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-
-	const toggleSidebar = () => {
-		setSidebarCollapsed(!sidebarCollapsed);
-	};
+	const {sidebarCollapsed, toggleSidebar, handleLogoutClick} = useSidebar();
 
 	return (
 		<Sidebar className="MainSidebar" collapsed={sidebarCollapsed}>
 			<Menu>
 				<MenuItem icon={sidebarCollapsed ? <img src={AppLogoShort} alt="Logo" className='logo' /> : null} onClick={toggleSidebar}>
-					<img src={AppLogo} alt="Logo" className='logo' />
+				<img src={AppLogo} alt="Logo" className='logo' />
 				</MenuItem>
 				{isAuthenticatedParam && hasPassedObligatoryFormParam === 'false' ? (
 					<MenuItem
@@ -69,7 +64,7 @@ function SideBarApp() {
 							<MenuItem
 								className="SubMenu"
 								icon={<MeetingRoomIcon className="MenuIcon" />}
-								onClick={handleLogout}> Logout
+								onClick={handleLogoutClick}> Logout
 							</MenuItem>
 						</SubMenu>
 					</>

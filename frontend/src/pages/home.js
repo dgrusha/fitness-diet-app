@@ -18,7 +18,7 @@ function HomePage() {
                 justifyContent: 'center',}}>
 					<img style={{height:"50%", width:"30%"}} className="photoPage" src={photo} alt="Main page photo" />
           <Typography variant="title1">READY TO START?</Typography>
-          <Typography variant="subtitle1">Let's start with y completing a straightforward form. This will give us valuable insights into your goals.</Typography>
+          <Typography variant="subtitle1">Let's start with completing a straightforward form. This will give us valuable insights into your goals.</Typography>
 					<Button href="/get_started" sx={{mt: '20px', width: '15%'}}>Fill the form</Button>
         </Grid>
       </ThemeProvider>

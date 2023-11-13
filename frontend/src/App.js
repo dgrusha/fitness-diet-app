@@ -10,6 +10,7 @@ import FormObligatory from './pages/formObligatory';
 import Login from './pages/logIn';
 import SignUp from './pages/signUpClient';
 import UserProfile from './pages/userProfile';
+import NotFound from './pages/notFound';
 
 import ProtectedRoute from "./components/protectedRoute";
 import ProtectedRouteWithCondition from "./components/protectedRouteWithCondition";
@@ -31,6 +32,7 @@ function App() {
             <Route path="feedback" element={<ProtectedRoute><Feedback/></ProtectedRoute>} />
             <Route path="chat" element={<ProtectedRoute><ChatNew/></ProtectedRoute>} />
             <Route path="login" element={<UnprotectedRoute><Login/></UnprotectedRoute>} />
+						<Route path="*" element={<NotFound/>}/>
         </Routes>
       </main>
     </div>

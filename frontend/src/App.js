@@ -15,6 +15,7 @@ import UserProfile from './pages/userProfile';
 import ProtectedRoute from "./components/protectedRoute";
 import ProtectedRouteWithCondition from "./components/protectedRouteWithCondition";
 import UnprotectedRoute from "./components/unprotectedRoute";
+import AdminRoute from "./components/adminRoute";
 import { useAppContext } from './AppContext';
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
             <Route path="my_profile" element={<ProtectedRoute><UserProfile/></ProtectedRoute>} />
             <Route path="feedback" element={<ProtectedRoute><Feedback/></ProtectedRoute>} />
             <Route path="chat" element={<ProtectedRoute><ChatNew/></ProtectedRoute>} />
-            <Route path="admin" element={<ProtectedRoute><Administration/></ProtectedRoute>} />
+            <Route path="admin" element={<AdminRoute><Administration/></AdminRoute>} />
             <Route path="login" element={<UnprotectedRoute><Login/></UnprotectedRoute>} />
         </Routes>
       </main>

@@ -2,9 +2,9 @@ import { Box } from '@mui/material';
 
 function TabPanel({ children, value, index }) {
     return (
-      <div role="tabpanel" hidden={value !== index} id={`tabpanel-${index}`}>
+      <div style={{flexGrow:1, overflow:'auto', position:'relative'}} role="tabpanel" hidden={value !== index} id={`tabpanel-${index}`}>
         {value === index && (
-          <Box p={3}>
+          <Box p={3} style={{position:'absolute'}}>
             {children}
           </Box>
         )}

@@ -51,7 +51,6 @@ def run_pdf_handler():
                 messages = cursor.fetchall()
 
                 markdown_file.write(f"# Conversation Report\n\n")
-                markdown_file.write(f"## Conversation ID: {conversation_id}\n")
                 markdown_file.write(f"## **Time Created:** {conversation.TimeCreated}\n\n")
                 markdown_file.write(f"### **Messages**:\n")
 

@@ -4,6 +4,7 @@ using FitnessApp.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessApp.Infrastructure.Migrations
 {
     [DbContext(typeof(FitnessContext))]
-    partial class FitnessContextModelSnapshot : ModelSnapshot
+    [Migration("20231119110547_add_diet_status_to_user")]
+    partial class add_diet_status_to_user
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,9 +161,6 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.Property<int>("Weight")
                         .HasColumnType("int");
 
-                    b.Property<int>("Years")
-                        .HasColumnType("int");
-
                     b.HasKey("UserId");
 
                     b.ToTable("ObligatoryForms", (string)null);
@@ -226,9 +226,6 @@ namespace FitnessApp.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("TrainingStatus")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

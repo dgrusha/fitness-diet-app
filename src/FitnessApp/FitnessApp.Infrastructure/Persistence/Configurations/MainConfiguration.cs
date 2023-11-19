@@ -27,6 +27,10 @@ public class MainConfiguration : IEntityTypeConfiguration<User>
         builder.Property(t => t.AvatarFileName).IsRequired(false);
         builder.Property(t => t.HasObligatoryForm).IsRequired();
 
+        // Statuses 
+        builder.Property(t => t.DietStatus).IsRequired();
+        builder.Property(t => t.TrainingStatus).IsRequired();
+
         // Relations
         builder.HasOne(u => u.ObligatoryForm)
             .WithOne(of => of.User!)

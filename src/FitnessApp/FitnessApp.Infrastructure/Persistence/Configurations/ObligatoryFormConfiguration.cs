@@ -22,6 +22,7 @@ public class ObligatoryFormConfiguration : IEntityTypeConfiguration<ObligatoryFo
         builder.HasKey(t => t.UserId);
         builder.Property(t => t.Height);
         builder.Property(t => t.Weight);
+        builder.Property(t => t.Years);
 
         // Relations
         builder.HasMany(f => f.Allergies)

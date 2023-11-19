@@ -60,11 +60,20 @@ public class AddCommandHandler : IRequestHandler<AddCommand, HttpResponseMessage
                 };
             }
 
+            if (request.Years > 60 || request.Height < 16)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent("Not correct range of years parameter"),
+                };
+            }
+
             var obligatoryForm = new ObligatoryForm
             {
                 User = user,
                 Weight = request.Weight,
-                Height = request.Height
+                Height = request.Height,
+                Years = request.Years,
             };
 
             var allergies = _allergyRepository.GetAllergiesByName(request.Allergies).ToList();

@@ -24,8 +24,20 @@ public class User
     public ObligatoryForm? ObligatoryForm { get; set; }
     public Coach? Coach { get; set; }
 
+    // Statuses
+    public PreparingStatus DietStatus { get; set; } = PreparingStatus.NotStarted;
+    public PreparingStatus TrainingStatus { get; set; } = PreparingStatus.NotStarted;
+
     public ICollection<Conversation> Conversations1 { get; set; } = new List<Conversation>();
     public ICollection<Conversation> Conversations2 { get; set; } = new List<Conversation>();
     public ICollection<Message> SentMessages { get; set; } = new List<Message>();
     public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+}
+
+
+public enum PreparingStatus
+{
+    NotStarted,
+    InProgress,
+    Finished
 }

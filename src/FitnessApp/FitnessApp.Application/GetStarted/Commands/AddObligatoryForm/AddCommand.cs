@@ -11,5 +11,6 @@ public record AddCommand
     Guid Id, 
     int Weight,
     int Height,
+    int Years,
     string[] Allergies
 ) : IRequest<HttpResponseMessage>;

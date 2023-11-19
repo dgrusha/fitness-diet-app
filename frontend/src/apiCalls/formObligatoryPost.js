@@ -2,7 +2,7 @@ import { getCurrentUser } from '../helpers/authHelper';
 
 const baseUrl = 'https://localhost:7194/obligatoryForm/add';
 
-export const addObligatoryForm = async ({ weight, height, allergies }) => {
+export const addObligatoryForm = async ({ weight, height, years, allergies }) => {
   const token = getCurrentUser();
   try {
       const response = await fetch(baseUrl, {
@@ -15,6 +15,7 @@ export const addObligatoryForm = async ({ weight, height, allergies }) => {
               {
                   "weight": weight,
                   "height" : height,
+                  "years": years,
                   "allergies": allergies,
               }
           ),

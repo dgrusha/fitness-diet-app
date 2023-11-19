@@ -6,6 +6,7 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [hasForm, setHasForm] = useState(false);
   const [user, setUser] = useState(null);
+  console.log(user);
 	const navigate = useNavigate();
 
   const hasFormHandle = (hasFormMine) => {

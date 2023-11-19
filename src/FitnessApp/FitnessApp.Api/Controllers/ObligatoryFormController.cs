@@ -34,7 +34,7 @@ namespace FitnessApp.Api.Controllers
         public async Task<IActionResult> Post(AddObligatoryFormRequest request)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var command = new AddCommand(new Guid(userId), request.Weight, request.Height, request.Allergies);
+            var command = new AddCommand(new Guid(userId), request.Weight, request.Height, request.Years, request.Allergies);
             var result = await _mediator.Send(command);
 
             return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());

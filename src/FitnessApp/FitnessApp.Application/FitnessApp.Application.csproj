@@ -21,7 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ActivityMode\Queries\" />
     <Folder Include="Chat\Commands\" />
+    <Folder Include="CookingRange\Queries\" />
+    <Folder Include="DietMode\Queries\" />
     <Folder Include="Feedback\Queries\" />
     <Folder Include="GetStarted\Commands\AddObligatoryForm\" />
     <Folder Include="GetStarted\Commands\DeleteObligatoryForm\" />

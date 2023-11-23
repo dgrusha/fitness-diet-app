@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FitnessApp.Domain.Entities;
+﻿using FitnessApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -35,6 +30,11 @@ public class MainConfiguration : IEntityTypeConfiguration<User>
         builder.HasOne(u => u.ObligatoryForm)
             .WithOne(of => of.User!)
             .HasForeignKey<ObligatoryForm>(of => of.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(u => u.DietForm)
+            .WithOne(of => of.User!)
+            .HasForeignKey<DietForm>(of => of.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(u => u.Coach)

@@ -63,6 +63,7 @@ public class UserRepository : IUserRepository
         User? user = _userContext.Users
             .Include(u => u.ObligatoryForm)
             .Include(u => u.Coach)
+            .Include(u => u.DietForm)
             .SingleOrDefault(user => user.Id == id);
         return user;
     }

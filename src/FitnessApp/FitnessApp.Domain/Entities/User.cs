@@ -22,6 +22,7 @@ public class User
     public bool HasObligatoryForm { get; set; } = false;
 
     public ObligatoryForm? ObligatoryForm { get; set; }
+    public DietForm? DietForm { get; set; }
     public Coach? Coach { get; set; }
 
     // Statuses

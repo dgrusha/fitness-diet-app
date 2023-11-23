@@ -6,8 +6,12 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [hasForm, setHasForm] = useState(false);
   const [user, setUser] = useState(null);
-  console.log(user);
 	const navigate = useNavigate();
+
+  //useEffect();
+  //if(!user && token ){
+  //  apicall.getUser()
+  //}
 
   const hasFormHandle = (hasFormMine) => {
     sessionStorage.setItem('hasForm', hasFormMine);

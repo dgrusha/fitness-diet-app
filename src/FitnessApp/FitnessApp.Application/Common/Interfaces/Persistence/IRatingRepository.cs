@@ -10,5 +10,5 @@ public interface IRatingRepository
 {
 
     void Add(Rating rating);
-
+    HashSet<Rating>? GetAllRatings();
 }

@@ -5,6 +5,7 @@ import './App.css';
 import ChatNew from './components/chatNew/chatNewWindow';
 import HomePage from './pages/home';
 import SideBar from './components/organisms/Sidebar';
+import Administration from "./pages/admin";
 import Feedback from './pages/feedback';
 import FormObligatory from './pages/formObligatory';
 import Login from './pages/logIn';
@@ -15,6 +16,7 @@ import NotFound from './pages/notFound';
 import ProtectedRoute from "./components/protectedRoute";
 import ProtectedRouteWithCondition from "./components/protectedRouteWithCondition";
 import UnprotectedRoute from "./components/unprotectedRoute";
+import AdminRoute from "./components/adminRoute";
 import { useAppContext } from './AppContext';
 import Diet from "./pages/diet";
 import Training from "./pages/training";
@@ -35,6 +37,7 @@ function App() {
             <Route path="chat" element={<ProtectedRoute><ChatNew/></ProtectedRoute>} />
 						<Route path="diet" element={<ProtectedRoute><Diet/></ProtectedRoute>} />
 						<Route path="training" element={<ProtectedRoute><Training/></ProtectedRoute>} />
+            <Route path="admin" element={<AdminRoute><Administration/></AdminRoute>} />
             <Route path="login" element={<UnprotectedRoute><Login/></UnprotectedRoute>} />
 						<Route path="*" element={<NotFound/>}/>
         </Routes>

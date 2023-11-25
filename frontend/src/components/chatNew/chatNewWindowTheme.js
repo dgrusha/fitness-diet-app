@@ -13,6 +13,7 @@ export const theme = createTheme({
     display: 'flex',
     flexDirection: 'column',
     height: '100vh',
+    width: '100%',
     backgroundColor: 'white',
   },
   header: {
@@ -34,6 +35,10 @@ export const theme = createTheme({
     width: '50%',
     borderRadius: 8,
     padding: 1,
+  },
+  iconHelp: {
+    marginRight: 2,
+    color:'#9cd91b',
   },
   inputSection: {
     display: 'flex',

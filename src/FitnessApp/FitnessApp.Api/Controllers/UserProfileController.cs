@@ -4,9 +4,12 @@ using FitnessApp.Application.Common.UserProfile;
 using FitnessApp.Application.S3Bucket.Commands.AddFile;
 using FitnessApp.Application.S3Bucket.Commands.DeleteFile;
 using FitnessApp.Application.S3Bucket.Queries.GetFile;
+using FitnessApp.Application.UserProfile.Commands.DeleteUnverifiedCoach;
+using FitnessApp.Application.UserProfile.Commands.UpdateCoachStatus;
 using FitnessApp.Application.UserProfile.Commands.UpdateUserAvatar;
 using FitnessApp.Application.UserProfile.Commands.UpdateUserInformation;
 using FitnessApp.Application.UserProfile.Queries.GetAllUsers;
+using FitnessApp.Application.UserProfile.Queries.GetNotVerifiedCoaches;
 using FitnessApp.Application.UserProfile.Queries.GetUserInformation;
 using FitnessApp.Contracts.UniqueResponse;
 using FitnessApp.Contracts.UserProfile;
@@ -39,6 +42,35 @@ namespace FitnessApp.Api.Controllers
             var query = new GetAllUserQuery(new Guid(userId));
             var result = await _mediator.Send(query);
             return Ok(result);
+        }
+
+        [HttpGet("getNotVerifiedCoaches")]
+        public async Task<IActionResult> GetNotVerifiedCoaches()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var query = new GetNotVerifiedCoachesQuery(new Guid(userId));
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpPut("updateCoach")]
+        public async Task<IActionResult> Post(UpdateCoachVerificationRequest request)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var command = new UpdateCoachStatusCommand(new Guid(userId), request.Email);
+            var result = await _mediator.Send(command);
+
+            return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());
+        }
+
+        [HttpDelete("deleteUser")]
+        public async Task<IActionResult> Delete(DeleteUnverifiedCoachRequest request)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var command = new DeleteUnverifiedCoachCommand(new Guid(userId), request.Email);
+            var result = await _mediator.Send(command);
+
+            return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());
         }
 
         [HttpGet("getUser")]

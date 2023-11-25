@@ -8,6 +8,7 @@ namespace FitnessApp.Domain.Entities;
 public class Conversation
 {
     public string Id { get; set; }
+    public DateTime TimeCreated { get; set; } = DateTime.Now;
 
     public Guid User1Id { get; set; }
     public User User1 { get; set; }

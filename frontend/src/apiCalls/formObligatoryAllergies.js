@@ -20,4 +20,4 @@ export const getAllergies = async () => {
     } catch (error) {
         return [];
     }
-  };
+};

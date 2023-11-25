@@ -12,7 +12,7 @@ const TwoSidesTemplate = (props) => {
   return (
     <ThemeProvider theme={ appTheme }>
         <Grid container component="main" sx={{ height: '100%', border: '15px solid #F8F8FA' }}>
-            <Grid item xs={12} sm={12} md={6} component={Paper} elevation={3} square sx={{ height: '100%'}}>
+            <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square style={{height: '100%', overflow: 'auto'}}>
               <Box
                 sx={{
                     my: 5,
@@ -20,7 +20,7 @@ const TwoSidesTemplate = (props) => {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'center',
+                    justifyContent: 'center'
                 }}
                 >
                 {props.title}

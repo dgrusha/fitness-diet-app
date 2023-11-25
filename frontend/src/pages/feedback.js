@@ -2,6 +2,7 @@ import {
 	LinearProgress,
 	TextField,
 	Typography,
+	Alert,
 } from '@mui/material';
 import React, { useState } from 'react';
 
@@ -75,6 +76,7 @@ function Feedback() {
 					label="Leave your feedback"
 				/>
 				{isSubmitting && <LinearProgress color="success" />}
+				<Alert severity="info">If you have some critical issues with our application then contact us here: eatrain@serwer2317506.home.pl</Alert>
 				<ButtonComponent
 					disabled={!isFormValid(formErrors, [feedbackText])}
 					onClick={handleSendButtonClick}

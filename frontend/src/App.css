@@ -26,6 +26,8 @@
 
 .MainPart{
   width: 100%;
+  height: 100%;
+  display: flex;
 }
 
 .FormPart{
@@ -36,7 +38,7 @@
 }
 
 #App{
-  height: 100vh;
+  height: 100%;
   display: flex;
 }
 

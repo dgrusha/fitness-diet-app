@@ -136,7 +136,7 @@ const TableOfDataCoaches = () => {
                                 <TableCell>{row.LastName}</TableCell>
                                 <TableCell>{row.Email}</TableCell>
                                 <TableCell>{row.CVFileName}</TableCell>
-                                <TableCell>
+                                <TableCell style={{ display: 'flex'}}>
                                     <Button onClick={() => handleOpenModal(row)}>
                                         <span aria-label="question">
                                             Recomendation

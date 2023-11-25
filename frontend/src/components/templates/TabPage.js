@@ -15,7 +15,7 @@ const TabPage = (props) => {
 
     return (
         <ThemeProvider theme={appTheme}>
-            <div style={{ backgroundColor: 'white', padding: '20px', textAlign: 'center', flexGrow:1, flexDirection:'column', display:'flex', overflow:'auto' }}>
+            <div style={{ backgroundColor: 'white', padding: '20px', textAlign: 'center', flexGrow:1, flexDirection:'column', display:'flex', overflow:'auto', gap: '10px' }}>
                 <Typography variant="h5">
                     {props.title}
                 </Typography>

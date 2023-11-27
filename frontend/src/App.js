@@ -23,11 +23,8 @@ import SubscriptionPage from "./pages/subscription";
 
 function App() {
 	const {user} = useAppContext();
-	// const [hasForm, setHasForm] = useState(false);
 
 	return (
-		// <AppProvider>
-		// 	<SidebarProvider>
 				<div className="App" id="App">
 					<SideBar />
 					<main className="MainPart">
@@ -46,8 +43,6 @@ function App() {
 						</Routes>
 					</main>
 				</div>
-		// 	</SidebarProvider>
-		// </AppProvider >
   );
 }
 

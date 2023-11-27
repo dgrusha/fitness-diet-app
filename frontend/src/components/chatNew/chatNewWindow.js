@@ -18,7 +18,7 @@ import { useAppContext } from '../../AppContext';
 
 const ChatPage = () => {
 	const [messages, setMessages] = useState([]);
-	const { user } = useAppContext();
+	var { user } = useAppContext();
 	const [newMessage, setNewMessage] = useState('');
 	const [selectedUser, setSelectedUser] = useState(null);
 	const [allUsers, setAllUsers] = useState([]);
@@ -50,7 +50,7 @@ const ChatPage = () => {
 
 	const handleChangeChat = (event, newValue) => {
 		setMessages([]);
-		if (newValue && user && user!==0 && newValue.Mail !== undefined && newValue.Mail !== '') {
+		if (newValue && user !== null && newValue.Mail !== undefined && newValue.Mail !== '') {
 			try {
 				cleanupConnection();
 				getChatHistory({ receiverEmail: newValue.Mail }).then((data) => {

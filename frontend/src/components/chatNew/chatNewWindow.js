@@ -37,9 +37,20 @@ const ChatPage = () => {
 		}
 	};
 
+	const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (e.shiftKey) {
+        setNewMessage((prevMessage) => prevMessage + '\n');
+      } else {
+        handleSendMessage();
+      }
+    }
+  };
+
 	const handleChangeChat = (event, newValue) => {
 		setMessages([]);
-		if (newValue.Mail !== undefined && newValue.Mail !== '') {
+		if (newValue && user && user!==0 && newValue.Mail !== undefined && newValue.Mail !== '') {
 			try {
 				cleanupConnection();
 				getChatHistory({ receiverEmail: newValue.Mail }).then((data) => {
@@ -139,6 +150,7 @@ const ChatPage = () => {
 						maxRows={4}
 						value={newMessage}
 						onChange={(e) => setNewMessage(e.target.value)}
+						onKeyDown={handleKeyDown}
 						sx={theme.textField}
 					/>
 					<Button

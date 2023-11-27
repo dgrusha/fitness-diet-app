@@ -4,7 +4,7 @@ import {
 	Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
-
+import Alert from '@mui/material/Alert';
 import { leaveFeedback } from '../apiCalls/leaveFeedback';
 import { isFormValid } from '../helpers/isFormValid';
 import image_feedback from '../img/feedback.png';
@@ -20,6 +20,7 @@ function Feedback() {
 	const [feedbackText, setFeedbackText] = useState('');
 	const [formErrors, setFormErrors] = useState({ text: "", general: "" });
 	const [status, setStatus] = useState('');
+
 
 	const handleChange = event => {
 		const { name, value } = event.target;
@@ -39,6 +40,8 @@ function Feedback() {
 			const [status, message] = [response.status, await response.text()];
 			if (status === 200) {
 				setStatus(message);
+				setSelectedRating('');
+				setFeedbackText('');
 			} else {
 				setStatus(message);
 			}
@@ -74,13 +77,13 @@ function Feedback() {
 					fullWidth
 					label="Leave your feedback"
 				/>
+				{status && <Alert fullWidth severity={status===200? "warning": "success"}>{status}</Alert>}
 				{isSubmitting && <LinearProgress color="success" />}
 				<ButtonComponent
-					disabled={!isFormValid(formErrors, [feedbackText])}
+					disabled={!isFormValid(formErrors, [feedbackText, selectedRating])}
 					onClick={handleSendButtonClick}
 					title="Submit"
 				/>
-				<p>{status}</p>
 			</>}
 			img={image_feedback}
 		/>

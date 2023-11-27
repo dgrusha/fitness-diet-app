@@ -8,6 +8,7 @@ import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices
 import PersonIcon from '@mui/icons-material/Person';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import ReviewsIcon from '@mui/icons-material/Reviews';
+import PaymentsIcon from '@mui/icons-material/Payments';
 import React from 'react';
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar';
 import { Link } from 'react-router-dom';
@@ -15,7 +16,7 @@ import './sideBar.css';
 import { getCurrentUser, hasPassedObligatoryForm } from '../../helpers/authHelper';
 import AppLogo from '../../img/logo_app.svg';
 import AppLogoShort from '../../img/logo_app_short.svg';
-import { useSidebar } from '../../helpers/SidebarContext';
+import { useSidebarContext } from '../../helpers/SidebarContext';
 import { ThemeProvider } from '@mui/material/styles';
 import { appTheme } from '../../helpers/themeProviderHelper';
 
@@ -23,7 +24,7 @@ import { appTheme } from '../../helpers/themeProviderHelper';
 function SideBarApp() {
 	const isAuthenticatedParam = getCurrentUser();
 	const hasPassedObligatoryFormParam = hasPassedObligatoryForm();
-	const { sidebarCollapsed, toggleSidebar, handleLogoutClick } = useSidebar();
+	const { sidebarCollapsed, toggleSidebar, handleLogoutClick } = useSidebarContext();
 
 	return (
 		<ThemeProvider theme={appTheme}>
@@ -58,6 +59,11 @@ function SideBarApp() {
 									className="SubMenu"
 									icon={<PersonIcon className="MenuIcon" />}
 									component={<Link className="LinkSideBar" to="/my_profile" />}>My profile
+								</MenuItem>
+								<MenuItem
+									className="SubMenu"
+									icon={<PaymentsIcon className="MenuIcon" />}
+									component={<Link className="LinkSideBar" to="/subscription" />}>Subscription
 								</MenuItem>
 								<MenuItem
 									className="SubMenu"

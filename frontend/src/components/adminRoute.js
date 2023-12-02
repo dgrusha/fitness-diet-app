@@ -4,7 +4,6 @@ import { useAppContext } from "../AppContext";
 
 function AdminRoute({children}) {
     const {user} = useAppContext();
-
     if (!user?.isAdmin) {
         return <Navigate to="/" />
     }

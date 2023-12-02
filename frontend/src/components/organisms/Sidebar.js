@@ -7,6 +7,7 @@ import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import PersonIcon from '@mui/icons-material/Person';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import ReviewsIcon from '@mui/icons-material/Reviews';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import React from 'react';
@@ -59,6 +60,11 @@ function SideBarApp() {
 									className="SubMenu"
 									icon={<PersonIcon className="MenuIcon" />}
 									component={<Link className="LinkSideBar" to="/my_profile" />}>My profile
+								</MenuItem>
+								<MenuItem
+									className="SubMenu"
+									icon={<AdminPanelSettingsIcon className="MenuIcon" />}
+									component={<Link className="LinkSideBar" to="/admin" />}>Administration
 								</MenuItem>
 								<MenuItem
 									className="SubMenu"

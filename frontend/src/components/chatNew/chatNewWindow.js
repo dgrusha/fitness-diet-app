@@ -22,7 +22,7 @@ import { useAppContext } from '../../AppContext';
 
 const ChatPage = () => {
 	const [messages, setMessages] = useState([]);
-	var { user } = useAppContext();
+	const { user } = useAppContext();
 	const [newMessage, setNewMessage] = useState('');
 	const [selectedUser, setSelectedUser] = useState(null);
 	const [allUsers, setAllUsers] = useState([]);

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect} from 'react';
 import { useNavigate } from 'react-router';
-import { getUser } from './apiCalls/userProfileGetInfo';
+import { getUserConnection } from './apiCalls/refreshUserConnection';
 
 const AppContext = createContext();
 
@@ -14,7 +14,7 @@ export const AppProvider = ({ children }) => {
       try {
         const storedUser = sessionStorage.getItem('user');
         if (storedUser && user === null) {
-          const result = await getUser();
+          const result = await getUserConnection();
           setUser(result.data);
         }
       } catch (error) {

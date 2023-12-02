@@ -49,7 +49,6 @@ function SignUpClient() {
 	};
 
 	const handleTextFieldClick = () => {
-		console.log('jjjjjjjjjjj')
 		document.getElementById('hidden-file-input').click();
 	};
 

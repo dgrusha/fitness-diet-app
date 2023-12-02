@@ -25,6 +25,12 @@ public class UserRepository : IUserRepository
         _userContext.SaveChanges();
     }
 
+    public void Delete(User user)
+    {
+        _userContext.Users.Remove(user);
+        _userContext.SaveChanges();
+    }
+
     public List<UserDto> GetAllCoachesExceptMe(Guid id)
     {
         return _userContext.Users
@@ -47,6 +53,21 @@ public class UserRepository : IUserRepository
                 FirstName = u.FirstName,
                 LastName = u.LastName,
                 Mail = u.Email
+            })
+            .ToList();
+    }
+
+    public List<CoachDto> GetNotVerifiedCoaches()
+    {
+        return _userContext.Users
+            .Where(u => u.Coach != null && u.Coach.IsVerified == false)
+            .Select(u => new CoachDto
+            {
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                Email = u.Email, 
+                CVFileName = u.Coach.CVFileName,
+                RecomendationText = u.Coach.RecomendationText,
             })
             .ToList();
     }

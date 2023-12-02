@@ -83,6 +83,11 @@ namespace FitnessApp.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsVerified")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("RecomendationText")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -102,6 +107,9 @@ namespace FitnessApp.Infrastructure.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("TimeCreated")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("User1Id")
                         .HasColumnType("uniqueidentifier");
@@ -210,6 +218,11 @@ namespace FitnessApp.Infrastructure.Migrations
 
                     b.Property<bool>("HasObligatoryForm")
                         .HasColumnType("bit");
+
+                    b.Property<bool>("IsAdmin")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("LastName")
                         .IsRequired()

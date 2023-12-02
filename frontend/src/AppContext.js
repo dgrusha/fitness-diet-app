@@ -39,7 +39,7 @@ export const AppProvider = ({ children }) => {
     sessionStorage.setItem('hasForm', false);
     setUser(null);
     setHasForm(false);
-		navigate("/login");
+    navigate("/login");
   };
 
   const contextValue = {

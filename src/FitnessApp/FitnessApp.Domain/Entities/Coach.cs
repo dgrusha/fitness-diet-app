@@ -10,6 +10,7 @@ public class Coach
     public Guid Id { get; set; } = Guid.NewGuid();
     public string RecomendationText { get; set; }
     public string CVFileName { get; set; }
+    public bool IsVerified { get; set; } = false;
 
     public Guid UserId { get; set; }
     public User User { get; set; }

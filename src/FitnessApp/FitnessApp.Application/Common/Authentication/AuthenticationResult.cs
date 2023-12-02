@@ -12,6 +12,7 @@ public record AuthenticationResult
     string FirstName,
     string LastName,
     string Email,
+    bool IsAdmin,
     bool HasObligatoryForm,
     string Token
 );

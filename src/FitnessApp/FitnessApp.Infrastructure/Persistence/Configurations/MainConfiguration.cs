@@ -26,6 +26,7 @@ public class MainConfiguration : IEntityTypeConfiguration<User>
         builder.Property(t => t.Password).HasMaxLength(100);
         builder.Property(t => t.AvatarFileName).IsRequired(false);
         builder.Property(t => t.HasObligatoryForm).IsRequired();
+        builder.Property(t=> t.IsAdmin).HasDefaultValue(false);
 
         // Relations
         builder.HasOne(u => u.ObligatoryForm)

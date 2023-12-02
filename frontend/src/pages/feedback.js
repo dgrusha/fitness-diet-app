@@ -2,9 +2,9 @@ import {
 	LinearProgress,
 	TextField,
 	Typography,
+	Alert,
 } from '@mui/material';
 import React, { useState } from 'react';
-import Alert from '@mui/material/Alert';
 import { leaveFeedback } from '../apiCalls/leaveFeedback';
 import { isFormValid } from '../helpers/isFormValid';
 import image_feedback from '../img/feedback.png';
@@ -79,6 +79,7 @@ function Feedback() {
 				/>
 				{status && <Alert fullWidth severity={status===200? "warning": "success"}>{status}</Alert>}
 				{isSubmitting && <LinearProgress color="success" />}
+				<Alert severity="info">If you have some critical issues with our application then contact us here: eatrain@serwer2317506.home.pl</Alert>
 				<ButtonComponent
 					disabled={!isFormValid(formErrors, [feedbackText, selectedRating])}
 					onClick={handleSendButtonClick}

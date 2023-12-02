@@ -23,4 +23,9 @@ public class RatingRepository : IRatingRepository
         _ratingContext.Ratings.Add(rating);
         _ratingContext.SaveChanges();
     }
+
+    public HashSet<Rating>? GetAllRatings()
+    {
+        return _ratingContext.Ratings.ToHashSet();
+    }
 }

@@ -26,6 +26,8 @@ public class User
     public ObligatoryForm? ObligatoryForm { get; set; }
     public Coach? Coach { get; set; }
 
+    public Subscription SubscriptionForCoach { get; set; }
+
     public ICollection<Conversation> Conversations1 { get; set; } = new List<Conversation>();
     public ICollection<Conversation> Conversations2 { get; set; } = new List<Conversation>();
     public ICollection<Message> SentMessages { get; set; } = new List<Message>();

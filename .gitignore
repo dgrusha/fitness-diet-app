@@ -464,3 +464,4 @@ TestResults/
 *.exe
 *.pdb
 *.dll.config
+src/FitnessApp/FitnessApp.Api/access_token.json

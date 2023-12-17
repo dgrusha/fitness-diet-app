@@ -46,6 +46,12 @@ public class ActivityModeRepository : IActivityModeRepository
             .ToHashSet();
     }
 
+    public ActivityMode? GetById(Guid id)
+    {
+        ActivityMode? mode = _activityModeContext.ActivityModes.SingleOrDefault(mode => mode.Id == id);
+        return mode;
+    }
+
     public void Update(Guid id, ActivityMode mode)
     {
         var modeFromDb = _activityModeContext.ActivityModes.SingleOrDefault(mode => mode.Id == id);

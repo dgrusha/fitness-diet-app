@@ -43,6 +43,8 @@ public static class DependencyInjection
         serviceCollection.AddScoped<ICookingRangeRepository, CookingRangeRepository>();
         serviceCollection.AddScoped<IDietFormRepository, DietFormRepository>();
         serviceCollection.AddScoped<IDietModeRepository, DietModeRepository>();
+        serviceCollection.AddScoped<IRecipeRepository, RecipeRepository>();
+        serviceCollection.AddScoped<IRecipeInstructionRepository, RecipeInstructionRepository>();
 
         string connectionString = configuration.GetConnectionString("SqlServerConnection");
         serviceCollection.AddDbContext<FitnessContext>(options =>

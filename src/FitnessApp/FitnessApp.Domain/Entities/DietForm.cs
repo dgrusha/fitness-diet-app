@@ -20,4 +20,8 @@ public class DietForm
     public Guid CookingRangeId { get; set; }
     public CookingRange CookingRange { get; set; }
 
+    public bool GenerateFile { get; set; } = false;
+
+    public List<Recipe> Recipes { get; set; } = new List<Recipe>();
+
 }

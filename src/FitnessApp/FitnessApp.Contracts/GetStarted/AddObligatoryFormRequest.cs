@@ -10,5 +10,6 @@ public record AddObligatoryFormRequest
     int Weight,
     int Height,
     int Years,
+    string Gender,
     string[] Allergies
 );

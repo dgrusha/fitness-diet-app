@@ -80,6 +80,12 @@ public class UserRepository : IUserRepository
         _userContext.SaveChanges();
     }
 
+    public void UpdateUserDietStatus(User user, PreparingStatus preparingStatus)
+    {
+        user.DietStatus = preparingStatus;
+        _userContext.SaveChanges();
+    }
+
     public void UpdateUserInfo(User user, string firstName, string lastName)
     {
         user.FirstName = firstName;

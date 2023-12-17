@@ -24,7 +24,6 @@ public class AddCookingRangeCommandHandler : IRequestHandler<AddCookingRangeComm
         try
         {
             var user = _userRepository.GetUserById(request.UserId);
-
             if (user == null)
             {
                 return new HttpResponseMessage(HttpStatusCode.NotFound)

@@ -1,6 +1,7 @@
 import { getCurrentUser } from '../helpers/authHelper';
+import { Constants } from '../helpers/constants';
 
-const baseUrl = 'https://localhost:7194/allergy/getAll';
+const baseUrl = Constants.BaseUrl + 'allergy/getAll';
 
 export const getAllergies = async () => {
   const token = getCurrentUser();

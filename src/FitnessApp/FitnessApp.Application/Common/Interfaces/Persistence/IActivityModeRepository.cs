@@ -11,5 +11,6 @@ public interface IActivityModeRepository
     void Add(Domain.Entities.ActivityMode mode);
     void Update(Guid id, Domain.Entities.ActivityMode mode);
     void Delete(Guid id);
+    Domain.Entities.ActivityMode? GetById(Guid id);
     HashSet<ActivityModeDto> GetAll();
 }

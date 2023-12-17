@@ -21,6 +21,8 @@ public class User
 
     public bool HasObligatoryForm { get; set; } = false;
 
+    // One relations
+
     public ObligatoryForm? ObligatoryForm { get; set; }
     public DietForm? DietForm { get; set; }
     public Coach? Coach { get; set; }
@@ -28,6 +30,8 @@ public class User
     // Statuses
     public PreparingStatus DietStatus { get; set; } = PreparingStatus.NotStarted;
     public PreparingStatus TrainingStatus { get; set; } = PreparingStatus.NotStarted;
+
+    // Many relations
 
     public ICollection<Conversation> Conversations1 { get; set; } = new List<Conversation>();
     public ICollection<Conversation> Conversations2 { get; set; } = new List<Conversation>();
@@ -40,5 +44,7 @@ public enum PreparingStatus
 {
     NotStarted,
     InProgress,
-    Finished
+    Finished,
+    ToTake,
+    NotSuceeded
 }

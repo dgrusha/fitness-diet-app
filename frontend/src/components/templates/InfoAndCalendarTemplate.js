@@ -32,7 +32,7 @@ const InfoAndCalendarTemplate = (props) => {
 
 InfoAndCalendarTemplate.propTypes = {
   title: PropTypes.element.isRequired,
-	bodyItems: PropTypes.element.isRequired,
+  bodyItems: PropTypes.element.isRequired,
   footerBody: PropTypes.element.isRequired,
   leftUpperPart: PropTypes.element.isRequired,
   leftLowerPart: PropTypes.element.isRequired

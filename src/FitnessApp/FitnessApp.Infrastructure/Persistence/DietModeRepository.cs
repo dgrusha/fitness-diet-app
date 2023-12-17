@@ -40,6 +40,12 @@ public class DietModeRepository : IDietModeRepository
                .ToHashSet();
     }
 
+    public DietMode? GetById(Guid id)
+    {
+        DietMode? mode = _dietModeContext.DietModes.SingleOrDefault(mode => mode.Id == id);
+        return mode;
+    }
+
     public void Update(Guid id, DietMode mode)
     {
         var modeFromDb = _dietModeContext.DietModes.SingleOrDefault(mode => mode.Id == id);

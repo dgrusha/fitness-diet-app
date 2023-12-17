@@ -9,4 +9,6 @@ public interface IDietFormRepository
 {
     void Add(Domain.Entities.DietForm form);
     void Update(Guid id, Domain.Entities.DietForm form);
+    List<Domain.Entities.DietForm> GetNotStartedDietForms();
+    Domain.Entities.DietForm? GetDietFormByUserId(Guid id);
 }

@@ -20,6 +20,7 @@ public class DietFormConfiguration : IEntityTypeConfiguration<DietForm>
     {
         builder.ToTable("DietForms");
         builder.HasKey(t => t.Id);
+        builder.Property(t => t.GenerateFile).IsRequired();
 
         builder.HasOne(m => m.DietMode)
             .WithMany(c => c.DietForms)
@@ -34,6 +35,11 @@ public class DietFormConfiguration : IEntityTypeConfiguration<DietForm>
         builder.HasOne(m => m.CookingRange)
             .WithMany(c => c.DietForms)
             .HasForeignKey(m => m.CookingRangeId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(m => m.Recipes)
+            .WithOne(c => c.DietForm)
+            .HasForeignKey(m => m.DietFormId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

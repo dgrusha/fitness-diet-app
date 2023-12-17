@@ -39,13 +39,6 @@ public class AddDietModeCommandHandler : IRequestHandler<AddDietModeCommand, Htt
                     Content = new StringContent("Name cannot be empty"),
                 };
             }
-            if (request.Coeficient <= 0)
-            {
-                return new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new StringContent("Coeficient cannot be negative"),
-                };
-            }
 
             Domain.Entities.DietMode dietMode = new Domain.Entities.DietMode
             {

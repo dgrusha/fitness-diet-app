@@ -45,6 +45,12 @@ public class CookingRangeRepository : ICookingRangeRepository
                .ToHashSet();
     }
 
+    public CookingRange? GetById(Guid id)
+    {
+        CookingRange? range = _cookingRangeContext.CookingRanges.SingleOrDefault(mode => mode.Id == id);
+        return range;
+    }
+
     public void Update(Guid id, CookingRange range)
     {
         var rangeFromDb = _cookingRangeContext.CookingRanges.SingleOrDefault(range => range.Id == id);

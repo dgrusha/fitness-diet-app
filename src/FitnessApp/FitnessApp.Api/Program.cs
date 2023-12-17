@@ -2,7 +2,9 @@ using System.Text;
 using FitnessApp.Api.Filters;
 using FitnessApp.Application;
 using FitnessApp.Application.Common.Chat;
+using FitnessApp.Application.Common.HangfireTasks;
 using FitnessApp.Infrastructure;
+using Hangfire;
 using NLog;
 
 //LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
@@ -11,7 +13,7 @@ var FitnessAllowSpecificOrigins = "_fitnessAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 {
     // Add services to the container.
-    builder.Services.AddApplication();
+    builder.Services.AddApplication(builder.Configuration);
     builder.Services.AddSignalR();
     builder.Services.AddInfrastructure(builder.Configuration);
     builder.Services.AddCors(options =>
@@ -43,6 +45,7 @@ var app = builder.Build();
     {
         app.UseSwagger();
         app.UseSwaggerUI();
+        app.UseHangfireDashboard("/hangfire");
     }
 
     app.UseHttpsRedirection();
@@ -52,6 +55,7 @@ var app = builder.Build();
     app.UseAuthentication();
     app.UseAuthorization();
     app.MapHub<ChatHub>("/chat");
+    app.Services.AddHangfireTasks();
     app.MapControllers();
     
 

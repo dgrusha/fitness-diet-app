@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState }  from 'react';
 import { Button } from "@mui/material";
+import FormDiet from './formDiet.js';
 import Typography from '@mui/material/Typography';
 import Calendar from "../components/atoms/Calendar.js";
 import { CardComponent } from "../components/moleculas/card.js";
@@ -10,6 +11,9 @@ import image_dinner from '../img/dinner.png';
 import image_edit_questionnary from "../img/edit_questionnary.png";
 import image_lunch from '../img/lunch.png';
 import { getUserStatuses } from '../apiCalls/userProfileGetStatuses.js';
+import PreparingProcess from './preparingProcess.js';
+import { StatusEnum } from '../helpers/processStatuses.js';
+import DietFinished from './dietFinished.js';
 
 function Diet() {
 	const [userStatuses, setUserStatuses] = useState({});
@@ -26,28 +30,18 @@ function Diet() {
 
 	const renderContent = () => {
 		switch (userStatuses.dietStatus) {
-			case 0:
-				return <p>test1</p>;
-			case 1:
-				return <p>test2</p>;
-			case 2:
+			case StatusEnum.NotStarted:
+				return <FormDiet setUserStatuses={setUserStatuses}/>;
+			case StatusEnum.InProgress:
+				return <PreparingProcess/>;
+			case StatusEnum.Finished:
 				return (
-					<InfoAndCalendarTemplate
-						title={<Typography gutterBottom variant="title1">Ration for today</Typography>}
-						bodyItems={
-							<>
-								<CardComponent title="Breakfast" subtitle="Greek Yogurt Parfait with Berries and Nuts" image={image_breakfast} imageLabel="350 kCal"/>
-								<CardComponent title="Lunch" subtitle="Grilled Chicken Salad" image={image_lunch} imageLabel="503 kCal"/>
-								<CardComponent title="Dinner" subtitle="Baked Salmon with Quinoa and Roasted Vegetables" image={image_dinner} imageLabel="760 kCal"/>
-							</>
-						}
-						footerBody={<CardComponent title="Health questionnaires" button={<Button>Edit</Button>} image={image_edit_questionnary}/> }
-						leftUpperPart={<Calendar></Calendar>}
-						leftLowerPart={<Button sx={{padding: '3vh 15vh', marginBottom: '20px'}}>DOWNLOAD</Button>}
-					/>
+					<DietFinished />
 				);
+			case StatusEnum.ToTake:
+				return <PreparingProcess/>;
 			default:
-				return null;
+				return <></>;
 		}
 	};
 

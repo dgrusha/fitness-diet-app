@@ -74,6 +74,7 @@ public class AddCommandHandler : IRequestHandler<AddCommand, HttpResponseMessage
                 Weight = request.Weight,
                 Height = request.Height,
                 Years = request.Years,
+                Gender = request.Gender
             };
 
             var allergies = _allergyRepository.GetAllergiesByName(request.Allergies).ToList();

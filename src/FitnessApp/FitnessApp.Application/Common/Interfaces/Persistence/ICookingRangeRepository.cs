@@ -6,5 +6,6 @@ public interface ICookingRangeRepository
     void Add(Domain.Entities.CookingRange range);
     void Update(Guid id, Domain.Entities.CookingRange range);
     void Delete(Guid id);
+    Domain.Entities.CookingRange? GetById(Guid id);
     HashSet<CookingRangeDto> GetAll();
 }

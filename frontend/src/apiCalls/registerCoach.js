@@ -1,6 +1,7 @@
 import { getCurrentUser } from '../helpers/authHelper';
+import { Constants } from '../helpers/constants';
 
-const baseUrl = 'https://localhost:7194/auth/registerCoach';
+const baseUrl = Constants.BaseUrl + 'auth/registerCoach';
 
 export const registerCoach = async ({ firstName, lastName, email, password, text, file }) => {
   const token = getCurrentUser();

@@ -35,6 +35,10 @@ export const theme = createTheme({
     borderRadius: 8,
     padding: 1,
   },
+  iconHelp: {
+    marginRight: 2,
+    color:'#9cd91b',
+  },
   inputSection: {
     display: 'flex',
     alignItems: 'center',

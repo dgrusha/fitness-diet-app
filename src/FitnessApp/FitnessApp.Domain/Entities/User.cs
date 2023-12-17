@@ -21,7 +21,7 @@ public class User
 
     public bool HasObligatoryForm { get; set; } = false;
 
-    // One relations
+    public bool IsAdmin { get; set; } = false;
 
     public ObligatoryForm? ObligatoryForm { get; set; }
     public DietForm? DietForm { get; set; }

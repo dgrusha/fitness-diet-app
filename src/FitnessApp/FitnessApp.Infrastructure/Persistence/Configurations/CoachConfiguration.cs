@@ -16,6 +16,6 @@ public class CoachConfiguration : IEntityTypeConfiguration<Coach>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.CVFileName).IsRequired();
         builder.Property(x => x.RecomendationText).IsRequired();
-
+        builder.Property(t => t.IsVerified).HasDefaultValue(false);
     }
 } 

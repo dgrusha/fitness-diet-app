@@ -47,3 +47,39 @@ def send_mail(
     smtp.login(username, password)
     smtp.sendmail("eatrain@serwer2317506.home.pl", send_to, msg.as_string())
     smtp.close()
+
+
+def send_mail_xlsx(
+        send_from,
+        send_to,
+        subject,
+        text,
+        file=None,
+        server="serwer2317506.home.pl",
+        port=465,
+        username="eatrain@serwer2317506.home.pl",
+        password=password_email
+):
+    msg = MIMEMultipart()
+    msg["From"] = send_from
+    msg["To"] = send_to
+    msg["Date"] = formatdate(localtime=True)
+    msg["Subject"] = subject
+    msg.attach(MIMEText(text))
+
+    if file:
+        part = MIMEBase("application", "octet-stream")
+        part.set_payload(open(file, "rb").read())
+        encoders.encode_base64(part)
+        now = datetime.now()
+        current_date = now.strftime("%Y_%m_%d")
+        part.add_header("Content-Disposition", f'attachment; filename="{current_date}_recipe_file.xlsx"')
+        msg.attach(part)
+
+    smtp = smtplib.SMTP_SSL(server, port)
+
+    smtp.ehlo()
+
+    smtp.login(username, password)
+    smtp.sendmail("eatrain@serwer2317506.home.pl", send_to, msg.as_string())
+    smtp.close()

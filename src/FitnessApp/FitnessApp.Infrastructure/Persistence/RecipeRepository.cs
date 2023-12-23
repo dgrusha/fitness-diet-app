@@ -24,6 +24,13 @@ public class RecipeRepository : IRecipeRepository
         _recipeContext.SaveChanges();
     }
 
+    public void DeleteRecipesByIdOfDietForm(Guid id)
+    {
+        var recipeList = _recipeContext.Recipes.Where(u => u.DietFormId == id).ToList();
+        _recipeContext.Recipes.RemoveRange(recipeList);
+        _recipeContext.SaveChanges();
+    }
+
     public List<DietDataDto> GetDietRecipes(Guid dietFormId)
     {
         return _recipeContext.Recipes
@@ -55,4 +62,6 @@ public class RecipeRepository : IRecipeRepository
             _recipeContext.SaveChanges();
         }
     }
+
+
 }

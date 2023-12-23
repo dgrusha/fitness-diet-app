@@ -108,7 +108,7 @@ function DietFinished() {
                 }
                 footerBody={ 
                     <>
-                        <CardComponent title="Health questionnaires" button={<Button>Edit</Button>} image={image_edit_questionnary}/>
+                        <CardComponent title="Health questionnaires" button={<Button href="/diet_change">Edit</Button>} image={image_edit_questionnary}/>
                     </>
                 }
                 leftUpperPart={<CalendarControlled value={date} changeFunction={handleDate} />}

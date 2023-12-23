@@ -31,7 +31,7 @@ function Diet() {
 	const renderContent = () => {
 		switch (userStatuses.dietStatus) {
 			case StatusEnum.NotStarted:
-				return <FormDiet setUserStatuses={setUserStatuses}/>;
+				return <FormDiet setUserStatuses={setUserStatuses} mode={0}/>;
 			case StatusEnum.InProgress:
 				return <PreparingProcess/>;
 			case StatusEnum.Finished:

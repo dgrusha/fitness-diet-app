@@ -132,35 +132,47 @@ public class HangfireService
                 List<JsonObjects.Search.Recipe> dinnersSelected = new();
 
                 // Add handler for checking this ranges
-                if (countRecipeBreakfast < 7)
+                while (breakfastsSelected.Count() < 7)
                 {
-                    breakfastsSelected.AddRange(recipesBreakfast.Take(countRecipeBreakfast));
-                    breakfastsSelected.AddRange(recipesBreakfast.Take(7 - countRecipeBreakfast));
+                    if (countRecipeBreakfast < 7)
+                    {
+                        breakfastsSelected.AddRange(recipesBreakfast.Take(countRecipeBreakfast));
+                        breakfastsSelected.AddRange(recipesBreakfast.Take(7 - countRecipeBreakfast));
+                    }
+                    else
+                    {
+                        breakfastsSelected.AddRange(recipesBreakfast.Take(7));
+                    }
                 }
-                else 
+                    
+
+                while (lunchesSelected.Count() < 7) 
                 {
-                    breakfastsSelected.AddRange(recipesBreakfast.Take(7));
+                    if (countRecipeLunch < 7)
+                    {
+                        lunchesSelected.AddRange(recipesLunch.Take(countRecipeLunch));
+                        lunchesSelected.AddRange(recipesLunch.Take(7 - countRecipeLunch));
+                    }
+                    else
+                    {
+                        lunchesSelected.AddRange(recipesLunch.Take(7));
+                    }
                 }
 
-                if (countRecipeLunch < 7)
-                {
-                    lunchesSelected.AddRange(recipesLunch.Take(countRecipeLunch));
-                    lunchesSelected.AddRange(recipesLunch.Take(7 - countRecipeLunch));
-                }
-                else
-                {
-                    lunchesSelected.AddRange(recipesLunch.Take(7));
-                }
 
-                if (countRecipeDinner < 7)
+                while (dinnersSelected.Count() < 7)
                 {
-                    dinnersSelected.AddRange(recipesDinner.Take(countRecipeDinner));
-                    dinnersSelected.AddRange(recipesDinner.Take(7 - countRecipeDinner));
+                    if (countRecipeDinner < 7)
+                    {
+                        dinnersSelected.AddRange(recipesDinner.Take(countRecipeDinner));
+                        dinnersSelected.AddRange(recipesDinner.Take(7 - countRecipeDinner));
+                    }
+                    else
+                    {
+                        dinnersSelected.AddRange(recipesDinner.Take(7));
+                    }
                 }
-                else
-                {
-                    dinnersSelected.AddRange(recipesDinner.Take(7));
-                }
+                    
 
                 Dictionary<string, JsonObjects.Get.RecipeData> descRecipe = new();
                 List<JsonObjects.Search.Recipe> allSelected = new();
@@ -297,7 +309,6 @@ public class HangfireService
                 }
 
                 _userRepository.UpdateUserDietStatus(user, PreparingStatus.Finished);
-
             }
             catch (Exception e)
             {

@@ -66,7 +66,6 @@ def send_mail_xlsx(
     msg["Date"] = formatdate(localtime=True)
     msg["Subject"] = subject
     msg.attach(MIMEText(text))
-
     if file:
         part = MIMEBase("application", "octet-stream")
         part.set_payload(open(file, "rb").read())

@@ -17,6 +17,7 @@ import ProtectedRouteWithCondition from "./components/protectedRouteWithConditio
 import UnprotectedRoute from "./components/unprotectedRoute";
 import { useAppContext } from './AppContext';
 import Diet from "./pages/diet";
+import FormDiet from "./pages/formDiet";
 import Training from "./pages/training";
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
             <Route path="feedback" element={<ProtectedRoute><Feedback/></ProtectedRoute>} />
             <Route path="chat" element={<ProtectedRoute><ChatNew/></ProtectedRoute>} />
 						<Route path="diet" element={<ProtectedRoute><Diet/></ProtectedRoute>} />
+            <Route path="diet_change" element={<ProtectedRoute><FormDiet mode={1}/></ProtectedRoute>} />
 						<Route path="training" element={<ProtectedRoute><Training/></ProtectedRoute>} />
             <Route path="login" element={<UnprotectedRoute><Login/></UnprotectedRoute>} />
 						<Route path="*" element={<NotFound/>}/>

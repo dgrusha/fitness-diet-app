@@ -25,7 +25,6 @@
   <ItemGroup>
     <Folder Include="Chat\Commands\" />
     <Folder Include="DietData\Commands\" />
-    <Folder Include="DietForm\Queries\" />
     <Folder Include="Feedback\Queries\" />
     <Folder Include="GetStarted\Commands\AddObligatoryForm\" />
     <Folder Include="GetStarted\Commands\DeleteObligatoryForm\" />

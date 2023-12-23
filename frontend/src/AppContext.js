@@ -1,10 +1,17 @@
 import { createContext, useContext, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [hasForm, setHasForm] = useState(false);
   const [user, setUser] = useState(null);
+	const navigate = useNavigate();
+
+  //useEffect();
+  //if(!user && token ){
+  //  apicall.getUser()
+  //}
 
   const hasFormHandle = (hasFormMine) => {
     sessionStorage.setItem('hasForm', hasFormMine);
@@ -21,6 +28,7 @@ export const AppProvider = ({ children }) => {
     sessionStorage.setItem('hasForm', false);
     setUser(null);
     setHasForm(false);
+		navigate("/login");
   };
 
   const contextValue = {

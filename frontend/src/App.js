@@ -4,17 +4,21 @@ import './App.css';
 
 import ChatNew from './components/chatNew/chatNewWindow';
 import HomePage from './pages/home';
-import SideBar from './sidebar/Sidebar';
+import SideBar from './components/organisms/Sidebar';
 import Feedback from './pages/feedback';
 import FormObligatory from './pages/formObligatory';
 import Login from './pages/logIn';
 import SignUp from './pages/signUpClient';
 import UserProfile from './pages/userProfile';
+import NotFound from './pages/notFound';
 
 import ProtectedRoute from "./components/protectedRoute";
 import ProtectedRouteWithCondition from "./components/protectedRouteWithCondition";
 import UnprotectedRoute from "./components/unprotectedRoute";
 import { useAppContext } from './AppContext';
+import Diet from "./pages/diet";
+import FormDiet from "./pages/formDiet";
+import Training from "./pages/training";
 
 function App() {
   const { user } = useAppContext();
@@ -30,7 +34,11 @@ function App() {
             <Route path="my_profile" element={<ProtectedRoute><UserProfile/></ProtectedRoute>} />
             <Route path="feedback" element={<ProtectedRoute><Feedback/></ProtectedRoute>} />
             <Route path="chat" element={<ProtectedRoute><ChatNew/></ProtectedRoute>} />
+						<Route path="diet" element={<ProtectedRoute><Diet/></ProtectedRoute>} />
+            <Route path="diet_change" element={<ProtectedRoute><FormDiet mode={1}/></ProtectedRoute>} />
+						<Route path="training" element={<ProtectedRoute><Training/></ProtectedRoute>} />
             <Route path="login" element={<UnprotectedRoute><Login/></UnprotectedRoute>} />
+						<Route path="*" element={<NotFound/>}/>
         </Routes>
       </main>
     </div>

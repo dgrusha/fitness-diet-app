@@ -37,6 +37,25 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.ToTable("ObligatoryFormAllergies", (string)null);
                 });
 
+            modelBuilder.Entity("FitnessApp.Domain.Entities.ActivityMode", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<float>("Coeficient")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ActivityModes", (string)null);
+                });
+
             modelBuilder.Entity("FitnessApp.Domain.Entities.Allergy", b =>
                 {
                     b.Property<Guid>("Id")
@@ -126,6 +145,82 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.ToTable("Conversations", (string)null);
                 });
 
+            modelBuilder.Entity("FitnessApp.Domain.Entities.CookingRange", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("MinuteEnd")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinuteStart")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CookingRanges", (string)null);
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.DietForm", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ActivityModeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CookingRangeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DietModeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("GenerateFile")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivityModeId");
+
+                    b.HasIndex("CookingRangeId");
+
+                    b.HasIndex("DietModeId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("DietForms", (string)null);
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.DietMode", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<float>("Coeficient")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DietModes", (string)null);
+                });
+
             modelBuilder.Entity("FitnessApp.Domain.Entities.Message", b =>
                 {
                     b.Property<Guid>("Id")
@@ -160,10 +255,17 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Height")
                         .HasColumnType("int");
 
                     b.Property<int>("Weight")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Years")
                         .HasColumnType("int");
 
                     b.HasKey("UserId");
@@ -197,6 +299,91 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.ToTable("Ratings", (string)null);
                 });
 
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Recipe", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("Calories")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Carbohydrate")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Cholesterol")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DayOfTheWeek")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("DietFormId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DishType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Fat")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Ingredients")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Iron")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Protein")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Sugar")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TransFat")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DietFormId");
+
+                    b.ToTable("Recipes", (string)null);
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.RecipeInstruction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Instruction")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("RecipeInstructions", (string)null);
+                });
+
             modelBuilder.Entity("FitnessApp.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -205,6 +392,9 @@ namespace FitnessApp.Infrastructure.Migrations
 
                     b.Property<string>("AvatarFileName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DietStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -233,6 +423,9 @@ namespace FitnessApp.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("TrainingStatus")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -284,6 +477,41 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.Navigation("User2");
                 });
 
+            modelBuilder.Entity("FitnessApp.Domain.Entities.DietForm", b =>
+                {
+                    b.HasOne("FitnessApp.Domain.Entities.ActivityMode", "ActivityMode")
+                        .WithMany("DietForms")
+                        .HasForeignKey("ActivityModeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FitnessApp.Domain.Entities.CookingRange", "CookingRange")
+                        .WithMany("DietForms")
+                        .HasForeignKey("CookingRangeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FitnessApp.Domain.Entities.DietMode", "DietMode")
+                        .WithMany("DietForms")
+                        .HasForeignKey("DietModeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FitnessApp.Domain.Entities.User", "User")
+                        .WithOne("DietForm")
+                        .HasForeignKey("FitnessApp.Domain.Entities.DietForm", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ActivityMode");
+
+                    b.Navigation("CookingRange");
+
+                    b.Navigation("DietMode");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("FitnessApp.Domain.Entities.Message", b =>
                 {
                     b.HasOne("FitnessApp.Domain.Entities.Conversation", "Conversation")
@@ -325,9 +553,56 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Recipe", b =>
+                {
+                    b.HasOne("FitnessApp.Domain.Entities.DietForm", "DietForm")
+                        .WithMany("Recipes")
+                        .HasForeignKey("DietFormId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DietForm");
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.RecipeInstruction", b =>
+                {
+                    b.HasOne("FitnessApp.Domain.Entities.Recipe", "Recipe")
+                        .WithMany("Instructions")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.ActivityMode", b =>
+                {
+                    b.Navigation("DietForms");
+                });
+
             modelBuilder.Entity("FitnessApp.Domain.Entities.Conversation", b =>
                 {
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.CookingRange", b =>
+                {
+                    b.Navigation("DietForms");
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.DietForm", b =>
+                {
+                    b.Navigation("Recipes");
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.DietMode", b =>
+                {
+                    b.Navigation("DietForms");
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Recipe", b =>
+                {
+                    b.Navigation("Instructions");
                 });
 
             modelBuilder.Entity("FitnessApp.Domain.Entities.User", b =>
@@ -337,6 +612,8 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.Navigation("Conversations1");
 
                     b.Navigation("Conversations2");
+
+                    b.Navigation("DietForm");
 
                     b.Navigation("ObligatoryForm");
 

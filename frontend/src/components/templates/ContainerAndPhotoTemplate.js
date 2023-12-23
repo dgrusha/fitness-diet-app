@@ -11,11 +11,11 @@ import { appTheme } from '../../helpers/themeProviderHelper';
 const TwoSidesTemplate = (props) => {
   return (
     <ThemeProvider theme={ appTheme }>
-        <Grid container component="main" sx={{ height: '100vh', border: '15px solid #F8F8FA' }}>
-            <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
+        <Grid container component="main" sx={{ height: '100%', border: '15px solid #F8F8FA' }}>
+            <Grid item xs={12} sm={12} md={6} component={Paper} elevation={3} square sx={{ height: '100%'}}>
               <Box
                 sx={{
-                    my: 8,
+                    my: 5,
                     mx: 4,
                     display: 'flex',
                     flexDirection: 'column',
@@ -32,8 +32,10 @@ const TwoSidesTemplate = (props) => {
                 {props.additional_links}
               </Box>
             </Grid>
-            <Grid item xs={12} sm={4} md={6}  component={Paper} elevation={6} square
+            <Grid item xs={12} sm={-1} md={6}  component={Paper} elevation={3} square
                 sx={{
+								// display: {sm: 'block', sx: 'none'},
+								height: '100%',
                 backgroundImage: `url(${props.img})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',

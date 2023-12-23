@@ -22,5 +22,15 @@ export function validateObligatoryFormFields(fieldName, fieldValue) {
         }
     }
 
+    if (fieldName === "years"){
+        if(!common.checkRequired(fieldValue)) {
+            error = "This field is required";
+        }else if(!common.checkIfContainsOnlyDigits(fieldValue)){
+            error = "Only numbers are allowed";
+        }else if(!common.checkNumberRange(fieldValue, 16, 60)){
+            error = "Your age can be between 16 and 60 years";
+        }
+    }
+
     return error;
 }

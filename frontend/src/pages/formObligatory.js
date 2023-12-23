@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Autocomplete from '@mui/material/Autocomplete';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
 import InputAdornment from '@mui/material/InputAdornment';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
@@ -23,12 +28,16 @@ function FormObligatory() {
 	const { hasFormHandle } = useAppContext();
 	const [weight, setWeight] = useState('');
 	const [height, setHeight] = useState('');
+	const [years, setYears] = useState('');
+	const [gender, setGender] = useState('');
 	const [allergies, setAllergies] = useState([]);
 	const [selectedOptions, setSelectedOptions] = useState([]);
-	const [formErrors, setFormErrors] = useState({ weight: "", height: "", general: "" });
+	const [formErrors, setFormErrors] = useState({ weight: "", height: "", years: "", gender: "", general: "" });
 	const setters = {
 		"weight": setWeight,
-		"height": setHeight
+		"height": setHeight,
+		"years": setYears,
+		"gender": setGender
 	}
 
 	const handleChange = event => {
@@ -47,13 +56,17 @@ function FormObligatory() {
 		setSelectedOptions(value);
 	};
 
+	const handleChangeRadio = (event, value) => {
+		setGender(value);
+	};
+
 	useEffect(() => {
 		getAllergies().then((data) => setAllergies(data));
 	}, []);
 
 	const handleSendButtonClick = async () => {
 		try {
-			const response = await addObligatoryForm({ weight: weight, height: height, allergies: selectedOptions });
+			const response = await addObligatoryForm({ weight: weight, height: height, years: years, gender: gender, allergies: selectedOptions });
 			const [status, message] = [response.status, await response.text()];
 			if (status === 200) {
 				hasFormHandle(true);
@@ -92,6 +105,16 @@ function FormObligatory() {
 						error={formErrors["height"] !== ""}
 						helperText={formErrors["height"]}
 					/>
+					<InputFieldWithMetric
+						label="Years"
+						id="years-field"
+						name="years"
+						inputProps={<InputAdornment position="end">y.o</InputAdornment>}
+						value={years}
+						onChange={handleChange}
+						error={formErrors["years"] !== ""}
+						helperText={formErrors["years"]}
+					/>
 					<Autocomplete
 						multiple
 						id="alergies-choice"
@@ -107,8 +130,15 @@ function FormObligatory() {
 							/>
 						)}
 					/>
+					<FormControl component="fieldset" sx={{ mt: 2 }}>
+						<FormLabel component="legend"  color="success">Gender</FormLabel>
+						<RadioGroup row aria-label="gender" name="gender" value={gender} onChange={handleChangeRadio}>
+							<FormControlLabel value="male" control={<Radio  color="success"/>} label="Male" />
+							<FormControlLabel value="female" control={<Radio  color="success"/>} label="Female" />
+						</RadioGroup>
+					</FormControl>
 					<Typography variant="server_error" textAlign="center">{formErrors["general"]}</Typography>
-					<ButtonComponent disabled={!isFormValid(formErrors, [weight, height])} onClick={handleSendButtonClick} title="Send" />
+					<ButtonComponent disabled={!isFormValid(formErrors, [weight, height, years, gender])} onClick={handleSendButtonClick} title="Send" />
 				</>}
 			img={image_required_form}
 		/>

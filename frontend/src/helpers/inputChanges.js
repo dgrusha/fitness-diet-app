@@ -7,3 +7,5 @@ export const handleTextInputChange = (event, setValue) => {
     const textValue = event.target.value.replace(/[^A-z]/g, '');
     setValue(textValue);
 };
+
+

@@ -22,7 +22,7 @@ import InputField from '../components/atoms/InputField';
 import TwoSidesTemplate from '../components/templates/ContainerAndPhotoTemplate';
 
 
-function SignUpClient(props) {
+function SignUpClient() {
 	const navigate = useNavigate();
 	const [isCoach, setIsCoach] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);

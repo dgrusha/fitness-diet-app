@@ -1,6 +1,7 @@
 import { getCurrentUser } from '../helpers/authHelper';
+import { Constants } from '../helpers/constants';
 
-const baseUrl = 'https://localhost:7194/userProfile/getAllUsersExceptMe';
+const baseUrl = Constants.BaseUrl + 'userProfile/getAllUsersExceptMe';
 
 export const getAllUsers = async () => {
   const token = getCurrentUser();

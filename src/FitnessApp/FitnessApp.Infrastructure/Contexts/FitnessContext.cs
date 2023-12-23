@@ -18,6 +18,12 @@ public class FitnessContext : DbContext
     public DbSet<Message> Messages { get; set; } = null!;
     public DbSet<Coach> Coaches { get; set; } = null!;
     public DbSet<Rating> Ratings { get; set; } = null!;
+    public DbSet<ActivityMode> ActivityModes { get; set; } = null!;
+    public DbSet<CookingRange> CookingRanges { get; set; } = null!;
+    public DbSet<DietForm> DietForms { get; set; } = null!;
+    public DbSet<DietMode> DietModes { get; set; } = null!;
+    public DbSet<Recipe> Recipes { get; set; } = null!;
+    public DbSet<RecipeInstruction> RecipeInstructions { get; set; } = null!;
 
     public FitnessContext(DbContextOptions<FitnessContext> options)
         : base(options)
@@ -34,6 +40,12 @@ public class FitnessContext : DbContext
         modelBuilder.ApplyConfiguration(new MessageConfiguration());
         modelBuilder.ApplyConfiguration(new CoachConfiguration());
         modelBuilder.ApplyConfiguration(new RatingConfiguration());
+        modelBuilder.ApplyConfiguration(new ActivityModeConfiguration());
+        modelBuilder.ApplyConfiguration(new CookingRangeConfiguration());
+        modelBuilder.ApplyConfiguration(new DietModeConfiguration());
+        modelBuilder.ApplyConfiguration(new DietFormConfiguration());
+        modelBuilder.ApplyConfiguration(new RecipeConfiguration());
+        modelBuilder.ApplyConfiguration(new RecipeInstructionConfiguration());
     }
 
 }

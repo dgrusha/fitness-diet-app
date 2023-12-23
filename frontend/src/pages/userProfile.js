@@ -52,7 +52,7 @@ function UserProfile() {
 				setUserData(data.data);
 				setFirstName(data.data.firstName);
 				setLastName(data.data.lastName);
-				if (data.data.avatarFileName !== undefined && data.data.avatarFileName !== '') {
+				if (data.data.avatarFileName !== null && data.data.avatarFileName !== '') {
 					setAvatar(data.data.avatarFileName);
 				}
 			} else {

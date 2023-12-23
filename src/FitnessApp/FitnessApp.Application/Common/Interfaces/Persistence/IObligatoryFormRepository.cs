@@ -10,6 +10,7 @@ public interface IObligatoryFormRepository
 {
 
     HashSet<ObligatoryForm>? GetAllForms();
+    ObligatoryForm? GetFormById(Guid id);
     void Add(ObligatoryForm obligatoryForm);
     void Update(ObligatoryForm obligatoryForm);
     void Delete(Guid id);

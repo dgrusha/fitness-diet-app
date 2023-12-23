@@ -63,6 +63,7 @@ public class UserRepository : IUserRepository
         User? user = _userContext.Users
             .Include(u => u.ObligatoryForm)
             .Include(u => u.Coach)
+            .Include(u => u.DietForm)
             .SingleOrDefault(user => user.Id == id);
         return user;
     }
@@ -76,6 +77,12 @@ public class UserRepository : IUserRepository
     public void UpdateUserAvatar(User user, string avatarName)
     {
         user.AvatarFileName = avatarName;
+        _userContext.SaveChanges();
+    }
+
+    public void UpdateUserDietStatus(User user, PreparingStatus preparingStatus)
+    {
+        user.DietStatus = preparingStatus;
         _userContext.SaveChanges();
     }
 

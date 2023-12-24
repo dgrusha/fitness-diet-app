@@ -58,7 +58,6 @@ var app = builder.Build();
     app.Services.AddHangfireTasks();
     app.MapControllers();
     
-
     app.Run();
 }
 

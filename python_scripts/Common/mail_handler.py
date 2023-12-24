@@ -19,7 +19,7 @@ def send_mail(
         text,
         file=None,
         server="serwer2317506.home.pl",
-        port=465,
+        port=587,
         username="eatrain@serwer2317506.home.pl",
         password=password_email
 ):

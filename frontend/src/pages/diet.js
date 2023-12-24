@@ -1,15 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState }  from 'react';
-import { Button } from "@mui/material";
 import FormDiet from './formDiet.js';
-import Typography from '@mui/material/Typography';
-import Calendar from "../components/atoms/Calendar.js";
-import { CardComponent } from "../components/moleculas/card.js";
-import InfoAndCalendarTemplate from '../components/templates/InfoAndCalendarTemplate';
-import image_breakfast from '../img/breakfast.png';
-import image_dinner from '../img/dinner.png';
-import image_edit_questionnary from "../img/edit_questionnary.png";
-import image_lunch from '../img/lunch.png';
 import { getUserStatuses } from '../apiCalls/userProfileGetStatuses.js';
 import PreparingProcess from './preparingProcess.js';
 import { StatusEnum } from '../helpers/processStatuses.js';

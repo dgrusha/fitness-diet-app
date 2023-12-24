@@ -37,6 +37,7 @@ public class User
     public ICollection<Conversation> Conversations2 { get; set; } = new List<Conversation>();
     public ICollection<Message> SentMessages { get; set; } = new List<Message>();
     public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+    public ICollection<PasswordResetHolder> PasswordCodes { get; set; } = new List<PasswordResetHolder>();
 }
 
 

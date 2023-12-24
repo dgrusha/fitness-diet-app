@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Hangfire;
 using FitnessApp.Application.Common.HangfireTasks;
 using FitnessApp.Application.Common.FatSecret;
+using FitnessApp.Application.Common.EmailHandler;
 
 namespace FitnessApp.Application;
 
@@ -23,6 +24,7 @@ public static class DependencyInjection
         serviceCollection.AddMediatR(typeof(DependencyInjection).Assembly);
         serviceCollection.AddSingleton<IHashing, Hashing>();
         serviceCollection.AddSingleton<IFatSecretApi, FatSecretApi>();
+        serviceCollection.AddSingleton<IEmailSender, EmailSender>();
         serviceCollection.AddSingleton<IDictionary<string, UserConnectionInner>>(opts => new Dictionary<string, UserConnectionInner>());
         serviceCollection.AddScoped<HangfireService>();
         serviceCollection.AddHttpClient<FatSecretApi>();

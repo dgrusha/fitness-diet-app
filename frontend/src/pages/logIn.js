@@ -26,8 +26,6 @@ function LogIn() {
 	});
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [formErrors, setFormErrors] = useState({
-		firstName: "",
-		lastName: "",
 		email: "",
 		password: ""
 	});
@@ -114,7 +112,7 @@ function LogIn() {
 			additional_links={
 				<Grid container sx={{ width: '80%' }}>
 					<Grid item xs>
-						<Link href="#" variant="link_a">
+						<Link href="/password_reset" variant="link_a">
 							Forgot password?
 						</Link>
 					</Grid>

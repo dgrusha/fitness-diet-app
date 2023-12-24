@@ -25,6 +25,16 @@ public class UserRepository : IUserRepository
         _userContext.SaveChanges();
     }
 
+    public void ChangeUserPassword(Guid id, string password)
+    {
+        var user = _userContext.Users.FirstOrDefault(u => u.Id == id);
+        if (user != null) 
+        {
+            user.Password = password;
+            _userContext.SaveChanges();
+        }
+    }
+
     public List<UserDto> GetAllCoachesExceptMe(Guid id)
     {
         return _userContext.Users

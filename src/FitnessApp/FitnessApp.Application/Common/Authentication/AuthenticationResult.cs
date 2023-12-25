@@ -14,5 +14,6 @@ public record AuthenticationResult
     string Email,
     bool IsAdmin,
     bool HasObligatoryForm,
-    string Token
+    string Token,
+    bool HasSubscription
 );

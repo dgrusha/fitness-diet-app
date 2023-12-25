@@ -35,4 +35,12 @@ public class CoachRepository : ICoachRepository
         coach.IsVerified = isVerified;
         _coachContext.SaveChanges();
     }
+
+    public Coach? GetCoachById(Guid id)
+    {
+        Coach? coach = _coachContext.Coaches
+            .Include(u => u.User)
+            .SingleOrDefault(coach => coach.Id == id);
+        return coach;
+    }
 }

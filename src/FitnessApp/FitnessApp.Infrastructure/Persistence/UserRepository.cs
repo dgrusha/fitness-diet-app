@@ -31,15 +31,18 @@ public class UserRepository : IUserRepository
         _userContext.SaveChanges();
     }
 
-    public List<UserDto> GetAllCoachesExceptMe(Guid id)
+    public List<CoachDto> GetAllCoachesExceptMe(Guid id)
     {
         return _userContext.Users
             .Where(u => u.Id != id && u.Coach != null)
-            .Select(u => new UserDto
+            .Select(u => new CoachDto
             {
                 FirstName = u.FirstName,
                 LastName = u.LastName,
-                Mail = u.Email
+                Mail = u.Email,
+                RecomendationText = u.Coach.RecomendationText,
+                CVFileName = u.Coach.CVFileName,
+                AvatarFileName = u.AvatarFileName
             })
             .ToList();
     }
@@ -65,7 +68,7 @@ public class UserRepository : IUserRepository
             {
                 FirstName = u.FirstName,
                 LastName = u.LastName,
-                Email = u.Email, 
+                Mail = u.Email, 
                 CVFileName = u.Coach.CVFileName,
                 RecomendationText = u.Coach.RecomendationText,
             })
@@ -80,7 +83,6 @@ public class UserRepository : IUserRepository
 
     public User? GetUserById(Guid id)
     {
-
         User? user = _userContext.Users
             .Include(u => u.ObligatoryForm)
             .Include(u => u.Coach)

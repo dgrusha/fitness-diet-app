@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 namespace FitnessApp.Application.Common.DTO;
 public class CoachDto
 {
-    public string FirstName { get; set; } = null!;
-    public string LastName { get; set; } = null!;
-    public string Email { get; set; } = null!;
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Mail { get; set; } 
     public string RecomendationText { get; set; }
     public string CVFileName { get; set; }
+    public string AvatarFileName { get; set; }
 
 }

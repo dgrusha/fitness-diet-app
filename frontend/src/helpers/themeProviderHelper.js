@@ -85,6 +85,15 @@ export const appTheme = createTheme({
 				}
 			}
 		},
+		MuiRadio:{
+			styleOverrides: {
+				root: {
+					"&.Mui-checked": {
+						color: "#9CD91B"
+					}
+				}
+			}
+		},
 		MuiLink: {
 			styleOverrides: {
 				root: {

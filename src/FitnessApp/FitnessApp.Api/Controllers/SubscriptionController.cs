@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
-using FitnessApp.Application.Feedback.Commands.LeaveFeedback;
-using FitnessApp.Application.Feedback.Queries.GetAllFeedbacks;
-using FitnessApp.Contracts.Feedback;
+using FitnessApp.Application.Subscriptions.Commands.AddSubscription;
+using FitnessApp.Application.Subscriptions.Commands.DeleteSubscription;
+using FitnessApp.Contracts.Subscriptions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -21,15 +21,23 @@ public class SubscriptionController : ControllerBase
     }
 
     [HttpPost("add")]
-    public async Task<IActionResult> Post(AddFeedbackRequest request)
+    public async Task<IActionResult> Post(AddSubscriptionRequest request)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var command = new LeaveFeedbackCommand(new Guid(userId), request.LevelRating, request.Text);
+        var clientId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var command = new AddSubscriptionCommand(new Guid(clientId), request.CoachEmail, request.Duration);
         var result = await _mediator.Send(command);
 
         return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());
     }
 
+    [HttpDelete("cancel")]
+    public async Task<IActionResult> Delete()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var command = new DeleteSubscriptionCommand(new Guid(userId));
+        var result = await _mediator.Send(command);
 
+        return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());
+    }
 
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FitnessApp.Application.Common.Interfaces.Persistence;
 using FitnessApp.Domain.Entities;
 using FitnessApp.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Infrastructure.Persistence;
 public class SubscriptionRepository : ISubscriptionRepository
@@ -23,8 +24,10 @@ public class SubscriptionRepository : ISubscriptionRepository
         _subscriptionContext.SaveChanges();
     }
 
-    public void Delete(Subscription subscription)
+    public void Delete(Guid clientId)
     {
+        Subscription subscription = _subscriptionContext.Subscriptions
+            .Where(s => s.ClientId == clientId).Single();
         _subscriptionContext.Subscriptions.Remove(subscription);
         _subscriptionContext.SaveChanges();
     }
@@ -32,6 +35,14 @@ public class SubscriptionRepository : ISubscriptionRepository
     public HashSet<Subscription>? GetSubscriptions()
     {
         return _subscriptionContext.Subscriptions.ToHashSet();
+    }
+
+    public Subscription? GetSubscription(Guid clientId)
+    {
+        return _subscriptionContext.Subscriptions
+            .Include(u => u.Coach)
+            .Where(m => m.ClientId == clientId)
+            .SingleOrDefault();
     }
 
     public void Update(Subscription subscription)

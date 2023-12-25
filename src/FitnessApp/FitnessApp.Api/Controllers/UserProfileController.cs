@@ -10,6 +10,7 @@ using FitnessApp.Application.UserProfile.Commands.UpdateUserAvatar;
 using FitnessApp.Application.UserProfile.Commands.UpdateUserInformation;
 using FitnessApp.Application.UserProfile.Queries.GetAllUsers;
 using FitnessApp.Application.UserProfile.Queries.GetNotVerifiedCoaches;
+using FitnessApp.Application.UserProfile.Queries.GetUserCoach;
 using FitnessApp.Application.UserProfile.Queries.GetUserInformation;
 using FitnessApp.Contracts.UniqueResponse;
 using FitnessApp.Contracts.UserProfile;
@@ -137,6 +138,17 @@ namespace FitnessApp.Api.Controllers
             var result = await _mediator.Send(command);
 
             return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());
+        }
+
+
+        [HttpGet("getUserCoach")]
+        public async Task<IActionResult> GetUserCoach()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var query = new GetUserCoachQuery(new Guid(userId));
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
         }
     }
 }

@@ -14,5 +14,6 @@ public interface ICoachRepository
     void UpdateVerified(Coach coach, bool isVerified);
 
     Coach? GetByUserEmail(string email);
+    Coach? GetCoachById(Guid id);
 
 }

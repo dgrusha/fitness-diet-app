@@ -36,7 +36,8 @@ public class RefreshConnectionQueryHandler : IRequestHandler<RefreshConnectionQu
                 user.Email,
                 user.IsAdmin,
                 user.HasObligatoryForm,
-                query.Token
+                query.Token,
+                user.SubscriptionForCoach != null
             );
 
             response.ErrorCode = (int)HttpStatusCode.OK;

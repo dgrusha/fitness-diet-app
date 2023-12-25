@@ -15,6 +15,7 @@ export const AppProvider = ({ children }) => {
         const storedUser = sessionStorage.getItem('user');
         if (storedUser && user === null) {
           const result = await getUserConnection();
+					console.log(result.data)
           setUser(result.data);
         }
       } catch (error) {

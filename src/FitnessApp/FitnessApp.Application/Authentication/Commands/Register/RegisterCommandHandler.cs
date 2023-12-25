@@ -80,7 +80,8 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, UniqueRes
                 user.Email,
                 false,
                 false,
-                token
+                token,
+                false
             );
             response.ErrorCode = (int)HttpStatusCode.OK;
             return response;

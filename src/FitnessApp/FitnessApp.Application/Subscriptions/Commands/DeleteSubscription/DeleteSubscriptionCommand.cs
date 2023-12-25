@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediatR;
-namespace FitnessApp.Application.Subscriptions.Commands.AddSubscription;
+namespace FitnessApp.Application.Subscriptions.Commands.DeleteSubscription;
 
-public record AddSubscriptionCommand
+public record DeleteSubscriptionCommand
 (
-    Guid ClientId,
-    string CoachEmail,
-    int Duration
+    Guid ClientId
 ) : IRequest<HttpResponseMessage>;
+

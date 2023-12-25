@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAllUsers } from '../../apiCalls/chatGetUsers';
+import { getCoach } from '../../apiCalls/getUserCoach';
 import { joinRoom, sendMessage } from '../../helpers/signalRHandlers';
 import { getChatHistory } from '../../apiCalls/chatGetHistory';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
@@ -60,6 +61,37 @@ const ChatPage = () => {
       }
     }
   };
+
+	// const getUserCoach = async () => {
+	// 	const coach = await getCoach();
+	// 	console.log(coach)
+	// 	setMessages([]);
+	// 	if (coach && user !== null && coach.Mail !== undefined && coach.Mail !== '') {
+	// 		try {
+	// 			cleanupConnection();
+	// 			getChatHistory({ receiverEmail: coach.Mail }).then((data) => {
+	// 				setMessages(
+	// 					data.map((item) => {
+	// 						return {
+	// 							text: item.Text,
+	// 							sender: item.Email,
+	// 						};
+	// 					})
+	// 				);
+	// 			});
+	// 			joinRoom(
+	// 				user.email,
+	// 				coach.Mail,
+	// 				setMessages,
+	// 				messages,
+	// 				setConnection
+	// 			);
+	// 		} catch (error) {
+	// 			console.error(error.message);
+	// 		}
+	// 	}
+	// 	setSelectedUser(coach);
+	// };
 
 	const handleChangeChat = (event, newValue) => {
 		setMessages([]);

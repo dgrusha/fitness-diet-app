@@ -209,8 +209,8 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.Property<Guid?>("CoachId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("SubscriptionType")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("SubscriptionId");
 

@@ -17,6 +17,6 @@ public interface IUserRepository
     void UpdateUserInfo(User user, string firstName, string lastName);
     void UpdateUserAvatar(User user, string avatarName);
     List<UserDto> GetAllUsersExceptMe(Guid id);
-    List<UserDto> GetAllCoachesExceptMe(Guid id);
+    List<CoachDto> GetAllCoachesExceptMe(Guid id);
     List<CoachDto> GetNotVerifiedCoaches();
 }

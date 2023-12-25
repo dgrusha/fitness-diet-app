@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessApp.Infrastructure.Migrations
 {
     [DbContext(typeof(FitnessContext))]
-    [Migration("20231203171651_add_subscription")]
+    [Migration("20231221210636_add_subscription")]
     partial class add_subscription
     {
         /// <inheritdoc />
@@ -212,8 +212,8 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.Property<Guid?>("CoachId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("SubscriptionType")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("SubscriptionId");
 

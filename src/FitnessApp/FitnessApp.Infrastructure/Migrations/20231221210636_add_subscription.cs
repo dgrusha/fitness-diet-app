@@ -16,7 +16,7 @@ namespace FitnessApp.Infrastructure.Migrations
                 columns: table => new
                 {
                     SubscriptionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SubscriptionType = table.Column<int>(type: "int", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ClientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CoachId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },

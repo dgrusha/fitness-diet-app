@@ -24,8 +24,8 @@ namespace FitnessApp.Infrastructure.Persistence.Configurations
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.Property(x => x.ClientId).IsRequired();
-            builder.Property(x => x.SubscriptionType).IsRequired();
             builder.Property(x => x.CoachId);
+            builder.Property(x => x.EndDate);
         }
     }
 }

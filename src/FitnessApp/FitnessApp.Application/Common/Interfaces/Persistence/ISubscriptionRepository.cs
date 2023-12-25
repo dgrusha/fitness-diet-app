@@ -12,6 +12,7 @@ public interface ISubscriptionRepository
     HashSet<Subscription>? GetSubscriptions();
     void Add(Subscription subscription);
     void Update(Subscription subscription);
-    void Delete(Subscription subscription);
+    void Delete(Guid clientId);
+    public Subscription? GetSubscription(Guid clientId);
 
 }

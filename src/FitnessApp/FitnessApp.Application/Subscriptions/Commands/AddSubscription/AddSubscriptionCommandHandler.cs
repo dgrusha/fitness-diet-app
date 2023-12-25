@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 using FitnessApp.Application.Common.Interfaces.Persistence;
 using FitnessApp.Domain.Entities;
 using MediatR;
-namespace FitnessApp.Application.Subscription.Commands.AddSubscription;
+namespace FitnessApp.Application.Subscriptions.Commands.AddSubscription;
 
 public class AddSubscriptionCommandHandler : IRequestHandler<AddSubscriptionCommand, HttpResponseMessage>
 {
     private readonly IUserRepository _userRepository;
+    private readonly ICoachRepository _coachRepository;
     private readonly ISubscriptionRepository _subscriptionRepository;
 
-    public AddSubscriptionCommandHandler(IUserRepository userRepository, ISubscriptionRepository subscriptionRepository)
+    public AddSubscriptionCommandHandler(IUserRepository userRepository, ICoachRepository coachRepository, ISubscriptionRepository subscriptionRepository)
     {
         _userRepository = userRepository;
+        _coachRepository = coachRepository;
         _subscriptionRepository = subscriptionRepository;
     }
 
@@ -25,6 +27,7 @@ public class AddSubscriptionCommandHandler : IRequestHandler<AddSubscriptionComm
         try
         {
             var user = _userRepository.GetUserById(request.ClientId);
+            var coach =  _coachRepository.GetByUserEmail(request.CoachEmail);
 
             if (user == null)
             {
@@ -34,42 +37,36 @@ public class AddSubscriptionCommandHandler : IRequestHandler<AddSubscriptionComm
                 };
             }
 
-            var user = _userRepository.GetUserById(request.ClientId);
-
-            if (user == null)
+            if (coach == null)
             {
-                return new HttpResponseMessage(HttpStatusCode.NotFound)
+                return new HttpResponseMessage(HttpStatusCode.BadRequest)
                 {
-                    Content = new StringContent("Such a client does not exist"),
-                };
-            }
-            if (request.RatingLevel < 0 || request.RatingLevel > 5)
-            {
-                return new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new StringContent("Rating cannot be lower than 0 or higher than 5"),
-                };
-            }
-            if (request.Text.Length == 0)
-            {
-                return new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new StringContent("Feedback cannot be empty"),
+                    Content = new StringContent("Premium subscribtion requieres coach to be selected"),
                 };
             }
 
-            Rating rating = new Rating
+            if (request.Duration <= 0)
             {
-                UserId = user.Id,
-                RatingLevel = request.RatingLevel,
-                Text = request.Text
+                return new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent("Duration of subscription should be positive"),
+                };
+            }
+
+
+
+            Subscription subscription = new Subscription
+            {
+                ClientId = user.Id,
+                CoachId = coach != null ? coach.Id : null,
+                EndDate = DateTime.Today.AddMonths(request.Duration)
             };
 
-            _ratingRepository.Add(rating);
+            _subscriptionRepository.Add(subscription);
 
             return new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent("Feedback was added successfully"),
+                Content = new StringContent("Subscription proccess ended with success"),
             };
 
         }

@@ -34,7 +34,6 @@ const TwoSidesTemplate = (props) => {
             </Grid>
             <Grid item xs={-1} sm={-1} md={6}  component={Paper} elevation={3} square
                 sx={{
-								// display: {sm: 'block', sx: 'none'},
 								height: '100%',
                 backgroundImage: `url(${props.img})`,
                 backgroundRepeat: 'no-repeat',

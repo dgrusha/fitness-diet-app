@@ -4,6 +4,7 @@ using FitnessApp.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessApp.Infrastructure.Migrations
 {
     [DbContext(typeof(FitnessContext))]
-    partial class FitnessContextModelSnapshot : ModelSnapshot
+    [Migration("20231225085538_add_training_form_and_mode")]
+    partial class add_training_form_and_mode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,41 +222,6 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DietModes", (string)null);
-                });
-
-            modelBuilder.Entity("FitnessApp.Domain.Entities.Excercise", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Difficulty")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Instructions")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<Guid>("TrainingFormId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TrainingFormId");
-
-                    b.ToTable("Excercises", (string)null);
                 });
 
             modelBuilder.Entity("FitnessApp.Domain.Entities.Message", b =>
@@ -614,17 +582,6 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FitnessApp.Domain.Entities.Excercise", b =>
-                {
-                    b.HasOne("FitnessApp.Domain.Entities.TrainingForm", "TrainingForm")
-                        .WithMany("Excercises")
-                        .HasForeignKey("TrainingFormId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TrainingForm");
-                });
-
             modelBuilder.Entity("FitnessApp.Domain.Entities.Message", b =>
                 {
                     b.HasOne("FitnessApp.Domain.Entities.Conversation", "Conversation")
@@ -746,11 +703,6 @@ namespace FitnessApp.Infrastructure.Migrations
             modelBuilder.Entity("FitnessApp.Domain.Entities.Recipe", b =>
                 {
                     b.Navigation("Instructions");
-                });
-
-            modelBuilder.Entity("FitnessApp.Domain.Entities.TrainingForm", b =>
-                {
-                    b.Navigation("Excercises");
                 });
 
             modelBuilder.Entity("FitnessApp.Domain.Entities.TrainingMode", b =>

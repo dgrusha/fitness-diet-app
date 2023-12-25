@@ -25,6 +25,7 @@ public class User
 
     public ObligatoryForm? ObligatoryForm { get; set; }
     public DietForm? DietForm { get; set; }
+    public TrainingForm? TrainingForm { get; set; }
     public Coach? Coach { get; set; }
 
     // Statuses

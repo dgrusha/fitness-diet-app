@@ -24,13 +24,13 @@ function Diet() {
 			case StatusEnum.NotStarted:
 				return <FormDiet setUserStatuses={setUserStatuses} mode={0}/>;
 			case StatusEnum.InProgress:
-				return <PreparingProcess/>;
+				return <PreparingProcess mode={"diet"}/>;
 			case StatusEnum.Finished:
 				return (
 					<DietFinished />
 				);
 			case StatusEnum.ToTake:
-				return <PreparingProcess/>;
+				return <PreparingProcess mode={"diet"}/>;
 			default:
 				return <></>;
 		}

@@ -7,6 +7,7 @@ using Dumpify;
 using FitnessApp.Domain.Entities;
 using FitnessApp.Application.Common.DTO;
 using FitnessApp.Application.Common.JsonObjects;
+using FitnessApp.Application.Common.NinjaApi;
 
 namespace FitnessApp.Application.Common.HangfireTasks;
 public class HangfireService
@@ -18,6 +19,8 @@ public class HangfireService
     private readonly IRecipeInstructionRepository _recipeInstructionRepository;
     private readonly IConfiguration _configuration;
     private readonly IFatSecretApi _fatSecretApi;
+    private readonly INinjaApi _ninjaApi;
+    private readonly ITrainingFormRepository _trainingFormRepository;
 
     public HangfireService
         (
@@ -27,7 +30,9 @@ public class HangfireService
             IFatSecretApi fatSecretApi,
             IObligatoryFormRepository obligatoryFormRepository,
             IRecipeRepository recipeRepository,
-            IRecipeInstructionRepository recipeInstructionRepository
+            IRecipeInstructionRepository recipeInstructionRepository,
+            INinjaApi ninjaApi,
+            ITrainingFormRepository trainingFormRepository
         )
     {
         _userRepository = userRepository;
@@ -37,6 +42,17 @@ public class HangfireService
         _obligatoryFormRepository = obligatoryFormRepository;
         _recipeRepository = recipeRepository;
         _recipeInstructionRepository = recipeInstructionRepository;
+        _ninjaApi = ninjaApi;
+        _trainingFormRepository = trainingFormRepository;
+    }
+    public async Task UpdateTrainingFormsEachTwoMinutes()
+    {
+        var trainingForms = _trainingFormRepository.GetNotStartedTrainingForms();
+        foreach (var trainingForm in trainingForms)
+        {
+
+            var result = await _ninjaApi.GetExcercises("glutes", trainingForm.TrainingMode);
+        }
     }
 
     public async Task UpdateDietFormsEachMinute()

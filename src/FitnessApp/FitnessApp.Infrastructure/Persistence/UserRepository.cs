@@ -102,4 +102,10 @@ public class UserRepository : IUserRepository
         user.LastName = lastName;
         _userContext.SaveChanges();
     }
+
+    public void UpdateUserTrainingStatus(User user, PreparingStatus preparingStatus)
+    {
+        user.TrainingStatus = preparingStatus;
+        _userContext.SaveChanges();
+    }
 }

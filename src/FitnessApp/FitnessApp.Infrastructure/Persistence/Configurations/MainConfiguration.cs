@@ -38,6 +38,11 @@ public class MainConfiguration : IEntityTypeConfiguration<User>
             .HasForeignKey<DietForm>(of => of.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        builder.HasOne(u => u.TrainingForm)
+            .WithOne(of => of.User!)
+            .HasForeignKey<TrainingForm>(of => of.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         builder.HasOne(u => u.Coach)
             .WithOne(c => c.User!)
             .HasForeignKey<Coach>(c => c.UserId)

@@ -16,6 +16,7 @@ public interface IUserRepository
     void UpdateUserInfo(User user, string firstName, string lastName);
     void UpdateUserAvatar(User user, string avatarName);
     void UpdateUserDietStatus(User user, PreparingStatus preparingStatus);
+    void UpdateUserTrainingStatus(User user, PreparingStatus preparingStatus);
     void ChangeUserPassword(Guid id, string password);
     List<UserDto> GetAllUsersExceptMe(Guid id);
     List<UserDto> GetAllCoachesExceptMe(Guid id);

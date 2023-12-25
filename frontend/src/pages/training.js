@@ -1,28 +1,47 @@
 import * as React from 'react';
-
-import { Button } from "@mui/material";
-import Typography from '@mui/material/Typography';
-import Calendar from "../components/atoms/Calendar.js";
-import { CardComponent } from "../components/moleculas/card.js";
-import InfoAndCalendarTemplate from '../components/templates/InfoAndCalendarTemplate';
-import image_edit_questionnary from "../img/edit_questionnary.png";
-import image_stretching from '../img/streching.svg';
+import { useEffect, useState }  from 'react';
+import FormTraining from './formTraining.js';
+import { getUserStatuses } from '../apiCalls/userProfileGetStatuses.js';
+import PreparingProcess from './preparingProcess.js';
+import { StatusEnum } from '../helpers/processStatuses.js';
+import TrainingFinished from './trainingFinished.js';
 
 function Training() {
+	const [userStatuses, setUserStatuses] = useState({});
+
+	useEffect(() => {
+		getUserStatuses().then((data) => {
+			if (data.errorCode === 200) {
+				setUserStatuses(data.data);
+			} else {
+				setUserStatuses({ dietStatus: -1, trainingStatus: -1 });
+			}
+		});
+	}, []);
+
+	const renderContent = () => {
+        console.log(userStatuses.trainingStatus);
+        console.log(StatusEnum.NotStarted);
+		switch (userStatuses.trainingStatus) {
+			case StatusEnum.NotStarted:
+				return <FormTraining setUserStatuses={setUserStatuses} mode={0}/>;
+			case StatusEnum.InProgress:
+				return <PreparingProcess mode={"training"}/>;
+			case StatusEnum.Finished:
+				return (
+					<TrainingFinished />
+				);
+			case StatusEnum.ToTake:
+				return <PreparingProcess mode={"training"}/>;
+			default:
+				return <></>;
+		}
+	};
 
 	return (
-		<InfoAndCalendarTemplate
-			title={<Typography gutterBottom variant="title1">Training for today</Typography>}
-			bodyItems={
-					<CardComponent title="Warmup" subtitle="Stretching and massage" image={image_stretching} />
-
-			}
-			footerBody={<CardComponent title="Health questionnaires" button={
-				<Button>Edit</Button>
-			} image={image_edit_questionnary}/> }
-			leftUpperPart={<Calendar></Calendar>}
-			leftLowerPart={<Button sx={{padding: '3vh 15vh', marginBottom: '20px'}}>DOWNLOAD</Button>}
-		/>
+		<>
+			{renderContent()}
+		</>
 	);
 }
 

@@ -41,7 +41,7 @@ public class SubscriptionRepository : ISubscriptionRepository
     {
         return _subscriptionContext.Subscriptions
             .Include(u => u.Coach)
-            .Where(m => m.ClientId == clientId)
+            .Where(m => m.ClientId.Equals(clientId))
             .SingleOrDefault();
     }
 

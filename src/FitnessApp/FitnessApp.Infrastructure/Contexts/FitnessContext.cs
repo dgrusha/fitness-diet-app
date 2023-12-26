@@ -25,6 +25,12 @@ public class FitnessContext : DbContext
     {
     }
 
+    //public FitnessContext(DbContextOptions<FitnessContext> options)
+    //: base(options)
+    //{
+    //    ChangeTracker.LazyLoadingEnabled = false;
+    //}
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

@@ -47,6 +47,7 @@ public class GetUserCoachQueryHandler : IRequestHandler<GetUserCoachQuery, Uniqu
             };
 
             Subscription subscription = _subscriptionRepository.GetSubscription(user.Id);
+            Console.WriteLine(subscription);
 
             if (subscription.CoachId == null)
             {
@@ -57,14 +58,14 @@ public class GetUserCoachQueryHandler : IRequestHandler<GetUserCoachQuery, Uniqu
 
             Coach coach = _coachRepository.GetCoachById((Guid)subscription.CoachId);
 
-            //response.Data = new CoachDto(
-            //    coach.User.FirstName,
-            //    coach.User.LastName,
-            //    coach.User.Email,
-            //    coach.RecomendationText,
-            //    coach.CVFileName
-            //);
-            response.Data = new CoachDto();
+            response.Data = new CoachDto {
+                FirstName = coach.User.FirstName,
+                LastName = coach.User.LastName,
+                Mail = coach.User.Email,
+                RecomendationText = coach.RecomendationText,
+                CVFileName = coach.CVFileName,
+                AvatarFileName = coach.User.AvatarFileName
+            };
             response.ErrorCode = (int)HttpStatusCode.OK;
         }
         catch (Exception ex)

@@ -133,7 +133,10 @@ const ChatPage = () => {
 	}, []);
 
 	useEffect(() => {
+		getCoach().then((data) => {
+			console.log(data)});
 		getAllUsers().then((data) => setAllUsers(data));
+
 	}, []);
 
 	return (

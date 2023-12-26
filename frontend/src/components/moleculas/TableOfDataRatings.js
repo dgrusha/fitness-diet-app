@@ -26,6 +26,7 @@ const TableOfDataRatings = () => {
 
     useEffect(() => {
         getFeedbacks().then((data) => {
+						console.log(data)
             setDataFeedback(data);
             setFilteredData(data);
         });

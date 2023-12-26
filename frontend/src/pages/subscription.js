@@ -21,6 +21,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
+import { getCoach } from '../apiCalls/getUserCoach';
 
 
 const style = {
@@ -39,6 +40,7 @@ const style = {
 
 const SubscriptionPage = () => {
 	const user = useAppContext();
+	const [coach, setCoach] = useState(null);
 	const [open, setOpen] = React.useState(false);
 	const [openCoach, setOpenCoach] = React.useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -94,7 +96,9 @@ const SubscriptionPage = () => {
 
 	useEffect(() => {
 		getAllUsers().then((data) => setAllUsers(data));
-		console.log(allUsers)
+		getCoach().then((data) => {setCoach(data);
+		console.log(data)});
+		console.log(coach)
 	}, []);
 
 	const handleChangeChat = (event, newValue) => {

@@ -12,10 +12,12 @@ export const getCoach = async () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-				body: {},
       });
-			console.log(response)
-      return await response;
+      if (!response.ok) {
+        return [];
+      }
+      let answer = await response.json();
+      return answer;
     } catch (error) {
         return [];
     }

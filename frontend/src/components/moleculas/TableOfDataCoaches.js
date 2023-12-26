@@ -109,7 +109,7 @@ const TableOfDataCoaches = () => {
                             <TableCell sx={{ color: 'white' }}>
                                 <TableSortLabel
                                     sx={{ color: 'white' }}
-                                    active={sortBy === 'Email'}
+                                    active={sortBy === 'Mail'}
                                     direction={sortDirection}
                                     onClick={() => handleSort('TimeSent')}
                                 >
@@ -131,10 +131,10 @@ const TableOfDataCoaches = () => {
                     </TableHead>
                     <TableBody>
                         {filteredData.map((row) => (
-                            <TableRow key={row.Email}>
+                            <TableRow key={row.Mail}>
                                 <TableCell>{row.FirstName}</TableCell>
                                 <TableCell>{row.LastName}</TableCell>
-                                <TableCell>{row.Email}</TableCell>
+                                <TableCell>{row.Mail}</TableCell>
                                 <TableCell>{row.CVFileName}</TableCell>
                                 <TableCell style={{ display: 'flex'}}>
                                     <Button onClick={() => handleOpenModal(row)}>
@@ -142,12 +142,12 @@ const TableOfDataCoaches = () => {
                                             Recomendation
                                         </span>
                                     </Button>
-                                    <Button sx={{ marginLeft: 2 }} onClick={() => handleApprove(row.Email)}>
+                                    <Button sx={{ marginLeft: 2 }} onClick={() => handleApprove(row.Mail)}>
                                         <span aria-label="approve">
                                             Approve
                                         </span>
                                     </Button>
-                                    <Button sx={{ marginLeft: 2 }} onClick={() => handleDelete(row.Email)}>
+                                    <Button sx={{ marginLeft: 2 }} onClick={() => handleDelete(row.Mail)}>
                                         <span aria-label="approve">
                                             Delete
                                         </span>

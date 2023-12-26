@@ -34,7 +34,7 @@ public class UserRepository : IUserRepository
     public List<CoachDto> GetAllCoachesExceptMe(Guid id)
     {
         return _userContext.Users
-            .Where(u => u.Id != id && u.Coach != null)
+            .Where(u => u.Id != id && u.Coach != null && u.Coach.IsVerified == true)
             .Select(u => new CoachDto
             {
                 FirstName = u.FirstName,

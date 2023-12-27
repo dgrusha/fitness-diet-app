@@ -16,6 +16,8 @@ public interface IUserRepository
     void UpdateObligatoryFormStatus(User user, bool hasObligatoryForm);
     void UpdateUserInfo(User user, string firstName, string lastName);
     void UpdateUserAvatar(User user, string avatarName);
+    void UpdateUserDietStatus(User user, PreparingStatus preparingStatus);
+    void ChangeUserPassword(Guid id, string password);
     List<UserDto> GetAllUsersExceptMe(Guid id);
     List<CoachDto> GetAllCoachesExceptMe(Guid id);
     List<CoachDto> GetNotVerifiedCoaches();

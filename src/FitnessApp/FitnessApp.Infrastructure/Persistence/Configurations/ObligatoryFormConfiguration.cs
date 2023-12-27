@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FitnessApp.Domain.Entities;
+﻿using FitnessApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,6 +17,8 @@ public class ObligatoryFormConfiguration : IEntityTypeConfiguration<ObligatoryFo
         builder.HasKey(t => t.UserId);
         builder.Property(t => t.Height);
         builder.Property(t => t.Weight);
+        builder.Property(t => t.Years);
+        builder.Property(t => t.Gender);
 
         // Relations
         builder.HasMany(f => f.Allergies)

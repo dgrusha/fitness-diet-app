@@ -1,6 +1,7 @@
 import { getCurrentUser } from '../helpers/authHelper';
+import { Constants } from '../helpers/constants';
 
-const baseUrl = 'https://localhost:7194/feedback/add';
+const baseUrl = Constants.BaseUrl + 'feedback/add';
 
 export const leaveFeedback = async ({ levelRating, text }) => {
   const token = getCurrentUser();

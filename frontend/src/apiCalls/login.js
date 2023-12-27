@@ -1,4 +1,6 @@
-const baseUrl = 'https://localhost:7194/auth/login';
+import { Constants } from '../helpers/constants';
+
+const baseUrl = Constants.BaseUrl + 'auth/login';
 
 export const login = async ({ email, password }) => {
     try {

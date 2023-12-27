@@ -30,8 +30,17 @@ public class UserRepository : IUserRepository
         _userContext.Users.Remove(user);
         _userContext.SaveChanges();
     }
+    public void ChangeUserPassword(Guid id, string password)
+    {
+        var user = _userContext.Users.FirstOrDefault(u => u.Id == id);
+        if (user != null) 
+        {
+            user.Password = password;
+            _userContext.SaveChanges();
+        }
+    }
 
-    public List<CoachDto> GetAllCoachesExceptMe(Guid id)
+		public List<CoachDto> GetAllCoachesExceptMe(Guid id)
     {
         return _userContext.Users
             .Where(u => u.Id != id && u.Coach != null && u.Coach.IsVerified == true)
@@ -86,6 +95,7 @@ public class UserRepository : IUserRepository
         User? user = _userContext.Users
             .Include(u => u.ObligatoryForm)
             .Include(u => u.Coach)
+            .Include(u => u.DietForm)
             .SingleOrDefault(user => user.Id == id);
         return user;
     }
@@ -99,6 +109,12 @@ public class UserRepository : IUserRepository
     public void UpdateUserAvatar(User user, string avatarName)
     {
         user.AvatarFileName = avatarName;
+        _userContext.SaveChanges();
+    }
+
+    public void UpdateUserDietStatus(User user, PreparingStatus preparingStatus)
+    {
+        user.DietStatus = preparingStatus;
         _userContext.SaveChanges();
     }
 

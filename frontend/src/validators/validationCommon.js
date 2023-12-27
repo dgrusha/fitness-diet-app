@@ -134,3 +134,7 @@
 
     return true;
   }
+
+  export function isValidOption(selectedOption, options){
+    return options.some((option) => option.id === selectedOption);
+  };

@@ -10,6 +10,7 @@ import Feedback from './pages/feedback';
 import FormObligatory from './pages/formObligatory';
 import Login from './pages/logIn';
 import SignUp from './pages/signUpClient';
+import PasswordReset from "./pages/passwordReset";
 import UserProfile from './pages/userProfile';
 import NotFound from './pages/notFound';
 import SubscriptionPage from "./pages/subscription";
@@ -20,6 +21,7 @@ import UnprotectedRoute from "./components/unprotectedRoute";
 import AdminRoute from "./components/adminRoute";
 import { useAppContext } from './AppContext';
 import Diet from "./pages/diet";
+import FormDiet from "./pages/formDiet";
 import Training from "./pages/training";
 
 function App() {
@@ -37,10 +39,12 @@ function App() {
             <Route path="feedback" element={<ProtectedRoute><Feedback/></ProtectedRoute>} />
             <Route path="chat" element={<ProtectedRoute><ChatNew/></ProtectedRoute>} />
 						<Route path="diet" element={<ProtectedRoute><Diet/></ProtectedRoute>} />
+            <Route path="diet_change" element={<ProtectedRoute><FormDiet mode={1}/></ProtectedRoute>} />
 						<Route path="training" element={<ProtectedRoute><Training/></ProtectedRoute>} />
 						<Route path="subscription" element={<ProtectedRoute><SubscriptionPage /></ProtectedRoute>} />
             <Route path="admin" element={<AdminRoute><Administration/></AdminRoute>} />
             <Route path="login" element={<UnprotectedRoute><Login/></UnprotectedRoute>} />
+            <Route path="password_reset" element={<UnprotectedRoute><PasswordReset/></UnprotectedRoute>} />
 						<Route path="*" element={<NotFound/>}/>
         </Routes>
       </main>

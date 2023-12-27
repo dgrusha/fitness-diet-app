@@ -55,8 +55,13 @@ namespace FitnessApp.Api.Controllers
         }
 
         [HttpPut("update")]
-        public void Put(UpdateAllergyRequest updateAllergyRequest)
+        public void Put(UpdateAllergyRequest updateAllergyRequest, string passEdit)
         {
+            string? pass = _configuration.GetValue<string>("Editing:Pass");
+            if (pass != null && !pass.Equals(passEdit))
+            {
+                return;
+            }
             var command = new UpdateAllergyCommand(
                     updateAllergyRequest.Name,
                     updateAllergyRequest.Class,
@@ -70,8 +75,13 @@ namespace FitnessApp.Api.Controllers
         }
 
         [HttpDelete("delete")]
-        public void Delete(DeleteAllergyRequest deleteAllergyRequest)
+        public void Delete(DeleteAllergyRequest deleteAllergyRequest, string passEdit)
         {
+            string? pass = _configuration.GetValue<string>("Editing:Pass");
+            if (pass != null && !pass.Equals(passEdit))
+            {
+                return;
+            }
             var command = new DeleteAllergyCommand(
                     deleteAllergyRequest.Id
                 );

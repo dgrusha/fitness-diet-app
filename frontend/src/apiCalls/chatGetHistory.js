@@ -1,6 +1,7 @@
 import { getCurrentUser } from '../helpers/authHelper';
+import { Constants } from '../helpers/constants';
 
-const baseUrl = 'https://localhost:7194/chat/getChatHistory';
+const baseUrl = Constants.BaseUrl + 'chat/getChatHistory';
 
 export const getChatHistory = async ({ receiverEmail }) => {
   const token = getCurrentUser();

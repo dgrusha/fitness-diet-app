@@ -10,7 +10,7 @@ echo Running administration handler...
 set python_executable="D:\fitness-diet-app\python_scripts\env\Scripts\python.exe"
 set python_script="D:\fitness-diet-app\python_scripts\Administration\main.py"
 
-%python_executable% %python_script% > conversation.log 2>&1
+%python_executable% %python_script% > administration.log 2>&1
 
 echo administration handler execution complete.
 pause

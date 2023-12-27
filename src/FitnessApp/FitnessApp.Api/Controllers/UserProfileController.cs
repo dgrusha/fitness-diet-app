@@ -12,11 +12,10 @@ using FitnessApp.Application.UserProfile.Queries.GetAllUsers;
 using FitnessApp.Application.UserProfile.Queries.GetNotVerifiedCoaches;
 using FitnessApp.Application.UserProfile.Queries.GetUserCoach;
 using FitnessApp.Application.UserProfile.Queries.GetUserInformation;
-using FitnessApp.Contracts.UniqueResponse;
+using FitnessApp.Application.UserProfile.Queries.GetUserStatuses;
 using FitnessApp.Contracts.UserProfile;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessApp.Api.Controllers
@@ -33,6 +32,16 @@ namespace FitnessApp.Api.Controllers
         {
             _mediator = mediator;
             _hashing = hashing;
+        }
+
+        [HttpGet("getUserStatuses")]
+        public async Task<IActionResult> GetUserStatuses()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var query = new GetUserStatusesQuery(new Guid(userId));
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpGet("getAllUsersExceptMe")]

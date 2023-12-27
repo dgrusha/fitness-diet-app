@@ -94,6 +94,14 @@ export const appTheme = createTheme({
 				}
 			}
 		},
+		select: {
+			'&:before': {
+				borderColor: "#9CD91B",
+			},
+			'&:after': {
+				borderColor: "#9CD91B",
+			}
+		},
 		MuiLink: {
 			styleOverrides: {
 				root: {

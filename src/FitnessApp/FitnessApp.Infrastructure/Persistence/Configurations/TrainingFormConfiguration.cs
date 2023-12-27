@@ -19,6 +19,7 @@ public class TrainingFormConfiguration : IEntityTypeConfiguration<TrainingForm>
     {
         builder.ToTable("TrainingtForms");
         builder.HasKey(t => t.Id);
+        builder.Property(t => t.GenerateFile).IsRequired();
         builder.Property(r => r.Days)
             .HasConversion(
                     v => string.Join("////", v),

@@ -13,5 +13,6 @@ public class TrainingForm
     public Guid TrainingModeId { get; set; }
     public TrainingMode TrainingMode { get; set; }
     public List<string> Days { get; set; } = new List<string>();
+    public bool GenerateFile { get; set; } = false;
     public List<Excercise> Excercises { get; set; } = new List<Excercise>();
 }

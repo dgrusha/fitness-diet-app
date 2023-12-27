@@ -12,7 +12,7 @@ const InfoAndCalendarTemplate = (props) => {
 		<ThemeProvider theme={appTheme}>
 			<Grid container component="main" sx={{ height: '100%', padding: '15px', overflow: 'auto'}}>
 				<Grid item sm={9} md={9} lg={8.5} component={Paper} elevation={3} sx={{ marginRight: 2, display: 'flex', flexDirection: 'column', 
-				justifyContent: 'space-between', padding: '30px 50px', height: '100%'}}>
+				justifyContent: 'space-between', padding: '30px 50px', height: '100%', overflowY: 'auto'}}>
 						<Box>
 							{props.title}
 							{props.bodyItems}

@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using FitnessApp.Application.Common.TrainingForm;
 using FitnessApp.Application.TrainingForm.Commands.AddTrainingForm;
+using FitnessApp.Application.TrainingForm.Commands.GenerateTrainingFile;
 using FitnessApp.Application.TrainingForm.Commands.UpdateTrainingForm;
 using FitnessApp.Application.TrainingForm.Queries.GetUserChociesFormTraining;
 using FitnessApp.Application.TrainingMode.Queries.GetAllTrainingModes;
@@ -101,6 +102,16 @@ namespace FitnessApp.Api.Controllers
             var result = await _mediator.Send(command);
 
             return Ok(result);
+        }
+
+        [HttpPost("requestGenerateFile")]
+        public async Task<IActionResult> PostGenerateFile()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var command = new GenerateTrainingFileCommand(new Guid(userId));
+            var result = await _mediator.Send(command);
+
+            return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());
         }
     }
 }

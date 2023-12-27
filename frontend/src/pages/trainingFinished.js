@@ -71,7 +71,7 @@ function TrainingFinished() {
 
 				}
 				footerBody={<CardComponent title="Training questionnaires" button={
-					<Button>Edit</Button>
+					<Button href="/training_change">Edit</Button>
 				} image={image_edit_questionnary}/> }
 				leftUpperPart={<CalendarControlled value={date} changeFunction={handleDate} />}
 				leftLowerPart={<Button sx={{padding: '3vh 15vh', marginBottom: '20px'}}>GENERATE TRAINING PLAN</Button>}

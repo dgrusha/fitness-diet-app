@@ -47,6 +47,7 @@ public class TrainingFormRepository : ITrainingFormRepository
         if (formFromDb != null)
         {
             formFromDb.TrainingMode = form.TrainingMode;
+            formFromDb.Days = form.Days;
             _trainingFormContext.SaveChanges();
         }
     }

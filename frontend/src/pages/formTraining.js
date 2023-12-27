@@ -14,6 +14,8 @@ import Slider from '@mui/material/Slider';
 import { getTrainingFormOptions } from '../apiCalls/getTrainingFormOptions';
 import { validateTrainingFormFields } from '../validators/trainingFormValidator';
 import { addTrainingForm } from '../apiCalls/trainingFormPost';
+import { updateTrainingForm } from '../apiCalls/trainingFormUpdate';
+import { getTrainingFormWithUserChoicesOptions } from '../apiCalls/getTrainingFormUserOptions';
 
 function FormTraining({ setUserStatuses, mode })  {
 	const navigate = useNavigate();
@@ -54,10 +56,13 @@ function FormTraining({ setUserStatuses, mode })  {
 			});
 		}
 		else if (mode === 1){
-			getTrainingFormOptions().then((data) => {
+			getTrainingFormWithUserChoicesOptions().then((data) => {
 				if(data.errorCode === 200){
 					setData(data);
 					setTrainingModes(data.data.trainingModes);
+
+                    setTrainingMode(data.data.trainingMode.id);
+                    setDays(data.data.days);
 				}else if (data.errorCode === 424){
 					console.log(data);
 					navigate("/");
@@ -86,7 +91,7 @@ function FormTraining({ setUserStatuses, mode })  {
 					}))
 				}
 			}else if (mode === 1){
-				const response = await addTrainingForm({ trainingMode: trainingMode, days: days });
+				const response = await updateTrainingForm({ trainingMode: trainingMode, days: days });
 				const [data] = [await response];
 				if (data.errorCode === 200) {
 					navigate("/training");

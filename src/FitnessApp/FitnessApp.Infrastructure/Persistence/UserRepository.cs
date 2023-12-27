@@ -25,6 +25,11 @@ public class UserRepository : IUserRepository
         _userContext.SaveChanges();
     }
 
+    public void Delete(User user)
+    {
+        _userContext.Users.Remove(user);
+        _userContext.SaveChanges();
+    }
     public void ChangeUserPassword(Guid id, string password)
     {
         var user = _userContext.Users.FirstOrDefault(u => u.Id == id);
@@ -35,15 +40,18 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public List<UserDto> GetAllCoachesExceptMe(Guid id)
+		public List<CoachDto> GetAllCoachesExceptMe(Guid id)
     {
         return _userContext.Users
-            .Where(u => u.Id != id && u.Coach != null)
-            .Select(u => new UserDto
+            .Where(u => u.Id != id && u.Coach != null && u.Coach.IsVerified == true)
+            .Select(u => new CoachDto
             {
                 FirstName = u.FirstName,
                 LastName = u.LastName,
-                Mail = u.Email
+                Mail = u.Email,
+                RecomendationText = u.Coach.RecomendationText,
+                CVFileName = u.Coach.CVFileName,
+                AvatarFileName = u.AvatarFileName
             })
             .ToList();
     }
@@ -61,6 +69,21 @@ public class UserRepository : IUserRepository
             .ToList();
     }
 
+    public List<CoachDto> GetNotVerifiedCoaches()
+    {
+        return _userContext.Users
+            .Where(u => u.Coach != null && u.Coach.IsVerified == false)
+            .Select(u => new CoachDto
+            {
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                Mail = u.Email, 
+                CVFileName = u.Coach.CVFileName,
+                RecomendationText = u.Coach.RecomendationText,
+            })
+            .ToList();
+    }
+
     public User? GetUserByEmail(string email)
     {
         User? user = _userContext.Users.SingleOrDefault(user => user.Email.Equals(email));
@@ -69,7 +92,6 @@ public class UserRepository : IUserRepository
 
     public User? GetUserById(Guid id)
     {
-
         User? user = _userContext.Users
             .Include(u => u.ObligatoryForm)
             .Include(u => u.Coach)

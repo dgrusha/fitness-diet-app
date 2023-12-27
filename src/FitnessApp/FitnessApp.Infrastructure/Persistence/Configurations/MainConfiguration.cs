@@ -47,6 +47,11 @@ public class MainConfiguration : IEntityTypeConfiguration<User>
             .WithOne(c => c.User!)
             .HasForeignKey<Coach>(c => c.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(u => u.SubscriptionForCoach)
+            .WithOne(c => c.Client!)
+            .HasForeignKey<Subscription>(c => c.ClientId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
 }

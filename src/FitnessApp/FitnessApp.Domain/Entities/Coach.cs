@@ -15,4 +15,6 @@ public class Coach
     public Guid UserId { get; set; }
     public User User { get; set; }
 
+    public ICollection<Subscription> Subscribers { get; set; } = new List<Subscription>();
+
 }

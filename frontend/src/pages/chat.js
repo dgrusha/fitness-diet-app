@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { getAllUsers } from '../../apiCalls/chatGetUsers';
-import { getCoach } from '../../apiCalls/getUserCoach';
-import { joinRoom, sendMessage } from '../../helpers/signalRHandlers';
-import { getChatHistory } from '../../apiCalls/chatGetHistory';
+import { getAllUsers } from '../apiCalls/chatGetUsers';
+import { getCoach } from '../apiCalls/getUserCoach';
+import { joinRoom, sendMessage } from '../helpers/signalRHandlers';
+import { getChatHistory } from '../apiCalls/chatGetHistory';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import {
 	Box,
@@ -18,8 +18,8 @@ import {
 	DialogContent
 } from '@mui/material';
 
-import { theme } from './chatNewWindowTheme';
-import { useAppContext } from '../../AppContext';
+import { theme } from '../components/chatNew/chatNewWindowTheme';
+import { useAppContext } from '../AppContext';
 
 const ChatPage = () => {
 	const [messages, setMessages] = useState([]);

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useState } from 'react';
 
-import { Tab, Tabs, Typography } from '@mui/material';
+import { Tab, Tabs, Typography, Grid } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { appTheme } from '../../helpers/themeProviderHelper';
 import TabPanel from "../moleculas/TabPanel";
@@ -15,6 +15,7 @@ const TabPage = (props) => {
 
     return (
         <ThemeProvider theme={appTheme}>
+					<Grid container component="main" sx={{ height: '100%', padding: '15px', overflow: 'auto' }}>
             <div style={{ backgroundColor: 'white', padding: '20px', textAlign: 'center', flexGrow:1, flexDirection:'column', display:'flex', overflow:'auto', gap: '10px' }}>
                 <Typography variant="h5">
                     {props.title}
@@ -30,6 +31,7 @@ const TabPage = (props) => {
                     </TabPanel>
                 ))}
             </div>
+					</Grid>
         </ThemeProvider>
     );
 };

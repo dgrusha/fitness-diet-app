@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FitnessApp.Application.Common.Interfaces.Persistence;
 using FitnessApp.Domain.Entities;
 using FitnessApp.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Infrastructure.Persistence;
 public class RatingRepository : IRatingRepository
@@ -26,6 +27,6 @@ public class RatingRepository : IRatingRepository
 
     public HashSet<Rating>? GetAllRatings()
     {
-        return _ratingContext.Ratings.ToHashSet();
+        return _ratingContext.Ratings.AsNoTracking().ToHashSet();
     }
 }

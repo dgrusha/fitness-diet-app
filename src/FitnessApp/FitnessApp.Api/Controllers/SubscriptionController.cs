@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using FitnessApp.Application.Subscriptions.Commands.AddSubscription;
 using FitnessApp.Application.Subscriptions.Commands.DeleteSubscription;
+using FitnessApp.Application.Subscriptions.Commands.UpdateCoachSubscription;
 using FitnessApp.Contracts.Subscriptions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -35,6 +36,17 @@ public class SubscriptionController : ControllerBase
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var command = new DeleteSubscriptionCommand(new Guid(userId));
+        var result = await _mediator.Send(command);
+
+        return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());
+    }
+
+
+    [HttpPut("updateCoach")]
+    public async Task<IActionResult> Put(UpdateCoachSubscriptionRequest request)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var command = new UpdateCoachSubscriptionCommand(new Guid(userId), request.Email);
         var result = await _mediator.Send(command);
 
         return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());

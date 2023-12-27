@@ -39,15 +39,14 @@ public class GetUserCoachQueryHandler : IRequestHandler<GetUserCoachQuery, Uniqu
                 return response;
             };
 
-            if (user.SubscriptionForCoach == null)
+            Subscription? subscription = _subscriptionRepository.GetSubscription(user.Id);
+
+            if (subscription == null)
             {
                 response.Errors.Add("User doesn't have subscription yet");
                 response.ErrorCode = (int)HttpStatusCode.BadRequest;
                 return response;
             };
-
-            Subscription subscription = _subscriptionRepository.GetSubscription(user.Id);
-            Console.WriteLine(subscription);
 
             if (subscription.CoachId == null)
             {
@@ -56,7 +55,7 @@ public class GetUserCoachQueryHandler : IRequestHandler<GetUserCoachQuery, Uniqu
                 return response;
             }
 
-            Coach coach = _coachRepository.GetCoachById((Guid)subscription.CoachId);
+            Coach? coach = _coachRepository.GetCoachById((Guid)subscription.CoachId);
 
             response.Data = new CoachDto {
                 FirstName = coach.User.FirstName,

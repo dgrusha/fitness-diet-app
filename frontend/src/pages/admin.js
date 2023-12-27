@@ -2,12 +2,13 @@ import React from 'react';
 import TabPage from '../components/templates/TabPage';
 import TableOfDataRatings from '../components/moleculas/TableOfDataRatings';
 import TableOfDataCoaches from '../components/moleculas/TableOfDataCoaches';
+import { Typography } from '@mui/material';
 
 function Administration() {
     
     return (
         <TabPage 
-            title={<p>Administration Page</p>}
+            title={<Typography gutterBottom variant="title1">Administration Page</Typography>}
             body={[
                 { name: "Coaches", content: <TableOfDataCoaches /> },
                 { name: "Reviews", content: <TableOfDataRatings />}

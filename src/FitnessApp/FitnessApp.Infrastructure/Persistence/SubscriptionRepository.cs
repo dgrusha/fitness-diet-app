@@ -45,8 +45,9 @@ public class SubscriptionRepository : ISubscriptionRepository
             .SingleOrDefault();
     }
 
-    public void Update(Subscription subscription)
+    public void UpdateCoach(Subscription subscription, Guid coachId)
     {
-        throw new NotImplementedException();
+        subscription.CoachId = coachId;
+        _subscriptionContext.SaveChanges();
     }
 }

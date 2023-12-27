@@ -200,5 +200,21 @@ export const appTheme = createTheme({
 				}
 			}
 		},
+		MuiTab: {
+			styleOverrides: {
+				root: {
+					borderColor: "#9CD91B",
+					"&:hover": {
+						color: "#9CD91B",
+						borderColor: "#9CD91B",
+					},
+					"&.Mui-selected": {
+						color: "#9CD91B",
+						borderColor: "#9CD91B",
+					},
+				},
+				
+			},
+		},
 	}
 });

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 
-import ChatNew from './components/chatNew/chatNewWindow';
+import ChatNew from './pages/chat';
 import HomePage from './pages/home';
 import SideBar from './components/organisms/Sidebar';
 import Administration from "./pages/admin";

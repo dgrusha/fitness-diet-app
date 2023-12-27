@@ -8,6 +8,7 @@ using FitnessApp.Domain.Entities;
 using FitnessApp.Application.Common.DTO;
 using FitnessApp.Application.Common.JsonObjects;
 using FitnessApp.Application.Common.NinjaApi;
+using FitnessApp.Application.Common.JsonObjects.GetNinja;
 
 namespace FitnessApp.Application.Common.HangfireTasks;
 public class HangfireService
@@ -21,6 +22,7 @@ public class HangfireService
     private readonly IFatSecretApi _fatSecretApi;
     private readonly INinjaApi _ninjaApi;
     private readonly ITrainingFormRepository _trainingFormRepository;
+    private readonly IExcerciseRepository _excerciseRepository;
 
     public HangfireService
         (
@@ -32,7 +34,8 @@ public class HangfireService
             IRecipeRepository recipeRepository,
             IRecipeInstructionRepository recipeInstructionRepository,
             INinjaApi ninjaApi,
-            ITrainingFormRepository trainingFormRepository
+            ITrainingFormRepository trainingFormRepository,
+            IExcerciseRepository excerciseRepository
         )
     {
         _userRepository = userRepository;
@@ -44,14 +47,66 @@ public class HangfireService
         _recipeInstructionRepository = recipeInstructionRepository;
         _ninjaApi = ninjaApi;
         _trainingFormRepository = trainingFormRepository;
+        _excerciseRepository = excerciseRepository;
     }
     public async Task UpdateTrainingFormsEachTwoMinutes()
     {
+        Dictionary<string, string> musclesToExcercises = new Dictionary<string, string>();
+        List<string> daysOfTheWeek = new List<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
         var trainingForms = _trainingFormRepository.GetNotStartedTrainingForms();
         foreach (var trainingForm in trainingForms)
         {
+            List<string> usedMuscles = new List<string>();
+            
+            var daysToTrain = trainingForm.Days;
+            Console.WriteLine(daysToTrain.Count());
+            string trainingSpecJson = File.ReadAllText("training_spec.json");
+            AllDaysData? allDaysData = JsonConvert.DeserializeObject<AllDaysData>(trainingSpecJson);
 
-            var result = await _ninjaApi.GetExcercises("glutes", trainingForm.TrainingMode);
+            if (allDaysData.DayData.ContainsKey(daysToTrain.Count()))
+            {
+                foreach (var day in allDaysData.DayData[daysToTrain.Count()])
+                {
+                    int key = day.Key;
+                    foreach (var part in day.Value)
+                    {
+                        foreach (var muscle in part.Value)
+                        {
+                            int index = usedMuscles.Count(x => x == muscle);
+                            if (index > 10) 
+                            {
+                                index -= 10;
+                            }
+                            string excercises;
+                            if (musclesToExcercises.ContainsKey(muscle))
+                            {
+                                excercises = musclesToExcercises[muscle];
+                            }
+                            else 
+                            {
+                                excercises = await _ninjaApi.GetExcercises(muscle, trainingForm.TrainingMode);
+                                musclesToExcercises.Add(muscle, excercises);
+                            }
+
+                            List<ExerciseJson> exercisesList = JsonConvert.DeserializeObject<List<ExerciseJson>>(excercises);
+                            var excerciseJsonInstance = exercisesList.ElementAt(index);
+                            Excercise excercise = new Excercise
+                            {
+                                Name = excerciseJsonInstance.name,
+                                Muscle = muscle,
+                                Part = part.Key,
+                                Instructions = excerciseJsonInstance.instructions,
+                                Difficulty = excerciseJsonInstance.difficulty,
+                                Day = daysOfTheWeek.IndexOf(daysToTrain.ElementAt(key)),
+                                TrainingFormId = trainingForm.Id
+                            };
+                            _excerciseRepository.Add(excercise);
+                            usedMuscles.Add(muscle);
+                        }
+                    }
+                }
+            }
+            _userRepository.UpdateUserTrainingStatus(trainingForm.User, PreparingStatus.Finished);
         }
     }
 

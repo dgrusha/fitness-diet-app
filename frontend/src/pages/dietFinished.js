@@ -108,7 +108,7 @@ function DietFinished() {
                 }
                 footerBody={ 
                     <>
-                        <CardComponent title="Health questionnaires" button={<Button href="/diet_change">Edit</Button>} image={image_edit_questionnary}/>
+                        <CardComponent title="Diet questionnaires" button={<Button href="/diet_change">Edit</Button>} image={image_edit_questionnary}/>
                     </>
                 }
                 leftUpperPart={<CalendarControlled value={date} changeFunction={handleDate} />}
@@ -138,6 +138,7 @@ function DietFinished() {
                             borderRadius: '10px',
                             width: '50%',
                             height: '50%',
+                            overflowY: 'auto',
                         }}
                     >
                         <Typography variant="h5">{`Details for ${selectedMeal}`}</Typography>

@@ -20,8 +20,11 @@ public class ExcerciseConfiguration : IEntityTypeConfiguration<Excercise>
         builder.ToTable("Excercises");
         builder.HasKey(t => t.Id);
         builder.Property(t => t.Name).IsRequired().HasMaxLength(100);
+        builder.Property(t => t.Muscle).IsRequired();
+        builder.Property(t => t.Part).IsRequired();
         builder.Property(t => t.Instructions).IsRequired();
         builder.Property(t => t.Difficulty).IsRequired();
+        builder.Property(t => t.Day).IsRequired();
         builder.Property(t => t.Comment);
         builder.Property(t => t.FileName);
     }

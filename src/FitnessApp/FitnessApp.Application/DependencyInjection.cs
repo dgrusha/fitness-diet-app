@@ -49,8 +49,8 @@ public static class DependencyInjection
         {
             var hangfireService = scope.ServiceProvider.GetRequiredService<HangfireService>();
 
-            RecurringJob.AddOrUpdate<HangfireService>("dietFormEditUpdate", x => hangfireService.UpdateDietFormsEachMinute(), Cron.MinuteInterval(10));
-            RecurringJob.AddOrUpdate<HangfireService>("trainingFormEditUpdate", x => hangfireService.UpdateTrainingFormsEachTwoMinutes(), Cron.MinuteInterval(1));
+            RecurringJob.AddOrUpdate<HangfireService>("dietFormEditUpdate", x => hangfireService.UpdateDietFormsEachMinute(), Cron.MinuteInterval(5));
+            RecurringJob.AddOrUpdate<HangfireService>("trainingFormEditUpdate", x => hangfireService.UpdateTrainingFormsEachTwoMinutes(), Cron.MinuteInterval(5));
         }
     }
 }

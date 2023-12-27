@@ -1,3 +1,87 @@
 {
-    
+    "DayData": {
+        "1": {
+            "0": {
+                "chest": [ "chest" ],
+                "back": [ "middle_back" ],
+                "legs": [ "quadriceps"],
+                "arms": [ "biceps", "triceps" ]
+            }
+        },
+        "2": {
+            "0": {
+                "chest": [ "chest" ],
+                "back": [ "lats" ],
+                "legs": [ "hamstrings" ],
+                "arms": [ "biceps", "triceps" ]
+            },
+            "1": {
+                "back": [ "middle_back", "lats" ],
+                "shoulder": [ "traps" ],
+                "legs": [ "quadriceps", "glutes" ]
+            }
+        },
+        "3": {
+            "0": {
+                "chest": [ "abdominals" ],
+                "back": [ "lower_back" ],
+                "legs": [ "glutes" ],
+                "arms": [ "biceps", "triceps" ]
+            },
+            "1": {
+                "back": [ "middle_back", "lats" ],
+                "shoulder": [ "neck" ],
+                "legs": [ "quadriceps", "calves" ]
+            },
+            "2": {
+                "back": [ "lower_back" ],
+                "shoulder": [ "traps" ],
+                "arms": [ "biceps", "forearms" ]
+            }
+        },
+        "4": {
+            "0": {
+                "chest": [ "chest" ],
+                "back": [ "lats, middle_back" ],
+                "shoulder": [ "traps" ]
+            },
+            "1": {
+                "back": [ "lower_back" ],
+                "legs": [ "quadriceps", "calves", "glutes" ]
+            },
+            "2": {
+                "chest": [ "abdominals" ],
+                "shoulder": [ "neck" ]
+            },
+            "3": {
+                "back": [ "lats, middle_back" ],
+                "arms": [ "biceps", "triceps" ]
+            }
+        },
+        "5": {
+            "0": {
+                "chest": [ "chest" ],
+                "back": [ "lats, middle_back" ],
+                "shoulder": [ "traps" ]
+            },
+            "1": {
+                "back": [ "lower_back" ],
+                "shoulder": [ "traps" ],
+                "arms": [ "biceps", "forearms" ]
+            },
+            "2": {
+                "chest": [ "abdominals" ],
+                "shoulder": [ "neck" ]
+            },
+            "3": {
+                "back": [ "middle_back", "lats" ],
+                "shoulder": [ "neck" ],
+                "legs": [ "quadriceps", "calves" ]
+            },
+            "4": {
+                "legs": [ "hamstrings" ],
+                "shoulder": [ "traps" ]
+            }
+        }
+    }
 }

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FitnessApp.Domain.Entities;
-public class Excercise
+namespace FitnessApp.Application.Common.DTO;
+public class ExcerciseDto
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public string Muscle { get; set; }
     public string Part { get; set; }
@@ -16,7 +16,4 @@ public class Excercise
     public int Day { get; set; }
     public string? Comment { get; set; }
     public string? FileName { get; set; }
-
-    public Guid TrainingFormId { get; set; }
-    public TrainingForm TrainingForm { get; set; }
 }

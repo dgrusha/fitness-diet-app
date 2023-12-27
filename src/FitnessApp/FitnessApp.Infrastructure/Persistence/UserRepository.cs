@@ -74,6 +74,7 @@ public class UserRepository : IUserRepository
             .Include(u => u.ObligatoryForm)
             .Include(u => u.Coach)
             .Include(u => u.DietForm)
+            .Include(u => u.TrainingForm)
             .SingleOrDefault(user => user.Id == id);
         return user;
     }

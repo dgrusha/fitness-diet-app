@@ -20,8 +20,6 @@ function Training() {
 	}, []);
 
 	const renderContent = () => {
-        console.log(userStatuses.trainingStatus);
-        console.log(StatusEnum.NotStarted);
 		switch (userStatuses.trainingStatus) {
 			case StatusEnum.NotStarted:
 				return <FormTraining setUserStatuses={setUserStatuses} mode={0}/>;

@@ -17,12 +17,12 @@ public class NinjaApi : INinjaApi
         _configuration = configuration;
         _httpClient = httpClient;
         _apiKey = _configuration.GetValue<string>("NinjaApi:X-Api-Key");
+        _httpClient.DefaultRequestHeaders.Add("X-Api-Key", _apiKey);
     }
 
     public async Task<string> GetExcercises(string muscle, Domain.Entities.TrainingMode trainingMode)
     {
         string excercisesUrl = $"https://api.api-ninjas.com/v1/exercises?muscle={muscle.ToLower()}&&difficulty={trainingMode.Name.ToLower()}";
-        _httpClient.DefaultRequestHeaders.Add("X-Api-Key", _apiKey);
         try
         {
             var response = await _httpClient.GetAsync(excercisesUrl);
@@ -33,6 +33,9 @@ public class NinjaApi : INinjaApi
             }
             else
             {
+                Console.WriteLine(response.Content);
+                Console.WriteLine(response.ToString());
+                Console.WriteLine();
                 return string.Empty;
             }
         }

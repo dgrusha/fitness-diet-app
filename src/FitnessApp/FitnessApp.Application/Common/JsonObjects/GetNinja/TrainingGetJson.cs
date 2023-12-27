@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FitnessApp.Application.Common.JsonObjects.GetNinja;
-public class Exercise
+public class ExerciseJson
 {
-    public string Name { get; set; }
-    public string Type { get; set; }
-    public string Muscle { get; set; }
-    public string Equipment { get; set; }
-    public string Difficulty { get; set; }
-    public string Instructions { get; set; }
+    public string name { get; set; }
+    public string type { get; set; }
+    public string muscle { get; set; }
+    public string equipment { get; set; }
+    public string difficulty { get; set; }
+    public string instructions { get; set; }
 }

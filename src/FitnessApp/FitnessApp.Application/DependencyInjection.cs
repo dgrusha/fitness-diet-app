@@ -12,6 +12,7 @@ using Hangfire;
 using FitnessApp.Application.Common.HangfireTasks;
 using FitnessApp.Application.Common.FatSecret;
 using FitnessApp.Application.Common.EmailHandler;
+using FitnessApp.Application.Common.NinjaApi;
 
 namespace FitnessApp.Application;
 
@@ -24,10 +25,12 @@ public static class DependencyInjection
         serviceCollection.AddMediatR(typeof(DependencyInjection).Assembly);
         serviceCollection.AddSingleton<IHashing, Hashing>();
         serviceCollection.AddSingleton<IFatSecretApi, FatSecretApi>();
+        serviceCollection.AddSingleton<INinjaApi, NinjaApi>();
         serviceCollection.AddSingleton<IEmailSender, EmailSender>();
         serviceCollection.AddSingleton<IDictionary<string, UserConnectionInner>>(opts => new Dictionary<string, UserConnectionInner>());
         serviceCollection.AddScoped<HangfireService>();
         serviceCollection.AddHttpClient<FatSecretApi>();
+        serviceCollection.AddHttpClient<NinjaApi>();
 
         string connectionString = configuration.GetConnectionString("SqlServerConnection");
         serviceCollection.AddHangfire(config =>
@@ -46,7 +49,8 @@ public static class DependencyInjection
         {
             var hangfireService = scope.ServiceProvider.GetRequiredService<HangfireService>();
 
-            RecurringJob.AddOrUpdate<HangfireService>("formEditUpdate", x => hangfireService.UpdateDietFormsEachMinute(), Cron.MinuteInterval(1));
+            RecurringJob.AddOrUpdate<HangfireService>("dietFormEditUpdate", x => hangfireService.UpdateDietFormsEachMinute(), Cron.MinuteInterval(5));
+            RecurringJob.AddOrUpdate<HangfireService>("trainingFormEditUpdate", x => hangfireService.UpdateTrainingFormsEachTwoMinutes(), Cron.MinuteInterval(5));
         }
     }
 }

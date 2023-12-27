@@ -31,6 +31,7 @@
     <Folder Include="GetStarted\Commands\AddObligatoryForm\" />
     <Folder Include="GetStarted\Commands\DeleteObligatoryForm\" />
     <Folder Include="GetStarted\Commands\UpdateObligatoryForm\" />
+    <Folder Include="TrainingData\Commands\" />
     <Folder Include="Subscriptions\Commands\AddSubscription\" />
     <Folder Include="Subscriptions\Queries\" />
   </ItemGroup>

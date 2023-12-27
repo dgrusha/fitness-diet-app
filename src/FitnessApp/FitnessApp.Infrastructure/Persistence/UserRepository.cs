@@ -96,6 +96,7 @@ public class UserRepository : IUserRepository
             .Include(u => u.ObligatoryForm)
             .Include(u => u.Coach)
             .Include(u => u.DietForm)
+            .Include(u => u.TrainingForm)
             .SingleOrDefault(user => user.Id == id);
         return user;
     }
@@ -122,6 +123,12 @@ public class UserRepository : IUserRepository
     {
         user.FirstName = firstName;
         user.LastName = lastName;
+        _userContext.SaveChanges();
+    }
+
+    public void UpdateUserTrainingStatus(User user, PreparingStatus preparingStatus)
+    {
+        user.TrainingStatus = preparingStatus;
         _userContext.SaveChanges();
     }
 }

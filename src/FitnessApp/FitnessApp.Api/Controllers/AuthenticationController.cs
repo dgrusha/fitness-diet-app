@@ -94,6 +94,7 @@ namespace FitnessApp.Api.Controllers
             UniqueResponse<AuthenticationResult> result = await _mediator.Send(query);
 
             return Ok(result);
+        }
 
         [HttpPost("resetCode")]
         public async Task<IActionResult> ResetCode(ResetRequest resetRequest)

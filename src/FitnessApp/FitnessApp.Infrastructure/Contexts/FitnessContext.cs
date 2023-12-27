@@ -26,6 +26,9 @@ public class FitnessContext : DbContext
     public DbSet<Recipe> Recipes { get; set; } = null!;
     public DbSet<RecipeInstruction> RecipeInstructions { get; set; } = null!;
     public DbSet<PasswordResetHolder> PasswordResetHolders { get; set; } = null!;
+    public DbSet<TrainingForm> TrainingForms { get; set; } = null!;
+    public DbSet<TrainingMode> TrainingModes { get; set; } = null!;
+    public DbSet<Excercise> Excercises { get; set; } = null!;
 
     public FitnessContext(DbContextOptions<FitnessContext> options)
         : base(options)
@@ -50,6 +53,9 @@ public class FitnessContext : DbContext
         modelBuilder.ApplyConfiguration(new RecipeConfiguration());
         modelBuilder.ApplyConfiguration(new RecipeInstructionConfiguration());
         modelBuilder.ApplyConfiguration(new PasswordResetHolderConfiguration());
+        modelBuilder.ApplyConfiguration(new TrainingModeConfiguration());
+        modelBuilder.ApplyConfiguration(new TrainingFormConfiguration());
+        modelBuilder.ApplyConfiguration(new ExcerciseConfiguration());
     }
 
 }

@@ -42,7 +42,7 @@
         "4": {
             "0": {
                 "chest": [ "chest" ],
-                "back": [ "lats, middle_back" ],
+                "back": [ "lats", "middle_back" ],
                 "shoulder": [ "traps" ]
             },
             "1": {
@@ -54,14 +54,14 @@
                 "shoulder": [ "neck" ]
             },
             "3": {
-                "back": [ "lats, middle_back" ],
+                "back": [ "lats", "middle_back" ],
                 "arms": [ "biceps", "triceps" ]
             }
         },
         "5": {
             "0": {
                 "chest": [ "chest" ],
-                "back": [ "lats, middle_back" ],
+                "back": [ "lats", "middle_back" ],
                 "shoulder": [ "traps" ]
             },
             "1": {

@@ -13,6 +13,7 @@ export const theme = createTheme({
     display: 'flex',
     flexDirection: 'column',
     height: '100vh',
+    width: '100%',
     backgroundColor: 'white',
   },
   header: {

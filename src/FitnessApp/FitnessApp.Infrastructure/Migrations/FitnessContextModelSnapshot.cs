@@ -324,6 +324,31 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.ToTable("Ratings", (string)null);
                 });
 
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Subscription", b =>
+                {
+                    b.Property<Guid>("SubscriptionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CoachId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("SubscriptionId");
+
+                    b.HasIndex("ClientId")
+                        .IsUnique();
+
+                    b.HasIndex("CoachId");
+
+                    b.ToTable("Subscriptions", (string)null);
+								});
+
             modelBuilder.Entity("FitnessApp.Domain.Entities.Recipe", b =>
                 {
                     b.Property<Guid>("Id")
@@ -589,6 +614,29 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Subscription", b =>
+                {
+                    b.HasOne("FitnessApp.Domain.Entities.User", "Client")
+                        .WithOne("SubscriptionForCoach")
+                        .HasForeignKey("FitnessApp.Domain.Entities.Subscription", "ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FitnessApp.Domain.Entities.Coach", "Coach")
+                        .WithMany("Subscribers")
+                        .HasForeignKey("CoachId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Coach");
+                });
+
+            modelBuilder.Entity("FitnessApp.Domain.Entities.Coach", b =>
+                {
+                    b.Navigation("Subscribers");
+								});
+
             modelBuilder.Entity("FitnessApp.Domain.Entities.Recipe", b =>
                 {
                     b.HasOne("FitnessApp.Domain.Entities.DietForm", "DietForm")
@@ -658,6 +706,9 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.Navigation("Ratings");
 
                     b.Navigation("SentMessages");
+
+                    b.Navigation("SubscriptionForCoach")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

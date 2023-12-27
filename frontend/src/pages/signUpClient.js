@@ -39,7 +39,6 @@ function SignUpClient() {
 	// Hidden file input
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [textFieldValue, setTextFieldValue] = useState('Put your recomendation');
-	const [isHovered, setIsHovered] = useState(false);
 
 	const handleFileChange = (event) => {
 		const file = event.target.files[0];
@@ -192,15 +191,7 @@ function SignUpClient() {
 								readOnly: true,
 								endAdornment: (
 									<InputAdornment position="end">
-										<Button
-											variant="contained"
-											component="label"
-											htmlFor="hidden-file-input"
-											onMouseOver={() => setIsHovered(true)}
-											onMouseOut={() => setIsHovered(false)}
-										>
-											Browse
-										</Button>
+										<Button>Browse</Button>
 									</InputAdornment>
 								),
 								style: {

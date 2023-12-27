@@ -16,6 +16,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.0.2" />
+    <PackageReference Include="System.Collections" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +31,8 @@
     <Folder Include="GetStarted\Commands\AddObligatoryForm\" />
     <Folder Include="GetStarted\Commands\DeleteObligatoryForm\" />
     <Folder Include="GetStarted\Commands\UpdateObligatoryForm\" />
+    <Folder Include="Subscriptions\Commands\AddSubscription\" />
+    <Folder Include="Subscriptions\Queries\" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -27,6 +27,9 @@ public class User
     public DietForm? DietForm { get; set; }
     public Coach? Coach { get; set; }
 
+
+    public Subscription SubscriptionForCoach { get; set; }
+
     // Statuses
     public PreparingStatus DietStatus { get; set; } = PreparingStatus.NotStarted;
     public PreparingStatus TrainingStatus { get; set; } = PreparingStatus.NotStarted;

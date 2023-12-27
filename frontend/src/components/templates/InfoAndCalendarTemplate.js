@@ -10,8 +10,8 @@ import { appTheme } from '../../helpers/themeProviderHelper';
 const InfoAndCalendarTemplate = (props) => {
 	return (
 		<ThemeProvider theme={appTheme}>
-			<Grid container component="main" sx={{ height: '100%', border: '15px solid #FAFAFA', backgroundColor: '#FAFAFA'}}>
-				<Grid item sm={9} md={9} lg={8.5} component={Paper} elevation={3} sx={{ backgroundColor: '#fff', marginRight: 2, display: 'flex', flexDirection: 'column', 
+			<Grid container component="main" sx={{ height: '100%', padding: '15px', overflow: 'auto'}}>
+				<Grid item sm={9} md={9} lg={8.5} component={Paper} elevation={3} sx={{ marginRight: 2, display: 'flex', flexDirection: 'column', 
 				justifyContent: 'space-between', padding: '30px 50px', height: '100%'}}>
 						<Box>
 							{props.title}

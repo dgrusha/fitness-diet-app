@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAllUsers } from '../../apiCalls/chatGetUsers';
+import { getCoach } from '../../apiCalls/getUserCoach';
 import { joinRoom, sendMessage } from '../../helpers/signalRHandlers';
 import { getChatHistory } from '../../apiCalls/chatGetHistory';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
@@ -28,6 +29,7 @@ const ChatPage = () => {
 	const [allUsers, setAllUsers] = useState([]);
 	const [connection, setConnection] = useState();
 	const [open, setOpen] = React.useState(false);
+	const [coach, setCoach] = useState(null)
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -50,9 +52,64 @@ const ChatPage = () => {
 		}
 	};
 
+	const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (e.shiftKey) {
+        setNewMessage((prevMessage) => prevMessage + '\n');
+      } else {
+        handleSendMessage();
+      }
+    }
+  };
+
+	// async function fetchData() {
+	// 	try {
+	// 		const response = await getCoach();
+	// 		if (response.errorCode === 200) {
+	// 			setCoach(response.data);
+	// 		} else {
+	// 			// Handle error
+	// 		}
+	// 	} catch (error) {
+	// 		// Handle error
+	// 	}
+	// }
+
+	// const getUserCoach = async () => {
+	// 	fetchData();
+	// 	console.log(coach)
+	// 	setMessages([]);
+	// 	if (coach && user !== null && coach.Mail !== undefined && coach.Mail !== '') {
+	// 		try {
+	// 			cleanupConnection();
+	// 			getChatHistory({ receiverEmail: coach.Mail }).then((data) => {
+	// 				setMessages(
+	// 					data.map((item) => {
+	// 						return {
+	// 							text: item.Text,
+	// 							sender: item.Email,
+	// 						};
+	// 					})
+	// 				);
+	// 			});
+	// 			joinRoom(
+	// 				user.email,
+	// 				coach.Mail,
+	// 				setMessages,
+	// 				messages,
+	// 				setConnection
+	// 			);
+	// 		} catch (error) {
+	// 			console.error(error.message);
+	// 		}
+	// 	}
+	// 	setSelectedUser(coach);
+	// };
+
 	const handleChangeChat = (event, newValue) => {
 		setMessages([]);
-		if (newValue.Mail !== undefined && newValue.Mail !== '') {
+		if (newValue && user !== null && newValue.Mail !== undefined && newValue.Mail !== '') {
 			try {
 				cleanupConnection();
 				getChatHistory({ receiverEmail: newValue.Mail }).then((data) => {
@@ -90,7 +147,10 @@ const ChatPage = () => {
 	}, []);
 
 	useEffect(() => {
+		// getCoach().then((data) => {
+		// 	console.log(data)});
 		getAllUsers().then((data) => setAllUsers(data));
+
 	}, []);
 
 	return (
@@ -153,6 +213,7 @@ const ChatPage = () => {
 						maxRows={4}
 						value={newMessage}
 						onChange={(e) => setNewMessage(e.target.value)}
+						onKeyDown={handleKeyDown}
 						sx={theme.textField}
 					/>
 					<Button

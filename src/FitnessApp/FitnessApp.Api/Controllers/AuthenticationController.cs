@@ -1,4 +1,5 @@
 ﻿using FitnessApp.Contracts.Authentication;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -82,6 +83,18 @@ namespace FitnessApp.Api.Controllers
             return Ok(authResult);
         }
 
+        [HttpGet("refreshConnection")]
+        public async Task<IActionResult> Get()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var token = ClaimTypes.NameIdentifier;
+
+            var query = new RefreshConnectionQuery(new Guid(userId), token);
+
+            UniqueResponse<AuthenticationResult> result = await _mediator.Send(query);
+
+            return Ok(result);
+
         [HttpPost("resetCode")]
         public async Task<IActionResult> ResetCode(ResetRequest resetRequest)
         {
@@ -107,6 +120,7 @@ namespace FitnessApp.Api.Controllers
             var result = await _mediator.Send(command);
 
             return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());
+
         }
     }
 }

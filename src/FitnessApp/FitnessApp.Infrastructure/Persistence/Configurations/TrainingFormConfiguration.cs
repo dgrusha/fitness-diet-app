@@ -17,7 +17,7 @@ public class TrainingFormConfiguration : IEntityTypeConfiguration<TrainingForm>
 
     private void ConfigureTrainingFormTable(EntityTypeBuilder<TrainingForm> builder)
     {
-        builder.ToTable("TrainingtForms");
+        builder.ToTable("TrainingForms");
         builder.HasKey(t => t.Id);
         builder.Property(t => t.GenerateFile).IsRequired();
         builder.Property(r => r.Days)

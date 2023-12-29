@@ -56,7 +56,7 @@ function Feedback() {
 	return (
 		<TwoSidesTemplate
 			title={<>
-				<Typography variant="title1">Leave feedback</Typography>
+				<Typography variant="title1">LEAVE FEEDBACK</Typography>
 				<Typography variant="subtitle1">Your opinion will help us to become better.</Typography>
 			</>}
 			prebodyitem={<RadioGroupRating selectedValue={selectedRating} setSelectedValue={setSelectedRating} />}

@@ -75,8 +75,9 @@ namespace FitnessApp.Api.Controllers
         public async Task<IActionResult> Login(LoginRequest loginRequest)
         {
             var query = new LoginQuery(
-                loginRequest.Email,
-                loginRequest.Password);
+                    loginRequest.Email,
+                    loginRequest.Password
+                );
 
             UniqueResponse<AuthenticationResult> authResult = await _mediator.Send(query);
 

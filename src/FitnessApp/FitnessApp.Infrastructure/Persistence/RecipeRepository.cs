@@ -53,6 +53,11 @@ public class RecipeRepository : IRecipeRepository
             .ToList();
     }
 
+    public Recipe? GetRecipeByUserAndRecipeId(Guid userId, Guid recipeId)
+    {
+        return _recipeContext.Recipes.FirstOrDefault(r => r.Id == recipeId && r.DietForm.UserId == userId);
+    }
+
     public void Update(Guid id, Recipe recipe)
     {
         var recipeFromDb = _recipeContext.Recipes.SingleOrDefault(recipe => recipe.Id == id);

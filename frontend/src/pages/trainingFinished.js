@@ -67,7 +67,7 @@ function TrainingFinished() {
 		<>
 			<InfoAndCalendarTemplate
 				title={selectedPart ? (<><Button onClick={()=>setSelectedPart(null)}>Back</Button></>)
-				:(<Typography gutterBottom variant="title1">Training for today</Typography>)}
+				:(<Typography gutterBottom variant="title1">TRAINING FOR TODAY</Typography>)}
 				bodyItems={
 					selectedPart ? (
 						<>
@@ -112,7 +112,7 @@ function TrainingFinished() {
 				leftLowerPart={
 					<> 
 						<Typography >{`${communicationFileGeneration}`}</Typography>
-						<Button sx={{padding: '3vh 15vh', marginBottom: '20px'}} onClick={handleSendButtonClick}>GENERATE TRAINING PLAN</Button>
+						<Button sx={{padding: '3vh 15vh', marginBottom: '20px'}} onClick={handleSendButtonClick}>GENERATE TRAIN FILE</Button>
 					</>
 				}
 			/>

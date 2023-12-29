@@ -20,6 +20,7 @@ public interface IUserRepository
     void UpdateUserTrainingStatus(User user, PreparingStatus preparingStatus);
     void ChangeUserPassword(Guid id, string password);
     List<UserDto> GetAllUsersExceptMe(Guid id);
+    List<UserWithIdDto> GetAllCoachesPrescribedUsers(Guid id);
     List<CoachDto> GetAllCoachesExceptMe(Guid id);
     List<CoachDto> GetNotVerifiedCoaches();
 }

@@ -1,9 +1,9 @@
 import { getCurrentUser } from '../helpers/authHelper';
 import { Constants } from '../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'userProfile/getUser';
+const baseUrl = Constants.BaseUrl + 'userProfile/getCoachesUsers';
 
-export const getUser = async () => {
+export const getAllCoachesUsers = async () => {
   const token = getCurrentUser();
   try {
       const response = await fetch(baseUrl, {

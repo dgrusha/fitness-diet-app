@@ -134,7 +134,7 @@ function PasswordReset() {
 				return <TwoSidesTemplate
                 title={
                     <>
-                        <Typography variant="title1">Password Reset</Typography>
+                        <Typography variant="title1">PASSWORD RESET</Typography>
                         <Typography variant="subtitle1">{subtitle}</Typography>
                     </>
                 }

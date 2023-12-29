@@ -24,6 +24,7 @@ import Diet from "./pages/diet";
 import FormDiet from "./pages/formDiet";
 import Training from "./pages/training";
 import FormTraining from "./pages/formTraining";
+import CoachesFeedback from "./pages/coachFeedback";
 
 function App() {
 	const {user} = useAppContext();
@@ -43,6 +44,7 @@ function App() {
             <Route path="diet_change" element={<ProtectedRoute><FormDiet mode={1}/></ProtectedRoute>} />
 						<Route path="training" element={<ProtectedRoute><Training/></ProtectedRoute>} />
             <Route path="training_change" element={<ProtectedRoute><FormTraining mode={1}/></ProtectedRoute>} />
+            <Route path="coach_feedback" element={<ProtectedRoute><CoachesFeedback/></ProtectedRoute>} />
 						<Route path="subscription" element={<ProtectedRoute><SubscriptionPage /></ProtectedRoute>} />
             <Route path="admin" element={<AdminRoute><Administration/></AdminRoute>} />
             <Route path="login" element={<UnprotectedRoute><Login/></UnprotectedRoute>} />

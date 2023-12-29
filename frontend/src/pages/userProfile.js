@@ -98,7 +98,7 @@ function UserProfile() {
 
 	return (
 		<TwoSidesTemplate
-			title={<Typography variant="title1">Account settings</Typography>}
+			title={<Typography variant="title1">ACCOUNT SETTINGS</Typography>}
 			prebodyitem={<>
 				<Avatar alt="The avatar" src={avatar} onClick={handleAvatarClick} />
 				<input

@@ -174,6 +174,7 @@ const ChatPage = () => {
 								sx={theme.autocomplete}
 							/>
 						)}
+						disableClearable
 					/>
 				</Box>
 				{/* Messages Section */}

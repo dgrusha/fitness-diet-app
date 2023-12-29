@@ -89,6 +89,10 @@ public class HangfireService
                             }
 
                             List<ExerciseJson> exercisesList = JsonConvert.DeserializeObject<List<ExerciseJson>>(excercises);
+                            exercisesList.Dump();
+                            Console.WriteLine("11111");
+                            Console.WriteLine(index);
+                            Console.WriteLine("11111");
                             var excerciseJsonInstance = exercisesList.ElementAt(index);
                             Excercise excercise = new Excercise
                             {

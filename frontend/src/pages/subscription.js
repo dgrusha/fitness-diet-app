@@ -73,13 +73,14 @@ const SubscriptionPage = () => {
 	};
 
 	const handleSubmit = async () => {
-		setIsSubmitting(true)
+		setIsSubmitting(true);
 		try {
 			await subscribe({ subcriptionType: 1, coachEmail: selectedUser.Mail, duration: value });
 			handleClose();
 		} catch (error) {
 			console.error(error.message);
 		}
+		setIsSubmitting(false);
 	};
 
 	const handleCancel = async () => {
@@ -93,7 +94,10 @@ const SubscriptionPage = () => {
 	};
 
 	useEffect(() => {
-		getAllUsers().then((data) => setAllUsers(data));
+		getAllUsers().then((data) =>{
+			setAllUsers(data);
+			console.log(data);
+		} );
 		getCoach().then((data) => {
 			setCoach(data);
 			console.log(data)
@@ -155,7 +159,7 @@ const SubscriptionPage = () => {
 		<ThemeProvider theme={appTheme}>
 			<Grid container component="main" sx={{ height: '100%', padding: '15px', overflow: 'auto' }}>
 				<Box component={Paper} elevation={3} sx={{ width: '100%', backgroundColor: '#fff', padding: '30px 50px', }}>
-					<Typography variant="title1">Choose Your Subscription Plan</Typography>
+					<Typography variant="title1">CHOOSE YOUR SUBSCRIPTION PLAN</Typography>
 					<Grid container sx={{
 						backgroundColor: '#fff', display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyContent: 'space-around'
 					}}>

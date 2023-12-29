@@ -8,7 +8,7 @@ function Administration() {
     
     return (
         <TabPage 
-            title={<Typography gutterBottom variant="title1">Administration Page</Typography>}
+            title={<Typography gutterBottom variant="title1">ADMINISTRATION PAGE</Typography>}
             body={[
                 { name: "Coaches", content: <TableOfDataCoaches /> },
                 { name: "Reviews", content: <TableOfDataRatings />}

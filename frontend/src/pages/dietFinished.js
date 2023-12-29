@@ -14,6 +14,7 @@ import { getDietData } from '../apiCalls/getDietData.js';
 import { CardComponentWithAction } from '../components/moleculas/cardWithAction.js';
 import { requestGenerateFile } from '../apiCalls/requestGenerateFileDiet.js';
 import dayjs from 'dayjs';
+import { MealsEnum } from '../helpers/processStatuses.js';
 
 function DietFinished() {
 	const [userDietData, setUserDietData] = useState({});
@@ -23,11 +24,6 @@ function DietFinished() {
     const [selectedMeal, setSelectedMeal] = useState(null);
     const [selectedMealId, setSelectedMealId] = useState(0);
 
-    const MealsEnum = {
-        "Breakfast": 0,
-        "Lunch": 2,
-        "Dinner": 1
-    };
 
 	useEffect(() => {
 		getDietData().then((data) => {
@@ -42,6 +38,7 @@ function DietFinished() {
 	}, []);
 
     const handleDate = (value) => {
+        setSelectedMeal(null);
         setCommunicationFileGeneration('');
         setDate(value);
         if(userDietData){
@@ -55,10 +52,6 @@ function DietFinished() {
         setSelectedMeal(mealType);
     };
 
-    const handleCloseModal = () => {
-        setCommunicationFileGeneration('');
-        setSelectedMeal(null);
-    };
 
     const handleSendButtonClick = async () => {
 		try {
@@ -80,31 +73,48 @@ function DietFinished() {
 		<>
         {userDietDataPerDay ? (
 			<InfoAndCalendarTemplate
-                title={<Typography gutterBottom variant="title1">Ration for today</Typography>}
+                title={selectedMeal ? (<><Button onClick={()=>setSelectedMeal(null)}>Back</Button></>)
+				:(<Typography gutterBottom variant="title1">RATION FOR TODAY</Typography>)}
                 bodyItems={
-                    <>
-                        <CardComponentWithAction 
-                            title="Breakfast"
-                            subtitle={userDietDataPerDay[0].name}
-                            image={image_breakfast} 
-                            imageLabel={userDietDataPerDay[0].calories + " Cal"} 
-                            onClickFun= {handleCardClick}
-                        />
-                        <CardComponentWithAction 
-                            title="Lunch" 
-                            subtitle={userDietDataPerDay[2].name} 
-                            image={image_lunch} 
-                            imageLabel={userDietDataPerDay[2].calories + " Cal"} 
-                            onClickFun= {handleCardClick}
-                        />
-                        <CardComponentWithAction 
-                            title="Dinner" 
-                            subtitle={userDietDataPerDay[1].name} 
-                            image={image_dinner} 
-                            imageLabel={userDietDataPerDay[1].calories + " Cal"} 
-                            onClickFun= {handleCardClick}
-                        />
-                    </>
+                    selectedMeal ? (
+                        <><Typography variant="h5">{`Details for ${selectedMeal}`}</Typography>
+                        <Typography >{`Name: ${userDietDataPerDay[selectedMealId].name}`}</Typography>
+                        <Typography >{`Description: ${userDietDataPerDay[selectedMealId].description}`}</Typography>
+                        <Typography >{`Calories: ${userDietDataPerDay[selectedMealId].calories}`}</Typography>
+                        <Typography >{`Carbohydrate: ${userDietDataPerDay[selectedMealId].carbohydrate}`}</Typography>
+                        <Typography >{`Fat: ${userDietDataPerDay[selectedMealId].fat}`}</Typography>
+                        <Typography >{`Protein: ${userDietDataPerDay[selectedMealId].protein}`}</Typography>
+                        <Typography >{`Ingredients: ${userDietDataPerDay[selectedMealId].ingredientsStr}`}</Typography>
+                        <Typography>{`Coaches comment: ${userDietDataPerDay[selectedMealId].comment !== null 
+                        ? userDietDataPerDay[selectedMealId].comment : 'No comments'}`}</Typography>
+                        </>                
+                    )
+				    :(
+                        <>
+                            <CardComponentWithAction 
+                                title="Breakfast"
+                                subtitle={userDietDataPerDay[0].name}
+                                image={image_breakfast} 
+                                imageLabel={userDietDataPerDay[0].calories + " Cal"} 
+                                onClickFun= {handleCardClick}
+                            />
+                            <CardComponentWithAction 
+                                title="Lunch" 
+                                subtitle={userDietDataPerDay[2].name} 
+                                image={image_lunch} 
+                                imageLabel={userDietDataPerDay[2].calories + " Cal"} 
+                                onClickFun= {handleCardClick}
+                            />
+                            <CardComponentWithAction 
+                                title="Dinner" 
+                                subtitle={userDietDataPerDay[1].name} 
+                                image={image_dinner} 
+                                imageLabel={userDietDataPerDay[1].calories + " Cal"} 
+                                onClickFun= {handleCardClick}
+                            />
+                        </>
+                    )
+                    
                 }
                 footerBody={ 
                     <>
@@ -120,40 +130,7 @@ function DietFinished() {
                 }
             />
             ) : <LinearProgress color="success" />}
-            {userDietDataPerDay ? (
-                <Modal
-                    open={selectedMeal !== null}
-                    onClose={handleCloseModal}
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <div
-                        style={{
-                            backgroundColor: '#FAFAFA',
-                            padding: '20px',
-                            border: '2px solid #6D9712',
-                            borderRadius: '10px',
-                            width: '50%',
-                            height: '50%',
-                            overflowY: 'auto',
-                        }}
-                    >
-                        <Typography variant="h5">{`Details for ${selectedMeal}`}</Typography>
-                        <Typography >{`Name: ${userDietDataPerDay[selectedMealId].name}`}</Typography>
-                        <Typography >{`Description: ${userDietDataPerDay[selectedMealId].description}`}</Typography>
-                        <Typography >{`Calories: ${userDietDataPerDay[selectedMealId].calories}`}</Typography>
-                        <Typography >{`Carbohydrate: ${userDietDataPerDay[selectedMealId].carbohydrate}`}</Typography>
-                        <Typography >{`Fat: ${userDietDataPerDay[selectedMealId].fat}`}</Typography>
-                        <Typography >{`Protein: ${userDietDataPerDay[selectedMealId].protein}`}</Typography>
-                        <Typography >{`Ingredients: ${userDietDataPerDay[selectedMealId].ingredientsStr}`}</Typography>
-                        <Typography>{`Coaches comment: ${userDietDataPerDay[selectedMealId].comment !== null 
-                        ? userDietDataPerDay[selectedMealId].comment : 'No comments'}`}</Typography>
-                    </div>
-                </Modal>
-            ) : <LinearProgress color="success" />}
+            
 		</>
 	);
 }

@@ -4,6 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Amazon.S3;
+using Amazon.S3.Model;
+using Dumpify;
 using FitnessApp.Application.Common.Interfaces.Persistence;
 using FitnessApp.Contracts.UniqueResponse;
 using FitnessApp.Domain.Entities;
@@ -15,12 +18,14 @@ public class GetTrainingDataQueryHandler : IRequestHandler<GetTrainingDataQuery,
     private readonly IUserRepository _userRepository;
     private readonly ITrainingFormRepository _trainingFormRepository;
     private readonly IExcerciseRepository _excerciseRepository;
+    private readonly IAmazonS3 _s3Client;
 
-    public GetTrainingDataQueryHandler(IExcerciseRepository excerciseRepository, ITrainingFormRepository trainingFormRepository, IUserRepository userRepository)
+    public GetTrainingDataQueryHandler(IExcerciseRepository excerciseRepository, ITrainingFormRepository trainingFormRepository, IUserRepository userRepository, IAmazonS3 s3Client)
     {
         _excerciseRepository = excerciseRepository;
         _trainingFormRepository = trainingFormRepository;
         _userRepository = userRepository;
+        _s3Client = s3Client;
     }
 
     public async Task<UniqueResponse<Dictionary<string, Dictionary<string, List<Common.DTO.ExcerciseDto>>>>> Handle(GetTrainingDataQuery request, CancellationToken cancellationToken)
@@ -61,6 +66,28 @@ public class GetTrainingDataQueryHandler : IRequestHandler<GetTrainingDataQuery,
                         partGroup => partGroup.ToList()
                     )
             );
+
+            if (groupedExercises != null)
+            {
+                foreach (var dayGroup in groupedExercises)
+                {
+                    foreach (var partGroup in dayGroup.Value)
+                    {
+                        foreach (var exerciseDto in partGroup.Value.Where(e => !string.IsNullOrEmpty(e.FileName)))
+                        {
+                            var fileToGet = new GetPreSignedUrlRequest
+                            {
+                                BucketName = "fitnessdietbucket",
+                                Key = exerciseDto.FileName,
+                                Expires = DateTime.UtcNow.AddDays(3)
+                            };
+
+                            string presignedUrl = _s3Client.GetPreSignedURL(fileToGet);
+                            exerciseDto.FileName = presignedUrl;
+                        }
+                    }
+                }
+            }
 
             response.Data = groupedExercises;
             response.ErrorCode = (int)HttpStatusCode.OK;

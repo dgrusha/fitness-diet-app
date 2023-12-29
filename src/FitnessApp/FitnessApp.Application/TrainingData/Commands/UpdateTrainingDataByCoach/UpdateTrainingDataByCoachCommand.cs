@@ -11,5 +11,6 @@ public record UpdateTrainingDataByCoachCommand
     Guid CoachId,
     Guid UserId,
     Guid ExerciseId,
-    string? Text
+    string? Text,
+    string? FileName
 ) : IRequest<HttpResponseMessage>;

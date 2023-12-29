@@ -73,14 +73,18 @@ function TrainingFinished() {
 						<>
 							<Typography variant="h5">{`Training details for ${selectedPart}`}</Typography>
 							{userTrainingDataPerDay[selectedPart] && userTrainingDataPerDay[selectedPart].map((training, index) => (
-								<div key={training.name}>
+								<>
 									<Typography sx={{ fontWeight: 'bold' }} variant="subtitle1">{`${index + 1}. ${training.name}`}</Typography>
 									<Typography variant="body1">{`Muscle: ${training.muscle}`}</Typography>
+									<Typography variant="body1">{`Instructions: ${training.instructions}`}</Typography>
 									<Typography variant="body1">{`Coaches comment: ${training.comment !== null 
 									? training.comment : 'No comments'}`}</Typography>
-									<Typography variant="body1">{training.instructions}</Typography>
-									<br/>
-								</div>
+									
+								{training.fileName ? (
+										<Button href={training.fileName} style={{ marginBottom: '16px' }}>Coach file open</Button>
+									) : (<></>)}
+								</>
+								
 							))}
 						</>
 					) :

@@ -6,7 +6,8 @@ import {
 	Autocomplete,
     Typography,
     ToggleButton,
-    ToggleButtonGroup
+    ToggleButtonGroup,
+    InputAdornment
 } from '@mui/material';
 import { CalendarControlled } from '../components/atoms/CalendarControlled.js';
 import InfoAndCalendarTemplate from '../components/templates/InfoAndCalendarTemplate';
@@ -34,6 +35,8 @@ function CoachesFeedback() {
     const [selectedInstance, setSelectedInstance] = useState(null);
     const [selectedMealId, setSelectedMealId] = useState(0);
     const [userData, setUserData] = useState({});
+    const [fileTextFieldValues, setFileTextFieldValues] = useState({});
+    const [fileValues, setFileValues] = useState({});
     const [userDataPerDay, setUserDataPerDay] = useState(null);
 
     const [commentDiet, setCommentDiet] = useState('');
@@ -45,6 +48,8 @@ function CoachesFeedback() {
 	}
 
     const handleDate = (value) => {
+        setFileValues({});
+        setFileTextFieldValues({});
 		setSelectedInstance(null);
         setDate(value);
         if(userData){
@@ -74,6 +79,8 @@ function CoachesFeedback() {
 	};
 
     const handleChange = event => {
+        setFileValues({});
+        setFileTextFieldValues({});
         setSelectedInstance(null);
 		const { name, value } = event.target;
 		setters[name](value);
@@ -107,6 +114,8 @@ function CoachesFeedback() {
 	};
 
     const handleChangeUser = (event, newValue) => {
+        setFileValues({});
+        setFileTextFieldValues({});
         setSelectedInstance(null);
         let errVal = validateCoachFeedbackFormFields("users", newValue, allUsers);
         setFormErrors(prevState => ({
@@ -168,10 +177,29 @@ function CoachesFeedback() {
 
       const handleTrainingCommentUpdate = async (instance, index) => {
         const updatedUserDataPerDay = { ...userDataPerDay };
-        const response = await updateTrainingDataByCoach({ exerciseId: updatedUserDataPerDay[instance][index].id, userId: selectedUser.id, text: updatedUserDataPerDay[instance][index].comment });
+        const response = await updateTrainingDataByCoach(
+            { 
+                exerciseId: updatedUserDataPerDay[instance][index].id,
+                userId: selectedUser.id,
+                text: updatedUserDataPerDay[instance][index].comment,
+                file: fileValues[index]
+            }
+            );
         const [status, message] = [response.status, await response.text()];
         console.log(message);
       };
+
+      const handleTextFieldClick = (index) => {
+		document.getElementById('hidden-file-input'+index).click();
+	  };
+
+      const handleFileChange = (event, index) => {
+		const file = event.target.files[0];
+		if (file) {
+			setFileValues({...fileValues, [index]: file});
+			setFileTextFieldValues({...fileTextFieldValues, [index]: file.name});
+		}
+	};
 
     const renderBodyContent = ({dataType}) => {
         if(dataType === 'training'){
@@ -193,7 +221,32 @@ function CoachesFeedback() {
                             value={training.comment || ''}
                             onChange={(e) => handleCommentChange(selectedInstance, index, e.target.value)}
                         />
-
+                        <input
+							type="file"
+							id={"hidden-file-input"+index}
+							style={{ display: 'none' }}
+							onChange={(e) => handleFileChange(e, index)}
+						/>
+						<TextField
+							id="file-textfield"
+							fullWidth
+							sx={{ mt: 2 }}
+							variant="outlined"
+							value={fileTextFieldValues[index] || 'Put your file for exercise'}
+							onClick={() => handleTextFieldClick(index)}
+							InputProps={{
+								readOnly: true,
+								endAdornment: (
+									<InputAdornment position="end">
+										<Button>Browse</Button>
+									</InputAdornment>
+								),
+								style: {
+									cursor: 'pointer',
+									textAlign: 'center'
+								},
+							}}
+						/>
                         <Button 
                         variant="contained" 
                         onClick={() => handleTrainingCommentUpdate(selectedInstance, index)} 

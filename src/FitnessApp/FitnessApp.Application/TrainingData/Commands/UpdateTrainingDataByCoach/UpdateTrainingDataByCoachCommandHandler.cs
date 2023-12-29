@@ -42,11 +42,11 @@ public class UpdateTrainingDataByCoachCommandHandler : IRequestHandler<UpdateTra
                 };
             }
 
-            if (request.Text == null)
+            if (request.Text == null && request.FileName == null)
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest)
                 {
-                    Content = new StringContent("Text is not fulfilled"),
+                    Content = new StringContent("Data is not fulfilled"),
                 };
             }
 
@@ -77,6 +77,7 @@ public class UpdateTrainingDataByCoachCommandHandler : IRequestHandler<UpdateTra
                 };
             }
             exerciseToUpdate.Comment = request.Text;
+            exerciseToUpdate.FileName = request.FileName;
             _excerciseRepository.Update(exerciseToUpdate.Id, exerciseToUpdate);
 
             return new HttpResponseMessage(HttpStatusCode.OK)

@@ -3,13 +3,14 @@ import { Constants } from '../helpers/constants';
 
 const baseUrl = Constants.BaseUrl + 'trainingData/updateTrainingDataByCoach';
 
-export const updateTrainingDataByCoach = async ({ exerciseId, userId, text }) => {
+export const updateTrainingDataByCoach = async ({ exerciseId, userId, text, file }) => {
   const token = getCurrentUser();
   try {
         const formData = new FormData();
         formData.append('ExerciseId', exerciseId);
         formData.append('UserId', userId);
         formData.append('Text', text);
+        formData.append('File', file);
 
         const response = await fetch(baseUrl, {
         method: 'PUT',

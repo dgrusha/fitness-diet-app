@@ -1,4 +1,6 @@
 ﻿using System.Security.Claims;
+using FitnessApp.Application.Common.Helpers;
+using FitnessApp.Application.S3Bucket.Commands.AddFile;
 using FitnessApp.Application.TrainingData.Commands.UpdateTrainingDataByCoach;
 using FitnessApp.Application.TrainingData.Queries.GetTrainingData;
 using FitnessApp.Application.UserProfile.Queries.DoesUserHasCoach;
@@ -17,10 +19,12 @@ namespace FitnessApp.Api.Controllers
     public class TrainingDataController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IHashing _hashing;
 
-        public TrainingDataController(IMediator mediator)
+        public TrainingDataController(IMediator mediator, IHashing hashing)
         {
             _mediator = mediator;
+            _hashing = hashing;
         }
 
         [HttpGet("getTrainingData")]
@@ -56,7 +60,24 @@ namespace FitnessApp.Api.Controllers
         {
             var coachId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var queryData = new UpdateTrainingDataByCoachCommand(new Guid(coachId), new Guid(request.UserId), new Guid(request.ExerciseId), request.Text);
+            string fileName = string.Empty;
+            if (request.File != null && request.File.Length > 0) 
+            {
+                var fileNameHashed = $"{_hashing.HashFileName(request.File.FileName)}{Path.GetExtension(request.File.FileName)}";
+                var commandUpload = new AddFileCommand
+                    (
+                        request.File,
+                        "fitnessdietbucket",
+                        $"coachFiles/{fileNameHashed}"
+                    );
+                var resultUpload = await _mediator.Send(commandUpload);
+                if (resultUpload.IsSuccessStatusCode)
+                {
+                    fileName = $"coachFiles/{fileNameHashed}";
+                }
+            }
+
+            var queryData = new UpdateTrainingDataByCoachCommand(new Guid(coachId), new Guid(request.UserId), new Guid(request.ExerciseId), request.Text, fileName);
             var resultData = await _mediator.Send(queryData);
 
             return StatusCode((int)resultData.StatusCode, await resultData.Content.ReadAsStringAsync());

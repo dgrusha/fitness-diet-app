@@ -61,6 +61,7 @@ public class ExcerciseRepository : IExcerciseRepository
         {
             excerciseFromDb.Comment = excercise.Comment;
             excerciseFromDb.FileName = excerciseFromDb.FileName;
+            _excerciseContext.SaveChanges();
         }
     }
 }

@@ -36,6 +36,13 @@ public class AddTrainingFormCommandHandler : IRequestHandler<AddTrainingFormComm
                 return response;
             };
 
+            if (user.Coach != null)
+            {
+                response.Errors.Add("Coach cannot use this functionality");
+                response.ErrorCode = (int)HttpStatusCode.BadRequest;
+                return response;
+            }
+
             if (user.ObligatoryForm == null)
             {
                 response.Errors.Add("This user has no fulfilled Obligatory form");

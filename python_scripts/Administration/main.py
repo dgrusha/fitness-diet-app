@@ -1,4 +1,4 @@
-from Common import mail_handler
+import mail_handler
 import admin_email_output_handler
 
 if __name__ == '__main__':

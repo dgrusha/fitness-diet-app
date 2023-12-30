@@ -1,5 +1,5 @@
 from generate_file import generate_file_exercises
-from Common import mail_handler
+import mail_handler
 
 if __name__ == '__main__':
     senders_files = generate_file_exercises()

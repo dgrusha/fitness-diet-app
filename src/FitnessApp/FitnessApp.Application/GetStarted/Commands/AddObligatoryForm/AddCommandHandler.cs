@@ -44,6 +44,14 @@ public class AddCommandHandler : IRequestHandler<AddCommand, HttpResponseMessage
                 };
             }
 
+            if (user.Coach != null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent("Admin cannot use this functionality"),
+                };
+            }
+
             if (request.Weight > 200 || request.Weight < 28) 
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest)

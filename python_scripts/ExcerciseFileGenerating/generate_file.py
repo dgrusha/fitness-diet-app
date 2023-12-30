@@ -30,12 +30,12 @@ def generate_file_exercises():
     sender_files = {}
     try:
         # TrainingForms
-        query = f"SELECT * FROM TrainingtForms WHERE GenerateFile = 1"
+        query = f"SELECT * FROM TrainingForms WHERE GenerateFile = 1"
         cursor.execute(query)
         training_forms = cursor.fetchall()
 
         for training_form in training_forms:
-            query_update = "UPDATE TrainingtForms SET GenerateFile = 0 WHERE Id = ?"
+            query_update = "UPDATE TrainingForms SET GenerateFile = 0 WHERE Id = ?"
             cursor.execute(query_update, training_form[0])
             conn.commit()
 

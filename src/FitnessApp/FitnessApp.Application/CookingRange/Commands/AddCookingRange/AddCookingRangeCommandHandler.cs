@@ -45,13 +45,11 @@ public class AddCookingRangeCommandHandler : IRequestHandler<AddCookingRangeComm
                     Content = new StringContent("Time range is set incorrectly"),
                 };
             }
-
             Domain.Entities.CookingRange cookingRange = new Domain.Entities.CookingRange
             {
                 Name = request.Name,
                 MinuteStart = request.MinuteStart,
             };
-
             _cookingRangeRepository.Add(cookingRange);
 
             return new HttpResponseMessage(HttpStatusCode.OK)

@@ -11,7 +11,7 @@ import TwoSidesTemplate from '../components/templates/ContainerAndPhotoTemplate'
 import { handleFormResponse } from '../helpers/formVerification';
 import { isFormValid } from '../helpers/isFormValid';
 import { resetPassword } from '../apiCalls/resetPassword';
-import image_login from "../img/login_sign_up.png";
+import image_reset_password from "../img/authorization.png";
 import { validateLoginFormFields } from '../validators/loginValidator';
 import { ResetStepEnum } from '../helpers/processStatuses';
 import { resetCode } from '../apiCalls/sendCodeToEmail';
@@ -27,7 +27,7 @@ function PasswordReset() {
 	});
 	const [isSubmitting, setIsSubmitting] = useState(false);
     const [step, setStep] = useState(ResetStepEnum.EmailEnter);
-    const [subtitle, setSubtitle] = useState("Provide email for which account was registered.");
+    const [subtitle, setSubtitle] = useState("Please provide the email associated with the registered account.");
 	const [formErrors, setFormErrors] = useState({
 		email: '',
 		password1: '',
@@ -134,7 +134,7 @@ function PasswordReset() {
 				return <TwoSidesTemplate
                 title={
                     <>
-                        <Typography variant="title1">Password Reset</Typography>
+                        <Typography variant="title1">PASSWORD RESET</Typography>
                         <Typography variant="subtitle1">{subtitle}</Typography>
                     </>
                 }
@@ -160,7 +160,7 @@ function PasswordReset() {
                         />
                     </>
                 }
-                img={image_login}
+                img={image_reset_password}
             />;
 			case ResetStepEnum.CodeEnter:
 				return <TwoSidesTemplate
@@ -204,7 +204,7 @@ function PasswordReset() {
                 />
             </>
                 }
-                img={image_login}
+                img={image_reset_password}
             />;
 			case ResetStepEnum.PasswordReset:
 				return <TwoSidesTemplate
@@ -249,7 +249,7 @@ function PasswordReset() {
                 />
             </>
                 }
-                img={image_login}
+                img={image_reset_password}
             />;
             case ResetStepEnum.PasswordSuccess:
                 return <TwoSidesTemplate
@@ -269,7 +269,7 @@ function PasswordReset() {
                 />
                 </>
                 }
-                img={image_login}
+                img={image_reset_password}
             />;
 			default:
 				navigate('/');

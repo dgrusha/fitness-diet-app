@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { getAllUsers } from '../apiCalls/chatGetUsers';
+import { getAllUsers } from '../apiCalls/chat/chatGetUsers';
 import { getCoach } from '../apiCalls/getUserCoach';
+import { getChatInterlocuter } from '../apiCalls/chat/getChatInterlocuter';
 import { joinRoom, sendMessage } from '../helpers/signalRHandlers';
-import { getChatHistory } from '../apiCalls/chatGetHistory';
+import { getChatHistory } from '../apiCalls/chat/chatGetHistory';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import {
 	Box,
@@ -63,56 +64,12 @@ const ChatPage = () => {
     }
   };
 
-	// async function fetchData() {
-	// 	try {
-	// 		const response = await getCoach();
-	// 		if (response.errorCode === 200) {
-	// 			setCoach(response.data);
-	// 		} else {
-	// 			// Handle error
-	// 		}
-	// 	} catch (error) {
-	// 		// Handle error
-	// 	}
-	// }
-
-	// const getUserCoach = async () => {
-	// 	fetchData();
-	// 	console.log(coach)
-	// 	setMessages([]);
-	// 	if (coach && user !== null && coach.Mail !== undefined && coach.Mail !== '') {
-	// 		try {
-	// 			cleanupConnection();
-	// 			getChatHistory({ receiverEmail: coach.Mail }).then((data) => {
-	// 				setMessages(
-	// 					data.map((item) => {
-	// 						return {
-	// 							text: item.Text,
-	// 							sender: item.Email,
-	// 						};
-	// 					})
-	// 				);
-	// 			});
-	// 			joinRoom(
-	// 				user.email,
-	// 				coach.Mail,
-	// 				setMessages,
-	// 				messages,
-	// 				setConnection
-	// 			);
-	// 		} catch (error) {
-	// 			console.error(error.message);
-	// 		}
-	// 	}
-	// 	setSelectedUser(coach);
-	// };
-
 	const handleChangeChat = (event, newValue) => {
 		setMessages([]);
-		if (newValue && user !== null && newValue.Mail !== undefined && newValue.Mail !== '') {
+		if (newValue && user !== null && newValue.email !== undefined && newValue.email !== '') {
 			try {
 				cleanupConnection();
-				getChatHistory({ receiverEmail: newValue.Mail }).then((data) => {
+				getChatHistory({ receiverEmail: newValue.email }).then((data) => {
 					setMessages(
 						data.map((item) => {
 							return {
@@ -124,7 +81,7 @@ const ChatPage = () => {
 				});
 				joinRoom(
 					user.email,
-					newValue.Mail,
+					newValue.email,
 					setMessages,
 					messages,
 					setConnection
@@ -133,11 +90,12 @@ const ChatPage = () => {
 				console.error(error.message);
 			}
 		}
+		console.log(newValue)
 		setSelectedUser(newValue);
 	};
 
 	const isOptionEqualToValue = (option, value) => {
-		return option.Mail === value.Mail;
+		return option.email === value.email;
 	};
 
 	useEffect(() => {
@@ -147,10 +105,11 @@ const ChatPage = () => {
 	}, []);
 
 	useEffect(() => {
-		// getCoach().then((data) => {
-		// 	console.log(data)});
-		getAllUsers().then((data) => setAllUsers(data));
-
+		getChatInterlocuter().then((data) => {
+			console.log(data.data.chatInterlocuters);
+			setAllUsers(data.data.chatInterlocuters)});
+		console.log('jdsajhfgaiudgsiaugdiua')
+		console.log(selectedUser);
 	}, []);
 
 	return (
@@ -160,7 +119,7 @@ const ChatPage = () => {
 				<HelpCenterIcon sx={theme.iconHelp} onClick={handleClickOpen}/>
 					<Autocomplete
 						options={allUsers}
-						getOptionLabel={(option) => option.FirstName + ' ' + option.LastName}
+						getOptionLabel={(option) => option.firstName + ' ' + option.lastName}
 						value={selectedUser}
 						onChange={handleChangeChat}
 						isOptionEqualToValue={isOptionEqualToValue}

@@ -14,7 +14,7 @@ import {
     Typography,
     TableSortLabel,
 } from '@mui/material';
-import { getFeedbacks } from '../../apiCalls/feedbackGetAll';
+import { getFeedbacks } from '../../apiCalls/administration/getAllFeedbacks';
 
 const TableOfDataRatings = () => {
     const [openModal, setOpenModal] = useState(false);

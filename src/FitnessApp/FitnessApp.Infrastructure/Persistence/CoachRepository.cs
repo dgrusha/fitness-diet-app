@@ -36,7 +36,7 @@ public class CoachRepository : ICoachRepository
         _coachContext.SaveChanges();
     }
 
-    public Coach? GetCoachById(Guid id)
+    public Coach? GetCoachById(Guid? id)
     {
         Coach? coach = _coachContext.Coaches
             .Include(u => u.User)

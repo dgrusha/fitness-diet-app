@@ -1,9 +1,9 @@
-import { getCurrentUser } from '../helpers/authHelper';
-import { Constants } from '../helpers/constants';
+import { getCurrentUser } from '../../helpers/authHelper';
+import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'userProfile/getAllUsersExceptMe';
+const baseUrl = Constants.BaseUrl + 'feedback/getAll';
 
-export const getAllUsers = async () => {
+export const getFeedbacks = async () => {
   const token = getCurrentUser();
   try {
       const response = await fetch(baseUrl, {

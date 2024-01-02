@@ -1,5 +1,5 @@
-import { getCurrentUser } from '../helpers/authHelper';
-import { Constants } from '../helpers/constants';
+import { getCurrentUser } from '../../helpers/authHelper';
+import { Constants } from '../../helpers/constants';
 
 const baseUrl = Constants.BaseUrl + 'chat/getChatHistory';
 

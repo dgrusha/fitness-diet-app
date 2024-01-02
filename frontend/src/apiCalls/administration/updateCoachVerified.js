@@ -1,6 +1,7 @@
-import { getCurrentUser } from '../helpers/authHelper';
+import { getCurrentUser } from '../../helpers/authHelper';
+import { Constants } from '../../helpers/constants';
 
-const baseUrl = 'https://localhost:7194/userProfile/updateCoach';
+const baseUrl = Constants.BaseUrl + 'userProfile/updateCoach';
 
 export const updateCoachVerified = async ({ email }) => {
   const token = getCurrentUser();

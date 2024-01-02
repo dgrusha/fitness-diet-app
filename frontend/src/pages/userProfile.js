@@ -1,12 +1,4 @@
-import {
-	Avatar,
-	Checkbox,
-	FormControlLabel,
-	FormGroup,
-	LinearProgress,
-	Typography,
-	Alert
-} from '@mui/material';
+import { Alert, Avatar, Checkbox, FormControlLabel, FormGroup, LinearProgress, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
 import { getUser } from '../apiCalls/userProfileGetInfo';
@@ -17,7 +9,7 @@ import TwoSidesTemplate from '../components/templates/ContainerAndPhotoTemplate'
 import { handleTextInputChange } from '../helpers/inputChanges';
 import { isFormValid } from '../helpers/isFormValid';
 import { resizeAndSetPhoto } from '../helpers/photoHelper';
-import image_profile_setting from '../img/user_profile_page.png';
+import image_profile_setting from '../img/user_profile.png';
 import { validateUserProfileFields } from '../validators/userProfileValidator';
 
 function UserProfile() {
@@ -40,8 +32,7 @@ function UserProfile() {
 		let errVal = validateUserProfileFields(name, value);
 		setFormErrors(prevState => ({
 			...prevState,
-			[name]: errVal,
-			["general"]: "",
+			[name]: errVal
 		}))
 	}
 
@@ -98,7 +89,7 @@ function UserProfile() {
 
 	return (
 		<TwoSidesTemplate
-			title={<Typography variant="title1">Account settings</Typography>}
+			title={<Typography variant="title1">ACCOUNT SETTINGS</Typography>}
 			prebodyitem={<>
 				<Avatar alt="The avatar" src={avatar} onClick={handleAvatarClick} />
 				<input
@@ -121,11 +112,12 @@ function UserProfile() {
 				/>
 				<FormGroup>
 					<FormControlLabel
+						sx={{ alignSelf: "start" }}
 						control={<Checkbox color="success" checked={userData.hasObligatoryForm === true} />}
-						labelPlacement="start"
+						labelPlacement="end"
 						label="Have you passed obligatory form?" />
 				</FormGroup>
-				{status && <Alert severity="info">{status}</Alert> }
+				{status && <Alert severity="success">{status}</Alert>}
 				{isSubmitting && <LinearProgress color="success" />}
 				<ButtonComponent title="SAVE CHANGES" onClick={handleSendButtonClick} disabled={!isFormValid(formErrors, [firstName, lastName])
 					|| (firstName === userData.firstName && lastName === userData.lastName && avatar === userData.avatarFileName)} />

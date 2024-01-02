@@ -1,6 +1,7 @@
-import { getCurrentUser } from '../helpers/authHelper';
+import { getCurrentUser } from '../../helpers/authHelper';
+import { Constants } from '../../helpers/constants';
 
-const baseUrl = 'https://localhost:7194/subscription/cancel';
+const baseUrl = Constants.BaseUrl + 'subscription/cancel';
 
 export const cancelSubscription = async () => {
   const token = getCurrentUser();

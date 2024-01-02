@@ -1,6 +1,7 @@
-import { getCurrentUser } from '../helpers/authHelper';
+import { getCurrentUser } from '../../helpers/authHelper';
+import { Constants } from '../../helpers/constants';
 
-const baseUrl = 'https://localhost:7194/subscription/add';
+const baseUrl = Constants.BaseUrl + 'subscription/add';
 
 export const subscribe = async ({subcriptionType, coachEmail, duration}) => {
   const token = getCurrentUser();

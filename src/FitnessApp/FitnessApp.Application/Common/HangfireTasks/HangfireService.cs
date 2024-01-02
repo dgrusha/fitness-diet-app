@@ -309,6 +309,7 @@ public class HangfireService
                 {
                     var item = lunchesSelected[i];
                     var descItem = descRecipe[item.recipe_id];
+                    Console.WriteLine(1);
                     Domain.Entities.Recipe recipeTmp = new Domain.Entities.Recipe
                     {
                         DayOfTheWeek = i + 1,
@@ -326,7 +327,9 @@ public class HangfireService
                         Ingredients = item.recipe_ingredients.ingredient,
                         DietFormId = dietForm.Id
                     };
-                   _recipeRepository.Add(recipeTmp);
+                    recipeTmp.Dump();
+                    _recipeRepository.Add(recipeTmp);
+                    Console.WriteLine(2);
                     if (descItem.recipe.directions.direction.Count() > 0)
                     {
                         foreach (var itemDirection in descItem.recipe.directions.direction)

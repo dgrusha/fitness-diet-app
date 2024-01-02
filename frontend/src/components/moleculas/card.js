@@ -1,9 +1,5 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-
 
 export const CardComponent = (props) => (
 	<Card sx={{ display: 'flex', borderRadius: '10px', marginBottom: '12px', height: '15vh' }} elevation={3}>

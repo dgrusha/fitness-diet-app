@@ -1,8 +1,9 @@
 import { getCurrentUser } from '../helpers/authHelper';
+import { Constants } from '../helpers/constants';
 
-const baseUrl = 'https://localhost:7194/userProfile/getUserCoach';
+const baseUrl = Constants.BaseUrl + 'userProfile/getUserCoach';
 
-export const getCoach = async () => {
+export const getCoach= async () => {
   const token = getCurrentUser();
 	console.log('user searching for coach')
 	try {
@@ -16,7 +17,7 @@ export const getCoach = async () => {
       if (!response.ok) {
         return [];
       }
-      let answer = await response.json();
+      let answer = await response.data.json();
       return answer;
     } catch (error) {
         return [];

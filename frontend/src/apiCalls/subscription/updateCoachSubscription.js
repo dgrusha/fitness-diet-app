@@ -1,19 +1,20 @@
-import { getCurrentUser } from '../helpers/authHelper';
+import { getCurrentUser } from '../../helpers/authHelper';
+import { Constants } from '../../helpers/constants';
 
-const baseUrl = 'https://localhost:7194/userProfile/deleteUser';
+const baseUrl = Constants.BaseUrl + 'subscription/updateCoach';
 
-export const deleteCoachUnverified = async ({ email }) => {
+export const updateCoachSubscription = async ({ email }) => {
   const token = getCurrentUser();
   try {
       const response = await fetch(baseUrl, {
-        method: 'Delete',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(
               {
-                  "email": email,
+                  "Email": email,
               }
           ),
       });

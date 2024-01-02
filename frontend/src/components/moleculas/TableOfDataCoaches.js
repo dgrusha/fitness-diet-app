@@ -14,21 +14,21 @@ import {
     Typography,
     TableSortLabel,
 } from '@mui/material';
-import { getAllNotVerifiedCoaches } from '../../apiCalls/getAllNotVerifiedCoaches';
-import { updateCoachVerified } from '../../apiCalls/updateCoachVerified';
-import { deleteCoachUnverified } from '../../apiCalls/deleteCoachUnverified';
+import { getAllNotVerifiedCoaches } from '../../apiCalls/administration/getAllNotVerifiedCoaches';
+import { updateCoachVerified } from '../../apiCalls/administration/updateCoachVerified';
+import { deleteCoachUnverified } from '../../apiCalls/administration/deleteCoachUnverified';
 
 const TableOfDataCoaches = () => {
     const [openModal, setOpenModal] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
-    const [dataCoaches, setDataCoaches] = useState([]);
+    // const [dataCoaches, setDataCoaches] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [sortDirection, setSortDirection] = useState('asc');
     const [sortBy, setSortBy] = useState(null);
 
     useEffect(() => {
         getAllNotVerifiedCoaches().then((data) => {
-            setDataCoaches(data);
+            // setDataCoaches(data);
             setFilteredData(data);
         });
     }, []);
@@ -142,12 +142,12 @@ const TableOfDataCoaches = () => {
                                             Recomendation
                                         </span>
                                     </Button>
-                                    <Button sx={{ marginLeft: 2 }} onClick={() => handleApprove(row.Mail)}>
+                                    <Button variant="change" sx={{ marginLeft: 2 }} onClick={() => handleApprove(row.Mail)}>
                                         <span aria-label="approve">
                                             Approve
                                         </span>
                                     </Button>
-                                    <Button sx={{ marginLeft: 2 }} onClick={() => handleDelete(row.Mail)}>
+                                    <Button variant="cancel" sx={{ marginLeft: 2 }} onClick={() => handleDelete(row.Mail)}>
                                         <span aria-label="approve">
                                             Delete
                                         </span>

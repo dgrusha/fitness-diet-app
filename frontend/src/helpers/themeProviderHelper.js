@@ -13,7 +13,14 @@ export const appTheme = createTheme({
 		title1: {
 			fontWeight: 700,
 			color: "#9CD91B",
-			fontSize: 36
+			fontSize: '30px',
+			display: 'block'
+		},
+		title2: {
+			fontWeight: 600,
+			color: "#9CD91B",
+			fontSize: '23px',
+			display: 'block'
 		},
 		server_error: {
 			fontWeight: 300,
@@ -24,6 +31,11 @@ export const appTheme = createTheme({
 			fontWeight: 500,
 			color: "white",
 			fontSize: 24
+		},
+		price: {
+			fontWeight: 500,
+			fontSize: "20px",
+			display: 'block'
 		}
 	},
 	components: {
@@ -50,7 +62,20 @@ export const appTheme = createTheme({
 					}
 				},
 			},
-
+		},
+		MuiSelect: {
+			styleOverrides: {
+				root: {
+					"& .MuiOutlinedInput-notchedOutline": { 
+						borderColor: "#9CD91B",
+					},
+						"&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#6D9712" },
+						"&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "#6D9712" },
+					"& .MuiSvgIcon-root": { color: "#9CD91B",
+						"&.MuiSelect-iconOpen ": { color: "#6D9712" },
+					},
+				},
+			},
 		},
 		MuiAutocomplete: {
 			styleOverrides: {
@@ -74,18 +99,40 @@ export const appTheme = createTheme({
 					color: "#FFFFFF",
 					backgroundColor: "#9CD91B",
 					"&:hover": {
-						backgroundColor: "#6D9712",
+						backgroundColor: "#6D9712"
 					},
 					"&.Mui-disabled": {
-						backgroundColor: "#E1F3BA",
+						backgroundColor: "#E1F3BA"
 					},
 					"MuiSvgIcon-root-MuiPickersCalendarHeader-switchViewIcon": {
-						color: '#FFF',
-					},
+						color: "#FFFFFF"
+					}
+				},
+				change: {
+					color: "#9CD91B",
+					backgroundColor: "#FFFFFF",
+					borderColor: "#9CD91B",
+					border: '2px solid'
+				},
+				cancel: {
+					color: "#122023",
+					backgroundColor: "#F8F8FA",
+					border: '2px solid',
+					borderColor: "#EEEEF1"
 				}
 			}
 		},
-		MuiRadio:{
+		MuiCheckbox: {
+			styleOverrides: {
+				root: {
+					color: "#9CD91B",
+					"&.Mui-checked": {
+						color: "#9CD91B"
+					}
+				}
+			}
+		},
+		MuiRadio: {
 			styleOverrides: {
 				root: {
 					"&.Mui-checked": {
@@ -94,19 +141,20 @@ export const appTheme = createTheme({
 				}
 			}
 		},
-		select: {
-			'&:before': {
-				borderColor: "#9CD91B",
-			},
-			'&:after': {
-				borderColor: "#9CD91B",
-			}
-		},
+		// select: {
+		// 	'&:before': {
+		// 		borderColor: "#9CD91B",
+		// 	},
+		// 	'&:after': {
+		// 		borderColor: "#9CD91B",
+		// 	}
+		// },
 		MuiLink: {
 			styleOverrides: {
 				root: {
 					color: "#6D9712",
-					textDecorationColor: "#6D9712"
+					textDecorationColor: "#6D9712",
+					fontSize: "14px"
 				}
 			}
 		},
@@ -224,5 +272,32 @@ export const appTheme = createTheme({
 				
 			},
 		},
+		MuiFormLabel: {
+			styleOverrides: {
+				root: {
+					"&.Mui-focused": {
+						color: "#7D8386",
+					},
+				}
+			}
+		}, 
+		MuiSlider: {
+			styleOverrides: {
+				root: {
+					color: "#9CD91B"
+				}
+			}
+		},
+		MuiAlert: {
+			styleOverrides: {
+				info: {
+					color: "#7D8386",
+					backgroundColor: "#EEEEF1",
+					"& .MuiAlert-icon": {
+						color: "#7D8386",
+					}
+				}
+			}
+		}
 	}
 });

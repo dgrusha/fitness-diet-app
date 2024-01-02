@@ -1,6 +1,7 @@
 import { getCurrentUser } from '../helpers/authHelper';
+import { Constants } from '../helpers/constants';
 
-const baseUrl = 'https://localhost:7194/auth/refreshConnection';
+const baseUrl = Constants.BaseUrl + 'auth/refreshConnection';
 
 export const getUserConnection = async () => {
   const token = getCurrentUser();

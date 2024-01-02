@@ -3,6 +3,7 @@ import ChatIcon from '@mui/icons-material/Chat';
 import EmojiFlagsIcon from '@mui/icons-material/EmojiFlags';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import LoginIcon from '@mui/icons-material/Login';
+import RateReviewIcon from '@mui/icons-material/RateReview';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import PersonIcon from '@mui/icons-material/Person';
@@ -54,6 +55,10 @@ function SideBarApp() {
 								icon={<ChatIcon className="MenuIcon" />}
 								component={<Link className="LinkSideBar" to="/chat" />}>
 								Chat
+							</MenuItem>
+							<MenuItem
+								icon={<RateReviewIcon className="MenuIcon" />}
+								component={<Link className="LinkSideBar" to="/coach_feedback" />}>Manage clients
 							</MenuItem>
 							<SubMenu className="LinkSideBar" label="Service" icon={<MiscellaneousServicesIcon className="MenuIcon" />}>
 								<MenuItem

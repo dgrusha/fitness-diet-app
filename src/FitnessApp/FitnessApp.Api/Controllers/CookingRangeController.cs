@@ -31,7 +31,6 @@ namespace FitnessApp.Api.Controllers
             {
                 return;
             }
-
             var command = new AddCookingRangeCommand(new Guid(userId), addCookingRangeRequest.Name, addCookingRangeRequest.MinuteStart, addCookingRangeRequest.MinuteEnd);
             _mediator.Send(command);
 

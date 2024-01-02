@@ -30,13 +30,7 @@ public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, string>
         if (user.Coach != null)
         {
             List<UserDto> users;
-
             users = _userRepository.GetAllUsersExceptMe(request.Id);
-
-            if (users == null || users.Count == 0)
-            {
-                return await Task.FromResult("empty");
-            }
 
             var jsonResult = JsonConvert.SerializeObject(users, Formatting.Indented);
 
@@ -47,11 +41,6 @@ public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, string>
             List<CoachDto> coaches;
 
             coaches = _userRepository.GetAllCoachesExceptMe(request.Id);
-
-            if (coaches == null || coaches.Count == 0)
-            {
-                return await Task.FromResult("empty");
-            }
 
             var jsonResult = JsonConvert.SerializeObject(coaches, Formatting.Indented);
 

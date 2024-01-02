@@ -132,4 +132,15 @@ public class UserRepository : IUserRepository
         user.TrainingStatus = preparingStatus;
         _userContext.SaveChanges();
     }
+
+    public List<UserWithIdDto> GetAllCoachesPrescribedUsers(Guid id)
+    {
+        return _userContext.Users.Where(u => u.SubscriptionForCoach.CoachId == id).Select(x => new UserWithIdDto 
+        { 
+            Id = x.Id,
+            FirstName = x.FirstName,
+            LastName = x.LastName,
+            Mail = x.Email 
+        }).ToList();
+    }
 }

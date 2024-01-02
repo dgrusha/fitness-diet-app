@@ -59,7 +59,6 @@ public class HangfireService
             List<string> usedMuscles = new List<string>();
             
             var daysToTrain = trainingForm.Days;
-            Console.WriteLine(daysToTrain.Count());
             string trainingSpecJson = File.ReadAllText("training_spec.json");
             AllDaysData? allDaysData = JsonConvert.DeserializeObject<AllDaysData>(trainingSpecJson);
 
@@ -309,7 +308,6 @@ public class HangfireService
                 {
                     var item = lunchesSelected[i];
                     var descItem = descRecipe[item.recipe_id];
-                    Console.WriteLine(1);
                     Domain.Entities.Recipe recipeTmp = new Domain.Entities.Recipe
                     {
                         DayOfTheWeek = i + 1,

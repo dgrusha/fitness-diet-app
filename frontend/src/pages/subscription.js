@@ -72,13 +72,14 @@ const SubscriptionPage = () => {
 	};
 
 	const handleSubmit = async () => {
-		setIsSubmitting(true)
+		setIsSubmitting(true);
 		try {
 			await subscribe({ subcriptionType: 1, coachEmail: selectedUser.Mail, duration: value });
 			handleClose();
 		} catch (error) {
 			console.error(error.message);
 		}
+		setIsSubmitting(false);
 	};
 
 	const handleCancel = async () => {

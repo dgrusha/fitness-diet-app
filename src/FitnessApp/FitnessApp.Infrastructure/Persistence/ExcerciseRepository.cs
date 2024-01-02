@@ -31,6 +31,11 @@ public class ExcerciseRepository : IExcerciseRepository
         _excerciseContext.SaveChanges();
     }
 
+    public Excercise? GetRecipeByUserAndExerciseId(Guid userId, Guid excerciseId)
+    {
+        return _excerciseContext.Excercises.FirstOrDefault(r => r.Id == excerciseId && r.TrainingForm.UserId == userId);
+    }
+
     public List<ExcerciseDto> GetTrainingExcercises(Guid trainingFormId)
     {
         return _excerciseContext.Excercises
@@ -56,6 +61,7 @@ public class ExcerciseRepository : IExcerciseRepository
         {
             excerciseFromDb.Comment = excercise.Comment;
             excerciseFromDb.FileName = excerciseFromDb.FileName;
+            _excerciseContext.SaveChanges();
         }
     }
 }

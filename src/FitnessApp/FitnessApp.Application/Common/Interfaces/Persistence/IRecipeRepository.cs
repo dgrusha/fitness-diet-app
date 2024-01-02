@@ -12,6 +12,7 @@ public interface IRecipeRepository
     void Add(Recipe recipe);
     void Update(Guid id, Recipe recipe);
     void DeleteRecipesByIdOfDietForm(Guid id);
+    Recipe? GetRecipeByUserAndRecipeId(Guid userId, Guid recipeId);
     List<DietDataDto> GetDietRecipes(Guid dietFormId);
 
 }

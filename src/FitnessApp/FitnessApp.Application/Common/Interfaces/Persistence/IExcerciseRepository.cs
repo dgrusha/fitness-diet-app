@@ -12,5 +12,6 @@ public interface IExcerciseRepository
     void Add(Excercise excercise);
     void Update(Guid id, Excercise excercise);
     void DeleteExcerciseByIdOfTrainingForm(Guid id);
+    Excercise? GetRecipeByUserAndExerciseId(Guid userId, Guid excerciseId);
     List<ExcerciseDto> GetTrainingExcercises(Guid trainingFormId);
 }

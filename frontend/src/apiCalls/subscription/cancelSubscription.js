@@ -14,7 +14,6 @@ export const cancelSubscription = async () => {
         },
 				body: "",
       });
-			console.log(response)
       return await response;
     } catch (error) {
         return [];

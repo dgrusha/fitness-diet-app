@@ -74,19 +74,6 @@ namespace FitnessApp.Api.Controllers
             var query = new GetAllVerifiedCoachesQuery(new Guid(userId));
             var result = await _mediator.Send(query);
 
-            //if (result.Data != null && result.Data.AvatarFileName != null && result.Data.AvatarFileName != string.Empty)
-            //{
-            //    var queryGetAvatarUrl = new GetFileQuery("fitnessdietbucket", $"photos/{result.Data.AvatarFileName}");
-            //    var resultGetAvatar = await _mediator.Send(queryGetAvatarUrl);
-            //    var resultTmp = new GetUserProfileResult(
-            //        result.Data.FirstName,
-            //        result.Data.LastName,
-            //        result.Data.Email,
-            //        result.Data.HasObligatoryForm,
-            //        resultGetAvatar.PresignedUrl
-            //    );
-            //    result.Data = resultTmp;
-            //}
             return Ok(result);
         }
 

@@ -188,7 +188,6 @@ function CoachesFeedback() {
 	};
 
 	const handleTrainingCommentUpdate = async (instance, index) => {
-		console.log(index)
 		setIsSubmitting((prevLoadingStatus) => ({
 			...prevLoadingStatus,
 			[index]: true,

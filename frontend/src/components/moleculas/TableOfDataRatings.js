@@ -19,14 +19,12 @@ import { getFeedbacks } from '../../apiCalls/administration/getAllFeedbacks';
 const TableOfDataRatings = () => {
     const [openModal, setOpenModal] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
-    // const [dataFeedback, setDataFeedback] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [sortDirection, setSortDirection] = useState('asc');
     const [sortBy, setSortBy] = useState(null);
 
     useEffect(() => {
         getFeedbacks().then((data) => {
-            // setDataFeedback(data);
             setFilteredData(data);
         });
     }, []);

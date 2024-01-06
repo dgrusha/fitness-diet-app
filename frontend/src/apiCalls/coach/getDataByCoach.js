@@ -9,7 +9,6 @@ const types ={
 export const getDataByCoach = async ({ userId, dataType }) => {
   const token = getCurrentUser();
   const url = `${types[dataType]}?userId=${encodeURIComponent(userId)}`;
-  console.log(url);
   try {
     const response = await fetch(url, {
       method: 'GET',

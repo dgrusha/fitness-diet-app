@@ -13,9 +13,7 @@ export const getCoach= async () => {
           'Authorization': `Bearer ${token}`,
         },
       });
-
       let answer = await response.data.json();
-			console.log(response)
       return answer;
     } catch (error) {
         return [];

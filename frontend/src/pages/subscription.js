@@ -81,7 +81,6 @@ const SubscriptionPage = () => {
 		try {
 			const response = await subscribe({ subcriptionType: 1, coachEmail: selectedUser.Mail, duration: value });
 			if (response.status === 200) {
-				console.log('hi')
 				setAlertMessage("You have successfuly subscribed for coach");
 				setConfirmation(true);
 			}
@@ -95,7 +94,6 @@ const SubscriptionPage = () => {
 	const handleCancel = async () => {
 		try {
 			const response = await cancelSubscription();
-			console.log(response);
 			if (response.status === 200) {
 				setAlertMessage("Your subscription was successfuly canceled");
 			}
@@ -110,7 +108,6 @@ const SubscriptionPage = () => {
 
 	useEffect(() => {
 		getAllVerifiedCoaches().then((data) => setAllUsers(data));
-		console.log(user)
 	}, []);
 
 	const handleChangeCoach = (event, newValue) => {
@@ -325,7 +322,7 @@ const SubscriptionPage = () => {
 						}}>
 							<Box sx={{ paddingTop: 2, backgroundColor: "#9CD91B" }}>
 								<Typography variant="modal" sx={{ textAlign: "center", display: "block", paddingBottom: 2 }}>
-									Change coach
+									CHANGE COACH
 								</Typography>
 								<IconButton
 									aria-label="close"
@@ -353,7 +350,7 @@ const SubscriptionPage = () => {
 											subheader={user.RecomendationText}
 
 										/>
-										<Button sx={{ alignSelf: 'center', mb: 3 }} variant="change" color="primary" href={user.CVFileName} download={"cv"}>
+										<Button sx={{ alignSelf: 'center', mb: 3 }} variant="change" color="primary" href={user.CVFileName} download={`cv ${user.Email}`}>
 											Download Resume
 										</Button>
 									</Card>

@@ -5,9 +5,6 @@ const baseUrl = Constants.BaseUrl + 'subscription/add';
 
 export const subscribe = async ({subcriptionType, coachEmail, duration}) => {
   const token = getCurrentUser();
-	console.log(token)
-	console.log(subcriptionType)
-	console.log(coachEmail)
 	try {
       const response = await fetch(baseUrl, {
         method: 'POST',
@@ -23,7 +20,6 @@ export const subscribe = async ({subcriptionType, coachEmail, duration}) => {
 						}
 					),
       });
-			console.log(response)
       return await response;
     } catch (error) {
         return [];

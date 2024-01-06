@@ -283,7 +283,7 @@ export const appTheme = createTheme({
 					color: "#6D9712",
 					textDecorationColor: "#6D9712",
 					fontSize: "14px"
-				}
+				},
 			}
 		},
 		MuiAvatar: {

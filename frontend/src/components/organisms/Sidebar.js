@@ -79,7 +79,7 @@ function SideBarApp() {
 										component={<Link to="/admin" />}>Administration
 									</MenuItem>
 								) : null}
-								{user?.hasSubscription ? (
+								{!user?.isCoach ? (
 									<MenuItem
 										icon={<PaymentsIcon className="MenuIcon" />}
 										component={<Link to="/subscription" />}>Subscription

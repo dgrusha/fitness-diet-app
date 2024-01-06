@@ -1,22 +1,15 @@
+import { Button, InputLabel, MenuItem, Select, Slider, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
-
+import { getTrainingFormOptions } from '../apiCalls/training/getTrainingFormOptions';
+import { getTrainingFormWithUserChoicesOptions } from '../apiCalls/training/getTrainingFormUserOptions';
+import { addTrainingForm } from '../apiCalls/training/trainingFormPost';
+import { updateTrainingForm } from '../apiCalls/training/trainingFormUpdate';
 import { ButtonComponent } from "../components/atoms/Button";
-import { Button } from '@mui/material';
-import Select from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
 import TwoSidesTemplate from '../components/templates/ContainerAndPhotoTemplate';
 import { isFormValid } from '../helpers/isFormValid';
 import image_diet_form from "../img/training_form.png";
-import Slider from '@mui/material/Slider';
-import { getTrainingFormOptions } from '../apiCalls/getTrainingFormOptions';
 import { validateTrainingFormFields } from '../validators/trainingFormValidator';
-import { addTrainingForm } from '../apiCalls/trainingFormPost';
-import { updateTrainingForm } from '../apiCalls/trainingFormUpdate';
-import { getTrainingFormWithUserChoicesOptions } from '../apiCalls/getTrainingFormUserOptions';
 
 function FormTraining({ setUserStatuses, mode }) {
 	const navigate = useNavigate();
@@ -53,7 +46,6 @@ function FormTraining({ setUserStatuses, mode }) {
 						["general"]: data.errors[0],
 					}))
 				}
-
 			});
 		}
 		else if (mode === 1) {
@@ -73,7 +65,6 @@ function FormTraining({ setUserStatuses, mode }) {
 						["general"]: data.errors[0],
 					}))
 				}
-
 			});
 		}
 	}, []);
@@ -103,7 +94,6 @@ function FormTraining({ setUserStatuses, mode }) {
 					}))
 				}
 			}
-
 		} catch (error) {
 			console.error(error.message);
 		}

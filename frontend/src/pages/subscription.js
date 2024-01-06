@@ -1,16 +1,20 @@
-import { Autocomplete, Avatar, Box, Button, Card, CardHeader, FormControlLabel,
-				Grid, LinearProgress, Modal, Radio, RadioGroup, TextField, Typography } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import {
+	Alert, Autocomplete, Avatar, Box, Button, Card, CardHeader, FormControlLabel,
+	Grid, LinearProgress, Modal, Radio, RadioGroup, Snackbar, TextField, Typography
+} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 import React, { useEffect, useState } from 'react';
+import { useAppContext } from '../AppContext';
 import { subscribe } from '../apiCalls/subscription/addSubscription';
 import { cancelSubscription } from '../apiCalls/subscription/cancelSubscription';
-import { getAllVerifiedCoaches } from '../apiCalls/subscription/getAllVerifiedCoaches'
+import { getAllVerifiedCoaches } from '../apiCalls/subscription/getAllVerifiedCoaches';
 import { updateCoachSubscription } from '../apiCalls/subscription/updateCoachSubscription';
+import { VerticalCard } from '../components/moleculas/verticalCard';
+import MonoTemplate from '../components/templates/MonoTemplate';
 import BasicSubscription from '../img/basic_subscription.svg';
 import PremiumSubscription from '../img/premium_subscription.svg';
 import { validatePaymentDetails } from '../validators/subscriptionValidator';
-import MonoTemplate from '../components/templates/MonoTemplate';
-import { VerticalCard } from '../components/moleculas/verticalCard';
-import { useAppContext } from '../AppContext';
 
 
 const style = {
@@ -18,17 +22,15 @@ const style = {
 	top: '50%',
 	left: '50%',
 	transform: 'translate(-50%, -50%)',
-	width: 'clamp(40%, 60%)',
+	width: 'clamp(50%, 60%)',
 	bgcolor: 'background.paper',
 	boxShadow: 24,
-	borderRadius: 2,
-	p: 5,
-	overflow: 'auto',
-	overflowY: 'scroll',
+	borderRadius: "8px",
+	overflow: 'auto'
 };
 
 const SubscriptionPage = () => {
-	const {user} = useAppContext();
+	const { user } = useAppContext();
 	const [open, setOpen] = React.useState(false);
 	const [openCoach, setOpenCoach] = React.useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,18 +50,21 @@ const SubscriptionPage = () => {
 	const [formErrors, setFormErrors] = useState({ blik: "", cardNumber: "", expirationDate: "", CVV: "" });
 	const [value, setValue] = useState(1);
 	const [selectedCoach, setSelectedCoach] = useState(null);
-	// const [confirmationCoachOpen, setConfirmationCoachOpen] = useState(false);
+	const [confirmation, setConfirmation] = useState(false);
+	const [alertMessage, setAlertMessage] = useState("")
 	const handleCoachSelect = (coach) => {
 		setSelectedCoach(coach);
 	};
 
-	const handleSubmitCoachChoice = () => {
+	const handleSubmitCoachChoice = async () => {
 		if (selectedCoach) {
-			console.log('Selected user:', selectedCoach);
 			try {
-				updateCoachSubscription({ email: selectedCoach.Mail })
+				var response = await updateCoachSubscription({ email: selectedCoach.Mail })
+				if (response.status === 200) {
+					setAlertMessage("You have successfuly changed coach");
+					setConfirmation(true);
+				}
 				handleClose();
-				// setConfirmationCoachOpen(true);
 			} catch (error) {
 				console.error(error.message);
 			}
@@ -74,7 +79,12 @@ const SubscriptionPage = () => {
 	const handleSubmit = async () => {
 		setIsSubmitting(true);
 		try {
-			await subscribe({ subcriptionType: 1, coachEmail: selectedUser.Mail, duration: value });
+			const response = await subscribe({ subcriptionType: 1, coachEmail: selectedUser.Mail, duration: value });
+			if (response.status === 200) {
+				console.log('hi')
+				setAlertMessage("You have successfuly subscribed for coach");
+				setConfirmation(true);
+			}
 			handleClose();
 		} catch (error) {
 			console.error(error.message);
@@ -83,10 +93,16 @@ const SubscriptionPage = () => {
 	};
 
 	const handleCancel = async () => {
-		setIsSubmitting(true)
 		try {
-			await cancelSubscription();
-			handleClose();
+			const response = await cancelSubscription();
+			console.log(response);
+			if (response.status === 200) {
+				setAlertMessage("Your subscription was successfuly canceled");
+			}
+			else {
+				setAlertMessage("Something went wrong...");
+			}
+			setConfirmation(true);
 		} catch (error) {
 			console.error(error.message);
 		}
@@ -94,14 +110,10 @@ const SubscriptionPage = () => {
 
 	useEffect(() => {
 		getAllVerifiedCoaches().then((data) => setAllUsers(data));
-		// getCoach().then((data) => {
-		// 	setCoach(data);
-		// 	console.log(data)
-		// });
 		console.log(user)
 	}, []);
 
-	const handleChangeChat = (event, newValue) => {
+	const handleChangeCoach = (event, newValue) => {
 		setSelectedUser(newValue);
 	};
 
@@ -147,41 +159,50 @@ const SubscriptionPage = () => {
 		}
 	}
 
-	// const handleCloseConfirmation = () => {
-	// 	setConfirmationCoachOpen(false);
-	// };
+	const refreshPage = () => {
+		window.location.reload(true);
+	}
 
 	return (
 		<MonoTemplate
 			title="CHOOSE YOUR SUBSCRIPTION PLAN"
 			body={
-			<Grid container sx={{ height: '85%',
-				backgroundColor: '#fff', display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyContent: 'space-between'
-			}}>
-				<VerticalCard
-					title="BASIC PLAN" imgPath={BasicSubscription} subtitle="Access to diet and training" total="Free"
-					buttons={
-						<Button variant="contained" disabled={true}>
-							Subscribed
-						</Button>
-					}
-				/>
-				<VerticalCard
-					title="PREMIUM PLAN" imgPath={PremiumSubscription} subtitle="Access to diet and training, ability to chat with trainer" total="$4.99/month"
-					buttons={
-						<Box sx={{ display: 'flex', flexDirection: { xs: "column", sm: "column", md: "row" }, justifyContent: 'space-between', width: '75%' }}>
-							<Button variant="contained" onClick={handleOpen} sx={{ mb: { xs: "10px", sm: "10px", md: '0px' }}} disabled={!user?.hasSubscription === true}>
-								Subscribe
+				<Grid container sx={{
+					height: '85%',
+					backgroundColor: '#fff', display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyContent: 'space-between'
+				}}>
+					<VerticalCard
+						title="BASIC PLAN" imgPath={BasicSubscription} subtitle="Access to diet and training" total="Free"
+						buttons={
+							<Button variant="contained" disabled={true}>
+								Subscribed
 							</Button>
-							<Button variant="change" onClick={handleOpenCoach} sx={{ mb: { xs: "10px", sm: "10px", md: "0px" }}} disabled={!user?.hasSubscription !== true}>
-								Change Coach
-							</Button>
-							<Button variant="cancel" onClick={handleCancel} disabled={!user?.hasSubscription !== true}>
-								Cancel
-							</Button>
-						</Box>
-					}
-				/>
+						}
+					/>
+					<VerticalCard
+						title="PREMIUM PLAN" imgPath={PremiumSubscription} subtitle="Access to diet and training, ability to chat with trainer" total="$4.99/month"
+						buttons={
+							<Box sx={{ display: 'flex', flexDirection: { xs: "column", sm: "column", md: "row" }, justifyContent: 'space-between', width: '75%' }}>
+								<Button variant="contained" onClick={handleOpen} sx={{ mb: { xs: "10px", sm: "10px", md: '0px' } }} disabled={user?.hasSubscription === true}>
+									Subscribe
+								</Button>
+								<Button variant="change" onClick={handleOpenCoach} sx={{ mb: { xs: "10px", sm: "10px", md: "0px" } }} disabled={user?.hasSubscription === false}>
+									Change Coach
+								</Button>
+								<Button variant="cancel" onClick={handleCancel} disabled={user?.hasSubscription === false}>
+									Cancel
+								</Button>
+								<Snackbar
+									open={confirmation}
+									autoHideDuration={2000}
+									onClose={refreshPage}>
+									<Alert variant="filled" severity={alertMessage === "Something went wrong..." ? "warning" : "success"} sx={{ width: '100%' }}>
+										{alertMessage}
+									</Alert>
+								</Snackbar>
+							</Box>
+						}
+					/>
 					<Modal
 						open={open}
 						onClose={handleClose}
@@ -189,92 +210,109 @@ const SubscriptionPage = () => {
 						aria-describedby="modal-modal-description"
 					>
 						<Box sx={style}>
-							<Typography variant="title1" sx={{ textAlign: "center", display: "block", mb: "20px" }}>
-								Subcription details
-							</Typography>
-							<Autocomplete
-								options={allUsers}
-								getOptionLabel={(option) => option.FirstName + ' ' + option.LastName}
-								value={selectedUser}
-								onChange={handleChangeChat}
-								fullWidth
-								renderInput={(params) => (
-									<TextField {...params} label="Choose coach" variant="outlined" fullWidth />
-								)}
-							/>
-							<Box sx={{ display: "flex", alignItems: "center", mt: '10px' }}>
-								<Button onClick={handleDecrement} variant="outlined" size="small">
-									-
-								</Button>
-								<TextField
-									variant="outlined"
-									value={value}
-									onChange={handleChange}
-									inputProps={{ min: 1, max: 6 }}
-									style={{ width: '50px', margin: '0 8px' }}
-								/>
-								<Button onClick={handleIncrement} variant="outlined" size="small">
-									+
-								</Button>
-								<Typography variant='subtitle1'> Number of months</Typography>
+							<Box sx={{ paddingTop: 2, backgroundColor: "#9CD91B" }}>
+								<Typography variant="modal" sx={{ textAlign: "center", display: "block", paddingBottom: 2 }}>
+									Subcription details
+								</Typography>
+								<IconButton
+									aria-label="close"
+									onClick={handleClose}
+									sx={{
+										position: 'absolute',
+										right: 8,
+										top: 8,
+										color: "#fff",
+									}}
+								>
+									<CloseIcon />
+								</IconButton>
 							</Box>
-							<RadioGroup aria-label="paymentOption" name="paymentOption" value={paymentOption} onChange={handlePaymentOptionChange} sx={{ mt: 2 }}>
-								<FormControlLabel value="blik" control={<Radio />} label="Blik" />
-								<FormControlLabel value="creditCard" control={<Radio />} label="Credit Card" />
-							</RadioGroup>
-							{paymentOption === 'blik' && (
-								<TextField
-									label="Blik Field"
-									name="blik"
-									variant="outlined"
-									value={paymentDetails.blik}
-									onChange={handleChangePaymentDetails}
+							<Box sx={{ p: 4 }}>
+								<Autocomplete
+									options={allUsers}
+									getOptionLabel={(option) => option.FirstName + ' ' + option.LastName}
+									value={selectedUser}
+									onChange={handleChangeCoach}
 									fullWidth
-									error={formErrors["blik"] !== ""} helperText={formErrors["blik"]}
-									sx={{ mt: 2 }}
+									renderInput={(params) => (
+										<TextField {...params} label="Choose coach" variant="outlined" fullWidth />
+									)}
 								/>
-							)}
-							{paymentOption === 'creditCard' && (
-								<>
+								<Box sx={{ display: "flex", alignItems: "center", mt: '10px' }}>
+									<Button onClick={handleDecrement} variant="increment" size="small">
+										-
+									</Button>
 									<TextField
-										label="Credit Card Number"
-										name="cardNumber"
 										variant="outlined"
-										fullWidth
-										value={paymentDetails.cardNumber}
+										value={value}
+										onChange={handleChange}
+										inputProps={{ min: 1, max: 6 }}
+										style={{ width: '45px', margin: '0 8px' }}
+									/>
+									<Button onClick={handleIncrement} variant="increment" size="small">
+										+
+									</Button>
+									<Typography variant='subtitle1' sx={{ ml: '10px' }}> Number of months</Typography>
+								</Box>
+								<RadioGroup aria-label="paymentOption" name="paymentOption" value={paymentOption} onChange={handlePaymentOptionChange}
+									sx={{ display: "flex", flexDirection: 'row', alignItems: "center", mt: 2 }}>
+									<FormControlLabel value="blik" control={<Radio />} label="Blik" />
+									<FormControlLabel value="creditCard" control={<Radio />} label="Credit Card" />
+								</RadioGroup>
+								{paymentOption === 'blik' && (
+									<TextField
+										label="Blik Field"
+										name="blik"
+										variant="outlined"
+										value={paymentDetails.blik}
 										onChange={handleChangePaymentDetails}
-										error={formErrors["cardNumber"] !== ""} helperText={formErrors["cardNumber"]}
+										fullWidth
+										error={formErrors["blik"] !== ""} helperText={formErrors["blik"]}
 										sx={{ mt: 2 }}
 									/>
-									<Grid container spacing={2} sx={{ mt: '10px' }}>
-										<Grid item xs={6}>
-											<TextField
-												label="Expiration Date"
-												name="expirationDate"
-												variant="outlined"
-												placeholder='MM/YY'
-												fullWidth
-												value={paymentDetails.expirationDate}
-												onChange={handleChangePaymentDetails}
-												error={formErrors["expirationDate"] !== ""} helperText={formErrors["expirationDate"]}
-											/>
+								)}
+								{paymentOption === 'creditCard' && (
+									<>
+										<TextField
+											label="Credit Card Number"
+											name="cardNumber"
+											variant="outlined"
+											fullWidth
+											value={paymentDetails.cardNumber}
+											onChange={handleChangePaymentDetails}
+											error={formErrors["cardNumber"] !== ""} helperText={formErrors["cardNumber"]}
+											sx={{ mt: 2 }}
+										/>
+										<Grid container spacing={2} sx={{ mt: '10px' }}>
+											<Grid item xs={6}>
+												<TextField
+													label="Expiration Date"
+													name="expirationDate"
+													variant="outlined"
+													placeholder='MM/YY'
+													fullWidth
+													value={paymentDetails.expirationDate}
+													onChange={handleChangePaymentDetails}
+													error={formErrors["expirationDate"] !== ""} helperText={formErrors["expirationDate"]}
+												/>
+											</Grid>
+											<Grid item xs={6}>
+												<TextField
+													label="CVV"
+													name="CVV"
+													variant="outlined"
+													fullWidth
+													value={paymentDetails.CVV}
+													onChange={handleChangePaymentDetails}
+													error={formErrors["CVV"] !== ""} helperText={formErrors["CVV"]}
+												/>
+											</Grid>
 										</Grid>
-										<Grid item xs={6}>
-											<TextField
-												label="CVV"
-												name="CVV"
-												variant="outlined"
-												fullWidth
-												value={paymentDetails.CVV}
-												onChange={handleChangePaymentDetails}
-												error={formErrors["CVV"] !== ""} helperText={formErrors["CVV"]}
-											/>
-										</Grid>
-									</Grid>
-								</>
-							)}
-							{isSubmitting && <LinearProgress color="success" sx={{ mt: '10px' }} />}
-							<Button fullWidth sx={{ mt: '20px' }} disabled={isButtonDisabled()} onClick={handleSubmit}>Confirm</Button>
+									</>
+								)}
+								{isSubmitting && <LinearProgress color="success" sx={{ mt: '10px' }} />}
+								<Button fullWidth sx={{ mt: '20px' }} disabled={isButtonDisabled()} onClick={handleSubmit}>Confirm</Button>
+							</Box>
 						</Box>
 					</Modal>
 					<Modal
@@ -282,45 +320,49 @@ const SubscriptionPage = () => {
 						onClose={handleCloseCoach}
 					>
 						<Box sx={{
-							position: 'absolute',
-							top: '50%',
-							left: '50%',
-							transform: 'translate(-50%, -50%)',
-							width: '60%',
-							bgcolor: 'background.paper',
-							boxShadow: 24,
-							borderRadius: 2,
-							p: 5,
-							maxHeight: '80vh',
-							overflow: 'auto',
-							overflowY: 'scroll'
+							position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '60%',
+							backgroundColor: "#F8F8FA", boxShadow: 24, borderRadius: 2, maxHeight: '80vh', overflow: 'auto'
 						}}>
-							{allUsers.map((user, index) => (
-								<Card
-									key={index}
-									sx={{ mb: '15px', cursor: 'pointer', backgroundColor: selectedCoach === user ? '#f0f0f0' : 'inherit' }}
-									onClick={() => handleCoachSelect(user)}
+							<Box sx={{ paddingTop: 2, backgroundColor: "#9CD91B" }}>
+								<Typography variant="modal" sx={{ textAlign: "center", display: "block", paddingBottom: 2 }}>
+									Change coach
+								</Typography>
+								<IconButton
+									aria-label="close"
+									onClick={handleCloseCoach}
+									sx={{
+										position: 'absolute',
+										right: 8,
+										top: 8,
+										color: "#fff",
+									}}
 								>
-									<CardHeader
-										avatar={<Avatar src={user.AvatarFileName}>{ }</Avatar>}
-										title={user.FirstName + " " + user.LastName}
-										subheader={user.RecomendationText}
-									/>
-									<Button variant="contained" color="primary" href={user.CVFileName} download={"cv"}>
-										Download Resume
-									</Button>
-								</Card>
-							))}
-							<Button variant="contained" color="primary" onClick={handleSubmitCoachChoice}>
-								Submit
-							</Button>
+									<CloseIcon />
+								</IconButton>
+							</Box>
+							<Box>
+								{allUsers.map((user, index) => (
+									<Card
+										key={index}
+										sx={{ display: 'flex', flexDirection: 'column', mb: '20px', cursor: 'pointer', backgroundColor: selectedCoach === user ? '#E1F3BA' : 'inherit' }}
+										onClick={() => handleCoachSelect(user)}
+									>
+										<CardHeader
+											avatar={<Avatar src={user.AvatarFileName}>{ }</Avatar>}
+											title={user.FirstName + " " + user.LastName}
+											subheader={user.RecomendationText}
+
+										/>
+										<Button sx={{ alignSelf: 'center', mb: 3 }} variant="change" color="primary" href={user.CVFileName} download={"cv"}>
+											Download Resume
+										</Button>
+									</Card>
+								))}
+								<Button sx={{ display: 'block', minWidth: "270px", margin: '20px auto' }} variant="contained" color="primary" onClick={handleSubmitCoachChoice}>
+									Submit
+								</Button>
+							</Box>
 						</Box>
-						{/* <Snackbar
-									open={confirmationCoachOpen}
-									autoHideDuration={6000}
-									onClose={handleCloseConfirmation}
-									message="Your choice has been submitted!"
-								/> */}
 					</Modal>
 				</Grid>
 			}

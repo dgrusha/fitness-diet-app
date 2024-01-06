@@ -8,14 +8,14 @@ import Alert from '@mui/material/Alert';
 
 import image_sign_up from "../img/authorization.png";
 import { handleFormResponse } from '../helpers/formVerification';
-import { register } from '../apiCalls/register';
+import { register } from '../apiCalls/authentication/register';
 import { validateSignUpFormFields } from '../validators/signUpValidator'
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import LinearProgress from '@mui/material/LinearProgress';
 import { InputAdornment } from '@mui/material';
-import { registerCoach } from '../apiCalls/registerCoach';
+import { registerCoach } from '../apiCalls/authentication/registerCoach';
 import { isFormValid } from '../helpers/isFormValid';
 import { ButtonComponent } from "../components/atoms/Button";
 import InputField from '../components/atoms/InputField';

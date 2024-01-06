@@ -2,9 +2,9 @@ import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 export const CardComponent = (props) => (
-	<Card sx={{ display: 'flex', borderRadius: '10px', marginBottom: '12px', height: '15vh' }} elevation={3}>
+	<Card sx={{ display: 'flex', borderRadius: '10px', marginBottom: '12px', height: '15vh', backgroundColor: "#9CD91B" }} elevation={3}>
 		<CardContent sx={{ flex: 1, alignSelf: 'center', justifySelf: 'center' }}>
-			<Typography gutterBottom variant="h5" component="div">
+			<Typography gutterBottom variant="title3" component="div">
 				{props.title}
 			</Typography>
 			<Typography variant="body2" color="text.secondary">

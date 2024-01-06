@@ -10,12 +10,12 @@ import InputField from '../components/atoms/InputField';
 import TwoSidesTemplate from '../components/templates/ContainerAndPhotoTemplate';
 import { handleFormResponse } from '../helpers/formVerification';
 import { isFormValid } from '../helpers/isFormValid';
-import { resetPassword } from '../apiCalls/resetPassword';
+import { resetPassword } from '../apiCalls/authentication/resetPassword';
 import image_reset_password from "../img/authorization.png";
 import { validateLoginFormFields } from '../validators/loginValidator';
 import { ResetStepEnum } from '../helpers/processStatuses';
-import { resetCode } from '../apiCalls/sendCodeToEmail';
-import { verifyResetCode } from '../apiCalls/verifyCodeForReset';
+import { resetCode } from '../apiCalls/authentication/sendCodeToEmail';
+import { verifyResetCode } from '../apiCalls/authentication/verifyCodeForReset';
 
 function PasswordReset() {
 	const navigate = useNavigate();

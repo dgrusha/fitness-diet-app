@@ -1,18 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import Autocomplete from '@mui/material/Autocomplete';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-
-import { getAllergies } from '../apiCalls/formObligatoryAllergies';
-import { addObligatoryForm } from '../apiCalls/formObligatoryPost';
+import { Autocomplete, FormControl, FormControlLabel, FormLabel, InputAdornment, Radio, RadioGroup,
+	 TextField, Typography} from '@mui/material';
+import { getAllergies } from '../apiCalls/obligatoryForm/formObligatoryAllergies';
+import { addObligatoryForm } from '../apiCalls/obligatoryForm/formObligatoryPost';
 import { ButtonComponent } from "../components/atoms/Button";
 import InputFieldWithMetric from '../components/atoms/InputFieldWithMetric';
 import TwoSidesTemplate from '../components/templates/ContainerAndPhotoTemplate';
@@ -51,7 +42,6 @@ function FormObligatory() {
 		}))
 	}
 
-
 	const handleChangeMultiple = (event, value) => {
 		setSelectedOptions(value);
 	};
@@ -78,7 +68,6 @@ function FormObligatory() {
 			console.error(error.message);
 		}
 	};
-
 
 	return (
 		<TwoSidesTemplate

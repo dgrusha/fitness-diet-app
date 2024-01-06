@@ -1,20 +1,15 @@
+import { InputLabel, MenuItem, Select, Typography} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
-
-import { getDietFormOptions } from '../apiCalls/getDietFormOptions';
-import { getDietFormWithUserChoicesOptions } from '../apiCalls/getDietFormUserOptions';
+import { addDietForm } from '../apiCalls/diet/dietFormPost';
+import { updateDietForm } from '../apiCalls/diet/dietFormUpdate';
+import { getDietFormOptions } from '../apiCalls/diet/getDietFormOptions';
+import { getDietFormWithUserChoicesOptions } from '../apiCalls/diet/getDietFormUserOptions';
 import { ButtonComponent } from "../components/atoms/Button";
-import Select from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
 import TwoSidesTemplate from '../components/templates/ContainerAndPhotoTemplate';
 import { isFormValid } from '../helpers/isFormValid';
 import image_diet_form from "../img/diet_form.png";
 import { validateDietFormFields } from '../validators/dietFormValidator';
-import { addDietForm } from '../apiCalls/dietFormPost';
-import { updateDietForm } from '../apiCalls/dietFormUpdate';
 
 function FormDiet({ setUserStatuses, mode }) {
 	const navigate = useNavigate();
@@ -57,7 +52,6 @@ function FormDiet({ setUserStatuses, mode }) {
 						["general"]: data.errors[0],
 					}))
 				}
-
 			});
 		}
 		else if (mode === 1) {
@@ -80,7 +74,6 @@ function FormDiet({ setUserStatuses, mode }) {
 						["general"]: data.errors[0],
 					}))
 				}
-
 			});
 		}
 	}, []);
@@ -110,7 +103,6 @@ function FormDiet({ setUserStatuses, mode }) {
 					}))
 				}
 			}
-
 		} catch (error) {
 			console.error(error.message);
 		}
@@ -122,7 +114,7 @@ function FormDiet({ setUserStatuses, mode }) {
 
 	return (
 		<TwoSidesTemplate
-			title={<Typography variant="title1" sx={{mb: '20px'}}>GENERATING DIET</Typography>}
+			title={<Typography variant="title1" sx={{ mb: '20px' }}>GENERATING DIET</Typography>}
 			body={
 				<>
 					<InputLabel id="activitylabel">Activity mode</InputLabel>

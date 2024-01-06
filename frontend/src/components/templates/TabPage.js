@@ -34,7 +34,7 @@ const TabPage = (props) => {
 };
 
 TabPage.propTypes = {
-	title: PropTypes.element.isRequired,
+	title: PropTypes.string.isRequired,
 	body: PropTypes.arrayOf(
 		PropTypes.shape({
 			name: PropTypes.string.isRequired,

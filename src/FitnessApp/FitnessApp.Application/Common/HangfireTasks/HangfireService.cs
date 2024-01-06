@@ -261,7 +261,10 @@ public class HangfireService
                         throw new Exception("Expired or null value in res");
                     }
 
+                    //resDescRecipe.Dump();
                     JsonObjects.Get.RecipeData recipeResponseDesc = JsonConvert.DeserializeObject<JsonObjects.Get.RecipeData>(resDescRecipe);
+                    //Console.WriteLine("============================================");
+                    //recipeResponseDesc.Dump();
                     descRecipe.Add(recipeResponseDesc.recipe.recipe_id, recipeResponseDesc);
                 }
 
@@ -275,7 +278,7 @@ public class HangfireService
                     {
                         DayOfTheWeek = i + 1,
                         DishType="Breakfast",
-                        Name=item.recipe_name,
+                        Name = item.recipe_name,
                         Description=item.recipe_description,
                         Calories= Double.Parse(item.recipe_nutrition.calories),
                         Carbohydrate = Double.Parse(item.recipe_nutrition.carbohydrate),
@@ -385,6 +388,7 @@ public class HangfireService
             catch (Exception e)
             {
                 Console.WriteLine("EXCEPTION WHILE GENERATING DIETS");
+                Console.WriteLine(e.StackTrace);
                 Console.WriteLine(e.Message);
             }
         }

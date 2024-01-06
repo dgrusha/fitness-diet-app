@@ -20,7 +20,7 @@ const InfoAndCalendarTemplate = (props) => {
 						{props.footerBody}
 				</Grid>
 				<Grid item sm={0} md={0} lg={3.2} component={Paper}
-					sx={{backgroundColor: "#fff", display: 'flex', flexDirection: 'column', 
+					sx={{backgroundColor: "#fff", display: 'flex', flexDirection: 'column', maxWidth: '85%',
 					justifyContent: 'space-between', alignItems: 'center', height: '100%', padding: '20px 10px', borderRadius: '8px'}}>
 					{props.leftUpperPart}
 					{props.leftLowerPart}

@@ -1,26 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { getAllUsers } from '../apiCalls/chat/chatGetUsers';
-import { getCoach } from '../apiCalls/getUserCoach';
+import CloseIcon from '@mui/icons-material/Close';
+import HelpIcon from '@mui/icons-material/Help';
+import {
+	Autocomplete, Box, Button, Dialog, DialogContent, DialogTitle, Divider, Grid, Paper, TextField, ThemeProvider, Typography
+} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import React, { useEffect, useRef, useState } from 'react';
+import { useAppContext } from '../AppContext';
+import { getChatHistory } from '../apiCalls/chat/chatGetHistory';
 import { getChatInterlocuter } from '../apiCalls/chat/getChatInterlocuter';
 import { joinRoom, sendMessage } from '../helpers/signalRHandlers';
-import { getChatHistory } from '../apiCalls/chat/chatGetHistory';
-import HelpCenterIcon from '@mui/icons-material/HelpCenter';
-import {
-	Box,
-	TextField,
-	Button,
-	Paper,
-	Divider,
-	Typography,
-	Autocomplete,
-	ThemeProvider,
-	Dialog,
-	DialogTitle,
-	DialogContent
-} from '@mui/material';
+import { appTheme } from '../helpers/themeProviderHelper';
 
-import { theme } from '../components/chatNew/chatNewWindowTheme';
-import { useAppContext } from '../AppContext';
 
 const ChatPage = () => {
 	const [messages, setMessages] = useState([]);
@@ -30,11 +20,11 @@ const ChatPage = () => {
 	const [allUsers, setAllUsers] = useState([]);
 	const [connection, setConnection] = useState();
 	const [open, setOpen] = React.useState(false);
-	const [coach, setCoach] = useState(null)
+	const messagesEndRef = useRef(null);
 
 	const handleClickOpen = () => {
 		setOpen(true);
-	  };
+	};
 
 	const handleClose = () => {
 		setOpen(false);
@@ -54,21 +44,27 @@ const ChatPage = () => {
 	};
 
 	const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      if (e.shiftKey) {
-        setNewMessage((prevMessage) => prevMessage + '\n');
-      } else {
-        handleSendMessage();
-      }
-    }
-  };
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			if (e.shiftKey) {
+				setNewMessage((prevMessage) => prevMessage + '\n');
+			} else {
+				handleSendMessage();
+			}
+		}
+	};
 
 	const handleChangeChat = (event, newValue) => {
-		setMessages([]);
 		if (newValue && user !== null && newValue.email !== undefined && newValue.email !== '') {
 			try {
 				cleanupConnection();
+				joinRoom(
+					user.email,
+					newValue.email,
+					setMessages,
+					messages,
+					setConnection
+				);
 				getChatHistory({ receiverEmail: newValue.email }).then((data) => {
 					setMessages(
 						data.map((item) => {
@@ -79,125 +75,140 @@ const ChatPage = () => {
 						})
 					);
 				});
-				joinRoom(
-					user.email,
-					newValue.email,
-					setMessages,
-					messages,
-					setConnection
-				);
 			} catch (error) {
 				console.error(error.message);
 			}
 		}
-		console.log(newValue)
 		setSelectedUser(newValue);
 	};
+
+	useEffect(() => {
+		if (!user?.isCoach && allUsers.length > 0 && (!selectedUser || !allUsers.find(u => u.email === selectedUser.email))) {
+			handleChangeChat(null, allUsers[0]);
+		}
+	}, [allUsers, user, selectedUser]);
+
 
 	const isOptionEqualToValue = (option, value) => {
 		return option.email === value.email;
 	};
 
 	useEffect(() => {
-		return () => {
-			cleanupConnection();
-		};
+		getChatInterlocuter().then((data) => {
+			setAllUsers(data.data.chatInterlocuters);
+		});
 	}, []);
 
 	useEffect(() => {
-		getChatInterlocuter().then((data) => {
-			console.log(data.data.chatInterlocuters);
-			setAllUsers(data.data.chatInterlocuters)});
-		console.log('jdsajhfgaiudgsiaugdiua')
-		console.log(selectedUser);
-	}, []);
+		if (messagesEndRef.current) {
+			messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+		}
+	}, [messages]);
 
 	return (
-		<ThemeProvider theme={theme}>
-			<Box sx={theme.chatContainer}>
-				<Box sx={theme.header}>
-				<HelpCenterIcon sx={theme.iconHelp} onClick={handleClickOpen}/>
-					<Autocomplete
-						options={allUsers}
-						getOptionLabel={(option) => option.firstName + ' ' + option.lastName}
-						value={selectedUser}
-						onChange={handleChangeChat}
-						isOptionEqualToValue={isOptionEqualToValue}
-						fullWidth
-						renderInput={(params) => (
-							<TextField
-								{...params}
-								label="Search user"
-								variant="outlined"
-								fullWidth
-								sx={theme.autocomplete}
-							/>
-						)}
-					/>
-				</Box>
-				{/* Messages Section */}
-				<Paper elevation={0} sx={theme.messagesContainer}>
-					{messages.map((message, index) => (
-						<Box
-							key={index}
-							sx={{
-								marginBottom: 1,
-								textAlign: message.sender === user.email ? 'right' : 'left',
-							}}
-						>
-							<Typography
-								variant="body1"
+		<ThemeProvider theme={appTheme}>
+			<Grid container component="main" sx={{ height: '100%', padding: '15px', backgroundColor: '#F8F8FA' }}>
+				<Box component={Paper} sx={appTheme.chatContainer}>
+					<Typography variant='title1' sx={{ mt: '10px' }}>CHAT  {user?.isCoach === true ? "WITH CLIENTS" : "WITH COACH"}</Typography>
+					<Box sx={appTheme.header}>
+						<Autocomplete
+							options={allUsers}
+							getOptionLabel={(option) => option.firstName + ' ' + option.lastName}
+							value={selectedUser}
+							onChange={handleChangeChat}
+							isOptionEqualToValue={isOptionEqualToValue}
+							fullWidth
+							renderInput={(params) => (
+								<TextField
+									{...params}
+									label={user?.isCoach === true ? "Search client" : "Your coach"}
+									variant="outlined"
+									fullWidth
+									sx={appTheme.autocomplete}
+								/>
+							)}
+						/>
+						<HelpIcon sx={appTheme.iconHelp} onClick={handleClickOpen} />
+					</Box>
+					<Paper elevation={0} sx={appTheme.messagesContainer}>
+						{messages.map((message, index) => (
+							<Box
+								key={index}
 								sx={{
-									backgroundColor:
-										message.sender === user.email ? '#9cd91b' : 'info.main',
-									color: 'white',
-									padding: 1,
-									borderRadius: 8,
-									display: 'inline-block',
+									marginBottom: 1,
+									textAlign: message.sender === user.email ? 'right' : 'left',
 								}}
 							>
-								{message.text}
-							</Typography>
-						</Box>
-					))}
-				</Paper>
-				<Divider />
-				{/* Input Section */}
-				<Box sx={theme.inputSection}>
-					<TextField
-						label="Type your message"
-						variant="outlined"
-						fullWidth
-						multiline
-						maxRows={4}
-						value={newMessage}
-						onChange={(e) => setNewMessage(e.target.value)}
-						onKeyDown={handleKeyDown}
-						sx={theme.textField}
-					/>
-					<Button
-						disabled={!selectedUser}
-						variant="contained"
-						onClick={handleSendMessage}
-						sx={{ marginLeft: 2 }}
+								<div ref={messagesEndRef} />
+								<Typography
+									variant="body1"
+									sx={{
+										backgroundColor:
+											message.sender === user.email ? '#9cd91b' : 'info.main',
+										color: 'white',
+										padding: 1,
+										borderRadius: "8px",
+										display: 'inline-block',
+									}}
+								>
+									{message.text}
+								</Typography>
+							</Box>
+						))}
+					</Paper>
+					<Divider />
+					<Box sx={appTheme.inputSection}>
+						<TextField
+							label="Type your message"
+							variant="outlined"
+							fullWidth
+							multiline
+							maxRows={4}
+							value={newMessage}
+							onChange={(e) => setNewMessage(e.target.value)}
+							onKeyDown={handleKeyDown}
+							sx={appTheme.textField}
+						/>
+						<Button
+							disabled={!selectedUser}
+							variant="contained"
+							onClick={handleSendMessage}
+							sx={{ marginLeft: 2 }}
+						>
+							Send
+						</Button>
+					</Box>
+					<Dialog
+						onClose={handleClose}
+						aria-labelledby="customized-dialog-title"
+						open={open}
 					>
-						Send
-					</Button>
+						<DialogTitle id="customized-dialog-title">
+							CHAT FAQ
+						</DialogTitle>
+						<IconButton
+							aria-label="close"
+							onClick={handleClose}
+							sx={{
+								position: 'absolute',
+								right: 8,
+								top: 8,
+								color: "#fff",
+							}}
+						>
+							<CloseIcon />
+						</IconButton>
+						<DialogContent dividers>
+							<Typography variant="dialog" gutterBottom>
+								1. All conversations that were started later then 2 days ago will be deleted and pdf with chat history will be sent to you. <br />
+								4. If you have not received email with chat history after it was cleaned - check spam or write to as directly with this issue (contact info is in tab feedback). <br />
+								3. Here you can talk to the coach to receive advices from them in acheiving your goals.  <br />
+								4. This feature is available only for users that have subscription for coaches. <br />
+							</Typography>
+						</DialogContent>
+					</Dialog>
 				</Box>
-				<Dialog open={open} onClose={handleClose}>
-					<DialogTitle>
-						Chat FAQ     
-					</DialogTitle>
-				<DialogContent>
-					<Typography>
-						1. All conversations that were started later then 2 days ago will be deleted and pdf with chat history will be sent to you. <br/>
-						4. If you have not received email with chat history after it was cleaned - check spam or write to as directly with this issue (contact info is in tab feedback). <br/>
-						3. Here you can talk to coaches to receive advices from them in acheiving your goals.  <br/>
-						4. This feature is available only for users that have subscription for coaches. <br/>
-					</Typography>
-				</DialogContent>
-				</Dialog>
-			</Box>
+			</Grid>
 		</ThemeProvider>
 	);
 };

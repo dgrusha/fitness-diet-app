@@ -20,7 +20,7 @@ const MonoTemplate = (props) => {
 };
 
 MonoTemplate.propTypes = {
-	title: PropTypes.string.isRequired,
+	title: PropTypes.string,
 	body: PropTypes.element,
 };
 

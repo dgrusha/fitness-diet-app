@@ -7,7 +7,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
-import { login } from '../apiCalls/login';
+import { login } from '../apiCalls/authentication/login';
 import { ButtonComponent } from "../components/atoms/Button";
 import InputField from '../components/atoms/InputField';
 import TwoSidesTemplate from '../components/templates/ContainerAndPhotoTemplate';

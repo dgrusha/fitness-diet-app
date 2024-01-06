@@ -5,7 +5,7 @@ import {
 	Alert,
 } from '@mui/material';
 import React, { useState } from 'react';
-import { leaveFeedback } from '../apiCalls/leaveFeedback';
+import { leaveFeedback } from '../apiCalls/feedback/leaveFeedback';
 import { isFormValid } from '../helpers/isFormValid';
 import image_feedback from '../img/feedback.png';
 import { validateFeedbackFields } from '../validators/feedbackValidator';

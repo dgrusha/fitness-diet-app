@@ -1,14 +1,10 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
-
 export const CardComponentWithAction = (props) => (
-	<Card sx={{ display: 'flex', borderRadius: '10px', marginBottom: '12px', height: '15vh' }} elevation={3} onClick={() => props.onClickFun(props.title)}>
+	<Card sx={{ display: 'flex', borderRadius: '10px', marginBottom: '12px', height: '15vh', border: "1px solid #EEEEF1" }} onClick={() => props.onClickFun(props.title)}>
 		<CardContent sx={{ flex: 1, alignSelf: 'center', justifySelf: 'center' }}>
-			<Typography gutterBottom variant="h5" component="div">
+			<Typography gutterBottom variant="title2" component="div">
 				{props.title}
 			</Typography>
 			<Typography variant="body2" color="text.secondary">

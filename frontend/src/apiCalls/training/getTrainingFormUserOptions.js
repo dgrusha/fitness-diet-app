@@ -1,7 +1,7 @@
 import { getCurrentUser } from '../../helpers/authHelper';
 import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'trainingForm/getAllWithUserChoicesOptions';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'trainingForm/getAllWithUserChoicesOptions';
 
 export const getTrainingFormWithUserChoicesOptions = async () => {
   const token = getCurrentUser();

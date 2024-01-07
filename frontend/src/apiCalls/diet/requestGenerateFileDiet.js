@@ -1,7 +1,7 @@
 import { getCurrentUser } from '../../helpers/authHelper';
 import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'dietForm/requestGenerateFile';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'dietForm/requestGenerateFile';
 
 export const requestGenerateFile = async () => {
   const token = getCurrentUser();

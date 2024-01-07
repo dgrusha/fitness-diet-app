@@ -1,7 +1,7 @@
 import { getCurrentUser } from '../../helpers/authHelper';
 import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'feedback/add';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'feedback/add';
 
 export const leaveFeedback = async ({ levelRating, text }) => {
   const token = getCurrentUser();

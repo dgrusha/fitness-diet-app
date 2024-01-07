@@ -1,7 +1,7 @@
 import { getCurrentUser } from '../../helpers/authHelper';
 import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'trainingData/updateTrainingDataByCoach';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'trainingData/updateTrainingDataByCoach';
 
 export const updateTrainingDataByCoach = async ({ exerciseId, userId, text, file }) => {
   const token = getCurrentUser();

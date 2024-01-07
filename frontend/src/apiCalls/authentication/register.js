@@ -1,6 +1,6 @@
 import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'auth/register';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'auth/register';
 
 export const register = async ({ firstName, lastName, email, password }) => {
     try {

@@ -1,6 +1,5 @@
-import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'auth/login';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'auth/login';
 
 export const login = async ({ email, password }) => {
     try {

@@ -1,7 +1,7 @@
 import { getCurrentUser } from '../../helpers/authHelper';
 import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'dietForm/update';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'dietForm/update';
 
 export const updateDietForm = async ({ activityMode, dietMode, cookingRange }) => {
   const token = getCurrentUser();

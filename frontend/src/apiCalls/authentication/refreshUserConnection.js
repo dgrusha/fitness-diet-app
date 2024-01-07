@@ -1,7 +1,6 @@
 import { getCurrentUser } from '../../helpers/authHelper';
-import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'auth/refreshConnection';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'auth/refreshConnection';
 
 export const getUserConnection = async () => {
   const token = getCurrentUser();

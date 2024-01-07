@@ -1,7 +1,7 @@
 import { getCurrentUser } from '../../helpers/authHelper';
 import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'chat/getChatHistory';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'chat/getChatHistory';
 
 export const getChatHistory = async ({ receiverEmail }) => {
   const token = getCurrentUser();

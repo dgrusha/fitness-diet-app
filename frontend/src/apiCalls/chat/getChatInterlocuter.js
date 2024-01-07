@@ -1,7 +1,7 @@
 import { getCurrentUser } from '../../helpers/authHelper';
 import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'userProfile/getChatInterlocutor';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'userProfile/getChatInterlocutor';
 
 export const getChatInterlocuter = async () => {
   const token = getCurrentUser();

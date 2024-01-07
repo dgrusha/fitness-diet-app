@@ -2,8 +2,8 @@ import { getCurrentUser } from '../../helpers/authHelper';
 import { Constants } from '../../helpers/constants';
 
 const types ={
-    "diet": Constants.BaseUrl + 'dietData/getDietDataByCoach',
-    "training": Constants.BaseUrl + 'trainingData/getTrainingDataByCoach'
+    "diet": `${process.env.REACT_APP_BASE_URL}` + 'dietData/getDietDataByCoach',
+    "training": `${process.env.REACT_APP_BASE_URL}` + 'trainingData/getTrainingDataByCoach'
 }
 
 export const getDataByCoach = async ({ userId, dataType }) => {

@@ -1,7 +1,7 @@
 import { getCurrentUser } from '../../helpers/authHelper';
 import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'dietForm/getAllWithUserChoicesOptions';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'dietForm/getAllWithUserChoicesOptions';
 
 export const getDietFormWithUserChoicesOptions = async () => {
   const token = getCurrentUser();

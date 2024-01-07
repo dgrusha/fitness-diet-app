@@ -45,10 +45,9 @@ var app = builder.Build();
     {
         app.UseSwagger();
         app.UseSwaggerUI();
-        app.UseHangfireDashboard("/hangfire");
     }
-
-    app.UseHttpsRedirection();
+    app.UseHangfireDashboard("/hangfire");
+    //app.UseHttpsRedirection();
 
     app.UseCors(FitnessAllowSpecificOrigins);
 

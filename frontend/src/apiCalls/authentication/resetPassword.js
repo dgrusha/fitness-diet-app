@@ -1,6 +1,6 @@
 import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'auth/resetPassword';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'auth/resetPassword';
 
 export const resetPassword = async ({ email, code, password1, password2 }) => {
     try {

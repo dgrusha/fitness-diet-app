@@ -1,7 +1,7 @@
 import { getCurrentUser } from '../../helpers/authHelper';
 import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'subscription/updateCoach';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'subscription/updateCoach';
 
 export const updateCoachSubscription = async ({ email }) => {
   const token = getCurrentUser();

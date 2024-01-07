@@ -1,6 +1,6 @@
 import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'auth/verifyResetCode';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'auth/verifyResetCode';
 
 export const verifyResetCode = async ({ email, code }) => {
     try {

@@ -1,7 +1,7 @@
 import { getCurrentUser } from '../../helpers/authHelper';
 import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'auth/registerCoach';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'auth/registerCoach';
 
 export const registerCoach = async ({ firstName, lastName, email, password, text, file }) => {
   const token = getCurrentUser();

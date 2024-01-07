@@ -1,7 +1,6 @@
 import { getCurrentUser } from '../../helpers/authHelper';
-import { Constants } from '../../helpers/constants';
 
-const baseUrl = Constants.BaseUrl + 'feedback/getAll';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'feedback/getAll';
 
 export const getFeedbacks = async () => {
   const token = getCurrentUser();

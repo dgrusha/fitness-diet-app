@@ -82,7 +82,7 @@ const ChatPage = () => {
 	};
 
 	useEffect(() => {
-		if (!user?.isCoach && allUsers.length > 0 && (!selectedUser || !allUsers.find(u => u.email === selectedUser.email))) {
+		if (!user?.isCoach && allUsers && allUsers.length > 0 && (!selectedUser || !allUsers.find(u => u.email === selectedUser.email))) {
 			handleChangeChat(null, allUsers[0]);
 		}
 	}, [allUsers, user, selectedUser]);
@@ -94,7 +94,10 @@ const ChatPage = () => {
 
 	useEffect(() => {
 		getChatInterlocuter().then((data) => {
-			setAllUsers(data.data.chatInterlocuters);
+			if(data && data.data){
+				setAllUsers(data.data.chatInterlocuters);
+			}
+			
 		});
 	}, []);
 

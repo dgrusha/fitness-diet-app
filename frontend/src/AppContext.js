@@ -1,10 +1,28 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect} from 'react';
+import { useNavigate } from 'react-router';
+import { getUserConnection } from './apiCalls/authentication/refreshUserConnection';
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [hasForm, setHasForm] = useState(false);
-  const [user, setUser] = useState(null);
+	const [user, setUser] = useState(null);
+	const [hasForm, setHasForm] = useState(false);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const storedUser = sessionStorage.getItem('user');
+        if (storedUser && user === null) {
+          const result = await getUserConnection();
+          setUser(result.data);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const hasFormHandle = (hasFormMine) => {
     sessionStorage.setItem('hasForm', hasFormMine);
@@ -21,6 +39,7 @@ export const AppProvider = ({ children }) => {
     sessionStorage.setItem('hasForm', false);
     setUser(null);
     setHasForm(false);
+    navigate("/login");
   };
 
   const contextValue = {

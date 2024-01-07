@@ -7,13 +7,13 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
-import { login } from '../apiCalls/login';
+import { login } from '../apiCalls/authentication/login';
 import { ButtonComponent } from "../components/atoms/Button";
 import InputField from '../components/atoms/InputField';
 import TwoSidesTemplate from '../components/templates/ContainerAndPhotoTemplate';
 import { handleFormResponse } from '../helpers/formVerification';
 import { isFormValid } from '../helpers/isFormValid';
-import image_login from "../img/login_sign_up.png";
+import image_login from "../img/authorization.png";
 import { validateLoginFormFields } from '../validators/loginValidator';
 import { useAppContext } from '../AppContext';
 
@@ -26,8 +26,6 @@ function LogIn() {
 	});
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [formErrors, setFormErrors] = useState({
-		firstName: "",
-		lastName: "",
 		email: "",
 		password: ""
 	});
@@ -101,7 +99,6 @@ function LogIn() {
 						error={formErrors["password"] !== ""}
 						helperText={formErrors["password"]}
 					/>
-					{/* <Typography variant="server_error" textAlign="center">{formErrors["general"]}</Typography> */}
 					{formErrors["general"] && <Alert fullWidth severity="warning">{formErrors["general"]}</Alert>}
 					{isSubmitting && <LinearProgress color="success" />}
 					<ButtonComponent
@@ -112,9 +109,9 @@ function LogIn() {
 				</>
 			}
 			additional_links={
-				<Grid container sx={{ width: '80%' }}>
+				<Grid container>
 					<Grid item xs>
-						<Link href="#" variant="link_a">
+						<Link href="/password_reset" variant="link_a">
 							Forgot password?
 						</Link>
 					</Grid>

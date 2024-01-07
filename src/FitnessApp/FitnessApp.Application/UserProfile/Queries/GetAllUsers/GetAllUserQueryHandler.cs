@@ -14,12 +14,10 @@ namespace FitnessApp.Application.UserProfile.Queries.GetAllUsers;
 public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, string>
 {
     private readonly IUserRepository _userRepository;
-    private readonly IDistributedCache _cache;
 
-    public GetAllUserQueryHandler(IUserRepository userRepository, IDistributedCache cache)
+    public GetAllUserQueryHandler(IUserRepository userRepository)
     {
         _userRepository = userRepository;
-        _cache = cache;
     }
 
     public async Task<string> Handle(GetAllUserQuery request, CancellationToken cancellationToken)
@@ -29,40 +27,24 @@ public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, string>
             return await Task.FromResult("empty");
         };
 
-        List<UserDto> users;
-        string nameCache = "GetUsersCache";
         if (user.Coach != null)
         {
-            nameCache = "GetUsersCache";
-            var cachedResult = await _cache.GetStringAsync(nameCache);
-            if (!string.IsNullOrEmpty(cachedResult))
-            {
-                return cachedResult;
-            }
+            List<UserDto> users;
             users = _userRepository.GetAllUsersExceptMe(request.Id);
-        }
-        else 
-        {
-            nameCache = "GetCoachesCache";
-            var cachedResult = await _cache.GetStringAsync(nameCache);
-            if (!string.IsNullOrEmpty(cachedResult))
-            {
-                return cachedResult;
-            }
-            users = _userRepository.GetAllCoachesExceptMe(request.Id);
-        }
 
-        if (users == null || users.Count == 0)
-        {
-            return await Task.FromResult("empty");
+            var jsonResult = JsonConvert.SerializeObject(users, Formatting.Indented);
+
+            return await Task.FromResult(jsonResult);
         }
-
-        var jsonResult = JsonConvert.SerializeObject(users, Formatting.Indented);
-        await _cache.SetStringAsync(nameCache, jsonResult, new DistributedCacheEntryOptions
+        else
         {
-            AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(1)
-        });
+            List<CoachDto> coaches;
 
-        return await Task.FromResult(jsonResult);
+            coaches = _userRepository.GetAllCoachesExceptMe(request.Id);
+
+            var jsonResult = JsonConvert.SerializeObject(coaches, Formatting.Indented);
+
+            return await Task.FromResult(jsonResult);
+        }
     }
 }

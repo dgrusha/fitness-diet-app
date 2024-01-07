@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { SidebarProvider } from './sidebar/SidebarContext';
+import { SidebarProvider } from './helpers/SidebarContext';
 import { AppProvider } from './AppContext';
 
 

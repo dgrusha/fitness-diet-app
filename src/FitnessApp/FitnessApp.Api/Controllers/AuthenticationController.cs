@@ -1,4 +1,5 @@
 ﻿using FitnessApp.Contracts.Authentication;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +10,9 @@ using FitnessApp.Application.Queries;
 using FitnessApp.Application.S3Bucket.Commands.AddFile;
 using FitnessApp.Application.Authentication.Commands.RegisterCoach;
 using FitnessApp.Contracts.UniqueResponse;
+using FitnessApp.Application.Authentication.Commands.ResetCode;
+using FitnessApp.Application.Authentication.Queries.VerifyResetCode;
+using FitnessApp.Application.Authentication.Commands.ChangePassword;
 
 namespace FitnessApp.Api.Controllers
 {
@@ -71,12 +75,54 @@ namespace FitnessApp.Api.Controllers
         public async Task<IActionResult> Login(LoginRequest loginRequest)
         {
             var query = new LoginQuery(
-                loginRequest.Email,
-                loginRequest.Password);
+                    loginRequest.Email,
+                    loginRequest.Password
+                );
 
             UniqueResponse<AuthenticationResult> authResult = await _mediator.Send(query);
 
             return Ok(authResult);
+        }
+
+        [HttpGet("refreshConnection")]
+        public async Task<IActionResult> Get()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var token = ClaimTypes.NameIdentifier;
+
+            var query = new RefreshConnectionQuery(new Guid(userId), token);
+
+            UniqueResponse<AuthenticationResult> result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
+
+        [HttpPost("resetCode")]
+        public async Task<IActionResult> ResetCode(ResetRequest resetRequest)
+        {
+            var command = new ResetCodeCommand(resetRequest.Email);
+            var result = await _mediator.Send(command);
+
+            return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());
+        }
+
+        [HttpPost("verifyResetCode")]
+        public async Task<IActionResult> VerifyResetCode(VerifyResetCodeRequest resetRequest)
+        {
+            var query = new VerifyResetCodeQuery(resetRequest.Email, resetRequest.Code);
+            var result = await _mediator.Send(query);
+
+            return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());
+        }
+
+        [HttpPost("resetPassword")]
+        public async Task<IActionResult> ResetPassword(ChangePasswordRequest resetRequest)
+        {
+            var command = new ChangePasswordCommand(resetRequest.Email, resetRequest.Code, resetRequest.Password1, resetRequest.Password2);
+            var result = await _mediator.Send(command);
+
+            return StatusCode((int)result.StatusCode, await result.Content.ReadAsStringAsync());
+
         }
     }
 }

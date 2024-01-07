@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FitnessApp.Application.Common.Interfaces.Persistence;
 using FitnessApp.Domain.Entities;
 using FitnessApp.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Infrastructure.Persistence;
 public class ObligatoryFormRepository : IObligatoryFormRepository
@@ -38,6 +39,13 @@ public class ObligatoryFormRepository : IObligatoryFormRepository
     public HashSet<ObligatoryForm>? GetAllForms()
     {
         return _formContext.ObligatoryForms.ToHashSet();
+    }
+
+    public ObligatoryForm? GetFormById(Guid id)
+    {
+        return _formContext.ObligatoryForms
+            .Include(u => u.Allergies)
+            .FirstOrDefault(u => u.UserId == id);
     }
 
     public void Update(ObligatoryForm obligatoryForm)

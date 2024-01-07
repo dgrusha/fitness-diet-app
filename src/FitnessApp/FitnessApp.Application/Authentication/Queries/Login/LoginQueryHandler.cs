@@ -37,6 +37,14 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, UniqueResponse<Auth
                 return response;
             };
 
+            var coachUserCheck = _userRepository.GetUserById(user.Id);
+            if(coachUserCheck != null && coachUserCheck.Coach != null && coachUserCheck.Coach.IsVerified == false )
+            {
+                response.Errors.Add("Coach is not verified yet");
+                response.ErrorCode = (int)HttpStatusCode.BadRequest;
+                return response;
+            }
+
             if (!PasswordHandler.IsVerified(user.Password, query.Password))
             {
                 response.Errors.Add("Invalid password");
@@ -51,8 +59,11 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, UniqueResponse<Auth
                 user.LastName,
                 user.FirstName,
                 user.Email,
+                user.IsAdmin,
                 user.HasObligatoryForm,
-                token
+                token,
+                user.SubscriptionForCoach != null,
+                user.Coach != null
             );
 
             response.ErrorCode = (int)HttpStatusCode.OK;

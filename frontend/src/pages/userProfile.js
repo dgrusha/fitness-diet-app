@@ -1,26 +1,19 @@
-import {
-	Avatar,
-	Checkbox,
-	FormControlLabel,
-	FormGroup,
-	LinearProgress,
-	Typography,
-	Alert
-} from '@mui/material';
+import { Alert, Avatar, Checkbox, FormControlLabel, FormGroup, LinearProgress, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-
-import { getUser } from '../apiCalls/userProfileGetInfo';
-import { updateUserProfile } from '../apiCalls/userProfileUpdateInfo';
+import { getUser } from '../apiCalls/userProfile/userProfileGetInfo';
+import { updateUserProfile } from '../apiCalls/userProfile/userProfileUpdateInfo';
 import { ButtonComponent } from "../components/atoms/Button";
 import InputField from '../components/atoms/InputField';
 import TwoSidesTemplate from '../components/templates/ContainerAndPhotoTemplate';
 import { handleTextInputChange } from '../helpers/inputChanges';
 import { isFormValid } from '../helpers/isFormValid';
 import { resizeAndSetPhoto } from '../helpers/photoHelper';
-import image_profile_setting from '../img/user_profile_page.png';
+import image_profile_setting from '../img/user_profile.png';
 import { validateUserProfileFields } from '../validators/userProfileValidator';
+import { useAppContext } from '../AppContext';
 
 function UserProfile() {
+	const {user} = useAppContext();
 	const [status, setStatus] = useState('');
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
@@ -40,8 +33,7 @@ function UserProfile() {
 		let errVal = validateUserProfileFields(name, value);
 		setFormErrors(prevState => ({
 			...prevState,
-			[name]: errVal,
-			["general"]: "",
+			[name]: errVal
 		}))
 	}
 
@@ -52,7 +44,7 @@ function UserProfile() {
 				setUserData(data.data);
 				setFirstName(data.data.firstName);
 				setLastName(data.data.lastName);
-				if (data.data.avatarFileName !== undefined && data.data.avatarFileName !== '') {
+				if (data.data.avatarFileName !== null && data.data.avatarFileName !== '') {
 					setAvatar(data.data.avatarFileName);
 				}
 			} else {
@@ -98,9 +90,9 @@ function UserProfile() {
 
 	return (
 		<TwoSidesTemplate
-			title={<Typography variant="title1">Account settings</Typography>}
+			title={<Typography variant="title1">ACCOUNT SETTINGS</Typography>}
 			prebodyitem={<>
-				<Avatar alt="The avatar" src={avatar} onClick={handleAvatarClick} />
+				<Avatar variant="profile" alt="The avatar" src={avatar} onClick={handleAvatarClick} />
 				<input
 					accept="image/*"
 					style={{ display: 'none' }}
@@ -119,16 +111,19 @@ function UserProfile() {
 				<InputField disabled label="Email" id="email" name="email" autoComplete="email" value={userData.email}
 					InputLabelProps={{ shrink: true }}
 				/>
+				{ !user?.isCoach  && 
 				<FormGroup>
 					<FormControlLabel
+						sx={{ alignSelf: "start" }}
 						control={<Checkbox color="success" checked={userData.hasObligatoryForm === true} />}
-						labelPlacement="start"
+						labelPlacement="end"
 						label="Have you passed obligatory form?" />
 				</FormGroup>
-				{status && <Alert severity="info">{status}</Alert> }
+				}
+				{status && <Alert severity="success">{status}</Alert>}
 				{isSubmitting && <LinearProgress color="success" />}
 				<ButtonComponent title="SAVE CHANGES" onClick={handleSendButtonClick} disabled={!isFormValid(formErrors, [firstName, lastName])
-					|| (firstName === userData.firstName && lastName === userData.lastName)} />
+					|| (firstName === userData.firstName && lastName === userData.lastName && avatar === userData.avatarFileName)} />
 			</>}
 			img={image_profile_setting}
 		/>

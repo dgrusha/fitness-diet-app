@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FitnessApp.Domain.Entities;
+﻿using FitnessApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -21,6 +16,6 @@ public class CoachConfiguration : IEntityTypeConfiguration<Coach>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.CVFileName).IsRequired();
         builder.Property(x => x.RecomendationText).IsRequired();
-
+        builder.Property(t => t.IsVerified).HasDefaultValue(false);
     }
 } 

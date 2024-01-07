@@ -44,6 +44,14 @@ public class AddCommandHandler : IRequestHandler<AddCommand, HttpResponseMessage
                 };
             }
 
+            if (user.Coach != null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent("Admin cannot use this functionality"),
+                };
+            }
+
             if (request.Weight > 200 || request.Weight < 28) 
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest)
@@ -60,11 +68,21 @@ public class AddCommandHandler : IRequestHandler<AddCommand, HttpResponseMessage
                 };
             }
 
+            if (request.Years > 60 || request.Height < 16)
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent("Not correct range of years parameter"),
+                };
+            }
+
             var obligatoryForm = new ObligatoryForm
             {
                 User = user,
                 Weight = request.Weight,
-                Height = request.Height
+                Height = request.Height,
+                Years = request.Years,
+                Gender = request.Gender
             };
 
             var allergies = _allergyRepository.GetAllergiesByName(request.Allergies).ToList();

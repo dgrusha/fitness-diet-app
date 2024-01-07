@@ -5,8 +5,7 @@ import {
 	Alert,
 } from '@mui/material';
 import React, { useState } from 'react';
-
-import { leaveFeedback } from '../apiCalls/leaveFeedback';
+import { leaveFeedback } from '../apiCalls/feedback/leaveFeedback';
 import { isFormValid } from '../helpers/isFormValid';
 import image_feedback from '../img/feedback.png';
 import { validateFeedbackFields } from '../validators/feedbackValidator';
@@ -21,6 +20,7 @@ function Feedback() {
 	const [feedbackText, setFeedbackText] = useState('');
 	const [formErrors, setFormErrors] = useState({ text: "", general: "" });
 	const [status, setStatus] = useState('');
+
 
 	const handleChange = event => {
 		const { name, value } = event.target;
@@ -40,6 +40,8 @@ function Feedback() {
 			const [status, message] = [response.status, await response.text()];
 			if (status === 200) {
 				setStatus(message);
+				setSelectedRating('');
+				setFeedbackText('');
 			} else {
 				setStatus(message);
 			}
@@ -54,7 +56,7 @@ function Feedback() {
 	return (
 		<TwoSidesTemplate
 			title={<>
-				<Typography variant="title1">Leave feedback</Typography>
+				<Typography variant="title1">LEAVE FEEDBACK</Typography>
 				<Typography variant="subtitle1">Your opinion will help us to become better.</Typography>
 			</>}
 			prebodyitem={<RadioGroupRating selectedValue={selectedRating} setSelectedValue={setSelectedRating} />}
@@ -75,14 +77,14 @@ function Feedback() {
 					fullWidth
 					label="Leave your feedback"
 				/>
+				{status && <Alert fullWidth severity={status===200? "warning": "success"} sx={{mb: '10px'}}>{status}</Alert>}
 				{isSubmitting && <LinearProgress color="success" />}
-				<Alert severity="info">If you have some critical issues with our application then contact us here: eatrain@serwer2317506.home.pl</Alert>
+				<Alert variant="info" severity="info">If you have some critical issues with our application then contact us here: eatrain@serwer2317506.home.pl</Alert>
 				<ButtonComponent
-					disabled={!isFormValid(formErrors, [feedbackText])}
+					disabled={!isFormValid(formErrors, [feedbackText, selectedRating])}
 					onClick={handleSendButtonClick}
 					title="Submit"
 				/>
-				<p>{status}</p>
 			</>}
 			img={image_feedback}
 		/>

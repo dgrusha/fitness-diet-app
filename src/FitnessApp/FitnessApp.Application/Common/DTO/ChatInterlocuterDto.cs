@@ -8,7 +8,7 @@ namespace FitnessApp.Application.Common.DTO;
 
 public class ChatInterlocuterDto
 {
-    public ChatInterlocuterDto(string firstName, string lastName, string email, string? avatarFileName)
+    public ChatInterlocuterDto(string firstName, string lastName, string email, string avatarFileName)
     {
         FirstName = firstName;
         LastName = lastName;

@@ -288,7 +288,7 @@ export const appTheme = createTheme({
 		},
 		MuiAvatar: {
 			styleOverrides: {
-				root: {
+				profile: {
 					marginTop: '5%',
 					height: '150px',
 					width: '150px',
@@ -313,6 +313,12 @@ export const appTheme = createTheme({
 							color: '#FFFFFF',
 						},
 					},
+				},
+				coach: {
+					marginTop: '5%',
+					height: '150px',
+					width: '150px',
+					position: 'relative',
 				},
 				img: {
 					objectFit: 'cover',
@@ -442,6 +448,13 @@ export const appTheme = createTheme({
 					textAlign: "center", 
 					backgroundColor: "#9CD91B",
 					color: "#fff"
+				}
+			}
+		},
+		MuiDialogContent: {
+			styleOverrides: {
+				root: {
+					marginTop: '20px'
 				}
 			}
 		},

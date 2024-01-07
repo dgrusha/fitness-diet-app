@@ -345,7 +345,7 @@ const SubscriptionPage = () => {
 										onClick={() => handleCoachSelect(user)}
 									>
 										<CardHeader
-											avatar={<Avatar src={user.AvatarFileName}>{ }</Avatar>}
+											avatar={<Avatar variant='coach' src={user.AvatarFileName}/>}
 											title={user.FirstName + " " + user.LastName}
 											subheader={user.RecomendationText}
 

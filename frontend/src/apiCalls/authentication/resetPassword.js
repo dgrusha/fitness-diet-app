@@ -1,4 +1,3 @@
-import { Constants } from '../../helpers/constants';
 
 const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'auth/resetPassword';
 

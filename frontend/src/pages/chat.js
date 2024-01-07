@@ -1,7 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close';
 import HelpIcon from '@mui/icons-material/Help';
 import {
-	Autocomplete, Box, Button, Dialog, DialogContent, DialogTitle, Divider, Grid, Paper, TextField, ThemeProvider, Typography
+	Autocomplete, Avatar, Box, Button, Dialog, DialogContent, DialogTitle, Divider, Grid, Paper, TextField, ThemeProvider, Typography
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import React, { useEffect, useRef, useState } from 'react';
@@ -10,7 +10,6 @@ import { getChatHistory } from '../apiCalls/chat/chatGetHistory';
 import { getChatInterlocuter } from '../apiCalls/chat/getChatInterlocuter';
 import { joinRoom, sendMessage } from '../helpers/signalRHandlers';
 import { appTheme } from '../helpers/themeProviderHelper';
-
 
 const ChatPage = () => {
 	const [messages, setMessages] = useState([]);
@@ -118,6 +117,12 @@ const ChatPage = () => {
 							onChange={handleChangeChat}
 							isOptionEqualToValue={isOptionEqualToValue}
 							fullWidth
+							renderOption={(props, option) => (
+								<Box component="li"  {...props}>
+									<Avatar loading="lazy" sx={{mr: 2}} src={option.avatarFileName}/>
+									{option.firstName + " " + option.lastName}
+								</Box>
+							)}
 							renderInput={(params) => (
 								<TextField
 									{...params}

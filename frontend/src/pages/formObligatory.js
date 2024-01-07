@@ -64,9 +64,14 @@ function FormObligatory() {
 				hasFormHandle(false);
 			}
 			handleFormResponse(status, message, setFormErrors, navigate, '/');
+			refreshPage();
 		} catch (error) {
 			console.error(error.message);
 		}
+	};
+
+	const refreshPage = () => {
+		window.location.reload(true);
 	};
 
 	return (

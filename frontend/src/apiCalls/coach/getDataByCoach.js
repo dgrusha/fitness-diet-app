@@ -1,5 +1,4 @@
 import { getCurrentUser } from '../../helpers/authHelper';
-import { Constants } from '../../helpers/constants';
 
 const types ={
     "diet": `${process.env.REACT_APP_BASE_URL}` + 'dietData/getDietDataByCoach',

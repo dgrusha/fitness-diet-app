@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Amazon.S3;
+using Amazon.S3.Model;
 using FitnessApp.Application.Common.DTO;
 using FitnessApp.Application.Common.Interfaces.Persistence;
 using FitnessApp.Application.Common.UserProfile;
@@ -19,12 +21,14 @@ public class GetChatInterlocutorQueryHandler : IRequestHandler<GetChatInterlocut
     private readonly IUserRepository _userRepository;
     private readonly ICoachRepository _coachRepository;
     private readonly ISubscriptionRepository _subscriptionRepository;
+    private readonly IAmazonS3 _s3Client;
 
-    public GetChatInterlocutorQueryHandler(IUserRepository userRepository, ICoachRepository coachRepository, ISubscriptionRepository subscriptionRepository)
+    public GetChatInterlocutorQueryHandler(IUserRepository userRepository, ICoachRepository coachRepository, ISubscriptionRepository subscriptionRepository, IAmazonS3 s3Client)
     {
         _userRepository = userRepository;
         _coachRepository = coachRepository;
         _subscriptionRepository = subscriptionRepository;
+        _s3Client = s3Client;
     }
 
     public async Task<UniqueResponse<GetChatInterlocuterResult>> Handle(GetChatInterlocutorQuery request, CancellationToken cancellationToken)
@@ -48,11 +52,19 @@ public class GetChatInterlocutorQueryHandler : IRequestHandler<GetChatInterlocut
                 IEnumerable<Subscription>? subscribedClients = _subscriptionRepository.GetSubscriptionsOfClients(user.Coach.Id);
                 foreach (Subscription subscription in subscribedClients) 
                 {
+                    var photo = new GetPreSignedUrlRequest
+                    {
+                        BucketName = "fitnessdietbucket",
+                        Key = "photos/" + subscription.Client.AvatarFileName,
+                        Expires = DateTime.UtcNow.AddDays(3)
+                    };
+                    string photoUrl = _s3Client.GetPreSignedURL(photo);
+
                     chatInterlocuters.Add(new ChatInterlocuterDto(
                         subscription.Client.FirstName,
                         subscription.Client.LastName,
                         subscription.Client.Email,
-                        subscription.Client.AvatarFileName));
+                        photoUrl));
                 }
             }
             else
@@ -67,11 +79,19 @@ public class GetChatInterlocutorQueryHandler : IRequestHandler<GetChatInterlocut
 
                 Coach? coach = _coachRepository.GetCoachById(subscriptionForCoach.CoachId);
 
+                var photo = new GetPreSignedUrlRequest
+                {
+                    BucketName = "fitnessdietbucket",
+                    Key = "photos/" + coach.User.AvatarFileName,
+                    Expires = DateTime.UtcNow.AddDays(3)
+                };
+                string photoUrl = _s3Client.GetPreSignedURL(photo);
+
                 chatInterlocuters.Add(new ChatInterlocuterDto(
                     coach.User.FirstName,
                     coach.User.LastName,
                     coach.User.Email,
-                    coach.User.AvatarFileName));
+                    photoUrl));
             }
 
             response.Data = new GetChatInterlocuterResult(

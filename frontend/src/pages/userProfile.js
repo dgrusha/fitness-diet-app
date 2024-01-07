@@ -1,6 +1,5 @@
 import { Alert, Avatar, Checkbox, FormControlLabel, FormGroup, LinearProgress, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-
 import { getUser } from '../apiCalls/userProfile/userProfileGetInfo';
 import { updateUserProfile } from '../apiCalls/userProfile/userProfileUpdateInfo';
 import { ButtonComponent } from "../components/atoms/Button";
@@ -93,7 +92,7 @@ function UserProfile() {
 		<TwoSidesTemplate
 			title={<Typography variant="title1">ACCOUNT SETTINGS</Typography>}
 			prebodyitem={<>
-				<Avatar alt="The avatar" src={avatar} onClick={handleAvatarClick} />
+				<Avatar variant="profile" alt="The avatar" src={avatar} onClick={handleAvatarClick} />
 				<input
 					accept="image/*"
 					style={{ display: 'none' }}

@@ -1,25 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import Autocomplete from '@mui/material/Autocomplete';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-
-import { getAllergies } from '../apiCalls/formObligatoryAllergies';
-import { addObligatoryForm } from '../apiCalls/formObligatoryPost';
+import { Autocomplete, FormControl, FormControlLabel, FormLabel, InputAdornment, Radio, RadioGroup,
+	 TextField, Typography} from '@mui/material';
+import { getAllergies } from '../apiCalls/obligatoryForm/formObligatoryAllergies';
+import { addObligatoryForm } from '../apiCalls/obligatoryForm/formObligatoryPost';
 import { ButtonComponent } from "../components/atoms/Button";
 import InputFieldWithMetric from '../components/atoms/InputFieldWithMetric';
 import TwoSidesTemplate from '../components/templates/ContainerAndPhotoTemplate';
 import { handleFormResponse } from '../helpers/formVerification';
 import { handleNumericInputChange } from '../helpers/inputChanges';
 import { isFormValid } from '../helpers/isFormValid';
-import image_required_form from "../img/required_form.jpg";
+import image_required_form from "../img/required_form.png";
 import { validateObligatoryFormFields } from '../validators/formObligatoryValidator';
 import { useAppContext } from '../AppContext';
 
@@ -51,7 +42,6 @@ function FormObligatory() {
 		}))
 	}
 
-
 	const handleChangeMultiple = (event, value) => {
 		setSelectedOptions(value);
 	};
@@ -74,11 +64,15 @@ function FormObligatory() {
 				hasFormHandle(false);
 			}
 			handleFormResponse(status, message, setFormErrors, navigate, '/');
+			refreshPage();
 		} catch (error) {
 			console.error(error.message);
 		}
 	};
 
+	const refreshPage = () => {
+		window.location.reload(true);
+	};
 
 	return (
 		<TwoSidesTemplate
@@ -109,7 +103,7 @@ function FormObligatory() {
 						label="Years"
 						id="years-field"
 						name="years"
-						inputProps={<InputAdornment position="end">y.o</InputAdornment>}
+						inputProps={<InputAdornment position="end">y.o.</InputAdornment>}
 						value={years}
 						onChange={handleChange}
 						error={formErrors["years"] !== ""}
@@ -131,7 +125,7 @@ function FormObligatory() {
 						)}
 					/>
 					<FormControl component="fieldset" sx={{ mt: 2 }}>
-						<FormLabel component="legend"  color="success">Gender</FormLabel>
+						<FormLabel component="legend">Gender</FormLabel>
 						<RadioGroup row aria-label="gender" name="gender" value={gender} onChange={handleChangeRadio}>
 							<FormControlLabel value="male" control={<Radio  color="success"/>} label="Male" />
 							<FormControlLabel value="female" control={<Radio  color="success"/>} label="Female" />

@@ -5,7 +5,7 @@ import {
 	Alert,
 } from '@mui/material';
 import React, { useState } from 'react';
-import { leaveFeedback } from '../apiCalls/leaveFeedback';
+import { leaveFeedback } from '../apiCalls/feedback/leaveFeedback';
 import { isFormValid } from '../helpers/isFormValid';
 import image_feedback from '../img/feedback.png';
 import { validateFeedbackFields } from '../validators/feedbackValidator';
@@ -77,9 +77,9 @@ function Feedback() {
 					fullWidth
 					label="Leave your feedback"
 				/>
-				{status && <Alert fullWidth severity={status===200? "warning": "success"}>{status}</Alert>}
+				{status && <Alert fullWidth severity={status===200? "warning": "success"} sx={{mb: '10px'}}>{status}</Alert>}
 				{isSubmitting && <LinearProgress color="success" />}
-				<Alert severity="info">If you have some critical issues with our application then contact us here: eatrain@serwer2317506.home.pl</Alert>
+				<Alert variant="info" severity="info">If you have some critical issues with our application then contact us here: eatrain@serwer2317506.home.pl</Alert>
 				<ButtonComponent
 					disabled={!isFormValid(formErrors, [feedbackText, selectedRating])}
 					onClick={handleSendButtonClick}

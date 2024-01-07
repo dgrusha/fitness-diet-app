@@ -32,12 +32,15 @@ public class SubscriptionRepository : ISubscriptionRepository
         _subscriptionContext.SaveChanges();
     }
 
-    public HashSet<Subscription>? GetSubscriptions()
+    public IEnumerable<Subscription>? GetSubscriptionsOfClients(Guid coachId)
     {
-        return _subscriptionContext.Subscriptions.ToHashSet();
+        return _subscriptionContext.Subscriptions
+            .Include(u => u.Client)
+            .Where(m => m.CoachId.Equals(coachId ))
+            .AsEnumerable();
     }
 
-    public Subscription? GetSubscription(Guid clientId)
+    public Subscription? GetSubscriptionForCoach(Guid clientId)
     {
         return _subscriptionContext.Subscriptions
             .Include(u => u.Coach)

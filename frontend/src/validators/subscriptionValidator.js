@@ -13,6 +13,7 @@ export function validatePaymentDetails(name, value, paymentOption) {
 			}
 		}
 	}
+	
 	else {
 		if (name === 'cardNumber') {
 			if (!checkRequired(value)) {
@@ -23,6 +24,7 @@ export function validatePaymentDetails(name, value, paymentOption) {
 				error = "Entry should contain 16 characters"
 			}
 		}
+
 		if (name === 'expirationDate') {
 			if (!checkRequired(value)) {
 				error = "Entry is required"

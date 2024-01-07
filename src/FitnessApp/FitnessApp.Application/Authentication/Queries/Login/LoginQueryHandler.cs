@@ -62,7 +62,8 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, UniqueResponse<Auth
                 user.IsAdmin,
                 user.HasObligatoryForm,
                 token,
-                user.SubscriptionForCoach != null
+                user.SubscriptionForCoach != null,
+                user.Coach != null
             );
 
             response.ErrorCode = (int)HttpStatusCode.OK;

@@ -16,7 +16,7 @@ export const ResetStepEnum = {
 
 // DIET 
 export const MealsEnum = {
-    "Breakfast": 0,
-    "Lunch": 2,
-    "Dinner": 1
+    "BREAKFAST": 0,
+    "LUNCH": 2,
+    "DINNER": 1
 };

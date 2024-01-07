@@ -14,12 +14,10 @@ namespace FitnessApp.Application.UserProfile.Queries.GetAllUsers;
 public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, string>
 {
     private readonly IUserRepository _userRepository;
-    private readonly IDistributedCache _cache;
 
-    public GetAllUserQueryHandler(IUserRepository userRepository, IDistributedCache cache)
+    public GetAllUserQueryHandler(IUserRepository userRepository)
     {
         _userRepository = userRepository;
-        _cache = cache;
     }
 
     public async Task<string> Handle(GetAllUserQuery request, CancellationToken cancellationToken)
@@ -29,7 +27,6 @@ public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, string>
             return await Task.FromResult("empty");
         };
 
-        string nameCache;
         if (user.Coach != null)
         {
             List<UserDto> users;
@@ -42,7 +39,6 @@ public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, string>
         else
         {
             List<CoachDto> coaches;
-            nameCache = "GetCoachesCache";
 
             coaches = _userRepository.GetAllCoachesExceptMe(request.Id);
 

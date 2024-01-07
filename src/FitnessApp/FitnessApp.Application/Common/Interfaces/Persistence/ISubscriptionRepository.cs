@@ -9,10 +9,9 @@ namespace FitnessApp.Application.Common.Interfaces.Persistence;
 
 public interface ISubscriptionRepository
 {
-    HashSet<Subscription>? GetSubscriptions();
+    IEnumerable<Subscription>? GetSubscriptionsOfClients(Guid coachId);
     void Add(Subscription subscription);
     void UpdateCoach(Subscription subscription, Guid coachId);
     void Delete(Guid clientId);
-    public Subscription? GetSubscription(Guid clientId);
-
+    Subscription? GetSubscriptionForCoach(Guid clientId);
 }

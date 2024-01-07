@@ -38,7 +38,7 @@ public class UpdateCoachSubscriptionCommandHandler : IRequestHandler<UpdateCoach
                 };
             }
 
-            Subscription? subscription = _subscriptionRepository.GetSubscription(user.Id);
+            Subscription? subscription = _subscriptionRepository.GetSubscriptionForCoach(user.Id);
 
             if (subscription == null)
             {

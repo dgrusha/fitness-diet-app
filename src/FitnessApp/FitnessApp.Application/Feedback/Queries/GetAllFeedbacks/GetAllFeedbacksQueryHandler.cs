@@ -41,9 +41,6 @@ public class GetAllFeedbacksQueryHandler : IRequestHandler<GetAllFeedbacksQuery,
             {
                 return await Task.FromResult("[]");
             }
-            Console.WriteLine("hjgdjhgdjw");
-
-            feedbacks.Dump();
 
             var jsonResult = JsonConvert.SerializeObject(feedbacks, Formatting.Indented);
 

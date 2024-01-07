@@ -9,11 +9,13 @@ using FitnessApp.Application.UserProfile.Commands.UpdateCoachStatus;
 using FitnessApp.Application.UserProfile.Commands.UpdateUserAvatar;
 using FitnessApp.Application.UserProfile.Commands.UpdateUserInformation;
 using FitnessApp.Application.UserProfile.Queries.GetAllUsers;
+using FitnessApp.Application.UserProfile.Queries.GetAllVerifiedCoaches;
 using FitnessApp.Application.UserProfile.Queries.GetCoachesUsers;
 using FitnessApp.Application.UserProfile.Queries.GetNotVerifiedCoaches;
 using FitnessApp.Application.UserProfile.Queries.GetUserCoach;
 using FitnessApp.Application.UserProfile.Queries.GetUserInformation;
 using FitnessApp.Application.UserProfile.Queries.GetUserStatuses;
+using FitnessApp.Application.UserProfile.Queries.GetChatInterlocutor;
 using FitnessApp.Contracts.UserProfile;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -64,6 +66,17 @@ namespace FitnessApp.Api.Controllers
             return Ok(result);
         }
 
+        [HttpGet("getAllVerifiedCoaches")]
+        public async Task<IActionResult> GetAlVerifiedCoaches()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var query = new GetAllVerifiedCoachesQuery(new Guid(userId));
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
+
         [HttpPut("updateCoach")]
         public async Task<IActionResult> Post(UpdateCoachVerificationRequest request)
         {
@@ -105,8 +118,6 @@ namespace FitnessApp.Api.Controllers
                 );
                 result.Data = resultTmp;
             }
-
-            
             return Ok(result);
         }
 
@@ -161,6 +172,16 @@ namespace FitnessApp.Api.Controllers
             return Ok(result);
         }
 
+        [HttpGet("getChatInterlocutor")]
+        public async Task<IActionResult> GetChatInterlocutor() 
+        { 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var query = new GetChatInterlocutorQuery(new Guid(userId));
+			var result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
+            
         [HttpGet("getCoachesUsers")]
         public async Task<IActionResult> GetCoachesUsers()
         {

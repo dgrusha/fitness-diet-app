@@ -39,7 +39,7 @@ public class GetUserCoachQueryHandler : IRequestHandler<GetUserCoachQuery, Uniqu
                 return response;
             };
 
-            Subscription? subscription = _subscriptionRepository.GetSubscription(user.Id);
+            Subscription? subscription = _subscriptionRepository.GetSubscriptionForCoach(user.Id);
 
             if (subscription == null)
             {

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Amazon.S3;
+using Amazon.S3.Model;
 using FitnessApp.Application.Common.DTO;
 using FitnessApp.Application.Common.Interfaces.Persistence;
 using FitnessApp.Domain.Entities;
@@ -14,10 +16,12 @@ public class GetNotVerifiedCoachesQueryHandler : IRequestHandler<GetNotVerifiedC
 {
 
     private readonly IUserRepository _userRepository;
+    private readonly IAmazonS3 _s3Client;
 
-    public GetNotVerifiedCoachesQueryHandler(IUserRepository userRepository)
+    public GetNotVerifiedCoachesQueryHandler(IUserRepository userRepository, IAmazonS3 s3Client)
     {
         _userRepository = userRepository;
+        _s3Client = s3Client;
     }
 
     public async Task<string> Handle(GetNotVerifiedCoachesQuery request, CancellationToken cancellationToken)
@@ -38,7 +42,21 @@ public class GetNotVerifiedCoachesQueryHandler : IRequestHandler<GetNotVerifiedC
         {
             return await Task.FromResult("[]");
         }
+        else
+        {
+            foreach (CoachDto coachDto in coaches)
+            {
+                var cv = new GetPreSignedUrlRequest
+                {
+                    BucketName = "fitnessdietbucket",
+                    Key = coachDto.CVFileName,
+                    Expires = DateTime.UtcNow.AddDays(3)
+                };
 
+                string cvUrl = _s3Client.GetPreSignedURL(cv);
+                coachDto.CVFileName = cvUrl;
+            }
+        }
         var jsonResult = JsonConvert.SerializeObject(coaches, Formatting.Indented);
 
         return await Task.FromResult(jsonResult);

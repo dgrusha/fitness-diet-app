@@ -15,5 +15,6 @@ public record AuthenticationResult
     bool IsAdmin,
     bool HasObligatoryForm,
     string Token,
-    bool HasSubscription
+    bool HasSubscription,
+    bool IsCoach
 );

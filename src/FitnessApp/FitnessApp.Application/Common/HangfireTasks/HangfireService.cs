@@ -261,7 +261,10 @@ public class HangfireService
                         throw new Exception("Expired or null value in res");
                     }
 
+                    //resDescRecipe.Dump();
                     JsonObjects.Get.RecipeData recipeResponseDesc = JsonConvert.DeserializeObject<JsonObjects.Get.RecipeData>(resDescRecipe);
+                    //Console.WriteLine("============================================");
+                    //recipeResponseDesc.Dump();
                     descRecipe.Add(recipeResponseDesc.recipe.recipe_id, recipeResponseDesc);
                 }
 
@@ -275,7 +278,7 @@ public class HangfireService
                     {
                         DayOfTheWeek = i + 1,
                         DishType="Breakfast",
-                        Name=item.recipe_name,
+                        Name = item.recipe_name,
                         Description=item.recipe_description,
                         Calories= Double.Parse(item.recipe_nutrition.calories),
                         Carbohydrate = Double.Parse(item.recipe_nutrition.carbohydrate),
@@ -308,7 +311,6 @@ public class HangfireService
                 {
                     var item = lunchesSelected[i];
                     var descItem = descRecipe[item.recipe_id];
-
                     Domain.Entities.Recipe recipeTmp = new Domain.Entities.Recipe
                     {
                         DayOfTheWeek = i + 1,
@@ -326,7 +328,9 @@ public class HangfireService
                         Ingredients = item.recipe_ingredients.ingredient,
                         DietFormId = dietForm.Id
                     };
-                   _recipeRepository.Add(recipeTmp);
+                    recipeTmp.Dump();
+                    _recipeRepository.Add(recipeTmp);
+                    Console.WriteLine(2);
                     if (descItem.recipe.directions.direction.Count() > 0)
                     {
                         foreach (var itemDirection in descItem.recipe.directions.direction)
@@ -384,6 +388,7 @@ public class HangfireService
             catch (Exception e)
             {
                 Console.WriteLine("EXCEPTION WHILE GENERATING DIETS");
+                Console.WriteLine(e.StackTrace);
                 Console.WriteLine(e.Message);
             }
         }

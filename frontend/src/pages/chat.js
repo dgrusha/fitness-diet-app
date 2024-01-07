@@ -1,25 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { getAllUsers } from '../apiCalls/chatGetUsers';
-import { getCoach } from '../apiCalls/getUserCoach';
-import { joinRoom, sendMessage } from '../helpers/signalRHandlers';
-import { getChatHistory } from '../apiCalls/chatGetHistory';
-import HelpCenterIcon from '@mui/icons-material/HelpCenter';
+import CloseIcon from '@mui/icons-material/Close';
+import HelpIcon from '@mui/icons-material/Help';
 import {
-	Box,
-	TextField,
-	Button,
-	Paper,
-	Divider,
-	Typography,
-	Autocomplete,
-	ThemeProvider,
-	Dialog,
-	DialogTitle,
-	DialogContent
+	Autocomplete, Avatar, Box, Button, Dialog, DialogContent, DialogTitle, Divider, Grid, Paper, TextField, ThemeProvider, Typography
 } from '@mui/material';
-
-import { theme } from '../components/chatNew/chatNewWindowTheme';
+import IconButton from '@mui/material/IconButton';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAppContext } from '../AppContext';
+import { getChatHistory } from '../apiCalls/chat/chatGetHistory';
+import { getChatInterlocuter } from '../apiCalls/chat/getChatInterlocuter';
+import { joinRoom, sendMessage } from '../helpers/signalRHandlers';
+import { appTheme } from '../helpers/themeProviderHelper';
 
 const ChatPage = () => {
 	const [messages, setMessages] = useState([]);
@@ -29,11 +19,11 @@ const ChatPage = () => {
 	const [allUsers, setAllUsers] = useState([]);
 	const [connection, setConnection] = useState();
 	const [open, setOpen] = React.useState(false);
-	const [coach, setCoach] = useState(null)
+	const messagesEndRef = useRef(null);
 
 	const handleClickOpen = () => {
 		setOpen(true);
-	  };
+	};
 
 	const handleClose = () => {
 		setOpen(false);
@@ -53,66 +43,28 @@ const ChatPage = () => {
 	};
 
 	const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      if (e.shiftKey) {
-        setNewMessage((prevMessage) => prevMessage + '\n');
-      } else {
-        handleSendMessage();
-      }
-    }
-  };
-
-	// async function fetchData() {
-	// 	try {
-	// 		const response = await getCoach();
-	// 		if (response.errorCode === 200) {
-	// 			setCoach(response.data);
-	// 		} else {
-	// 			// Handle error
-	// 		}
-	// 	} catch (error) {
-	// 		// Handle error
-	// 	}
-	// }
-
-	// const getUserCoach = async () => {
-	// 	fetchData();
-	// 	console.log(coach)
-	// 	setMessages([]);
-	// 	if (coach && user !== null && coach.Mail !== undefined && coach.Mail !== '') {
-	// 		try {
-	// 			cleanupConnection();
-	// 			getChatHistory({ receiverEmail: coach.Mail }).then((data) => {
-	// 				setMessages(
-	// 					data.map((item) => {
-	// 						return {
-	// 							text: item.Text,
-	// 							sender: item.Email,
-	// 						};
-	// 					})
-	// 				);
-	// 			});
-	// 			joinRoom(
-	// 				user.email,
-	// 				coach.Mail,
-	// 				setMessages,
-	// 				messages,
-	// 				setConnection
-	// 			);
-	// 		} catch (error) {
-	// 			console.error(error.message);
-	// 		}
-	// 	}
-	// 	setSelectedUser(coach);
-	// };
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			if (e.shiftKey) {
+				setNewMessage((prevMessage) => prevMessage + '\n');
+			} else {
+				handleSendMessage();
+			}
+		}
+	};
 
 	const handleChangeChat = (event, newValue) => {
-		setMessages([]);
-		if (newValue && user !== null && newValue.Mail !== undefined && newValue.Mail !== '') {
+		if (newValue && user !== null && newValue.email !== undefined && newValue.email !== '') {
 			try {
 				cleanupConnection();
-				getChatHistory({ receiverEmail: newValue.Mail }).then((data) => {
+				joinRoom(
+					user.email,
+					newValue.email,
+					setMessages,
+					messages,
+					setConnection
+				);
+				getChatHistory({ receiverEmail: newValue.email }).then((data) => {
 					setMessages(
 						data.map((item) => {
 							return {
@@ -122,13 +74,6 @@ const ChatPage = () => {
 						})
 					);
 				});
-				joinRoom(
-					user.email,
-					newValue.Mail,
-					setMessages,
-					messages,
-					setConnection
-				);
 			} catch (error) {
 				console.error(error.message);
 			}
@@ -136,109 +81,139 @@ const ChatPage = () => {
 		setSelectedUser(newValue);
 	};
 
+	useEffect(() => {
+		if (!user?.isCoach && allUsers.length > 0 && (!selectedUser || !allUsers.find(u => u.email === selectedUser.email))) {
+			handleChangeChat(null, allUsers[0]);
+		}
+	}, [allUsers, user, selectedUser]);
+
+
 	const isOptionEqualToValue = (option, value) => {
-		return option.Mail === value.Mail;
+		return option.email === value.email;
 	};
 
 	useEffect(() => {
-		return () => {
-			cleanupConnection();
-		};
+		getChatInterlocuter().then((data) => {
+			setAllUsers(data.data.chatInterlocuters);
+		});
 	}, []);
 
 	useEffect(() => {
-		// getCoach().then((data) => {
-		// 	console.log(data)});
-		getAllUsers().then((data) => setAllUsers(data));
-
-	}, []);
+		if (messagesEndRef.current) {
+			messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+		}
+	}, [messages]);
 
 	return (
-		<ThemeProvider theme={theme}>
-			<Box sx={theme.chatContainer}>
-				<Box sx={theme.header}>
-				<HelpCenterIcon sx={theme.iconHelp} onClick={handleClickOpen}/>
-					<Autocomplete
-						options={allUsers}
-						getOptionLabel={(option) => option.FirstName + ' ' + option.LastName}
-						value={selectedUser}
-						onChange={handleChangeChat}
-						isOptionEqualToValue={isOptionEqualToValue}
-						fullWidth
-						renderInput={(params) => (
-							<TextField
-								{...params}
-								label="Search user"
-								variant="outlined"
-								fullWidth
-								sx={theme.autocomplete}
-							/>
-						)}
-					/>
-				</Box>
-				{/* Messages Section */}
-				<Paper elevation={0} sx={theme.messagesContainer}>
-					{messages.map((message, index) => (
-						<Box
-							key={index}
-							sx={{
-								marginBottom: 1,
-								textAlign: message.sender === user.email ? 'right' : 'left',
-							}}
-						>
-							<Typography
-								variant="body1"
+		<ThemeProvider theme={appTheme}>
+			<Grid container component="main" sx={{ height: '100%', padding: '15px', backgroundColor: '#F8F8FA' }}>
+				<Box component={Paper} sx={appTheme.chatContainer}>
+					<Typography variant='title1' sx={{ mt: '10px' }}>CHAT  {user?.isCoach === true ? "WITH CLIENTS" : "WITH COACH"}</Typography>
+					<Box sx={appTheme.header}>
+						<Autocomplete
+							options={allUsers}
+							getOptionLabel={(option) => option.firstName + ' ' + option.lastName}
+							value={selectedUser}
+							onChange={handleChangeChat}
+							isOptionEqualToValue={isOptionEqualToValue}
+							fullWidth
+							renderOption={(props, option) => (
+								<Box component="li"  {...props}>
+									<Avatar loading="lazy" sx={{mr: 2}} src={option.avatarFileName}/>
+									{option.firstName + " " + option.lastName}
+								</Box>
+							)}
+							renderInput={(params) => (
+								<TextField
+									{...params}
+									label={user?.isCoach === true ? "Search client" : "Your coach"}
+									variant="outlined"
+									fullWidth
+									sx={appTheme.autocomplete}
+								/>
+							)}
+						/>
+						<HelpIcon sx={appTheme.iconHelp} onClick={handleClickOpen} />
+					</Box>
+					<Paper elevation={0} sx={appTheme.messagesContainer}>
+						{messages.map((message, index) => (
+							<Box
+								key={index}
 								sx={{
-									backgroundColor:
-										message.sender === user.email ? '#9cd91b' : 'info.main',
-									color: 'white',
-									padding: 1,
-									borderRadius: 8,
-									display: 'inline-block',
+									marginBottom: 1,
+									textAlign: message.sender === user.email ? 'right' : 'left',
 								}}
 							>
-								{message.text}
-							</Typography>
-						</Box>
-					))}
-				</Paper>
-				<Divider />
-				{/* Input Section */}
-				<Box sx={theme.inputSection}>
-					<TextField
-						label="Type your message"
-						variant="outlined"
-						fullWidth
-						multiline
-						maxRows={4}
-						value={newMessage}
-						onChange={(e) => setNewMessage(e.target.value)}
-						onKeyDown={handleKeyDown}
-						sx={theme.textField}
-					/>
-					<Button
-						disabled={!selectedUser}
-						variant="contained"
-						onClick={handleSendMessage}
-						sx={{ marginLeft: 2 }}
+								<div ref={messagesEndRef} />
+								<Typography
+									variant="body1"
+									sx={{
+										backgroundColor:
+											message.sender === user.email ? '#9cd91b' : 'info.main',
+										color: 'white',
+										padding: 1,
+										borderRadius: "8px",
+										display: 'inline-block',
+									}}
+								>
+									{message.text}
+								</Typography>
+							</Box>
+						))}
+					</Paper>
+					<Divider />
+					<Box sx={appTheme.inputSection}>
+						<TextField
+							label="Type your message"
+							variant="outlined"
+							fullWidth
+							multiline
+							maxRows={4}
+							value={newMessage}
+							onChange={(e) => setNewMessage(e.target.value)}
+							onKeyDown={handleKeyDown}
+							sx={appTheme.textField}
+						/>
+						<Button
+							disabled={!selectedUser}
+							variant="contained"
+							onClick={handleSendMessage}
+							sx={{ marginLeft: 2 }}
+						>
+							Send
+						</Button>
+					</Box>
+					<Dialog
+						onClose={handleClose}
+						aria-labelledby="customized-dialog-title"
+						open={open}
 					>
-						Send
-					</Button>
+						<DialogTitle id="customized-dialog-title">
+							CHAT FAQ
+						</DialogTitle>
+						<IconButton
+							aria-label="close"
+							onClick={handleClose}
+							sx={{
+								position: 'absolute',
+								right: 8,
+								top: 8,
+								color: "#fff",
+							}}
+						>
+							<CloseIcon />
+						</IconButton>
+						<DialogContent dividers>
+							<Typography variant="dialog" gutterBottom>
+								1. All conversations that were started later then 2 days ago will be deleted and pdf with chat history will be sent to you. <br />
+								4. If you have not received email with chat history after it was cleaned - check spam or write to as directly with this issue (contact info is in tab feedback). <br />
+								3. Here you can talk to the coach to receive advices from them in acheiving your goals.  <br />
+								4. This feature is available only for users that have subscription for coaches. <br />
+							</Typography>
+						</DialogContent>
+					</Dialog>
 				</Box>
-				<Dialog open={open} onClose={handleClose}>
-					<DialogTitle>
-						Chat FAQ     
-					</DialogTitle>
-				<DialogContent>
-					<Typography>
-						1. All conversations that were started later then 2 days ago will be deleted and pdf with chat history will be sent to you. <br/>
-						4. If you have not received email with chat history after it was cleaned - check spam or write to as directly with this issue (contact info is in tab feedback). <br/>
-						3. Here you can talk to coaches to receive advices from them in acheiving your goals.  <br/>
-						4. This feature is available only for users that have subscription for coaches. <br/>
-					</Typography>
-				</DialogContent>
-				</Dialog>
-			</Box>
+			</Grid>
 		</ThemeProvider>
 	);
 };

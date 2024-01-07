@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { useEffect, useState }  from 'react';
-import FormDiet from './formDiet.js';
-import { getUserStatuses } from '../apiCalls/userProfileGetStatuses.js';
-import PreparingProcess from './preparingProcess.js';
+import { useEffect, useState } from 'react';
+import { getUserStatuses } from '../apiCalls/userProfile/userProfileGetStatuses.js';
 import { StatusEnum } from '../helpers/processStatuses.js';
 import DietFinished from './dietFinished.js';
+import FormDiet from './formDiet.js';
+import PreparingProcess from './preparingProcess.js';
 
 function Diet() {
 	const [userStatuses, setUserStatuses] = useState({});
@@ -22,15 +22,15 @@ function Diet() {
 	const renderContent = () => {
 		switch (userStatuses.dietStatus) {
 			case StatusEnum.NotStarted:
-				return <FormDiet setUserStatuses={setUserStatuses} mode={0}/>;
+				return <FormDiet setUserStatuses={setUserStatuses} mode={0} />;
 			case StatusEnum.InProgress:
-				return <PreparingProcess mode={"diet"}/>;
+				return <PreparingProcess mode={"diet"} />;
 			case StatusEnum.Finished:
 				return (
 					<DietFinished />
 				);
 			case StatusEnum.ToTake:
-				return <PreparingProcess mode={"diet"}/>;
+				return <PreparingProcess mode={"diet"} />;
 			default:
 				return <></>;
 		}

@@ -97,6 +97,7 @@ public class UserRepository : IUserRepository
             .Include(u => u.Coach)
             .Include(u => u.DietForm)
             .Include(u => u.TrainingForm)
+            .Include(u => u.SubscriptionForCoach)
             .SingleOrDefault(user => user.Id == id);
         return user;
     }

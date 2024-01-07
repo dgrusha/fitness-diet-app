@@ -14,20 +14,17 @@ import {
     Typography,
     TableSortLabel,
 } from '@mui/material';
-import { getFeedbacks } from '../../apiCalls/feedbackGetAll';
+import { getFeedbacks } from '../../apiCalls/administration/getAllFeedbacks';
 
 const TableOfDataRatings = () => {
     const [openModal, setOpenModal] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
-    const [dataFeedback, setDataFeedback] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [sortDirection, setSortDirection] = useState('asc');
     const [sortBy, setSortBy] = useState(null);
 
     useEffect(() => {
         getFeedbacks().then((data) => {
-						console.log(data)
-            setDataFeedback(data);
             setFilteredData(data);
         });
     }, []);
@@ -119,7 +116,7 @@ const TableOfDataRatings = () => {
 
             <Dialog open={openModal} onClose={handleCloseModal}>
                 <DialogTitle>Text of feedback</DialogTitle>
-                <DialogContent>
+                <DialogContent sx={{mt: '20px'}}>
                     <Typography>{selectedRow?.Text}</Typography>
                 </DialogContent>
             </Dialog>

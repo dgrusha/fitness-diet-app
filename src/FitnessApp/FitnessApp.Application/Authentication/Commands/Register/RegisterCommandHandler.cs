@@ -81,6 +81,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, UniqueRes
                 false,
                 false,
                 token,
+                false,
                 false
             );
             response.ErrorCode = (int)HttpStatusCode.OK;

@@ -116,7 +116,7 @@ const TableOfDataRatings = () => {
 
             <Dialog open={openModal} onClose={handleCloseModal}>
                 <DialogTitle>Text of feedback</DialogTitle>
-                <DialogContent>
+                <DialogContent sx={{mt: '20px'}}>
                     <Typography>{selectedRow?.Text}</Typography>
                 </DialogContent>
             </Dialog>

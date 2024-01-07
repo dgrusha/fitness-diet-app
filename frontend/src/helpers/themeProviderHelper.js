@@ -451,13 +451,6 @@ export const appTheme = createTheme({
 				}
 			}
 		},
-		MuiDialogContent: {
-			styleOverrides: {
-				root: {
-					marginTop: '20px'
-				}
-			}
-		},
 		MuiToggleButton: {
 			styleOverrides: {
 				root: {

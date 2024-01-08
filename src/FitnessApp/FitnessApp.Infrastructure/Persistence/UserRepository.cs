@@ -105,7 +105,7 @@ public class UserRepository : IUserRepository
     public void UpdateObligatoryFormStatus(User user, bool hasObligatoryForm)
     {
         user.HasObligatoryForm = hasObligatoryForm;
-        _userContext.SaveChangesAsync();
+        _userContext.SaveChanges();
     }
 
     public void UpdateUserAvatar(User user, string avatarName)

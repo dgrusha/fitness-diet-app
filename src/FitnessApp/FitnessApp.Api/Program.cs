@@ -21,7 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
         options.AddPolicy(name: FitnessAllowSpecificOrigins,
                           policy =>
                           {
-                              policy.WithOrigins("http://localhost:3000")
+                              policy.WithOrigins("http://localhost:3000", "https://eatrain.vercel.app")
                               .AllowAnyHeader()
                               .AllowCredentials()
                               .AllowAnyMethod();
@@ -47,7 +47,7 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
     app.UseHangfireDashboard("/hangfire");
-    //app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
 
     app.UseCors(FitnessAllowSpecificOrigins);
 

@@ -119,6 +119,11 @@ public class HangfireService
             AccessTokenHandler.SaveAccessToken("access_token.json", accessToken);
         }
         var dietForms = _dietFormRepository.GetNotStartedDietForms();
+        if (dietForms != null &&  dietForms.Count() > 0) 
+        {
+            accessToken = await _fatSecretApi.Authenticate();
+            Console.WriteLine(accessToken);
+        }
         foreach (var dietForm in dietForms) 
         {
             User user = dietForm.User;
@@ -261,10 +266,7 @@ public class HangfireService
                         throw new Exception("Expired or null value in res");
                     }
 
-                    //resDescRecipe.Dump();
                     JsonObjects.Get.RecipeData recipeResponseDesc = JsonConvert.DeserializeObject<JsonObjects.Get.RecipeData>(resDescRecipe);
-                    //Console.WriteLine("============================================");
-                    //recipeResponseDesc.Dump();
                     descRecipe.Add(recipeResponseDesc.recipe.recipe_id, recipeResponseDesc);
                 }
 
@@ -328,9 +330,7 @@ public class HangfireService
                         Ingredients = item.recipe_ingredients.ingredient,
                         DietFormId = dietForm.Id
                     };
-                    recipeTmp.Dump();
                     _recipeRepository.Add(recipeTmp);
-                    Console.WriteLine(2);
                     if (descItem.recipe.directions.direction.Count() > 0)
                     {
                         foreach (var itemDirection in descItem.recipe.directions.direction)

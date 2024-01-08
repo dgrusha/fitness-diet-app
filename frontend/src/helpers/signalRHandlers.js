@@ -1,7 +1,6 @@
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { getCurrentUser } from "./authHelper";
-import { Constants } from "./constants";
-const url = Constants.BaseUrl + "chat"
+const url = `${process.env.REACT_APP_BASE_URL}` + "chat"
 
 export const joinRoom = async (user, reciever, setMessages, messages, setConnection) => {
     const token = getCurrentUser();

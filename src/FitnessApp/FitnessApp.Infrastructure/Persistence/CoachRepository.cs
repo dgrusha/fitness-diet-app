@@ -22,7 +22,7 @@ public class CoachRepository : ICoachRepository
     public void Add(Coach coach)
     {
         _coachContext.Coaches.Add(coach);
-        _coachContext.SaveChangesAsync();
+        _coachContext.SaveChanges();
     }
 
     public Coach? GetByUserEmail(string email)

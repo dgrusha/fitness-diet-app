@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import Grid from '@mui/material/Grid';
 import LinearProgress from '@mui/material/LinearProgress';
 import Link from '@mui/material/Link';
@@ -19,7 +18,7 @@ import { useAppContext } from '../AppContext';
 
 function LogIn() {
 	const navigate = useNavigate();
-	const { handleLogin, hasFormHandle } = useAppContext();
+	const { handleLogin, setHasForm } = useAppContext();
 	const [user, setUser] = useState({
 		email: '',
 		password: ''
@@ -51,7 +50,7 @@ function LogIn() {
 			const [ message ] = [await response.json()];
 			if(message.errorCode === 200){
 					handleLogin(message.data);
-					hasFormHandle(message.data.hasObligatoryForm);
+					setHasForm(message.data.hasObligatoryForm);
 					handleFormResponse(message.errorCode, message.data, setFormErrors, navigate, '/' );
 			}else{
 				setFormErrors(prevState => ({

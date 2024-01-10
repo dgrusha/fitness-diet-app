@@ -1,9 +1,9 @@
 import { getCurrentUser } from '../../helpers/authHelper';
 
-const baseUrl = `${process.env.REACT_APP_BASE_URL}` + 'chat/getChatHistory';
+const baseUrl = `${process.env.REACT_APP_BASE_URL}chat/getChatHistory`;
 
 export const getChatHistory = async ({ receiverEmail }) => {
-  const token = getCurrentUser();
+  const token = await getCurrentUser();
   const url = `${baseUrl}?receiverEmail=${encodeURIComponent(receiverEmail)}`;
 
   try {

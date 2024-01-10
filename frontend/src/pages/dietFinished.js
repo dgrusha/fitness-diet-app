@@ -1,4 +1,4 @@
-import { Box, Button, LinearProgress, Typography } from "@mui/material";
+import { Alert, Box, Button, LinearProgress, Typography } from "@mui/material";
 import dayjs from 'dayjs';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
@@ -76,24 +76,25 @@ function DietFinished() {
 			{userDietDataPerDay ? (
 				<InfoAndCalendarTemplate
 					title={selectedMeal ? (<><Button onClick={() => setSelectedMeal(null)}>Back</Button></>)
-						: (<Typography gutterBottom variant="title1" sx={{ margin: "20px 0px" }}>{`RATION FOR ${formatDate(date).toUpperCase()}`}</Typography>)}
+						: (<Typography gutterBottom variant="title1">{`RATION FOR ${formatDate(date).toUpperCase()}`}</Typography>)}
 					bodyItems={
 						selectedMeal ? (
 							<>
 								<Typography variant="title1" sx={{ margin: "20px 0px" }}>{`DETAILS FOR ${selectedMeal}`}</Typography>
-								<LabelAndDescription label="Name:         " description={userDietDataPerDay[selectedMealId].name}/>
-								<LabelAndDescription label="Description:  " description={userDietDataPerDay[selectedMealId].description}/>
-								<LabelAndDescription label="Calories:     " description={userDietDataPerDay[selectedMealId].calories}/>
-								<LabelAndDescription label="Carbohydrate: " description={userDietDataPerDay[selectedMealId].carbohydrate}/>
-								<LabelAndDescription label="Fat:          " description={userDietDataPerDay[selectedMealId].fat}/>
-								<LabelAndDescription label="Protein:      " description={userDietDataPerDay[selectedMealId].protein}/>
-								<LabelAndDescription label="Ingredients:  " description={userDietDataPerDay[selectedMealId].ingredientsStr}/>
+								<LabelAndDescription label="Name:" description={userDietDataPerDay[selectedMealId].name}/>
+								<LabelAndDescription label="Description:" description={userDietDataPerDay[selectedMealId].description}/>
+								<LabelAndDescription label="Calories:" description={userDietDataPerDay[selectedMealId].calories}/>
+								<LabelAndDescription label="Carbohydrate:" description={userDietDataPerDay[selectedMealId].carbohydrate}/>
+								<LabelAndDescription label="Fat:" description={userDietDataPerDay[selectedMealId].fat}/>
+								<LabelAndDescription label="Protein:" description={userDietDataPerDay[selectedMealId].protein}/>
+								<LabelAndDescription label="Ingredients:" description={userDietDataPerDay[selectedMealId].ingredientsStr}/>
 								{userDietDataPerDay[selectedMealId].comment !== null ?
 									<Box>
 										<Typography sx={{ mb: "10px" }} variant='subtitle1'>Coach comment:</Typography>
 										<Typography variant="comment">{userDietDataPerDay[selectedMealId].comment}</Typography>
 									</Box>  :
-								<Typography variant="subtitle1">No coach's comments yet</Typography>}
+								<Typography variant="subtitle1" sx={{mt: '30px'}}>No coach's comments yet</Typography>
+								}
 							</>
 						)
 							: (
@@ -129,8 +130,8 @@ function DietFinished() {
 					leftUpperPart={<CalendarControlled value={date} changeFunction={handleDate} />}
 					leftLowerPart={
 						<>
-							<Typography >{`${communicationFileGeneration}`}</Typography>
-							<Button sx={{ padding: '2vh 8vh', marginBottom: '20px' }} onClick={handleSendButtonClick}>GENERATE RECIPE INSTRUCTIONS</Button>
+							{communicationFileGeneration ? (<Alert severity="warning" >{`${communicationFileGeneration}`}</Alert>) : null}
+							<Button sx={{ padding: '2vh 8vh', marginBottom: '20px', maxWidth: '80%'}} onClick={handleSendButtonClick}>GENERATE RECIPE INSTRUCTIONS</Button>
 						</>
 					}
 				/>

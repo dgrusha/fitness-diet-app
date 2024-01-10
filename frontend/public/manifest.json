@@ -1,15 +1,13 @@
 {
-  "short_name": "Fitness App",
-  "name": "Fitness App",
+  "name": "EatRain",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
   "icons": [
     {
-      "src": "icon_custom.ico",
+      "src": "logo_app_short.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  ]
 }

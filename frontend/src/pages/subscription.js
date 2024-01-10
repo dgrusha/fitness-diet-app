@@ -30,7 +30,7 @@ const style = {
 };
 
 const SubscriptionPage = () => {
-	const { user } = useAppContext();
+	const { user, refreshContext } = useAppContext();
 	const [open, setOpen] = React.useState(false);
 	const [openCoach, setOpenCoach] = React.useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -51,10 +51,11 @@ const SubscriptionPage = () => {
 	const [value, setValue] = useState(1);
 	const [selectedCoach, setSelectedCoach] = useState(null);
 	const [confirmation, setConfirmation] = useState(false);
-	const [alertMessage, setAlertMessage] = useState("")
+	const [alertMessage, setAlertMessage] = useState("");
 	const handleCoachSelect = (coach) => {
 		setSelectedCoach(coach);
 	};
+
 
 	const handleSubmitCoachChoice = async () => {
 		if (selectedCoach) {
@@ -64,13 +65,12 @@ const SubscriptionPage = () => {
 					setAlertMessage("You have successfuly changed coach");
 					setConfirmation(true);
 				}
-				handleClose();
+				handleCloseCoach();
 			} catch (error) {
 				console.error(error.message);
 			}
 		}
 	};
-
 
 	const handlePaymentOptionChange = (event) => {
 		setPaymentOption(event.target.value);
@@ -83,8 +83,17 @@ const SubscriptionPage = () => {
 			if (response.status === 200) {
 				setAlertMessage("You have successfuly subscribed for coach");
 				setConfirmation(true);
+				refreshContext();
 			}
 			handleClose();
+			setSelectedUser(null);
+			setValue(1);
+			setPaymentDetails({
+				blik: '',
+				cardNumber: '',
+				expirationDate: '',
+				CVV: '',
+			});
 		} catch (error) {
 			console.error(error.message);
 		}
@@ -96,6 +105,7 @@ const SubscriptionPage = () => {
 			const response = await cancelSubscription();
 			if (response.status === 200) {
 				setAlertMessage("Your subscription was successfuly canceled");
+				refreshContext();
 			}
 			else {
 				setAlertMessage("Something went wrong...");
@@ -156,10 +166,6 @@ const SubscriptionPage = () => {
 		}
 	}
 
-	const refreshPage = () => {
-		window.location.reload(true);
-	}
-
 	return (
 		<MonoTemplate
 			title="CHOOSE YOUR SUBSCRIPTION PLAN"
@@ -192,7 +198,8 @@ const SubscriptionPage = () => {
 								<Snackbar
 									open={confirmation}
 									autoHideDuration={2000}
-									onClose={refreshPage}>
+									onClose={() => setConfirmation(false)}
+									>
 									<Alert variant="filled" severity={alertMessage === "Something went wrong..." ? "warning" : "success"} sx={{ width: '100%' }}>
 										{alertMessage}
 									</Alert>

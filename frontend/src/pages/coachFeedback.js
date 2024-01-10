@@ -213,7 +213,7 @@ function CoachesFeedback() {
 	};
 
 	const handleTextFieldClick = (index) => {
-		document.getElementById('hidden-file-input' + index).click();
+		document.getElementById(`hidden-file-input${index}`).click();
 	};
 
 	const handleFileChange = (event, index) => {
@@ -246,17 +246,21 @@ function CoachesFeedback() {
 								/>
 								<input
 									type="file"
-									id={"hidden-file-input" + index}
+									id={`hidden-file-input${index}`}
 									style={{ display: 'none' }}
 									onChange={(e) => handleFileChange(e, index)}
 								/>
 								<TextField
-									id="file-textfield"
+									id={`file-textfield${index}`}
 									fullWidth
 									sx={{ mt: 2 }}
 									variant="outlined"
-									value={fileTextFieldValues[index] || 'Put your file for exercise'}
+									label="Exercise plan for client"
+									value={fileTextFieldValues[index]}
 									onClick={() => handleTextFieldClick(index)}
+									InputLabelProps={{
+										shrink: fileTextFieldValues[index],
+									}}
 									InputProps={{
 										readOnly: true,
 										endAdornment: (

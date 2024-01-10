@@ -10,14 +10,26 @@ function Diet() {
 	const [userStatuses, setUserStatuses] = useState({});
 
 	useEffect(() => {
-		getUserStatuses().then((data) => {
-			if (data.errorCode === 200) {
-				setUserStatuses(data.data);
-			} else {
-				setUserStatuses({ dietStatus: -1, trainingStatus: -1 });
-			}
-		});
-	}, []);
+    const fetchData = async () => {
+      try {
+        const data = await getUserStatuses();
+        if (data.errorCode === 200) {
+          setUserStatuses(data.data);
+        } else {
+          setUserStatuses({ dietStatus: -1, trainingStatus: -1 });
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+		const intervalId = setInterval(() => {
+      fetchData();
+    }, 60000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
 	const renderContent = () => {
 		switch (userStatuses.dietStatus) {

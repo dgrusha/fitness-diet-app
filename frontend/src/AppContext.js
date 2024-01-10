@@ -16,17 +16,22 @@ export const AppProvider = ({ children }) => {
         if (storedUser && user === null) {
           const result = await getUserConnection();
           setUser(result.data);
+	  setHasForm(result.data.hasObligatoryForm)
         }
       } catch (error) {
         console.error('Error:', error);
       }
     };
     fetchData();
-  }, []);
+  }, [user]);
 
-  const hasFormHandle = (hasFormMine) => {
-    sessionStorage.setItem('hasForm', hasFormMine);
-    setHasForm(hasFormMine);
+	const refreshContext = () => {
+    setUser((prevUser) => ({ ...prevUser, hasSubscription: !prevUser.hasSubscription }));
+  };
+
+	const setHasFormStatus = (hasFormStatus) => {
+    localStorage.setItem('hasForm', hasFormStatus);
+    setHasForm(hasFormStatus);
   };
 
   const handleLogin = (userData) => {
@@ -44,10 +49,11 @@ export const AppProvider = ({ children }) => {
 
   const contextValue = {
     hasForm,
-    hasFormHandle,
+    setHasForm : setHasFormStatus,
     user,
     handleLogin,
     handleLogout,
+		refreshContext
   };
 
   return (

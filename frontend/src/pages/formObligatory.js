@@ -60,8 +60,6 @@ function FormObligatory() {
 			const [status, message] = [response.status, await response.text()];
 			if (status === 200) {
 				setHasForm(true);
-			} else {
-				setHasForm(false);
 			}
 			handleFormResponse(status, message, setFormErrors, navigate, '/');
 		} catch (error) {

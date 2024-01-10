@@ -16,6 +16,7 @@ export const AppProvider = ({ children }) => {
         if (storedUser && user === null) {
           const result = await getUserConnection();
           setUser(result.data);
+	  setHasForm(result.data.hasObligatoryForm)
         }
       } catch (error) {
         console.error('Error:', error);

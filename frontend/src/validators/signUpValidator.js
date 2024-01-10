@@ -5,16 +5,16 @@ export function validateSignUpFormFields(name, value) {
 	if (name === 'firstName') {
 		if (!checkRequired(value)) {
 			error = "Entry is required"
-		} else if (!checkTextLengthRange(value, 2, 30)) {
-			error = "Entry should contain 2-30 characters"
+		} else if (!checkTextLengthRange(value, 3, 30)) {
+			error = "Entry should contain 3-30 characters"
 		}
 	}
 
 	if (name === 'lastName') {
 		if (!checkRequired(value)) {
 			error = "Entry is required"
-		} else if (!checkTextLengthRange(value, 2, 30)) {
-			error = "Entry should contain 2-30 characters"
+		} else if (!checkTextLengthRange(value, 3, 30)) {
+			error = "Entry should contain 3-30 characters"
 		}
 	}
 	

@@ -24,7 +24,7 @@ import AppLogoShort from '../../img/logo_app_short.svg';
 
 
 function SideBarApp() {
-	const { user } = useAppContext();
+	const { user, hasForm } = useAppContext();
 	const isAuthenticatedParam = getCurrentUser();
 	const { sidebarCollapsed, toggleSidebar, handleLogoutClick } = useSidebarContext();
 
@@ -37,13 +37,13 @@ function SideBarApp() {
 					</MenuItem>
 					{isAuthenticatedParam ? (
 						<>
-							{!user?.hasObligatoryForm && !user?.isCoach ? (
+							{!hasForm && !user?.isCoach ? (
 								<MenuItem
 									icon={<EmojiFlagsIcon className="MenuIcon" />}
 									component={<Link to="/get_started" />}>Get started
 								</MenuItem>
 							) : null}
-							{isAuthenticatedParam && user?.hasObligatoryForm && !user?.isCoach ? (
+							{isAuthenticatedParam && hasForm && !user?.isCoach ? (
 								<>
 									<MenuItem
 										icon={<RestaurantIcon className="MenuIcon" />}

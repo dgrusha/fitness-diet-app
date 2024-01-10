@@ -11,13 +11,16 @@ const InfoAndCalendarTemplate = (props) => {
 	return (
 		<ThemeProvider theme={appTheme}>
 			<Grid container component="main" sx={{ height: '100%', padding: '15px', overflow: 'auto', backgroundColor: '#F8F8FA'}}>
-				<Grid item sm={9} md={9} lg={8.5} component={Paper} sx={{ marginRight: 2, display: 'flex', flexDirection: 'column', 
-				justifyContent: 'space-between', padding: '30px 50px', height: '100%', overflowY: 'auto', borderRadius: '8px'}}>
+				<Grid item sm={9} md={9} lg={8.5} component={Paper} sx={{ marginRight: 2, padding: '30px 50px', height: '100%', borderRadius: '8px'}}>
+					<Box sx={{overflow: 'auto', height: '100%',  display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
 						<Box>
 							{props.title}
 							{props.bodyItems}
 						</Box>
-						{props.footerBody}
+						<Box>
+							{props.footerBody}
+						</Box>
+					</Box>
 				</Grid>
 				<Grid item sm={0} md={0} lg={3.2} component={Paper}
 					sx={{backgroundColor: "#fff", display: 'flex', flexDirection: 'column', maxWidth: '85%',
@@ -32,8 +35,8 @@ const InfoAndCalendarTemplate = (props) => {
 
 InfoAndCalendarTemplate.propTypes = {
   title: PropTypes.element.isRequired,
-  bodyItems: PropTypes.element.isRequired,
-  footerBody: PropTypes.element.isRequired,
+  bodyItems: PropTypes.node,
+  footerBody: PropTypes.element,
   leftUpperPart: PropTypes.element.isRequired,
   leftLowerPart: PropTypes.element.isRequired
 };

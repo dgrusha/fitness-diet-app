@@ -112,7 +112,6 @@ function FormTraining({ setUserStatuses, mode }) {
 					<Select
 						fullWidth
 						labelId="trainingModelabel"
-						label="Training mode"
 						id="trainingMode"
 						name="trainingMode"
 						value={trainingMode}

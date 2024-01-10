@@ -16,7 +16,7 @@ import { useAppContext } from '../AppContext';
 
 function FormObligatory() {
 	const navigate = useNavigate();
-	const { hasFormHandle } = useAppContext();
+	const { setHasForm } = useAppContext();
 	const [weight, setWeight] = useState('');
 	const [height, setHeight] = useState('');
 	const [years, setYears] = useState('');
@@ -59,20 +59,16 @@ function FormObligatory() {
 			const response = await addObligatoryForm({ weight: weight, height: height, years: years, gender: gender, allergies: selectedOptions });
 			const [status, message] = [response.status, await response.text()];
 			if (status === 200) {
-				hasFormHandle(true);
+				setHasForm(true);
 			} else {
-				hasFormHandle(false);
+				setHasForm(false);
 			}
 			handleFormResponse(status, message, setFormErrors, navigate, '/');
-			refreshPage();
 		} catch (error) {
 			console.error(error.message);
 		}
 	};
 
-	const refreshPage = () => {
-		window.location.reload(true);
-	};
 
 	return (
 		<TwoSidesTemplate

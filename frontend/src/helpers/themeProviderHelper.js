@@ -71,11 +71,15 @@ export const appTheme = createTheme({
 			borderRadius: "10px 10px 10px 0px"
 		},
 		diet_labels: {
+			display: 'inline-block',
+			width: "20%",
 			fontWeight: 500,
 			color: "#000",
 			fontSize: "20px"
 		},
 		diet_description: {
+			display: 'inline-block',
+			width: "80%",
 			fontWeight: 400,
 			color: "#000",
 			fontSize: "20px"

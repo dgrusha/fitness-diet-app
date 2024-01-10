@@ -92,7 +92,6 @@ function UserProfile() {
 		<TwoSidesTemplate
 			title={<Typography variant="title1">ACCOUNT SETTINGS</Typography>}
 			prebodyitem={<>
-				<Avatar variant="profile" alt="The avatar" src={avatar} onClick={handleAvatarClick} />
 				<input
 					accept="image/*"
 					style={{ display: 'none' }}
@@ -100,6 +99,7 @@ function UserProfile() {
 					type="file"
 					onChange={handleFileChange}
 				/>
+				<Avatar variant="profile" alt="The avatar" src={avatar} onClick={handleAvatarClick} />
 			</>}
 			body={<>
 				<InputField label="Name" id="firstName" name="firstName" autoComplete="firstName" value={firstName} onChange={handleChange}

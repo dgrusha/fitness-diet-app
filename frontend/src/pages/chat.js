@@ -109,7 +109,7 @@ const ChatPage = () => {
 
 	return (
 		<ThemeProvider theme={appTheme}>
-			<Grid container component="main" sx={{ height: '100%', padding: '15px', backgroundColor: '#F8F8FA' }}>
+			<Grid container component="main" sx={{ height: '100%',width: '100', padding: '15px', backgroundColor: '#F8F8FA' }}>
 				<Box component={Paper} sx={appTheme.chatContainer}>
 					<Typography variant='title1' sx={{ mt: '10px' }}>CHAT  {user?.isCoach === true ? "WITH CLIENTS" : "WITH COACH"}</Typography>
 					<Box sx={appTheme.header}>
@@ -122,7 +122,7 @@ const ChatPage = () => {
 							fullWidth
 							renderOption={(props, option) => (
 								<Box component="li"  {...props}>
-									<Avatar loading="lazy" sx={{mr: 2}} src={option.avatarFileName}/>
+									<Avatar sx={{mr: 2}} src={option.avatarFileName}/>
 									{option.firstName + " " + option.lastName}
 								</Box>
 							)}
@@ -156,10 +156,17 @@ const ChatPage = () => {
 										color: 'white',
 										padding: 1,
 										borderRadius: "8px",
+										wordWrap: 'break-word',
+										maxWidth: '500px',
 										display: 'inline-block',
 									}}
 								>
-									{message.text}
+									  {message.text.split('\n').map((line, index) => (
+											<React.Fragment key={index}>
+												{index > 0 && <br />}
+												{line}
+											</React.Fragment>
+										))}
 								</Typography>
 							</Box>
 						))}

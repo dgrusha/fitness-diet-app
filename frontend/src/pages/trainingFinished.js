@@ -82,7 +82,6 @@ function TrainingFinished() {
 	};
 
 	return (
-		<>
 			<InfoAndCalendarTemplate
 				title={selectedPart ? (<><Button onClick={() => setSelectedPart(null)}>Back</Button></>)
 					: (<Typography gutterBottom variant="title1">{`TRAINING FOR ${formatDate(date).toUpperCase()}`}</Typography>)}
@@ -91,7 +90,7 @@ function TrainingFinished() {
 						<>
 							<Typography variant="title1" sx={{ margin: "20px 0px" }}>{`TRAINING DETAILS FOR ${selectedPart.toUpperCase()}`}</Typography>
 							{userTrainingDataPerDay[selectedPart] && userTrainingDataPerDay[selectedPart].map((training, index) => (
-								<Box sx={{ marginBottom: "25px" }}>
+								<Box key={index} sx={{ marginBottom: "25px" }}>
 									<Typography variant="exercise">{`${index + 1}. ${training.name}`}</Typography>
 									<Typography variant="muscule">{`Muscle: ${training.muscle}`}</Typography>
 									<Typography variant="body1">{training.instructions}</Typography>
@@ -101,7 +100,7 @@ function TrainingFinished() {
 												<Typography sx={{ mb: "10px" }} variant='subtitle1'>Coach comment:</Typography>
 												<Typography variant="comment">{training.comment}</Typography>
 											</Box> :
-											<Typography variant="subtitle1">No coach's comments yet</Typography>}
+											<Typography variant="subtitle1" sx={{mt: '10px'}}>No coach's comments yet</Typography>}
 										{training.fileName ? (
 											<Button href={training.fileName}>Coach file open</Button>
 										) : null}
@@ -110,8 +109,10 @@ function TrainingFinished() {
 							))}
 						</>
 					) :
-						(userTrainingDataPerDay ? (
-							Object.keys(userTrainingDataPerDay).map((key) => (
+					
+					(userTrainingDataPerDay ? (
+					
+						Object.keys(userTrainingDataPerDay).map((key) => (
 								<CardComponentWithAction
 									key={key}
 									title={key.toUpperCase() + " TRAINING"}
@@ -125,7 +126,7 @@ function TrainingFinished() {
 								<Typography gutterBottom variant="subtitle1" sx={{ textAlign: "center" }}>Today you have some chill time ;) </Typography>
 							</Box>
 						)
-						)
+					)
 				}
 				footerBody={
 					selectedPart ? (null ) : (<CardComponent title="TRAIN QUESTIONNAIRE" button={
@@ -136,11 +137,10 @@ function TrainingFinished() {
 					<>
 						{communicationFileGeneration ? (<Alert severity="warning" >{`${communicationFileGeneration}`}</Alert>) : null}
 						{loading === true ? <LinearProgress color="success" />: <></>}
-						<Button sx={{ padding: '2vh 8vh', marginBottom: '20px' }} onClick={handleSendButtonClick}>GENERATE TRAIN FILE</Button>
+						<Button sx={{ padding: '2vh 8vh', marginBottom: '20px', width: '80%'}} onClick={handleSendButtonClick}>GENERATE TRAIN FILE</Button>
 					</>
 				}
 			/>
-		</>
 	);
 }
 

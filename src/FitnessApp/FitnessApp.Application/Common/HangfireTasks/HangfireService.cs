@@ -84,7 +84,7 @@ public class HangfireService
                             else 
                             {
                                 excercises = await _ninjaApi.GetExcercises(muscle, trainingForm.TrainingMode);
-                                if (string.IsNullOrEmpty(excercises) == true) 
+                                if (excercises == null || excercises == "[]" || excercises.Equals("[]")) 
                                 {
                                     var tmpTrainMode = trainingForm.TrainingMode;
                                     tmpTrainMode.Name = "intermediate";

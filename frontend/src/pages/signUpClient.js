@@ -110,7 +110,7 @@ function SignUpClient() {
 				});
 				const [message] = [await response.json()];
 				if (message.errorCode === 200) {
-					handleFormResponse(message.errorCode, message.data, setFormErrors, navigate, '/register');
+					handleFormResponse(message.errorCode, message.data, setFormErrors, navigate, '/login');
 				} else {
 					setFormErrors(prevState => ({
 						...prevState,

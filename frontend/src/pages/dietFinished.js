@@ -130,7 +130,7 @@ function DietFinished() {
 					leftUpperPart={<CalendarControlled value={date} changeFunction={handleDate} />}
 					leftLowerPart={
 						<>
-							{communicationFileGeneration ? (<Alert severity="warning" >{`${communicationFileGeneration}`}</Alert>) : null}
+							{communicationFileGeneration ? (<Alert severity="info" >{`${communicationFileGeneration}`}</Alert>) : null}
 							<Button sx={{ padding: '2vh 8vh', marginBottom: '20px', maxWidth: '80%'}} onClick={handleSendButtonClick}>GENERATE RECIPE INSTRUCTIONS</Button>
 						</>
 					}

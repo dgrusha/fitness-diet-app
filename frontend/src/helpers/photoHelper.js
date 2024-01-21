@@ -11,3 +11,20 @@ export const resizeAndSetPhoto = (reader, setValue, sizeX, sizeY) => {
         setValue(resizedAvatar);
     };
 };
+
+export const fileNameFromUrl = (url) => {
+    if(url){
+        try{
+            const lastSlashIndex = url.lastIndexOf("/");
+            const lastDotIndex = url.lastIndexOf(".");
+            const fileNameWithoutExtension = url.substring(lastSlashIndex + 1, lastDotIndex+4);
+            return "Name of encoded lastly uploaded file: " + fileNameWithoutExtension;
+        }catch(error){
+            return '';
+        }
+    }else{
+        return ""
+    }
+    
+    
+};

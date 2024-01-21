@@ -32,6 +32,7 @@ export const AppProvider = ({ children }) => {
 	const setHasFormStatus = (hasFormStatus) => {
     localStorage.setItem('hasForm', hasFormStatus);
     setHasForm(hasFormStatus);
+    setUser((prevUser) => ({ ...prevUser, hasObligatoryForm: hasFormStatus }));
   };
 
   const handleLogin = (userData) => {

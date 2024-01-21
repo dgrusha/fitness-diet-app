@@ -1,4 +1,4 @@
-import { Alert, Autocomplete, Box, Button, InputAdornment, LinearProgress, TextField, ToggleButton, ToggleButtonGroup, Typography
+import { Alert, Autocomplete, Box, Button, InputAdornment, ThemeProvider, LinearProgress, TextField, ToggleButton, ToggleButtonGroup, Typography
 } from '@mui/material';
 import dayjs from 'dayjs';
 import * as React from 'react';
@@ -24,6 +24,8 @@ import image_no_diet from '../img/no_diet.svg';
 import image_no_training from '../img/no_training.svg';
 import shoulder from '../img/shoulder_train.png';
 import { validateCoachFeedbackFormFields } from '../validators/coachFeedbackValidator.js';
+import { appTheme } from '../helpers/themeProviderHelper';
+import { fileNameFromUrl } from '../helpers/photoHelper.js';
 const imageMap = {
 	"legs": legs,
 	"back": back,
@@ -168,11 +170,10 @@ function CoachesFeedback() {
 		setUserDataPerDay({
 			...userDataPerDay,
 			[selectedMealId]: {
-				...userDataPerDay[selectedMealId],
-				comment: commentDiet,
+				...userDataPerDay[selectedMealId]
 			},
 		});
-		const response = await updateDietDataByCoach({ recipeId: userDataPerDay[selectedMealId].id, userId: selectedUser.id, text: commentDiet });
+		const response = await updateDietDataByCoach({ recipeId: userDataPerDay[selectedMealId].id, userId: selectedUser.id, text: userDataPerDay[selectedMealId].comment });
 		const [status, message] = [response.status, await response.text()];
 		setIsSubmitting((prevLoadingStatus) => ({
 			...prevLoadingStatus,
@@ -184,6 +185,12 @@ function CoachesFeedback() {
 	const handleCommentChange = (instance, index, value) => {
 		const updatedUserDataPerDay = { ...userDataPerDay };
 		updatedUserDataPerDay[instance][index].comment = value;
+		setUserDataPerDay(updatedUserDataPerDay);
+	};
+
+	const handleCommentDietChange = ( index, value) => {
+		const updatedUserDataPerDay = { ...userDataPerDay };
+		updatedUserDataPerDay[index].comment = value;
 		setUserDataPerDay(updatedUserDataPerDay);
 	};
 
@@ -216,11 +223,14 @@ function CoachesFeedback() {
 		document.getElementById(`hidden-file-input${index}`).click();
 	};
 
-	const handleFileChange = (event, index) => {
+	const handleFileChange = (instance, event, index) => {
 		const file = event.target.files[0];
 		if (file) {
 			setFileValues({ ...fileValues, [index]: file });
 			setFileTextFieldValues({ ...fileTextFieldValues, [index]: file.name });
+			const updatedUserDataPerDay = { ...userDataPerDay };
+			updatedUserDataPerDay[instance][index].fileName = file.name;
+			setUserDataPerDay(updatedUserDataPerDay);
 		}
 	};
 
@@ -241,14 +251,14 @@ function CoachesFeedback() {
 									fullWidth
 									multiline
 									style={{ marginTop: '16px' }}
-									value={training.comment || ''}
+									value={training.comment !== 'null' && training.comment !== 'undefined' && training.comment !== null ? training.comment : ''}
 									onChange={(e) => handleCommentChange(selectedInstance, index, e.target.value)}
 								/>
 								<input
 									type="file"
 									id={`hidden-file-input${index}`}
 									style={{ display: 'none' }}
-									onChange={(e) => handleFileChange(e, index)}
+									onChange={(e) => handleFileChange(selectedInstance, e, index)}
 								/>
 								<TextField
 									id={`file-textfield${index}`}
@@ -256,10 +266,10 @@ function CoachesFeedback() {
 									sx={{ mt: 2 }}
 									variant="outlined"
 									label="Exercise plan for client"
-									value={fileTextFieldValues[index]}
+									value={fileTextFieldValues[index] ? fileTextFieldValues[index] : fileNameFromUrl(training.fileName)}
 									onClick={() => handleTextFieldClick(index)}
 									InputLabelProps={{
-										shrink: fileTextFieldValues[index],
+										shrink:  fileTextFieldValues[index] ? fileTextFieldValues[index] : fileNameFromUrl(training.fileName),
 									}}
 									InputProps={{
 										readOnly: true,
@@ -326,7 +336,7 @@ function CoachesFeedback() {
 								style={{ marginTop: '16px' }}
 								multiline
 								value={selectedMeal.comment}
-								onChange={(e) => setCommentDiet(e.target.value)}
+								onChange={(e) => handleCommentDietChange(selectedMealId, e.target.value)}
 							/>
 							{isSubmitting["meal"] && <LinearProgress color="success" sx={{mt: "10px"}}/>}
 							<Button variant="contained" disabled={selectedMeal.comment === commentDiet} style={{ marginTop: '16px' }} onClick={updateSelectedMeal}>
@@ -368,6 +378,7 @@ function CoachesFeedback() {
 	};
 
 	return (
+		<ThemeProvider theme={appTheme}>
 		<InfoAndCalendarTemplate
 			title={selectedInstance ? (<><Button onClick={() => { setSelectedInstance(null); setSelectedMealId(0); setCommentDiet(''); }}>Back</Button></>)
 				: (<Typography gutterBottom variant="title1">CLIENT MANAGEMENT</Typography>)}
@@ -384,13 +395,19 @@ function CoachesFeedback() {
 						value={selectedUser}
 						isOptionEqualToValue={isOptionEqualToValue}
 						onChange={handleChangeUser}
-						sx={{width: "80%", mt: "20px"}}
+						sx={{width: "80%", mt: "20px", background: 'white'}}
+						renderOption={(props, option) => (
+							<Box component="li"  {...props}>
+								{option.firstName + " " + option.lastName}
+							</Box>
+						)}
 						renderInput={(params) => (
 							<TextField
 								{...params}
 								name="users"
 								label="Search client"
 								variant="outlined"
+								sx={appTheme.autocomplete}
 							/>
 						)}
 						disableClearable
@@ -412,6 +429,7 @@ function CoachesFeedback() {
 				</ToggleButtonGroup>
 			}
 		/>
+	</ThemeProvider>
 	);
 }
 

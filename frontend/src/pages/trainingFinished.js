@@ -135,7 +135,7 @@ function TrainingFinished() {
 				leftUpperPart={<CalendarControlled value={date} changeFunction={handleDate} />}
 				leftLowerPart={
 					<>
-						{communicationFileGeneration ? (<Alert severity="warning" >{`${communicationFileGeneration}`}</Alert>) : null}
+						{communicationFileGeneration ? (<Alert severity="info" >{`${communicationFileGeneration}`}</Alert>) : null}
 						{loading === true ? <LinearProgress color="success" />: <></>}
 						<Button sx={{ padding: '2vh 8vh', marginBottom: '20px', width: '80%'}} onClick={handleSendButtonClick}>GENERATE TRAIN FILE</Button>
 					</>

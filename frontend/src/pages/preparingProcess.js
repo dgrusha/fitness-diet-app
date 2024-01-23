@@ -12,9 +12,9 @@ function PreparingProcess({ mode }) {
 				flexDirection: 'column',
 				alignItems: 'center',
 				justifyContent: 'center',
-				height: '100vh'
+				height: '100%'
 			}}>
-				<img style={{ height: "50%", width: "30%" }} className="photoPage" src={mode === "diet" ? diet : training} alt="Main page photo" />
+				<img style={{height: "60%", width: "40%" }} className="photoPage" src={mode === "diet" ? diet : training} alt="Main page photo" />
 				<Typography variant="title1">We are preparing a {mode} for you!</Typography>
 			</Grid>}
 		/>

@@ -1,12 +1,11 @@
 import React from 'react';
 import { Typography, Button, Paper, Grid, ThemeProvider } from '@mui/material';
 import { appTheme } from '../helpers/themeProviderHelper';
-import { useState } from 'react';
 import { useAppContext } from '../AppContext';
-import  { redirect } from 'react-router-dom'
+import  { redirect } from 'react-router-dom';
+import main_photo from '../img/main_page.svg';
 
 function HomePage() {
-    const [photo, setPhoto] = useState(process.env.PUBLIC_URL + '/photo/main_page_illustration.jpg');
 		const {user} = useAppContext();
 		if (user) {
 			return (
@@ -18,7 +17,7 @@ function HomePage() {
 									flexDirection: 'column',
 									alignItems: 'center',
 									justifyContent: 'center',}}>
-						<img style={{height:"50%", width:"30%"}} className="photoPage" src={photo} alt="Main page photo" />
+						<img style={{display: 'block', height:"60%", width:"60%"}} className="photoPage" src={main_photo} alt="Main page photo" />
 						{ !user?.hasObligatoryForm && !user?.isCoach ? (
 							<>
 								<Typography variant="title1">READY TO START?</Typography>

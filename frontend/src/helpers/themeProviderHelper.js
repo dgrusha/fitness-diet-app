@@ -486,6 +486,21 @@ export const appTheme = createTheme({
 					}
 				}
 			}
-		}
+		},
+		MuiMenuItem: {
+			styleOverrides: {
+				root: {
+					"&.Mui-selected" : {
+						backgroundColor: "#E1F3BA",
+						"&:hover" : {
+							backgroundColor: "#CADAA7"
+						}						
+					},
+					"&:hover" : {
+						backgroundColor: "#F6FBEA"
+					}	
+				}
+			}
+		}	
 	}
 });

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Autocomplete, FormControl, FormControlLabel, FormLabel, InputAdornment, Radio, RadioGroup,
+import { Autocomplete, Box, FormControl, FormControlLabel, FormLabel, InputAdornment, Radio, RadioGroup,
 	 TextField, Typography} from '@mui/material';
 import { getAllergies } from '../apiCalls/obligatoryForm/formObligatoryAllergies';
 import { addObligatoryForm } from '../apiCalls/obligatoryForm/formObligatoryPost';
@@ -110,6 +110,23 @@ function FormObligatory() {
 						options={allergies}
 						getOptionLabel={(option) => option}
 						onChange={handleChangeMultiple}
+						renderOption={(props, option) => (
+							<Box component="li" {...props}
+							sx={{
+									backgroundColor: 
+										selectedOptions.includes(option)? "#E1F3BA !important" : '#ffffff',
+									'&:hover': {
+										backgroundColor:
+										selectedOptions.includes(option)
+												? "#CADAA7 !important"
+												: "#F6FBEA !important"
+									},
+								}
+							}
+							>
+								{option}
+							</Box>
+						)}
 						renderInput={(params) => (
 							<TextField
 								{...params}

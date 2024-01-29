@@ -238,6 +238,23 @@ const SubscriptionPage = () => {
 									value={selectedUser}
 									onChange={handleChangeCoach}
 									fullWidth
+									renderOption={(props, option) => (
+										<Box component="li" {...props}
+										sx={{
+												backgroundColor: 
+													selectedUser && selectedUser.Mail === option.Mail? "#E1F3BA !important" : '#ffffff',
+												'&:hover': {
+													backgroundColor:
+														selectedUser && selectedUser.Mail === option.Mail
+															? "#CADAA7 !important"
+															: "#F6FBEA !important"
+												},
+											}
+										}
+										>
+											{option.FirstName + ' ' + option.LastName}
+										</Box>
+									)}
 									renderInput={(params) => (
 										<TextField {...params} label="Choose coach" variant="outlined" fullWidth />
 									)}

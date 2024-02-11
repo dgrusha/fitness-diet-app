@@ -422,7 +422,21 @@ export const appTheme = createTheme({
 		MuiSlider: {
 			styleOverrides: {
 				root: {
-					color: "#9CD91B"
+					color: "#9CD91B",
+				},
+				thumb: {
+					"&:hover" : {
+						'box-shadow': "0px 0px 0px 8px #E1F3BA",
+					},
+					"&.Mui-focusVisible" : {
+						'box-shadow': "0px 0px 0px 8px #E1F3BA",
+					}
+				},
+				valueLabel: {
+					backgroundColor: "#9CD91B",
+				},
+				mark: {
+					backgroundColor: "#6D9712",
 				}
 			}
 		},
@@ -472,6 +486,21 @@ export const appTheme = createTheme({
 					}
 				}
 			}
-		}
+		},
+		MuiMenuItem: {
+			styleOverrides: {
+				root: {
+					"&.Mui-selected" : {
+						backgroundColor: "#E1F3BA",
+						"&:hover" : {
+							backgroundColor: "#CADAA7"
+						}						
+					},
+					"&:hover" : {
+						backgroundColor: "#F6FBEA"
+					}	
+				}
+			}
+		}	
 	}
 });

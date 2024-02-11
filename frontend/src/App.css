@@ -30,6 +30,10 @@
   display: flex;
 }
 
+.ps-sidebar-container{
+	background-color: white !important
+}
+
 .FormPart{
   height: 100%;
   width: 100%;

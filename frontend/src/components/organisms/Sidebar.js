@@ -30,7 +30,7 @@ function SideBarApp() {
 
 	return (
 		<ThemeProvider theme={appTheme}>
-			<Sidebar style={{fontWeight: 550, backgroundColor: "#fff"}} collapsed={sidebarCollapsed}>
+			<Sidebar style={{fontWeight: 550}} collapsed={sidebarCollapsed}>
 				<Menu>
 					<MenuItem icon={sidebarCollapsed ? <img src={AppLogoShort} alt="Logo" /> : null} onClick={toggleSidebar}>
 						<img src={AppLogo} alt="Logo" />

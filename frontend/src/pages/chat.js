@@ -121,7 +121,18 @@ const ChatPage = () => {
 							isOptionEqualToValue={isOptionEqualToValue}
 							fullWidth
 							renderOption={(props, option) => (
-								<Box component="li"  {...props}>
+								<Box component="li"  {...props}
+									sx={{
+										backgroundColor: 
+											selectedUser && isOptionEqualToValue(selectedUser, option)? "#E1F3BA !important" : '#ffffff',
+										'&:hover': {
+											backgroundColor:
+												selectedUser && isOptionEqualToValue(selectedUser, option)
+													? "#CADAA7 !important"
+													: "#F6FBEA !important"
+										},
+									}
+								}>
 									<Avatar sx={{mr: 2}} src={option.avatarFileName}/>
 									{option.firstName + " " + option.lastName}
 								</Box>

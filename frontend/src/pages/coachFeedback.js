@@ -1,4 +1,4 @@
-import { Alert, Autocomplete, Box, Button, InputAdornment, ThemeProvider, LinearProgress, TextField, ToggleButton, ToggleButtonGroup, Typography
+import { Alert, Autocomplete, Box, Button, InputAdornment, ThemeProvider, LinearProgress, TextField, ToggleButton, ToggleButtonGroup, Typography, Paper
 } from '@mui/material';
 import dayjs from 'dayjs';
 import * as React from 'react';
@@ -81,7 +81,7 @@ function CoachesFeedback() {
 	}, []);
 
 	const isOptionEqualToValue = (option, value) => {
-		return option.Mail === value.Mail;
+		return option.id === value.id;
 	};
 
 	const handleChange = event => {
@@ -397,8 +397,20 @@ function CoachesFeedback() {
 						onChange={handleChangeUser}
 						sx={{width: "80%", mt: "20px", background: 'white'}}
 						renderOption={(props, option) => (
-							<Box component="li"  {...props}>
-								{option.firstName + " " + option.lastName}
+							<Box component="li" {...props}
+							sx={{
+									backgroundColor: 
+										selectedUser && isOptionEqualToValue(selectedUser, option)? "#E1F3BA !important" : '#ffffff',
+									'&:hover': {
+										backgroundColor:
+											selectedUser && isOptionEqualToValue(selectedUser, option)
+												? "#CADAA7 !important"
+												: "#F6FBEA !important"
+									},
+								}
+							}
+							>
+								{option.firstName + ' ' + option.lastName}
 							</Box>
 						)}
 						renderInput={(params) => (
@@ -406,8 +418,6 @@ function CoachesFeedback() {
 								{...params}
 								name="users"
 								label="Search client"
-								variant="outlined"
-								sx={appTheme.autocomplete}
 							/>
 						)}
 						disableClearable
